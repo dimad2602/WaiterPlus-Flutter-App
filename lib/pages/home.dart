@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -11,9 +13,16 @@ class _HomeState extends State<Home> {
   String _addMessage = '';
   List todoList = [];
 
+  void initFirebase() async{
+    WidgetsFlutterBinding.ensureInitialized();
+    await Firebase.initializeApp();
+  }
+
   @override
   void initState() {
     super.initState();
+
+    initFirebase();
 
     todoList.addAll(['Морковь', 'Лук', 'Перец', 'Сделать дела']);
   }
@@ -50,7 +59,59 @@ class _HomeState extends State<Home> {
             icon: Icon(Icons.menu_sharp))
         ],
       ),
-      body: ListView.builder(
+      body: StreamBuilder( //<QuerySnapshot<Map<String, dynamic>>> ставиться после StreamBuilder
+        stream: FirebaseFirestore.instance.collection('Deals').snapshots(),
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if(!snapshot.hasData) {
+            return const Center(
+              child: //Text('123132')
+              CircularProgressIndicator(),
+            );
+            //Text('Нет записей');
+          }
+            return ListView.builder(
+                itemCount: snapshot.data!.docs.length,
+                itemBuilder: (BuildContext context, int index) {
+                  // return ListTile(
+                  //   title: Text(
+                  //     snapshot.data!.docs[index].get('item'),
+                  //   ),
+                  // );
+                  return Dismissible(
+                    key: //UniqueKey(),
+                        //ObjectKey(snapshot.data?.docs[index].id),
+                      Key(snapshot.data!.docs[index].id),
+                    child: Card(
+                      child: ListTile(
+                        title: Text(snapshot.data!.docs[index].get('item')), //Text(todoList[index]),
+                        trailing: IconButton(
+                          icon: Icon(
+                            Icons.delete_forever_outlined,
+                            color: Colors.red[700],
+                          ),
+                          onPressed: () {
+                            FirebaseFirestore.instance.collection('Deals').doc(snapshot.data!.docs[index].id).delete();
+                            // setState(() {
+                            //   todoList.removeAt(index);
+                            // });
+                          },
+                        ),
+                      ),
+                    ),
+                    onDismissed: (direction) {
+                      //if(direction == DismissDirection.endToStart)
+                      FirebaseFirestore.instance.collection('Deals').doc(snapshot.data!.docs[index].id).delete();
+                      // setState(() {
+                      //   todoList.removeAt(index);
+                      // });
+
+                    },
+                  );
+                });
+        },
+
+      ),
+      /*ListView.builder(
           itemCount: todoList.length,
           itemBuilder: (BuildContext context, int index) {
             return Dismissible(
@@ -78,7 +139,7 @@ class _HomeState extends State<Home> {
                 });
               },
             );
-          }),
+          }),*/
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.cyanAccent,
         child: const Icon(
@@ -103,9 +164,12 @@ class _HomeState extends State<Home> {
                     ElevatedButton(
                         onPressed: () {
                           if (_addMessage != '') {
-                            setState(() {
+
+                            FirebaseFirestore.instance.collection('Deals').add({'item': _addMessage});
+                            /*setState(() {
                               todoList.add(_addMessage);
-                            });
+                            }
+                            );*/
                           }
                           Navigator.of(context).pop();
                         },
