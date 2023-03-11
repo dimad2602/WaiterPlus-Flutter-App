@@ -30,7 +30,15 @@ class MainScreen extends StatelessWidget {
                   Icons.note_alt_rounded,
                   color: Colors.lightBlueAccent,
                   size: 40,
-                ))
+                )),
+            ElevatedButton(onPressed: (){
+              Navigator.pushNamed(context, '/login_page');
+            }, child:
+            const Icon(
+              Icons.login,
+              color: Colors.tealAccent,
+              size: 40,
+            )),
           ],
         ));
   }

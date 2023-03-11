@@ -13,38 +13,59 @@ class _HomeState extends State<Home> {
   String _addMessage = '';
   List todoList = [];
 
-  void initFirebase() async{
+  List<String> newtodoList = [];
+
+  // Теперь инициализирую в main
+  /*void initFirebase() async{
     WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp();
-  }
+  }*/
+
+  // Future getTodoId() async {
+  //   await FirebaseFirestore.instance.collection('Deals').orderBy(
+  //       'item', descending: true).get().then(
+  //           (snapshot) => snapshot.docs.forEach(
+  //                   (document){
+  //                     newtodoList.add(document.reference.id);
+  //
+  //                   },
+  //           ),
+  //           );
+  // }
 
   @override
   void initState() {
     super.initState();
 
-    initFirebase();
+    // Теперь инициализирую в main
+    // initFirebase();
 
     todoList.addAll(['Морковь', 'Лук', 'Перец', 'Сделать дела']);
   }
 
-  void _menuOpen(){
+  void _menuOpen() {
     Navigator.of(context).push(
-      MaterialPageRoute(builder: (BuildContext context){
-      return Scaffold(
-        appBar: AppBar(title: Text('menu kuku', style: TextStyle(fontSize: 14, color: Colors.white),),), //если поменять класс, то эффект окрытия будет другой
-        body: Row(
-          children: [
-            IconButton(onPressed: (){
-              Navigator.pop(context);
-              Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
-            },
-                icon: Icon(Icons.backspace_rounded, size: 30, color: Colors.green[400],)),
-            Padding(padding: EdgeInsets.only(left: 40)),
-            Text('menu kek', style: TextStyle(fontSize: 14, color: Colors.black),)
-          ],
-        )
-      );
-    })
+        MaterialPageRoute(builder: (BuildContext context) {
+          return Scaffold(
+              appBar: AppBar(title: Text('menu kuku',
+                style: TextStyle(fontSize: 14, color: Colors.white),),),
+              //если поменять класс, то эффект окрытия будет другой
+              body: Row(
+                children: [
+                  IconButton(onPressed: () {
+                    Navigator.pop(context);
+                    Navigator.pushNamedAndRemoveUntil(
+                        context, '/', (route) => false);
+                  },
+                      icon: Icon(Icons.backspace_rounded, size: 30,
+                        color: Colors.green[400],)),
+                  Padding(padding: EdgeInsets.only(left: 40)),
+                  Text('menu kek',
+                    style: TextStyle(fontSize: 14, color: Colors.black),)
+                ],
+              )
+          );
+        })
     );
   }
 
@@ -62,54 +83,56 @@ class _HomeState extends State<Home> {
       body: StreamBuilder( //<QuerySnapshot<Map<String, dynamic>>> ставиться после StreamBuilder
         stream: FirebaseFirestore.instance.collection('Deals').snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if(!snapshot.hasData) {
+          if (!snapshot.hasData) {
             return const Center(
               child: //Text('123132')
               CircularProgressIndicator(),
             );
             //Text('Нет записей');
           }
-            return ListView.builder(
-                itemCount: snapshot.data!.docs.length,
-                itemBuilder: (BuildContext context, int index) {
-                  // return ListTile(
-                  //   title: Text(
-                  //     snapshot.data!.docs[index].get('item'),
-                  //   ),
-                  // );
-                  return Dismissible(
-                    key: //UniqueKey(),
-                        //ObjectKey(snapshot.data?.docs[index].id),
-                      Key(snapshot.data!.docs[index].id),
-                    child: Card(
-                      child: ListTile(
-                        title: Text(snapshot.data!.docs[index].get('item')), //Text(todoList[index]),
-                        trailing: IconButton(
-                          icon: Icon(
-                            Icons.delete_forever_outlined,
-                            color: Colors.red[700],
-                          ),
-                          onPressed: () {
-                            FirebaseFirestore.instance.collection('Deals').doc(snapshot.data!.docs[index].id).delete();
-                            // setState(() {
-                            //   todoList.removeAt(index);
-                            // });
-                          },
+          return ListView.builder(
+              itemCount: snapshot.data!.docs.length,
+              itemBuilder: (BuildContext context, int index) {
+                // return ListTile(
+                //   title: Text(
+                //     snapshot.data!.docs[index].get('item'),
+                //   ),
+                // );
+                return Dismissible(
+                  key: //UniqueKey(),
+                  //ObjectKey(snapshot.data?.docs[index].id),
+                  Key(snapshot.data!.docs[index].id),
+                  child: Card(
+                    child: ListTile(
+                      title: Text(snapshot.data!.docs[index].get('item')),
+                      //Text(todoList[index]),
+                      trailing: IconButton(
+                        icon: Icon(
+                          Icons.delete_forever_outlined,
+                          color: Colors.red[700],
                         ),
+                        onPressed: () {
+                          FirebaseFirestore.instance.collection('Deals').doc(
+                              snapshot.data!.docs[index].id).delete();
+                          // setState(() {
+                          //   todoList.removeAt(index);
+                          // });
+                        },
                       ),
                     ),
-                    onDismissed: (direction) {
-                      //if(direction == DismissDirection.endToStart)
-                      FirebaseFirestore.instance.collection('Deals').doc(snapshot.data!.docs[index].id).delete();
-                      // setState(() {
-                      //   todoList.removeAt(index);
-                      // });
+                  ),
+                  onDismissed: (direction) {
+                    //if(direction == DismissDirection.endToStart)
+                    FirebaseFirestore.instance.collection('Deals').doc(
+                        snapshot.data!.docs[index].id).delete();
+                    // setState(() {
+                    //   todoList.removeAt(index);
+                    // });
 
-                    },
-                  );
-                });
+                  },
+                );
+              });
         },
-
       ),
       /*ListView.builder(
           itemCount: todoList.length,
@@ -164,8 +187,8 @@ class _HomeState extends State<Home> {
                     ElevatedButton(
                         onPressed: () {
                           if (_addMessage != '') {
-
-                            FirebaseFirestore.instance.collection('Deals').add({'item': _addMessage});
+                            FirebaseFirestore.instance.collection('Deals').add(
+                                {'item': _addMessage});
                             /*setState(() {
                               todoList.add(_addMessage);
                             }
