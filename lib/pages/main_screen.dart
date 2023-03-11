@@ -38,7 +38,17 @@ class MainScreen extends StatelessWidget {
               Icons.login,
               color: Colors.tealAccent,
               size: 40,
-            )),
+            )
+            ),
+            ElevatedButton(onPressed: (){
+              Navigator.pushNamed(context, '/menu_page');
+            }, child:
+            const Icon(
+              Icons.restaurant_menu,
+              color: Colors.tealAccent,
+              size: 40,
+            )
+            ),
           ],
         ));
   }

@@ -3,7 +3,7 @@ import 'package:flutter_project2/pages/home.dart';
 import 'package:flutter_project2/pages/login_page.dart';
 import 'package:flutter_project2/pages/main_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter_project2/pages/login_page.dart';
+import 'package:flutter_project2/pages/menu_page.dart';
 
 
 void main() async {
@@ -11,7 +11,8 @@ void main() async {
   await Firebase.initializeApp();
   runApp(MaterialApp(
     theme: ThemeData(
-      primaryColor: Colors.deepPurpleAccent
+      primaryColor: Colors.deepPurpleAccent,
+      // brightness: Brightness.dark
     ),
     //home: Home(),
     initialRoute: '/',
@@ -19,6 +20,7 @@ void main() async {
       '/': (context) => MainScreen(),
       '/todo': (context) => Home(),
       '/login_page': (context) => LoginPage(),
+      '/menu_page': (context) => MenuPage(),
     },
   ));
 }
