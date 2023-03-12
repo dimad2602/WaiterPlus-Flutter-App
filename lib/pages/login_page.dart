@@ -83,6 +83,7 @@ class _LoginPageState extends State<LoginPage> {
               SizedBox(height: 15),
 
               // sign in button
+              //Почему я сделал не кнопку???
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 100.0),
                 child: Container(
