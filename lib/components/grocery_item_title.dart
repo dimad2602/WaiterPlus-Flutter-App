@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_project2/model/cart_model.dart';
-import 'package:provider/provider.dart';
 
-class TopDishesTitle extends StatelessWidget {
-  final String dishesImagePath;
-  final String dishesName;
-  final String dishesPrice;
+class GroceryItemTitle extends StatelessWidget {
+  final String itemName;
+  final String itemPrice;
+  final String imagePath;
 
-  TopDishesTitle(
-      {required this.dishesImagePath,
-      required this.dishesName,
-      required this.dishesPrice});
+  void Function()? onPressed;
+
+  GroceryItemTitle(
+      {Key? key,
+      required this.itemName,
+      required this.itemPrice,
+      required this.imagePath,
+      required this.onPressed})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +25,7 @@ class TopDishesTitle extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
           //Хочеться слабо прозрачный черный // Хотя цвет с цифрой, очень не плох
-          color: Colors.white38,
+          color: Colors.white54,
         ),
         child: Column(
           //Делаем надпись слева
@@ -45,13 +48,10 @@ class TopDishesTitle extends StatelessWidget {
                       FadeInImage.assetNetwork(
                     //Шарик загрузки
                     placeholder: 'lib/images/LoadingBall.gif',
-                    // тест другой картинки
-                    //image: 'https://images.unsplash.com/photo-1588315029754-2dd089d39a1a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fHBpenphfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60',
-                    image: dishesImagePath,
-                    //'https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8cGl6emF8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60',
+                    image: imagePath,
                     fit: BoxFit.cover,
                   ),
-                  //Картинка из папки
+                  //Картинка из папки. Это просто подсказка
                   //Image.asset('lib/images/pizzajpg1.jpg', fit: BoxFit.cover),
                 ),
               ),
@@ -61,15 +61,15 @@ class TopDishesTitle extends StatelessWidget {
             Column(
               children: [
                 Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Flexible(
                         child: Padding(
                           padding:
-                              EdgeInsets.only(left: 8.0, top: 8.0, bottom: 8),
+                              EdgeInsets.only(left: 8.0, top: 8.0, bottom: 4),
                           child: Text(
-                            dishesName,
+                            itemName,
                             // Сокрашение текста до ...
                             overflow: TextOverflow.ellipsis,
                             //Без переноса - 1 строчка
@@ -82,19 +82,19 @@ class TopDishesTitle extends StatelessWidget {
                       ),
                       Padding(
                         padding:
-                            EdgeInsets.only(right: 8.0, top: 8.0, bottom: 8),
+                            EdgeInsets.only(right: 8.0, top: 8.0, bottom: 4),
                         //padding: EdgeInsets.symmetric(vertical: 12, horizontal: 8),
                         child: Text(
-                          dishesPrice + '\$',
+                          itemPrice + '\$',
                           style: TextStyle(
                             fontSize: 20,
                           ),
                         ),
                       ),
                     ]),
-                const SizedBox(
-                  height: 4,
-                ),
+                // const SizedBox(
+                //   height: 4,
+                // ),
                 // Weight and plus button
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -125,18 +125,24 @@ class TopDishesTitle extends StatelessWidget {
                             // Тут должно быть добваление блюда в корзину,
                             // ну и хотелось бы отобразить то что мы его добавили, пока болванка
                             //onTap: () => Navigator.pushNamed(context, '/login_page'),
-                            onTap: () =>
-                                Provider.of<CartModel>(context, listen: false)
-                                    .addItemToCart(0),
-                                    //.removeItemFromCart(0),
-                            child: Container(
-                                padding: EdgeInsets.all(4),
-                                //Цвет не знаю какой выбрать
-                                decoration: BoxDecoration(
-                                    color: Colors.green[400],
-                                    borderRadius: BorderRadius.circular(6)),
-                                child: Icon(Icons.add)),
-                          )
+                            // onTap: () =>
+                            //     Provider.of<CartModel>(context, listen: false)
+                            //         .addItemToCart(0),
+                            //.removeItemFromCart(0),
+                            // child: Container(
+                              // padding: EdgeInsets.all(4),
+                              // //Цвет не знаю какой выбрать
+                              // decoration: BoxDecoration(
+                              //     color: Colors.green[400],
+                              //     borderRadius: BorderRadius.circular(6)),
+                              child: IconButton(
+                                  iconSize: 40,
+                                  // такой себе цвет
+                                  color: Colors.green,
+                                  onPressed: onPressed,
+                                  icon: Icon(Icons.add_circle_outline_rounded)),
+                            ),
+                          //)
                         ],
                       )
                     ],

@@ -1,8 +1,37 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_project2/model/cart_model.dart';
 import 'package:flutter_project2/util/dishes_type.dart';
 import 'package:flutter_project2/util/top10_dishes_title.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+
+import '../components/grocery_item_title.dart';
+
+List<TopDishesTitle> TopDishes() {
+  List<TopDishesTitle> TopDishes = [
+    TopDishesTitle(
+      dishesImagePath:
+      'https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8cGl6emF8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60',
+      dishesPrice: '123',
+      dishesName: 'name 111',
+    ),
+    TopDishesTitle(
+      dishesImagePath:
+      'https://images.unsplash.com/photo-1588315029754-2dd089d39a1a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fHBpenphfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60',
+      dishesPrice: '200',
+      dishesName: 'long name2 aaaaaaaa',
+    ),
+    TopDishesTitle(
+      dishesImagePath:
+      'https://images.unsplash.com/photo-1595854341625-f33ee10dbf94?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjB8fHBpenphfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60',
+      dishesPrice: '300',
+      dishesName: 'name3',
+    ),
+  ];
+  return TopDishes;
+}
+
 
 class MenuPage extends StatefulWidget {
   const MenuPage({Key? key}) : super(key: key);
@@ -36,15 +65,64 @@ class _MenuPageState extends State<MenuPage> {
     ],
   ];
 
+  int _selectedIndex = 0;
+
+  static List<Widget> _widgetOptions = <Widget>[
+    Text(
+      'Index 0: Home',
+    ),
+    Text(
+      'Index 1: Business',
+    ),
+    Text(
+      'Index 2: School',
+    ),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+
+    switch (index) {
+      case 0:
+      //   Navigator.of(context).push(MaterialPageRoute(
+      //     builder: (context) => HomePage(),
+      //   ));
+      //   break;
+        Navigator.pushNamed(context, '/');
+        break;
+      case 1:
+        Navigator.pushNamed(context, '/login_page');
+        break;
+      case 2:
+        Navigator.pushNamed(context, '/cart_page');
+        //Navigator.of(context).push(MaterialPageRoute(
+        //onTap: () => Navigator.pushNamed(context, '/login_page'),
+        //builder: (context) => ('/login_page'),
+        break;
+      default:
+        break;
+    }
+  }
+
   // user tapped on deshes types metod
   void dishesTypeSelected(int index) {
     setState(() {
-      for( int i = 0; i < dishesType.length; i++ ) {
+      for (int i = 0; i < dishesType.length; i++) {
         dishesType[i][1] = false;
       }
       dishesType[index][1] = true;
     });
   }
+
+  final List<TopDishesTitle> _topDishes = TopDishes();
+
+
+  // List<TopDishesTitle> getTopDishes() {
+  //   return _topDishes
+  // }
+
 
   @override
   Widget build(BuildContext context) {
@@ -82,8 +160,18 @@ class _MenuPageState extends State<MenuPage> {
                 label: ''),
             BottomNavigationBarItem(icon: Icon(Icons.menu_book), label: ''),
             BottomNavigationBarItem(
-                icon: Icon(Icons.shopping_basket), label: ''),
+              icon: Icon(Icons.shopping_basket),
+              label: '',
+            ),
           ],
+          onTap: _onItemTapped,
+          // appBar: AppBar(
+          //   title: Text('Alo kuku'),
+          //   centerTitle: true,
+          //   actions: [IconButton(onPressed: _menuOpen,
+          //       icon: Icon(Icons.menu_sharp))
+          //   ],
+          // ),
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -165,8 +253,8 @@ class _MenuPageState extends State<MenuPage> {
                         //Цвет меняеться от фокуса
                         color: isFocused
                             ? Colors.black
-                            : Colors
-                            .grey.shade600, // Theme.of(context).primaryColor
+                            : Colors.grey
+                            .shade600, // Theme.of(context).primaryColor
                       ),
                       hintText: 'Search',
                       focusedBorder: OutlineInputBorder(
@@ -210,28 +298,68 @@ class _MenuPageState extends State<MenuPage> {
                     },
                   ),
                 ),
-                //Random top10 items
+                // //Random top10 items
+                // Container(
+                //   height: 380,
+                //   child: ListView.builder(
+                //     itemCount: _topDishes.length,
+                //     scrollDirection: Axis.horizontal,
+                //     itemBuilder: (BuildContext context, int index) {
+                //       final dish = _topDishes[index];
+                //       return TopDishesTitle(
+                //         dishesImagePath: dish.dishesImagePath,
+                //         dishesPrice: dish.dishesPrice,
+                //         dishesName: dish.dishesName,
+                //       );
+                //     },
+                //   ),
+                // ),
+                //horizontal listview of items
                 Container(
                   height: 380,
-                    child: ListView(scrollDirection: Axis.horizontal, children: [
-                      TopDishesTitle(
-                        dishesImagePath: 'https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8cGl6emF8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60',
-                        dishesPrice: '123',
-                        dishesName: 'dfgdf dfgdfg dfg',
-                      ),
-                      TopDishesTitle(
-                        dishesImagePath: 'https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8cGl6emF8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60',
-                        dishesPrice: '123',
-                        dishesName: 'dfgdf dfgdfg dfg',
-                      ),
-                      TopDishesTitle(
-                        dishesImagePath: 'https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8cGl6emF8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60',
-                        dishesPrice: '123',
-                        dishesName: 'dfgdf dfgdfg dfg',
-                      ),
-                    ]),
-                  ),
-                //horizontal listview of items
+                  child: Consumer<CartModel>(
+                          builder: (context, value, child) {
+                            //return GridView.builder(
+                            return ListView.builder(
+                              itemCount: _topDishes.length,
+                              scrollDirection: Axis.horizontal,
+                              // Выбираем как хранить элементы, 2 учейки в ряд
+                              // gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                              //     crossAxisCount: 1),
+                              itemBuilder: (context, index) {
+                                return GroceryItemTitle(
+                                  itemName: value.shopItems[index].dishesName,
+                                  itemPrice: value.shopItems[index].dishesPrice,
+                                  imagePath: value.shopItems[index].dishesImagePath,
+                                  onPressed: (){
+                                    Provider.of<CartModel>(context, listen: false)
+                                        .addItemToCart(index);
+                                  },
+                                );
+                              },
+                            );
+                          },
+                        ),
+                )
+
+                // Expanded(
+                //     child: Consumer<CartModel>(
+                //       builder: (context, value, child) {
+                //         return GridView.builder(
+                //           // Выбираем как хранить элементы, 2 учейки в ряд
+                //           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                //               crossAxisCount: 2),
+                //           itemBuilder: (context, index) {
+                //             return GroceryItemTitle(
+                //               itemName: value.shopItems[index].dishesName,
+                //               itemPrice: value.shopItems[index].dishesPrice,
+                //               imagePath: value.shopItems[index].dishesImagePath,
+                //             );
+                //           },
+                //         );
+                //       },
+                //     ),
+                // )
               ],
             ),
           ),
