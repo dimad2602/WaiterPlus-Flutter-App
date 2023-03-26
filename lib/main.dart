@@ -7,6 +7,7 @@ import 'package:flutter_project2/pages/login_page.dart';
 import 'package:flutter_project2/pages/main_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_project2/pages/menu_page.dart';
+import 'package:flutter_project2/pages/qr_page.dart';
 import 'package:flutter_project2/pages/register_page.dart';
 import 'package:provider/provider.dart';
 import 'util/top10_dishes_title.dart';
@@ -33,6 +34,7 @@ void main() async {
           '/register_page': (context) => RegisterPage(),
           '/menu_page': (context) => MenuPage(),
           '/cart_page': (context) => CartPage(),
+          '/qr_page': (context) => QrPage(),
         },
       ),
     ),

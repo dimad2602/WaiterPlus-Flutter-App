@@ -119,6 +119,15 @@ class _MainScreenState extends State<MainScreen> {
                   color: Colors.tealAccent,
                   size: 40,
                 )),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/qr_page');
+                },
+                child: const Icon(
+                  Icons.qr_code,
+                  color: Colors.tealAccent,
+                  size: 40,
+                )),
           ],
         ));
   }
