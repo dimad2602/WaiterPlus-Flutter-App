@@ -2,20 +2,23 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({Key? key}) : super(key: key);
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   // static const color = const Color(0xFFD3AF9C);
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
+
   String mes = '';
 
-  void signUserIn() async {
+  // sign user up method
+  void signUserUp() async {
     // show loading circle
     showDialog(
       context: context,
@@ -25,13 +28,23 @@ class _LoginPageState extends State<LoginPage> {
         );
       },
     );
-    // try sign in
+    // try creating the user
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: emailController.text, password: passwordController.text);
-      await Navigator.pushNamed(context, '/auth_page');
-      // pop the loading circle
-      Navigator.pop(context);
+      //check if password is confirmed
+      if (passwordController.text == confirmPasswordController.text){
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+            email: emailController.text, password: passwordController.text);
+        await Navigator.pushNamed(context, '/auth_page');
+        // pop the loading circle
+        Navigator.pop(context);
+      }
+      else {
+        // pop the loading circle
+        Navigator.pop(context);
+        // show error message, password don't match
+        mes = "Password don't match";
+        ShowErrorMessage(mes);
+      }
     } on FirebaseAuthException catch (e) {
       // pop the loading circle
       Navigator.pop(context);
@@ -57,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
             title: Text(
               message,
               style: const TextStyle(
-                color: Colors.white
+                  color: Colors.white
               ),
             ),
           );
@@ -83,19 +96,14 @@ class _LoginPageState extends State<LoginPage> {
                   SizedBox(height: 30),
                   // Hello Text
                   Text(
-                    'Hello',
+                    'Create account',
                     //Какие шрифты используем?
                     style: GoogleFonts.bebasNeue(
                       fontSize: 52,
                     ),
                     // TextStyle(fontWeight: FontWeight.bold, fontSize: 36),
                   ),
-                  SizedBox(height: 10),
-                  Text(
-                    'Welcome',
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  SizedBox(height: 30),
+                  SizedBox(height: 20),
                   // email textfield
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -123,29 +131,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   SizedBox(height: 10),
-
-                  // password textfield
-                  // старый вариант
-                  // Padding(
-                  //   padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  //   child: Container(
-                  //     decoration: BoxDecoration(
-                  //         //Хочеться ещё цвет кастомный
-                  //         color: Colors.grey[200],
-                  //         border: Border.all(color: Colors.white),
-                  //         borderRadius: BorderRadius.circular(12)),
-                  //     child: const Padding(
-                  //       padding: EdgeInsets.only(left: 20.0),
-                  //       child: TextField(
-                  //         obscureText: true,
-                  //         decoration: InputDecoration(
-                  //           border: InputBorder.none,
-                  //           hintText: 'Password',
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
+                  // Password text field
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20.0),
                     child: Container(
@@ -173,27 +159,39 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   SizedBox(height: 10),
-                  const Padding(
-                    padding: EdgeInsets.only(right: 40.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Text(
-                          'Forgot Password?',
-                          style: TextStyle(
-                            color: Color(0xFF79290C),
-                            fontWeight: FontWeight.bold,
+                  // confirm password textfield
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Container(
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 20.0),
+                        child: TextField(
+                          controller: confirmPasswordController,
+                          obscureText: true,
+                          decoration: InputDecoration(
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(14),
+                                borderSide: BorderSide(
+                                    color: Colors.black54, width: 2.0)),
+                            fillColor: Colors.grey.shade200,
+                            //border: InputBorder.none,
+                            filled: true,
+                            hintText: 'Confirm Password',
                           ),
                         ),
-                      ],
+                      ),
                     ),
                   ),
 
-                  SizedBox(height: 15),
+                  SizedBox(height: 25),
 
-                  // sign in button
+                  // sign up button
                   GestureDetector(
-                    onTap: signUserIn,
+                    onTap: signUserUp,
                     //() {} Navigator.pushNamed(context, '/menu_page')
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 100.0),
@@ -204,7 +202,7 @@ class _LoginPageState extends State<LoginPage> {
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: const Center(
-                          child: Text('Sign in',
+                          child: Text('Sign Up',
                               style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
@@ -220,17 +218,17 @@ class _LoginPageState extends State<LoginPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text(
-                        'Not a Memeber?',
+                        'Alredy have an account?',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       GestureDetector(
                         onTap: (){
-                          Navigator.pushNamed(context, '/register_page');
+                          Navigator.pushNamed(context, '/login_page');
                         },
                         child: const Text(
-                          ' Register now',
+                          ' Login now',
                           style: TextStyle(
                             color: Color(0xFF79290C),
                             fontWeight: FontWeight.bold,

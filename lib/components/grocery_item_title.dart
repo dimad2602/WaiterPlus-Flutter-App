@@ -97,7 +97,7 @@ class GroceryItemTitle extends StatelessWidget {
                 // ),
                 // Weight and plus button
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 4),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

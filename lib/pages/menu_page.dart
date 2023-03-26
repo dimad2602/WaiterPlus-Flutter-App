@@ -4,8 +4,10 @@ import 'package:flutter_project2/model/cart_model.dart';
 import 'package:flutter_project2/util/dishes_type.dart';
 import 'package:flutter_project2/util/top10_dishes_title.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:provider/provider.dart';
 
+import '../components/bottom_nav_bar.dart';
 import '../components/grocery_item_title.dart';
 
 List<TopDishesTitle> TopDishes() {
@@ -67,17 +69,17 @@ class _MenuPageState extends State<MenuPage> {
 
   int _selectedIndex = 0;
 
-  static List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Home',
-    ),
-    Text(
-      'Index 1: Business',
-    ),
-    Text(
-      'Index 2: School',
-    ),
-  ];
+  // static List<Widget> _pages = <Widget>[
+  //   Text(
+  //     'Index 0: Home',
+  //   ),
+  //   Text(
+  //     'Index 1: Business',
+  //   ),
+  //   Text(
+  //     'Index 2: School',
+  //   ),
+  // ];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -93,7 +95,7 @@ class _MenuPageState extends State<MenuPage> {
         Navigator.pushNamed(context, '/');
         break;
       case 1:
-        Navigator.pushNamed(context, '/login_page');
+        Navigator.pushNamed(context, '/menu_page');  //'/login_page'
         break;
       case 2:
         Navigator.pushNamed(context, '/cart_page');
@@ -122,6 +124,8 @@ class _MenuPageState extends State<MenuPage> {
   // List<TopDishesTitle> getTopDishes() {
   //   return _topDishes
   // }
+
+  int _selectedIndexBottonBar = 1;
 
 
   @override
@@ -152,16 +156,21 @@ class _MenuPageState extends State<MenuPage> {
             ]),
         // Переключение между меню и корзинкой нужно будет сделать
         bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Color(0xFFD3AF9C),
+          currentIndex: 1,
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: const Color(0xFFD3AF9C),
+          selectedItemColor: const Color(0xFF79290C),
+          selectedLabelStyle: const TextStyle(fontSize: 14),
+          unselectedLabelStyle: const TextStyle(fontSize: 12),
           items: const [
             BottomNavigationBarItem(
-              //Цвет хочеться какойнибуть прикольный
-                icon: Icon(Icons.home, color: Color(0xFF79290C)),
-                label: ''),
-            BottomNavigationBarItem(icon: Icon(Icons.menu_book), label: ''),
+              icon: Icon(Icons.home),
+              label: 'Главное',
+            ),
+            BottomNavigationBarItem(icon: Icon(Icons.menu_book), label: 'Меню'),
             BottomNavigationBarItem(
               icon: Icon(Icons.shopping_basket),
-              label: '',
+              label: 'Заказ',
             ),
           ],
           onTap: _onItemTapped,
@@ -173,6 +182,33 @@ class _MenuPageState extends State<MenuPage> {
           //   ],
           // ),
         ),
+        // bottomNavigationBar: MyBottomNavBar(
+        // ),
+        // bottomNavigationBar: Container(
+        //   child:  GNav(
+        //       color: Color(0xFF57382F),
+        //       activeColor: Color(0xFFd82300),
+        //       backgroundColor: Colors.transparent,
+        //       //tabActiveBorder: Border.all(color: Color(0xFFD3AF9C)),
+        //       // tabBackgroundColor: Color(0xFFDCA179),
+        //       mainAxisAlignment: MainAxisAlignment.center,
+        //       //onTabChange: (value) => onTabChanged!(value),
+        //       tabs: [
+        //         //GButton(icon: Icons.home, text: 'Начало',), //Главное
+        //         GButton(
+        //           icon: Icons.menu_book,
+        //           text: 'Меню',
+        //           onPressed: () => Navigator.pushNamed(context, '/menu_page',
+        //               arguments: {'selectedTabIndex': _onItemTapped}),
+        //         ),
+        //         GButton(
+        //             icon: Icons.shopping_basket,
+        //             text: 'Корзина',
+        //             onPressed: () => Navigator.pushNamed(context, '/cart_page',
+        //                 arguments: {'selectedTabIndex': _onItemTapped}))
+        //         //Может по другому назвать?
+        //       ]),
+        // ),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.only(top: 10.0),

@@ -28,7 +28,7 @@ class CartModel extends ChangeNotifier {
   //final List _fgf = List.from(_);
   //
   // //list of items
-  List _carItems = [];
+  final List _carItems = [];
 
   get shopItems =>  _shopItems;
 
@@ -49,8 +49,8 @@ class CartModel extends ChangeNotifier {
   String calculateTotalPrice(){
     double totalPrice = 0;
     for(int i = 0; i < _carItems.length; i++){
-      totalPrice += double.parse(_carItems[i][1]);
+      totalPrice += double.parse(_carItems[i].dishesPrice);
     }
-    return totalPrice.toStringAsExponential(2);
+    return totalPrice.toStringAsFixed(2);
   }
 }
