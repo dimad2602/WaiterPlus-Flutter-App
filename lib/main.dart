@@ -9,7 +9,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_project2/pages/menu_page.dart';
 import 'package:flutter_project2/pages/qr_page.dart';
 import 'package:flutter_project2/pages/register_page.dart';
+import 'package:flutter_project2/pages/user_page.dart';
 import 'package:provider/provider.dart';
+import 'pages/restaurant_page.dart';
 import 'util/top10_dishes_title.dart';
 import 'model/cart_model.dart';
 
@@ -35,6 +37,8 @@ void main() async {
           '/menu_page': (context) => MenuPage(),
           '/cart_page': (context) => CartPage(),
           '/qr_page': (context) => QrPage(),
+          '/user_page': (context) => UserPage(context: context,),
+          '/restaurant_page': (context) => RestaurantPage(),
         },
       ),
     ),

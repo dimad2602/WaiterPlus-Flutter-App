@@ -213,8 +213,31 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 25),
-
+                  SizedBox(height: 10),
+                  // Continue as a guest
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/');
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 100.0),
+                      child: Container(
+                        padding: EdgeInsets.all(20),
+                        decoration: BoxDecoration(
+                          color: Colors.black,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: const Center(
+                          child: Text('Guest',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18)),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 20),
                   // not a meember? register now button
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,

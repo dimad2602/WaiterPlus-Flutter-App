@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project2/pages/login_page.dart';
+import 'package:flutter_project2/pages/qr_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:provider/provider.dart';
@@ -135,14 +137,17 @@ class _CartPageState extends State<CartPage> with TickerProviderStateMixin {
                           borderRadius: BorderRadius.circular(8)),
                       child: ListTile(
                         leading: AspectRatio(
-                          aspectRatio: 7 / 9,
+                          aspectRatio: 11 / 11,
                           child: ClipRRect(
                             borderRadius: const BorderRadius.only(
                               topLeft: Radius.circular(12.0),
                               topRight: Radius.circular(12.0),
+                              bottomLeft: Radius.circular(12.0),
+                              bottomRight: Radius.circular(12.0),
                             ),
                             child: FadeInImage.assetNetwork(
                               height: 100,
+                              fit: BoxFit.fill,
                               image: value.cartItems[index].dishesImagePath,
                               placeholder: 'lib/images/LoadingBall.gif',
                             ),

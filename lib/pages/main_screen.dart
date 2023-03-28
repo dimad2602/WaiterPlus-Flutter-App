@@ -128,6 +128,24 @@ class _MainScreenState extends State<MainScreen> {
                   color: Colors.tealAccent,
                   size: 40,
                 )),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/user_page');
+                },
+                child: const Icon(
+                  Icons.person_outline,
+                  color: Colors.tealAccent,
+                  size: 40,
+                )),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/restaurant_page');
+                },
+                child: const Icon(
+                  Icons.maps_home_work,
+                  color: Colors.tealAccent,
+                  size: 40,
+                )),
           ],
         ));
   }
