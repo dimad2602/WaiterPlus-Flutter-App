@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class MainScreen extends StatefulWidget {
-
   MainScreen({Key? key, required this.context}) : super(key: key);
 
   final BuildContext context;
@@ -32,7 +32,7 @@ class _MainScreenState extends State<MainScreen> {
         Navigator.pushNamed(widget.context, '/');
         break;
       case 1:
-        Navigator.pushNamed(widget.context, '/menu_page');  //'/login_page'
+        Navigator.pushNamed(widget.context, '/menu_page'); //'/login_page'
         break;
       case 2:
         Navigator.pushNamed(widget.context, '/cart_page');
@@ -46,16 +46,36 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Color(0xFFD3AF9C),
+        // appBar: AppBar(
+        //   title: Text('kuku'),
+        //   centerTitle: true,
+        //   actions: [
+        //     IconButton(
+        //         onPressed: () {
+        //           signUserOut();
+        //           print('dfdeeeee');
+        //         },
+        //         icon: Icon(Icons.logout))
+        //   ],
+        // ),
         appBar: AppBar(
-          title: Text('kuku'),
-          centerTitle: true,
+          automaticallyImplyLeading: false,
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          centerTitle: false,
+          title: const Padding(
+            padding: EdgeInsets.only(left: 8.0),
+            child: Icon(Icons.logo_dev, size: 35,)
+          ),
           actions: [
-            IconButton(
-                onPressed: () {
-                  signUserOut();
-                  print('dfdeeeee');
-                },
-                icon: Icon(Icons.logout))
+            Padding(
+              padding: const EdgeInsets.only(right: 8.0),
+              child: IconButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/user_page');
+                  },
+                  icon: const Icon(Icons.person_outline, size: 35,)),
+            )
           ],
         ),
         bottomNavigationBar: BottomNavigationBar(
@@ -67,7 +87,7 @@ class _MainScreenState extends State<MainScreen> {
           unselectedLabelStyle: const TextStyle(fontSize: 12),
           items: const [
             BottomNavigationBarItem(
-              //Цвет хочеться какойнибуть прикольный
+                //Цвет хочеться какойнибуть прикольный
                 icon: Icon(Icons.home),
                 label: 'Главное'),
             BottomNavigationBarItem(icon: Icon(Icons.menu_book), label: 'Меню'),
@@ -125,15 +145,6 @@ class _MainScreenState extends State<MainScreen> {
                 },
                 child: const Icon(
                   Icons.qr_code,
-                  color: Colors.tealAccent,
-                  size: 40,
-                )),
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/user_page');
-                },
-                child: const Icon(
-                  Icons.person_outline,
                   color: Colors.tealAccent,
                   size: 40,
                 )),
