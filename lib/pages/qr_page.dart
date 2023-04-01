@@ -13,36 +13,70 @@ class _QrPageState extends State<QrPage> {
 
   QRViewController? controller;
   Barcode? result;
+  // void qr(QRViewController controller) {
+  //   this.controller = controller;
+  //   controller.scannedDataStream.listen((event) {
+  //     setState(() {
+  //       result = event;
+  //     });
+  //   });
+  // }
 
   void qr(QRViewController controller) {
     this.controller = controller;
     controller.scannedDataStream.listen((event) {
       setState(() {
         result = event;
+        if (result != null) {
+          Navigator.pop(context);
+          Navigator.pushNamed(context, '${result!.code}');
+        }
       });
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    double _screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
+      backgroundColor: Color(0xFFf5ebdc), //backgroundColor: Color(0xFFD3AF9C),
       appBar: AppBar(
-        title: Text('QR'),
+        //automaticallyImplyLeading: false,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.black54),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        title: Text('QR TABLE', style: TextStyle(color: Colors.black54),),
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        centerTitle: true,
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Container(
-              height: 400,
-              width: 400,
-              child: QRView(key: _globalKey, onQRViewCreated: qr),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(20.0), // закругление углов
+              child: Container(
+                height: _screenWidth * 0.8,
+                width: _screenWidth * 0.8,
+                child: QRView(key: _globalKey, onQRViewCreated: qr),
+              ),
             ),
-            Center(
-              child: (result != null)
-                  ? Text('${result!.code}')
-                  : Text('Scan a QR Code'),
-            )
+            // Center(
+            //   child: (result != null)
+            //       ? Text('${result!.code}')
+            //       : Text('Scan a QR Code'),
+            // )
+
+            // Center(
+            //   child:
+            //   (result != null)
+            //       ? Navigator.pushNamed(context, '${result!.code}')
+            //       : Container(
+            //     child: Text('Scan a QR Code'),
+            //   ),
+            // )
           ],
         ),
       ),

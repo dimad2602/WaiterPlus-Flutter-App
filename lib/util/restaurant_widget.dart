@@ -8,6 +8,7 @@ class RestaurantWidget extends StatelessWidget {
   final String restaurantCosts;
   final String restaurantWorktime;
   final String restaurantAddr;
+  final String restaurantMenuPath;
 
   RestaurantWidget({
     required this.restaurantImagePath,
@@ -15,6 +16,7 @@ class RestaurantWidget extends StatelessWidget {
     required this.restaurantCosts,
     required this.restaurantWorktime,
     required this.restaurantAddr,
+    required this.restaurantMenuPath,
   });
 
   @override
@@ -25,7 +27,7 @@ class RestaurantWidget extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0),
         child: Container(
-          height: _screenWidth * 0.69,
+          height: _screenWidth * 0.71,
           decoration: BoxDecoration(
             borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(12), bottomLeft: Radius.circular(12)),
@@ -38,7 +40,7 @@ class RestaurantWidget extends StatelessWidget {
             //crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Container(
-                height: _screenWidth * 0.66,
+                height: _screenWidth * 0.69,
                 width: _screenWidth * 0.9,
                 // decoration: BoxDecoration(
                 //     image: DecorationImage(
@@ -46,18 +48,38 @@ class RestaurantWidget extends StatelessWidget {
                 child: Column(
                   //crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    ClipRRect(
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(12.0),
-                        ),
-                        child: FadeInImage.assetNetwork(
-                          //Шарик загрузки
-                          placeholder: 'lib/images/LoadingBall.gif',
-                          image: restaurantImagePath,
+                    // ClipRRect(
+                    //     borderRadius: const BorderRadius.only(
+                    //       topLeft: Radius.circular(12.0),
+                    //     ),
+                    //     child: FadeInImage.assetNetwork(
+                    //       //Шарик загрузки
+                    //       placeholder: 'lib/images/Loadingaaa.gif',
+                    //       image: restaurantImagePath,
+                    //       height: 200,
+                    //       width: _screenWidth * 0.9,
+                    //       fit: BoxFit.cover, // BoxFit.fill,
+                    //     )),
+                    Stack(
+                      children: [
+                        Container(
                           height: 200,
                           width: _screenWidth * 0.9,
-                          fit: BoxFit.cover, // BoxFit.fill,
-                        )),
+                        ),
+                        ClipRRect(
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(12.0),
+                          ),
+                          child: FadeInImage(
+                            placeholder: AssetImage('lib/images/LoadingCircle.gif'),
+                            image: NetworkImage(restaurantImagePath),
+                            height: 200,
+                            width: _screenWidth * 0.9,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ],
+                    ),
                     Padding(
                       padding: const EdgeInsets.only(left: 8.0, top: 8),
                       child: Row(

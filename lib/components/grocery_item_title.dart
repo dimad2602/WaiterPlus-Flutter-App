@@ -35,7 +35,7 @@ class GroceryItemTitle extends StatelessWidget {
             //Установка соотношения сторон
             GestureDetector(
               // Тут должен быть переход на страницу блюда, пока болванка
-              onTap: () => Navigator.pushNamed(context, '/login_page'),
+              onTap: () => Navigator.pushNamed(context, '/top_food_detail_page'),
               child: AspectRatio(
                 aspectRatio: 7 / 9,
                 child: ClipRRect(

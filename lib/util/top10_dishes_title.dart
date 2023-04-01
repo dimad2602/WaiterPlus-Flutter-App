@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project2/model/cart_model.dart';
 import 'package:provider/provider.dart';
 
+//////////////////////////////// НЕ ПОЛЬЗУЕМСЯ ЭТИМ ФУ БЯКА
 class TopDishesTitle extends StatelessWidget {
   final String dishesImagePath;
   final String dishesName;
@@ -32,14 +33,18 @@ class TopDishesTitle extends StatelessWidget {
             //Установка соотношения сторон
             GestureDetector(
               // Тут должен быть переход на страницу блюда, пока болванка
-              onTap: () => Navigator.pushNamed(context, '/login_page'),
-              child: AspectRatio(
-                aspectRatio: 7 / 9,
-                child: ClipRRect(
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(12.0),
-                    topRight: Radius.circular(12.0),
-                  ),
+              // onTap: (){
+              //   print('alo');
+              //   Navigator.pushNamed(context, '/top_food_detail_page');
+              // },
+              child: ClipRRect(
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(12.0),
+                  bottomLeft: Radius.circular(12.0),
+                  topRight: Radius.circular(12.0),
+                ),
+                child:  AspectRatio(
+                  aspectRatio: 7 / 9,
                   child:
                       //Картинка из интеренета
                       FadeInImage.assetNetwork(
@@ -123,8 +128,7 @@ class TopDishesTitle extends StatelessWidget {
                         children: [
                           GestureDetector(
                             // Тут должно быть добваление блюда в корзину,
-                            // ну и хотелось бы отобразить то что мы его добавили, пока болванка
-                            //onTap: () => Navigator.pushNamed(context, '/login_page'),
+                            // ну и хотелось бы отобразить то что мы его добавили
                             onTap: () =>
                                 Provider.of<CartModel>(context, listen: false)
                                     .addItemToCart(0),

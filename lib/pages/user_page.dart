@@ -23,6 +23,8 @@ class _UserPageState extends State<UserPage> {
 
   @override
   Widget build(BuildContext context) {
+
+    bool isAuthenticated = user != null;
     return Scaffold(
       backgroundColor: Color(0xFFf5ebdc),
       body: SingleChildScrollView(
@@ -69,10 +71,10 @@ class _UserPageState extends State<UserPage> {
                 _listTiles(
                     title: 'Любимое', icon: Icons.favorite, onPressed: () {}),
                 _listTiles(
-                    title: 'Выйти из профиля',
+                    title: isAuthenticated ? 'Выйти из профиля' : 'Войти в профиль',
                     icon: Icons.logout,
                     onPressed: () async {
-                      await _showLogoutDialog();
+                      isAuthenticated ? await _showLogoutDialog() : await _NavigateToLoginDialog();
                     }),
               ],
             ),
@@ -126,6 +128,10 @@ class _UserPageState extends State<UserPage> {
         });
   }
 
+  Future<void> _NavigateToLoginDialog() async {
+    Navigator.pushNamed(context, '/login_page');
+  }
+
   Widget _listTiles(
       {required String title,
       String? subtitle,
@@ -137,7 +143,7 @@ class _UserPageState extends State<UserPage> {
         style: TextStyle(
           fontSize: 24,
           fontWeight: FontWeight.bold,
-          color: title == 'Выйти из профиля' ? Color(0xFFd60000) : Colors.black,
+          color: (title == 'Выйти из профиля')? Color(0xFFd60000) : (title == 'Войти в профиль') ? Color(0xFFd60000) : Colors.black, //title == 'Выйти из профиля' ? Color(0xFFd60000) : Colors.black,
         ),
       ),
       // subtitle: Text(
@@ -145,7 +151,7 @@ class _UserPageState extends State<UserPage> {
       //   style: const TextStyle(fontSize: 15),
       // ),
       leading: Icon(icon,
-          color: title == 'Выйти из профиля' ? Color(0xFFd60000) : null),
+          color: title == 'Выйти из профиля' ? Color(0xFFd60000) : (title == 'Войти в профиль') ? Color(0xFFd60000) : null),
       trailing: const Icon(Icons.keyboard_arrow_right),
       onTap: () {
         onPressed();

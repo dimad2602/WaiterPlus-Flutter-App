@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project2/util/category_circle_rest.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../components/app_bar.dart';
 import '../util/restaurant_widget.dart';
@@ -13,6 +14,7 @@ List<RestaurantWidget> RestaurantPlace() {
       restaurantCosts: '\$\$',
       restaurantWorktime: '8:00-22:00',
       restaurantAddr: 'Address1',
+      restaurantMenuPath: '',
     ),
     RestaurantWidget(
       restaurantImagePath:
@@ -21,6 +23,7 @@ List<RestaurantWidget> RestaurantPlace() {
       restaurantCosts: '\$\$\$',
       restaurantWorktime: '8:00-23:00',
       restaurantAddr: 'long Address2 >>>>>>>>>>>>>>>>>>>>>>>>>>>',
+      restaurantMenuPath: '',
     ),
     RestaurantWidget(
       restaurantImagePath:
@@ -29,6 +32,7 @@ List<RestaurantWidget> RestaurantPlace() {
       restaurantCosts: '\$\$',
       restaurantWorktime: '8:00-23:30',
       restaurantAddr: 'Address3 >>>>>>>>>>>>>>>>>>>>>>>>>>>',
+      restaurantMenuPath: '',
     ),
   ];
   return RestaurantPlace;
@@ -92,12 +96,38 @@ class _RestaurantPageState extends State<RestaurantPage> {
     double _screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
         backgroundColor: Color(0xFFf5ebdc),
-        appBar: MyAppBar(),
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          centerTitle: false,
+          title: const Padding(
+              padding: EdgeInsets.only(left: 8.0),
+              child: Icon(
+                Icons.logo_dev,
+                color: Colors.black,
+                size: 35,
+              )),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 8.0),
+              child: IconButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/qr_page');
+                  },
+                  icon: const Icon(
+                    Icons.qr_code,
+                    size: 35,
+                    color: Colors.black,
+                  )),
+            )
+          ],
+        ),
         body: SingleChildScrollView(
           child: Column(
             children: [
               Container(
-                height: _screenWidth * 0.35,
+                height: 150, //_screenWidth * 0.35,
                 child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: _categoryCircle.length,
@@ -123,6 +153,7 @@ class _RestaurantPageState extends State<RestaurantPage> {
                       restaurantWorktime:
                           _restaurantPlace[index].restaurantWorktime,
                       restaurantAddr: _restaurantPlace[index].restaurantAddr,
+                      restaurantMenuPath: '',
                     );
                   }),
             ],

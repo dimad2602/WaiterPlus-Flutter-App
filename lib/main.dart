@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project2/pages/auth_page.dart';
 import 'package:flutter_project2/pages/cart_page.dart';
+import 'package:flutter_project2/pages/food/top_food_detail.dart';
 import 'package:flutter_project2/pages/home.dart';
 import 'package:flutter_project2/pages/login_or_register_page.dart';
 import 'package:flutter_project2/pages/login_page.dart';
@@ -10,7 +11,9 @@ import 'package:flutter_project2/pages/menu_page.dart';
 import 'package:flutter_project2/pages/qr_page.dart';
 import 'package:flutter_project2/pages/register_page.dart';
 import 'package:flutter_project2/pages/user_page.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
+import 'pages/menu_rest2_page.dart';
 import 'pages/restaurant_page.dart';
 import 'util/top10_dishes_title.dart';
 import 'model/cart_model.dart';
@@ -21,7 +24,7 @@ void main() async {
   runApp(
     ChangeNotifierProvider(
       create: (context) => CartModel(),
-      child: MaterialApp(
+      child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primaryColor: Colors.deepPurpleAccent,
@@ -35,15 +38,50 @@ void main() async {
           '/login_or_register_page': (context) => LoginOrRegisterPage(),
           '/register_page': (context) => RegisterPage(),
           '/menu_page': (context) => MenuPage(),
+          '/menu_rest2_page': (context) => MenuRest2Page(),
           '/cart_page': (context) => CartPage(),
           '/qr_page': (context) => QrPage(),
           '/user_page': (context) => UserPage(context: context,),
           '/restaurant_page': (context) => RestaurantPage(),
+          '/top_food_detail_page': (context) => TopFoodDetailPage(),
         },
       ),
     ),
   );
 }
+
+
+// void main() async {
+//   WidgetsFlutterBinding.ensureInitialized();
+//   await Firebase.initializeApp();
+//   runApp(
+//     ChangeNotifierProvider(
+//       create: (context) => CartModel(),
+//       child: MaterialApp(
+//         debugShowCheckedModeBanner: false,
+//         theme: ThemeData(
+//           primaryColor: Colors.deepPurpleAccent,
+//         ),
+//         initialRoute: '/auth_page',
+//         routes: {
+//           '/': (context) => MainScreen(context: context,),
+//           '/auth_page': (context) => AuthPage(),
+//           '/todo': (context) => Home(),
+//           '/login_page': (context) => LoginPage(),
+//           '/login_or_register_page': (context) => LoginOrRegisterPage(),
+//           '/register_page': (context) => RegisterPage(),
+//           '/menu_page': (context) => MenuPage(),
+//           '/menu_rest2_page': (context) => MenuRest2Page(),
+//           '/cart_page': (context) => CartPage(),
+//           '/qr_page': (context) => QrPage(),
+//           '/user_page': (context) => UserPage(context: context,),
+//           '/restaurant_page': (context) => RestaurantPage(),
+//           '/top_food_detail_page': (context) => TopFoodDetailPage(),
+//         },
+//       ),
+//     ),
+//   );
+// }
 
 // void main() async {
 //   WidgetsFlutterBinding.ensureInitialized();

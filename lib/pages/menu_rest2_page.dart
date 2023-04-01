@@ -10,38 +10,39 @@ import 'package:provider/provider.dart';
 import '../components/bottom_nav_bar.dart';
 import '../components/grocery_item_title.dart';
 
-List<GroceryItemTitle> TopDishes() {
-  List<GroceryItemTitle> TopDishes = [
-    GroceryItemTitle(
-      itemName: 'name2 111',
-      itemPrice: '123',
-      imagePath: 'https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8cGl6emF8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60',
-      onPressed: () {},
+List<TopDishesTitle> TopDishesRest2() {
+  List<TopDishesTitle> TopDishesRest2 = [
+    TopDishesTitle(
+      dishesImagePath:
+      'https://images.unsplash.com/photo-1555126634-323283e090fa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=464&q=80',
+      dishesPrice: '399',
+      dishesName: 'dish11',
     ),
-    GroceryItemTitle(
-      itemName: 'long name2 aaaaaaaa',
-      itemPrice: '200',
-      imagePath: 'https://images.unsplash.com/photo-1588315029754-2dd089d39a1a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fHBpenphfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60',
-      onPressed: () {},
+    TopDishesTitle(
+      dishesImagePath:
+      'https://images.unsplash.com/photo-1568376794508-ae52c6ab3929?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80',
+      dishesPrice: '499',
+      dishesName: 'dish2',
     ),
-    GroceryItemTitle(
-      itemName: 'name3',
-      itemPrice: '300',
-      imagePath: 'https://images.unsplash.com/photo-1595854341625-f33ee10dbf94?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjB8fHBpenphfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60',
-      onPressed: () {},
+    TopDishesTitle(
+      dishesImagePath:
+      'https://images.unsplash.com/photo-1476124369491-e7addf5db371?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80',
+      dishesPrice: '150',
+      dishesName: 'dish3',
     ),
   ];
-  return TopDishes;
+  return TopDishesRest2;
 }
 
-class MenuPage extends StatefulWidget {
-  const MenuPage({Key? key}) : super(key: key);
+
+class MenuRest2Page extends StatefulWidget {
+  const MenuRest2Page({Key? key}) : super(key: key);
 
   @override
-  State<MenuPage> createState() => _MenuPageState();
+  State<MenuRest2Page> createState() => _MenuRest2PageState();
 }
 
-class _MenuPageState extends State<MenuPage> {
+class _MenuRest2PageState extends State<MenuRest2Page> {
   // для изменения цвета иконки поиска
   bool isFocused = false;
 
@@ -68,18 +69,6 @@ class _MenuPageState extends State<MenuPage> {
 
   int _selectedIndex = 0;
 
-  // static List<Widget> _pages = <Widget>[
-  //   Text(
-  //     'Index 0: Home',
-  //   ),
-  //   Text(
-  //     'Index 1: Business',
-  //   ),
-  //   Text(
-  //     'Index 2: School',
-  //   ),
-  // ];
-
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -87,14 +76,14 @@ class _MenuPageState extends State<MenuPage> {
 
     switch (index) {
       case 0:
-        //   Navigator.of(context).push(MaterialPageRoute(
-        //     builder: (context) => HomePage(),
-        //   ));
-        //   break;
+      //   Navigator.of(context).push(MaterialPageRoute(
+      //     builder: (context) => HomePage(),
+      //   ));
+      //   break;
         Navigator.pushNamed(context, '/');
         break;
       case 1:
-        Navigator.pushNamed(context, '/menu_page'); //'/login_page'
+        Navigator.pushNamed(context, '/menu_page');  //'/login_page'
         break;
       case 2:
         Navigator.pushNamed(context, '/cart_page');
@@ -117,16 +106,34 @@ class _MenuPageState extends State<MenuPage> {
     });
   }
 
-  final List<GroceryItemTitle> _topDishes = TopDishes();
 
-  // List<TopDishesTitle> getTopDishes() {
-  //   return _topDishes
-  // }
+  //final List<TopDishesTitle> _topDishes2 = TopDishesRest2();
+
+  List<TopDishesTitle>? _topDishes2;
+
+  @override
+  void initState() {
+    super.initState();
+    _topDishes2 = Provider.of<CartModel>(context, listen: false).shopItems;
+  }
 
   int _selectedIndexBottonBar = 1;
 
+  // буду тут пробовать очищать корзину ///////////////
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   fetchData();
+  // }
+  //
+  // Future<void> fetchData() async {
+  //   Provider.of<CartModel>(context, listen: false).removeAllItemsFromCart();
+  // }
+  ////////////////////////////////////////////////
+
   @override
   Widget build(BuildContext context) {
+    final currentRoute = ModalRoute.of(context)?.settings.name;
     return Scaffold(
         backgroundColor: Color(0xFFD3AF9C),
         appBar: AppBar(
@@ -138,7 +145,7 @@ class _MenuPageState extends State<MenuPage> {
             title: Padding(
               padding: const EdgeInsets.only(left: 8.0),
               child: Text(
-                'Name',
+                'Name2',
                 style: GoogleFonts.bebasNeue(
                   fontSize: 22,
                 ),
@@ -171,41 +178,7 @@ class _MenuPageState extends State<MenuPage> {
             ),
           ],
           onTap: _onItemTapped,
-          // appBar: AppBar(
-          //   title: Text('Alo kuku'),
-          //   centerTitle: true,
-          //   actions: [IconButton(onPressed: _menuOpen,
-          //       icon: Icon(Icons.menu_sharp))
-          //   ],
-          // ),
         ),
-        // bottomNavigationBar: MyBottomNavBar(
-        // ),
-        // bottomNavigationBar: Container(
-        //   child:  GNav(
-        //       color: Color(0xFF57382F),
-        //       activeColor: Color(0xFFd82300),
-        //       backgroundColor: Colors.transparent,
-        //       //tabActiveBorder: Border.all(color: Color(0xFFD3AF9C)),
-        //       // tabBackgroundColor: Color(0xFFDCA179),
-        //       mainAxisAlignment: MainAxisAlignment.center,
-        //       //onTabChange: (value) => onTabChanged!(value),
-        //       tabs: [
-        //         //GButton(icon: Icons.home, text: 'Начало',), //Главное
-        //         GButton(
-        //           icon: Icons.menu_book,
-        //           text: 'Меню',
-        //           onPressed: () => Navigator.pushNamed(context, '/menu_page',
-        //               arguments: {'selectedTabIndex': _onItemTapped}),
-        //         ),
-        //         GButton(
-        //             icon: Icons.shopping_basket,
-        //             text: 'Корзина',
-        //             onPressed: () => Navigator.pushNamed(context, '/cart_page',
-        //                 arguments: {'selectedTabIndex': _onItemTapped}))
-        //         //Может по другому назвать?
-        //       ]),
-        // ),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.only(top: 10.0),
@@ -287,7 +260,7 @@ class _MenuPageState extends State<MenuPage> {
                         color: isFocused
                             ? Colors.black
                             : Colors.grey
-                                .shade600, // Theme.of(context).primaryColor
+                            .shade600, // Theme.of(context).primaryColor
                       ),
                       hintText: 'Search',
                       focusedBorder: OutlineInputBorder(
@@ -331,22 +304,6 @@ class _MenuPageState extends State<MenuPage> {
                     },
                   ),
                 ),
-                // //Random top10 items
-                // Container(
-                //   height: 380,
-                //   child: ListView.builder(
-                //     itemCount: _topDishes.length,
-                //     scrollDirection: Axis.horizontal,
-                //     itemBuilder: (BuildContext context, int index) {
-                //       final dish = _topDishes[index];
-                //       return TopDishesTitle(
-                //         dishesImagePath: dish.dishesImagePath,
-                //         dishesPrice: dish.dishesPrice,
-                //         dishesName: dish.dishesName,
-                //       );
-                //     },
-                //   ),
-                // ),
                 //horizontal listview of items
                 Container(
                   height: 380,
@@ -354,17 +311,17 @@ class _MenuPageState extends State<MenuPage> {
                     builder: (context, value, child) {
                       //return GridView.builder(
                       return ListView.builder(
-                        itemCount: _topDishes.length,
+                        itemCount: value.shopItems.length,
                         scrollDirection: Axis.horizontal,
                         // Выбираем как хранить элементы, 2 учейки в ряд
                         // gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                         //     crossAxisCount: 1),
                         itemBuilder: (context, index) {
                           return GroceryItemTitle(
-                            itemName: value.shopItems[index].itemName,
-                            itemPrice: value.shopItems[index].itemPrice,
-                            imagePath: value.shopItems[index].imagePath,
-                            onPressed: () {
+                            itemName: value.shopItems[index].dishesName,
+                            itemPrice: value.shopItems[index].dishesPrice,
+                            imagePath: value.shopItems[index].dishesImagePath,
+                            onPressed: (){
                               Provider.of<CartModel>(context, listen: false)
                                   .addItemToCart(index);
                             },
@@ -374,25 +331,6 @@ class _MenuPageState extends State<MenuPage> {
                     },
                   ),
                 )
-
-                // Expanded(
-                //     child: Consumer<CartModel>(
-                //       builder: (context, value, child) {
-                //         return GridView.builder(
-                //           // Выбираем как хранить элементы, 2 учейки в ряд
-                //           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                //               crossAxisCount: 2),
-                //           itemBuilder: (context, index) {
-                //             return GroceryItemTitle(
-                //               itemName: value.shopItems[index].dishesName,
-                //               itemPrice: value.shopItems[index].dishesPrice,
-                //               imagePath: value.shopItems[index].dishesImagePath,
-                //             );
-                //           },
-                //         );
-                //       },
-                //     ),
-                // )
               ],
             ),
           ),
