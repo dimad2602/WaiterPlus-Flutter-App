@@ -17,9 +17,11 @@ import 'pages/menu_rest2_page.dart';
 import 'pages/restaurant_page.dart';
 import 'util/top10_dishes_title.dart';
 import 'model/cart_model.dart';
+import 'helper/dependencies.dart' as dep;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await dep.init();
   await Firebase.initializeApp();
   runApp(
     ChangeNotifierProvider(
