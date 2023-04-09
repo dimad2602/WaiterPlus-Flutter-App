@@ -101,12 +101,17 @@ class _RestaurantPageState extends State<RestaurantPage> {
           elevation: 0,
           backgroundColor: Colors.transparent,
           centerTitle: false,
-          title: const Padding(
+          title: Padding(
               padding: EdgeInsets.only(left: 8.0),
-              child: Icon(
-                Icons.logo_dev,
-                color: Colors.black,
-                size: 35,
+              child: IconButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/');
+                },
+                icon: const Icon(
+                  Icons.settings,
+                  size: 35,
+                  color: Colors.black,
+                ),
               )),
           actions: [
             Padding(
@@ -139,23 +144,26 @@ class _RestaurantPageState extends State<RestaurantPage> {
                       );
                     }),
               ),
-              ListView.builder(
-                  // Позволяем перекрывать категории
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemCount: _restaurantPlace.length,
-                  itemBuilder: (context, index) {
-                    return RestaurantWidget(
-                      restaurantImagePath:
-                          _restaurantPlace[index].restaurantImagePath,
-                      restaurantName: _restaurantPlace[index].restaurantName,
-                      restaurantCosts: _restaurantPlace[index].restaurantCosts,
-                      restaurantWorktime:
-                          _restaurantPlace[index].restaurantWorktime,
-                      restaurantAddr: _restaurantPlace[index].restaurantAddr,
-                      restaurantMenuPath: '',
-                    );
-                  }),
+              GestureDetector(
+                onTap: () => Navigator.pushNamed(context, '/menu_page'),
+                child: ListView.builder(
+                    // Позволяем перекрывать категории
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: _restaurantPlace.length,
+                    itemBuilder: (context, index) {
+                      return RestaurantWidget(
+                        restaurantImagePath:
+                            _restaurantPlace[index].restaurantImagePath,
+                        restaurantName: _restaurantPlace[index].restaurantName,
+                        restaurantCosts: _restaurantPlace[index].restaurantCosts,
+                        restaurantWorktime:
+                            _restaurantPlace[index].restaurantWorktime,
+                        restaurantAddr: _restaurantPlace[index].restaurantAddr,
+                        restaurantMenuPath: '',
+                      );
+                    }),
+              ),
             ],
           ),
         ));

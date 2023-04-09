@@ -97,7 +97,7 @@ class CartModel extends ChangeNotifier {
   String calculateTotalPrice(){
     double totalPrice = 0;
     for(int i = 0; i < _carItems.length; i++){
-      totalPrice += double.parse(_carItems[i].dishesPrice);
+      totalPrice += double.parse(_carItems[i].itemPrice);
     }
     return totalPrice.toStringAsFixed(2);
   }

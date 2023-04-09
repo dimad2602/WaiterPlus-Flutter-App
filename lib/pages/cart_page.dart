@@ -30,7 +30,7 @@ class _CartPageState extends State<CartPage> with TickerProviderStateMixin {
         //     builder: (context) => HomePage(),
         //   ));
         //   break;
-        Navigator.pushNamed(context, '/');
+        Navigator.pushNamed(context, '/restaurant_page');
         break;
       case 1:
         Navigator.pushNamed(context, '/menu_page'); //'/login_page'
@@ -148,17 +148,17 @@ class _CartPageState extends State<CartPage> with TickerProviderStateMixin {
                             child: FadeInImage.assetNetwork(
                               height: 100,
                               fit: BoxFit.fill,
-                              image: value.cartItems[index].dishesImagePath,
+                              image: value.cartItems[index].imagePath,
                               placeholder: 'lib/images/LoadingBall.gif',
                             ),
                           ),
                         ),
                         title: Text(
-                          value.cartItems[index].dishesName,
+                          value.cartItems[index].itemName,
                           style: TextStyle(fontSize: 18),
                         ),
                         subtitle: Text(
-                          value.cartItems[index].dishesPrice + '\$',
+                          value.cartItems[index].itemPrice + '\$',
                           style: TextStyle(fontSize: 16),
                         ),
                         trailing: IconButton(

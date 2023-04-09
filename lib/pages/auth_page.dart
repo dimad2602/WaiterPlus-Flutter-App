@@ -6,6 +6,7 @@ import 'login_or_register_page.dart';
 import 'login_page.dart';
 import 'main_screen.dart';
 import 'menu_page.dart';
+import 'restaurant_page.dart';
 
 class AuthPage extends StatelessWidget {
   const AuthPage({Key? key}) : super(key: key);
@@ -24,8 +25,10 @@ class AuthPage extends StatelessWidget {
             print('login in');
             //Navigator.pushNamed(context, '/menu_page');
             //return MenuPage(); //MenuPage();
-            return MainScreen(context: context);
-            //return MenuPage();
+
+            // работает
+            //return MainScreen(context: context);
+            return RestaurantPage();
           }
           //user is NOT logged in
           else {

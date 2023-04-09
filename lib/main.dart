@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project2/controllers/popular_product_controller.dart';
+import 'package:flutter_project2/data_uploader_screen.dart';
 import 'package:flutter_project2/pages/auth_page.dart';
 import 'package:flutter_project2/pages/cart_page.dart';
 import 'package:flutter_project2/pages/food/top_food_detail.dart';
@@ -21,8 +23,9 @@ import 'helper/dependencies.dart' as dep;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await dep.init();
+  //await dep.init();
   await Firebase.initializeApp();
+  //Get.find<PopularProductController>().getPopularProductList();
   runApp(
     ChangeNotifierProvider(
       create: (context) => CartModel(),
@@ -46,6 +49,7 @@ void main() async {
           '/user_page': (context) => UserPage(context: context,),
           '/restaurant_page': (context) => RestaurantPage(),
           '/top_food_detail_page': (context) => TopFoodDetailPage(),
+          '/get_material_app': (context) => DataUploaderScreen(),
         },
       ),
     ),

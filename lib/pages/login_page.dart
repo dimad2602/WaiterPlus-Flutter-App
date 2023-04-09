@@ -217,7 +217,8 @@ class _LoginPageState extends State<LoginPage> {
                   // Continue as a guest
                   GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, '/');
+                      //Navigator.pushNamed(context, '/');
+                      Navigator.pushNamed(context, '/restaurant_page');
                     },
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 100.0),

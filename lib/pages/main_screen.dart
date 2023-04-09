@@ -29,7 +29,7 @@ class _MainScreenState extends State<MainScreen> {
 
     switch (index) {
       case 0:
-        Navigator.pushNamed(widget.context, '/');
+        Navigator.pushNamed(widget.context, '/restaurant_page');
         break;
       case 1:
         Navigator.pushNamed(widget.context, '/menu_page'); //'/login_page'
@@ -64,9 +64,12 @@ class _MainScreenState extends State<MainScreen> {
           backgroundColor: Colors.transparent,
           centerTitle: false,
           title: const Padding(
-            padding: EdgeInsets.only(left: 8.0),
-            child: Icon(Icons.logo_dev, size: 35,)
-          ),
+              padding: EdgeInsets.only(left: 8.0),
+              child: Icon(
+                Icons.logo_dev,
+                size: 35,
+                color: Colors.black87,
+              )),
           actions: [
             Padding(
               padding: const EdgeInsets.only(right: 8.0),
@@ -74,77 +77,125 @@ class _MainScreenState extends State<MainScreen> {
                   onPressed: () {
                     Navigator.pushNamed(context, '/user_page');
                   },
-                  icon: const Icon(Icons.person_outline, size: 35,)),
+                  icon: const Icon(
+                    Icons.person_outline,
+                    size: 35,
+                    color: Colors.black87,
+                  )),
             )
           ],
         ),
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: 0,
-          type: BottomNavigationBarType.fixed,
-          backgroundColor: const Color(0xFFD3AF9C),
-          selectedItemColor: const Color(0xFF79290C),
-          selectedLabelStyle: const TextStyle(fontSize: 14),
-          unselectedLabelStyle: const TextStyle(fontSize: 12),
-          items: const [
-            BottomNavigationBarItem(
-                //Цвет хочеться какойнибуть прикольный
-                icon: Icon(Icons.home),
-                label: 'Главное'),
-            BottomNavigationBarItem(icon: Icon(Icons.menu_book), label: 'Меню'),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_basket),
-              label: 'Заказ',
-            ),
-          ],
-          onTap: _onItemTapped,
-        ),
+        // bottomNavigationBar: BottomNavigationBar(
+        //   currentIndex: 0,
+        //   type: BottomNavigationBarType.fixed,
+        //   backgroundColor: const Color(0xFFD3AF9C),
+        //   selectedItemColor: const Color(0xFF79290C),
+        //   selectedLabelStyle: const TextStyle(fontSize: 14),
+        //   unselectedLabelStyle: const TextStyle(fontSize: 12),
+        //   items: const [
+        //     BottomNavigationBarItem(
+        //         //Цвет хочеться какойнибуть прикольный
+        //         icon: Icon(Icons.home),
+        //         label: 'Главное'),
+        //     BottomNavigationBarItem(icon: Icon(Icons.menu_book), label: 'Меню'),
+        //     BottomNavigationBarItem(
+        //       icon: Icon(Icons.shopping_basket),
+        //       label: 'Заказ',
+        //     ),
+        //   ],
+        //   onTap: _onItemTapped,
+        // ),
         body: Column(
           children: [
-            const Text(
-              'Main screen',
-              style: TextStyle(fontSize: 20, color: Colors.white),
+            const Padding(
+              padding: EdgeInsets.only(top: 35.0),
+              child: Center(
+                  child: Text(
+                "Settings",
+                style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black87),
+              )),
             ),
+            SizedBox(height: 30),
+            GestureDetector(
+              onTap: () {
+                //Navigator.pushNamed(context, '/');
+                Navigator.pushNamed(context, '/restaurant_page');
+              },
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 100.0),
+                child: Container(
+                  padding: EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: const Center(
+                    child: Text('Заведения',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18)),
+                  ),
+                ),
+              ),
+            ),
+            // const Text(
+            //   'Main screen',
+            //   style: TextStyle(fontSize: 20, color: Colors.white),
+            // ),
+            // ElevatedButton(
+            //     onPressed: () {
+            //       Navigator.pushNamed(context, '/todo');
+            //       //Navigator.pushNamedAndRemoveUntil(context, '/todo', (route) => false); //отключение стрелки назад
+            //       //Navigator.pushReplacementNamed(context, '/todo');
+            //     },
+            //     style: ElevatedButton.styleFrom(
+            //         backgroundColor: Colors.purple,
+            //         padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+            //         textStyle:
+            //             TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
+            //     child: //Text('Заметки'),
+            //         const Icon(
+            //       Icons.note_alt_rounded,
+            //       color: Colors.lightBlueAccent,
+            //       size: 40,
+            //     )),
+            // ElevatedButton(
+            //     onPressed: () {
+            //       Navigator.pushNamed(context, '/login_page');
+            //     },
+            //     child: const Icon(
+            //       Icons.login,
+            //       color: Colors.tealAccent,
+            //       size: 40,
+            //     )),
+            // ElevatedButton(
+            //     onPressed: () {
+            //       Navigator.pushNamed(context, '/menu_page');
+            //     },
+            //     child: const Icon(
+            //       Icons.restaurant_menu,
+            //       color: Colors.tealAccent,
+            //       size: 40,
+            //     )),
+            // ElevatedButton(
+            //     onPressed: () {
+            //       Navigator.pushNamed(context, '/restaurant_page');
+            //     },
+            //     child: const Icon(
+            //       Icons.maps_home_work,
+            //       color: Colors.tealAccent,
+            //       size: 40,
+            //     )),
             ElevatedButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/todo');
-                  //Navigator.pushNamedAndRemoveUntil(context, '/todo', (route) => false); //отключение стрелки назад
-                  //Navigator.pushReplacementNamed(context, '/todo');
-                },
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.purple,
-                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-                    textStyle:
-                        TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
-                child: //Text('Заметки'),
-                    const Icon(
-                  Icons.note_alt_rounded,
-                  color: Colors.lightBlueAccent,
-                  size: 40,
-                )),
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/login_page');
+                  Navigator.pushNamed(context, '/get_material_app');
                 },
                 child: const Icon(
-                  Icons.login,
-                  color: Colors.tealAccent,
-                  size: 40,
-                )),
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/menu_page');
-                },
-                child: const Icon(
-                  Icons.restaurant_menu,
-                  color: Colors.tealAccent,
-                  size: 40,
-                )),
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/restaurant_page');
-                },
-                child: const Icon(
-                  Icons.maps_home_work,
+                  Icons.get_app,
                   color: Colors.tealAccent,
                   size: 40,
                 )),

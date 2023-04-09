@@ -91,7 +91,7 @@ class _MenuPageState extends State<MenuPage> {
         //     builder: (context) => HomePage(),
         //   ));
         //   break;
-        Navigator.pushNamed(context, '/');
+        Navigator.pushNamed(context, '/restaurant_page');
         break;
       case 1:
         Navigator.pushNamed(context, '/menu_page'); //'/login_page'
