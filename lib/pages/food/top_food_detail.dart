@@ -41,8 +41,8 @@ class TopFoodDetailPage extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  AppIcon(icon: Icons.arrow_back_ios),
-                  AppIcon(icon: Icons.shopping_cart_outlined)
+                  AppIcon(icon: Icons.arrow_back_ios, onTap: () {Navigator.pop(context);},),
+                  AppIcon(icon: Icons.shopping_cart_outlined, onTap: () {Navigator.pushNamed(context, '/cart_page');},)
                 ],
               )),
           //introduction of food

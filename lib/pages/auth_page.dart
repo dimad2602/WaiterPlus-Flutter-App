@@ -28,12 +28,14 @@ class AuthPage extends StatelessWidget {
 
             // работает
             //return MainScreen(context: context);
+
             return RestaurantPage();
           }
           //user is NOT logged in
           else {
             print('not logged in');
            // Navigator.pushNamed(context, '/login_page');
+
             return LoginPage(); //Home();
             //return LoginOrRegisterPage();
           }

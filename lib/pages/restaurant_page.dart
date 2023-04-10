@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../components/app_bar.dart';
 import '../util/restaurant_widget.dart';
+import 'main_screen.dart';
 
 List<RestaurantWidget> RestaurantPlace() {
   List<RestaurantWidget> RestaurantPlace = [
@@ -106,6 +107,12 @@ class _RestaurantPageState extends State<RestaurantPage> {
               child: IconButton(
                 onPressed: () {
                   Navigator.pushNamed(context, '/');
+                  //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MainScreen(context: context,)),);
+                  // Navigator.pushAndRemoveUntil(
+                  //   context,
+                  //   MaterialPageRoute(builder: (BuildContext context) => MainScreen(context: context,)),
+                  //   ModalRoute.withName('/auth_page'),
+                  // );
                 },
                 icon: const Icon(
                   Icons.settings,

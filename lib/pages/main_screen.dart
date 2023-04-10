@@ -192,7 +192,10 @@ class _MainScreenState extends State<MainScreen> {
             //     )),
             ElevatedButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/get_material_app');
+                  //Navigator.pushNamed(context, '/get_material_app');
+                  //Navigator.pushNamed(context, '/splash_screen');
+                  Navigator.pushNamed(context, '/firerestaurant_page');
+                  //splash_screen
                 },
                 child: const Icon(
                   Icons.get_app,

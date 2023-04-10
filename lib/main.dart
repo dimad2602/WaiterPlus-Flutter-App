@@ -12,11 +12,16 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_project2/pages/menu_page.dart';
 import 'package:flutter_project2/pages/qr_page.dart';
 import 'package:flutter_project2/pages/register_page.dart';
+import 'package:flutter_project2/pages/splash/splash_screen.dart';
 import 'package:flutter_project2/pages/user_page.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
+import 'bindings.dart';
+import 'controllers/restaurants_controlelr/restaurant_paper_controller.dart';
+import 'pages/home/restaurant_fire_page.dart';
 import 'pages/menu_rest2_page.dart';
 import 'pages/restaurant_page.dart';
+import 'services/firebase_storage_service.dart';
 import 'util/top10_dishes_title.dart';
 import 'model/cart_model.dart';
 import 'helper/dependencies.dart' as dep;
@@ -34,7 +39,7 @@ void main() async {
         theme: ThemeData(
           primaryColor: Colors.deepPurpleAccent,
         ),
-        initialRoute: '/auth_page',
+        initialRoute: '/splash_screen', //'/auth_page',
         routes: {
           '/': (context) => MainScreen(context: context,),
           '/auth_page': (context) => AuthPage(),
@@ -50,11 +55,23 @@ void main() async {
           '/restaurant_page': (context) => RestaurantPage(),
           '/top_food_detail_page': (context) => TopFoodDetailPage(),
           '/get_material_app': (context) => DataUploaderScreen(),
+          '/splash_screen': (context) {
+            Get.put(FirebaseStorageService());
+            Get.put(RestaurantPaperController());
+            return SplashScreen();
+          },
+          '/firerestaurant_page': (context) {
+            //Get.put(FirebaseStorageService());
+            //Get.put(RestaurantPaperController());
+            return RestaurantFirePage();
+          },
         },
       ),
     ),
   );
 }
+
+
 
 
 // void main() async {
