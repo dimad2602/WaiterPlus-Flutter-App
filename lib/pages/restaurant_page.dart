@@ -11,7 +11,7 @@ List<RestaurantWidget> RestaurantPlace() {
     RestaurantWidget(
       restaurantImagePath:
           'https://images.unsplash.com/photo-1625173617202-af15666696d0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1887&q=80',
-      restaurantName: 'Name1',
+      restaurantName: 'Name',
       restaurantCosts: '\$\$',
       restaurantWorktime: '8:00-22:00',
       restaurantAddr: 'Address1',

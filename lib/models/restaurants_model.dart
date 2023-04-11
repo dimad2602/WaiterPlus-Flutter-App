@@ -55,6 +55,101 @@ class RestaurantModel {
         restaurantCount = 1,//json['restaurant_count'] as int,
         menu = [];
 
+  /*String timeClose() {
+    final openTime = time?.split('-')[0].trim();
+    final closeTime = time?.split('-')[1].trim();
+
+    final timeNow = DateTime.now();
+    final closeDateTime = DateTime(
+      timeNow.year,
+      timeNow.month,
+      timeNow.day,
+      int.parse(closeTime!.split(':')[0]),
+      int.parse(closeTime.split(':')[1]),
+    );
+
+    final difference = closeDateTime.difference(timeNow);
+
+    final hours = difference.inHours.toString().padLeft(2, '0');
+    final minutes = (difference.inMinutes % 60).toString().padLeft(2, '0');
+    return '$hours:$minutes до закрытия';
+  }*/
+  String timeClose() {
+    final openTime = time?.split('-')[0].trim();
+    final closeTime = time?.split('-')[1].trim();
+
+    final timeNow = DateTime.now();
+    final closeDateTime = DateTime(
+      timeNow.year,
+      timeNow.month,
+      timeNow.day,
+      int.parse(closeTime!.split(':')[0]),
+      int.parse(closeTime.split(':')[1]),
+    );
+
+    if (timeNow.isAfter(closeDateTime)) {
+      final openDateTime = DateTime(
+        timeNow.year,
+        timeNow.month,
+        timeNow.day + 1,
+        int.parse(openTime!.split(':')[0]),
+        int.parse(openTime.split(':')[1]),
+      );
+
+      final difference = openDateTime.difference(timeNow);
+
+      final hours = difference.inHours.toString().padLeft(2, '0');
+      final minutes = (difference.inMinutes % 60).toString().padLeft(2, '0');
+      return '$hours:$minutes до открытия';
+    }
+
+    final difference = closeDateTime.difference(timeNow);
+
+    final hours = difference.inHours.toString().padLeft(2, '0');
+    final minutes = (difference.inMinutes % 60).toString().padLeft(2, '0');
+    return '$hours:$minutes до закрытия';
+  }
+
+  bool isClosed() {
+    final openTime = time?.split('-')[0].trim();
+    final closeTime = time?.split('-')[1].trim();
+
+    final timeNow = DateTime.now();
+    final openDateTime = DateTime(
+      timeNow.year,
+      timeNow.month,
+      timeNow.day,
+      int.parse(openTime!.split(':')[0]),
+      int.parse(openTime.split(':')[1]),
+    );
+    final closeDateTime = DateTime(
+      timeNow.year,
+      timeNow.month,
+      timeNow.day,
+      int.parse(closeTime!.split(':')[0]),
+      int.parse(closeTime.split(':')[1]),
+    );
+
+    return timeNow.isBefore(openDateTime) || timeNow.isAfter(closeDateTime);
+  }
+
+  bool isClosingSoon() {
+    final openTime = time?.split('-')[0].trim();
+    final closeTime = time?.split('-')[1].trim();
+
+    final timeNow = DateTime.now();
+    final closeDateTime = DateTime(
+      timeNow.year,
+      timeNow.month,
+      timeNow.day,
+      int.parse(closeTime!.split(':')[0]),
+      int.parse(closeTime.split(':')[1]),
+    );
+
+    final difference = closeDateTime.difference(timeNow);
+    return difference.inMinutes <= 59;
+  }
+
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['name'] = this.name;

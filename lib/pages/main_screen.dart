@@ -198,10 +198,20 @@ class _MainScreenState extends State<MainScreen> {
                   //splash_screen
                 },
                 child: const Icon(
-                  Icons.get_app,
+                  Icons.restaurant,
                   color: Colors.tealAccent,
                   size: 40,
                 )),
+            /*ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/get_material_app');
+                  //splash_screen
+                },
+                child: const Icon(
+                  Icons.get_app,
+                  color: Colors.tealAccent,
+                  size: 40,
+                )),*/
           ],
         ));
   }

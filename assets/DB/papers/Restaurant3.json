@@ -3,7 +3,7 @@
   "name": "Restaurant3",
   "description": "A cozy little restaurant that serves delicious food!",
   "costs": "$$",
-  "img": "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8cGl6emF8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+  "img": "",
   "phone": "555-123-4567",
   "time": "08:00-21:00",
   "address": [
