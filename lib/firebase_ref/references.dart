@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 final fireStore = FirebaseFirestore.instance;
 final restaurantRF = fireStore.collection('restaurants');
@@ -11,3 +12,6 @@ DocumentReference adressRF({
   required String restaurantId,
   required String addresId,
 })=>restaurantRF.doc(restaurantId).collection("address").doc(addresId);
+
+Reference get firebaseStorage => FirebaseStorage.instance.ref();
+

@@ -1,145 +1,164 @@
-  import 'dart:convert';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-  class RestaurantModel {
-    String id;
-    String name;
-    String description;
-    String costs;
-    String? img;
-    String? phone;
-    String? time;
-    List<Address>? address;
-    List<Menu>? menu;
+class RestaurantModel {
+  String id;
+  String name;
+  String description;
+  String costs;
+  String? img;
+  String? phone;
+  String? time;
+  List<Address>? address;
+  List<Menu>? menu;
+  int restaurantCount;
 
-    RestaurantModel(
-        {required this.id,
-          required this.name,
-          required this.description,
-          required this.costs,
-          this.img,
-          this.phone,
-          this.time,
-          this.address,
-          this.menu});
+  RestaurantModel(
+      {required this.id,
+      required this.name,
+      required this.description,
+      required this.costs,
+      this.img,
+      this.phone,
+      this.time,
+      this.address,
+      required this.restaurantCount,
+      this.menu});
 
-    RestaurantModel.fromJson(Map<String, dynamic> json) :
-      id = json['id'] as String,
-      name = json['name'] as String,
-      description = json['description'],
-      costs = json['costs'] as String,
-      img = json['img'] as String,
-      phone = json['phone'] as String,
-      time = json['time'] as String,
-      address = (json['address'] as List).map((dynamic e) => Address.fromJson(e as Map<String, dynamic>)).toList(),
-      menu = (json['menu'] as List).map((dynamic e) => Menu.fromJson(e as Map<String, dynamic>)).toList();
+  RestaurantModel.fromJson(Map<String, dynamic> json)
+      : id = json['id'] as String,
+        name = json['name'] as String,
+        description = json['description'],
+        costs = json['costs'] as String,
+        img = json['img'] as String,
+        phone = json['phone'] as String,
+        time = json['time'] as String,
+        restaurantCount = 0,
+        address = (json['address'] as List)
+            .map((dynamic e) => Address.fromJson(e as Map<String, dynamic>))
+            .toList(),
+        menu = (json['menu'] as List)
+            .map((dynamic e) => Menu.fromJson(e as Map<String, dynamic>))
+            .toList();
 
-    Map<String, dynamic> toJson() {
-      final Map<String, dynamic> data = new Map<String, dynamic>();
-      data['name'] = this.name;
-      data['description'] = this.description;
-      data['costs'] = this.costs;
-      data['img'] = this.img;
-      data['phone'] = this.phone;
-      data['time'] = this.time;
-      // if (this.address != null) {
-      //   data['address'] = this.address.map((v) => v.toJson()).toList();
-      // }
-      // if (this.menu != null) {
-      //   data['menu'] = this.menu.map((v) => v.toJson()).toList();
-      // }
-      return data;
-    }
+  RestaurantModel.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> json)
+      : id = json.id,
+        name = json['name'],
+        description = json['description'],
+        costs = json['costs'],
+        img = json['img'],
+        phone = json['phone'],
+        time = json['time'],
+        // address = (json['address'] as List)
+        //     .map((dynamic e) => Address.fromJson(e as Map<String, dynamic>))
+        //     .toList(),
+        address = [],
+        restaurantCount = 1,//json['restaurant_count'] as int,
+        menu = [];
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['name'] = this.name;
+    data['description'] = this.description;
+    data['costs'] = this.costs;
+    data['img'] = this.img;
+    data['phone'] = this.phone;
+    data['time'] = this.time;
+    // if (this.address != null) {
+    //   data['address'] = this.address.map((v) => v.toJson()).toList();
+    // }
+    // if (this.menu != null) {
+    //   data['menu'] = this.menu.map((v) => v.toJson()).toList();
+    // }
+    return data;
   }
+}
 
-  class Address {
-    String id;
-    String? street;
-    String? city;
+class Address {
+  String id;
+  String? street;
+  String? city;
 
-    Address({required this.id, this.street, this.city});
+  Address({required this.id, this.street, this.city});
 
-    Address.fromJson(Map<String, dynamic> json) :
-      id = json["id"],
-      street = json['street'],
-      city = json['city'];
+  Address.fromJson(Map<String, dynamic> json)
+      : id = json["id"],
+        street = json['street'],
+        city = json['city'];
 
-
-    Map<String, dynamic> toJson() {
-      final Map<String, dynamic> data = new Map<String, dynamic>();
-      data['id'] = this.id;
-      data['street'] = this.street;
-      data['city'] = this.city;
-      return data;
-    }
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['street'] = this.street;
+    data['city'] = this.city;
+    return data;
   }
+}
 
-  class Menu {
-    String id;
-    String name;
-    List<Items> items;
+class Menu {
+  String id;
+  String name;
+  List<Items> items;
 
-    Menu({required this.id, required this.name, required this.items});
+  Menu({required this.id, required this.name, required this.items});
 
-    Menu.fromJson(Map<String, dynamic> json) :
-      id = json['id'],
-      name = json['name'],
-      items = (json['items'] as List).map((e) => Items.fromJson(e)).toList();
+  Menu.fromJson(Map<String, dynamic> json)
+      : id = json['id'],
+        name = json['name'],
+        items = (json['items'] as List).map((e) => Items.fromJson(e)).toList();
 
-
-    Map<String, dynamic> toJson() {
-      final Map<String, dynamic> data = new Map<String, dynamic>();
-      data['id'] = this.id;
-      data['name'] = this.name;
-      if (this.items != null) {
-        data['items'] = this.items.map((v) => v.toJson()).toList();
-      }
-      return data;
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
+    if (this.items != null) {
+      data['items'] = this.items.map((v) => v.toJson()).toList();
     }
+    return data;
   }
+}
 
-  class Items {
-    String id;
-    String? itemName;
-    String? itemPrice;
-    String? weight;
-    String? description;
-    String?imagePath;
-    String? typeId;
+class Items {
+  String id;
+  String? itemName;
+  String? itemPrice;
+  String? weight;
+  String? description;
+  String? imagePath;
+  String? typeId;
 
-    Items(
-        {required this.id,
-          this.itemName,
-          this.itemPrice,
-          this.weight,
-          this.description,
-          this.imagePath,
-          this.typeId});
+  Items(
+      {required this.id,
+      this.itemName,
+      this.itemPrice,
+      this.weight,
+      this.description,
+      this.imagePath,
+      this.typeId});
 
-    Items.fromJson(Map<String, dynamic> json) :
-      id = json['id'],
-      itemName = json['itemName'],
-      itemPrice = json['itemPrice'],
-      weight = json['weight'],
-      description = json['description'],
-      imagePath = json['imagePath'],
-      typeId = json['type_id'];
+  Items.fromJson(Map<String, dynamic> json)
+      : id = json['id'],
+        itemName = json['itemName'],
+        itemPrice = json['itemPrice'],
+        weight = json['weight'],
+        description = json['description'],
+        imagePath = json['imagePath'],
+        typeId = json['type_id'];
 
-
-    Map<String, dynamic> toJson() {
-      final Map<String, dynamic> data = new Map<String, dynamic>();
-      data['id'] = this.id;
-      data['itemName'] = this.itemName;
-      data['itemPrice'] = this.itemPrice;
-      data['weight'] = this.weight;
-      data['description'] = this.description;
-      data['imagePath'] = this.imagePath;
-      data['type_id'] = this.typeId;
-      return data;
-    }
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['itemName'] = this.itemName;
+    data['itemPrice'] = this.itemPrice;
+    data['weight'] = this.weight;
+    data['description'] = this.description;
+    data['imagePath'] = this.imagePath;
+    data['type_id'] = this.typeId;
+    return data;
   }
+}
 
-  /////////////////////////////////////////////////////////////////
-  /*
+/////////////////////////////////////////////////////////////////
+/*
   class Restaurant {
     String? _name;
     String? _description;
@@ -281,4 +300,4 @@
   // }
   }
   */
-  /////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////

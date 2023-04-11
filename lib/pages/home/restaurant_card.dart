@@ -1,0 +1,143 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_project2/models/restaurants_model.dart';
+
+class RestaurantCard extends StatelessWidget {
+  const RestaurantCard({Key? key, required this.model}) : super(key: key);
+
+  final RestaurantModel model;
+
+  @override
+  Widget build(BuildContext context) {
+    double _screenWidth = MediaQuery.of(context).size.width;
+    return Stack(
+      children: [
+        Align(
+          alignment: Alignment.centerRight,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: Container(
+              height: _screenWidth * 0.71,
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(12),
+                    bottomLeft: Radius.circular(12)),
+                //Хочеться слабо прозрачный черный // Хотя цвет с цифрой, очень не плох
+                //color: Colors.white38,
+                color: Color(0xffffffff),
+                border:
+                    Border.all(color: Colors.black.withOpacity(0.7), width: 2),
+              ),
+              child: Column(
+                children: [
+                  Container(
+                    height: _screenWidth * 0.69,
+                    width: _screenWidth * 0.9,
+                    child: Column(
+                      //crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Stack(
+                          children: [
+                            Container(
+                              height: 200,
+                              width: _screenWidth * 0.9,
+                            ),
+                            ClipRRect(
+                              borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(12.0),
+                              ),
+                              child: CachedNetworkImage(
+                                imageUrl: model.img!,
+                                height: 200,
+                                width: _screenWidth * 0.9,
+                                fit: BoxFit.cover,
+                                placeholder: (context, url) => Container(
+                                  alignment: Alignment.center,
+                                  //можно добавить pre loader image
+                                  child: const CircularProgressIndicator(),
+                                ),
+                                errorWidget: (context, url, error) =>
+                                    Image.asset(
+                                        "assets/images/qr-menu.png"),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 8.0, top: 8),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                model.name,
+                                style: TextStyle(fontSize: 20),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(right: 15.0),
+                                child: Text(
+                                  model.costs,
+                                  style: TextStyle(
+                                      fontSize: 15, color: Colors.black45),
+                                ),
+                              ),
+                              // Ещё можно добавить оценку
+                            ],
+                          ),
+                        ),
+                        //const SizedBox(height: 10),
+                        Row(
+                          //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons.access_time_filled,
+                                        size: 20,
+                                      ),
+                                      Text(
+                                        model.time!,
+                                        style: TextStyle(fontSize: 17),
+                                      ),
+                                    ],
+                                  )
+                                  // Ещё можно добавить
+                                  //Text('Время до закрытия'),
+                                ],
+                              ),
+                            ),
+                            SizedBox(width: 60),
+                            Icon(Icons.room),
+                            Flexible(
+                              child: Padding(
+                                padding: EdgeInsets.only(left: 8.0, right: 15),
+                                child: Text(
+                                  model.phone!,
+                                  // Сокрашение текста до ...
+                                  overflow: TextOverflow.ellipsis,
+                                  //Без переноса - 1 строчка
+                                  maxLines: 2,
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
