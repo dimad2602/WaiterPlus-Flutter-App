@@ -43,6 +43,7 @@ class MenuPaperController extends GetxController {
        _menu.items = items;
        if(restaurant.menu!=null && restaurant.menu!.isNotEmpty) {
          allMenu.assignAll(restaurant.menu!);
+         // из за индекса тут пока не очень понимаю как настроить
          currentMenu.value = restaurant.menu![0];
          if (kDebugMode) {
            print(restaurant.menu![0].name);
@@ -58,5 +59,11 @@ class MenuPaperController extends GetxController {
         print(e.toString());
       }
     }
+  }
+
+  void selectedItem(String? menu){
+    // тут пока не правильно
+    currentMenu.value!.selectedItem = menu;
+    update();
   }
 }

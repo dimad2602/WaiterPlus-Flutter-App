@@ -193,6 +193,7 @@ class Menu {
   String id;
   String name;
   List<Items> items;
+  String? selectedItem;
 
   Menu({required this.id, required this.name, required this.items});
 
