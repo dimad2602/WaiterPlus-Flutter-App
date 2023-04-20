@@ -1,9 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_project2/pages/home/restaurant_card.dart';
 import 'package:get/get.dart';
 
 import '../../controllers/restaurants_controlelr/restaurant_paper_controller.dart';
+import '../../widgets/restaurant/restaurant_card.dart';
 
 class RestaurantFirePage extends StatelessWidget {
   const RestaurantFirePage({Key? key}) : super(key: key);

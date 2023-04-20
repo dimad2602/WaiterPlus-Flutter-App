@@ -13,5 +13,11 @@ DocumentReference adressRF({
   required String addresId,
 })=>restaurantRF.doc(restaurantId).collection("address").doc(addresId);
 
+DocumentReference itemRF({
+  required String restaurantId,
+  required String menuId,
+  required String itemId,
+})=>restaurantRF.doc(restaurantId).collection("menu").doc(menuId).collection("item").doc(itemId);
+
 Reference get firebaseStorage => FirebaseStorage.instance.ref();
 

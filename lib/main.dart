@@ -17,10 +17,12 @@ import 'package:flutter_project2/pages/user_page.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'bindings.dart';
+import 'controllers/menu_controller/menu_controller.dart';
 import 'controllers/restaurants_controlelr/restaurant_paper_controller.dart';
-import 'pages/home/restaurant_fire_page.dart';
+import 'pages/menu/menu_fire_page.dart';
 import 'pages/menu_rest2_page.dart';
 import 'pages/restaurant_page.dart';
+import 'pages/restaurants/restaurant_fire_page.dart';
 import 'services/firebase_storage_service.dart';
 import 'util/top10_dishes_title.dart';
 import 'model/cart_model.dart';
@@ -64,6 +66,12 @@ void main() async {
             //Get.put(FirebaseStorageService());
             //Get.put(RestaurantPaperController());
             return RestaurantFirePage();
+          },
+          '/firemenu_page': (context) {
+            //Get.put(FirebaseStorageService());
+            //Get.put(RestaurantPaperController());
+            Get.put(MenuPaperController());
+            return MenuFirePage();
           },
         },
       ),

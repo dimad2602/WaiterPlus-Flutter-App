@@ -1,22 +1,17 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_project2/controllers/restaurants_controlelr/restaurant_paper_controller.dart';
 import 'package:flutter_project2/models/restaurants_model.dart';
+import 'package:get/get.dart';
 
-class RestaurantCard extends StatefulWidget {
-  const RestaurantCard({Key? key, required this.model}) : super(key: key);
-
+class RestaurantCard extends GetView<RestaurantPaperController> {
   final RestaurantModel model;
-
-  @override
-  State<RestaurantCard> createState() => _RestaurantCardState();
-}
-
-class _RestaurantCardState extends State<RestaurantCard> {
-  User? user = FirebaseAuth.instance.currentUser;
+  const RestaurantCard({Key? key, required this.model}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    User? user = FirebaseAuth.instance.currentUser;
     bool isAuthenticated = user != null;
     double _screenWidth = MediaQuery.of(context).size.width;
     return Stack(
@@ -25,8 +20,10 @@ class _RestaurantCardState extends State<RestaurantCard> {
           alignment: Alignment.centerRight,
           child: InkWell(
             onTap: (){
-              print("${widget.model.name}");
+              print("${model.name}");
               print("${isAuthenticated.toString()}");
+              //Navigator.pushNamed(context, '/firemenu_page');
+              controller.navigateToMenu(paper: model, tryAgain: false,);
             },
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -45,7 +42,7 @@ class _RestaurantCardState extends State<RestaurantCard> {
                 child: Column(
                   children: [
                     Container(
-                      height: _screenWidth * 0.70,
+                      height: _screenWidth * 0.69,
                       width: _screenWidth * 0.9,
                       child: Column(
                         //crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,7 +59,7 @@ class _RestaurantCardState extends State<RestaurantCard> {
                                   topLeft: Radius.circular(12.0),
                                 ),
                                 child: CachedNetworkImage(
-                                  imageUrl: widget.model.img!,
+                                  imageUrl: model.img!,
                                   height: _screenWidth * 0.5,
                                   width: _screenWidth * 0.9,
                                   fit: BoxFit.cover,
@@ -83,13 +80,13 @@ class _RestaurantCardState extends State<RestaurantCard> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  widget.model.name,
+                                  model.name,
                                   style: TextStyle(fontSize: 20),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(right: 15.0),
                                   child: Text(
-                                    widget.model.costs,
+                                    model.costs,
                                     style: TextStyle(
                                         fontSize: 15, color: Colors.black45),
                                   ),
@@ -114,7 +111,7 @@ class _RestaurantCardState extends State<RestaurantCard> {
                                           size: 20,
                                         ),
                                         Text(
-                                          widget.model.time!,
+                                          model.time!,
                                           style: TextStyle(fontSize: 17),
                                         ),
                                       ],
@@ -122,10 +119,10 @@ class _RestaurantCardState extends State<RestaurantCard> {
                                     Row(
                                       children: [
                                         Text(
-                                          widget.model.timeClose(),
+                                          model.timeClose(),
                                           style: TextStyle(
                                             fontSize: 17,
-                                            color: widget.model.isClosed() || widget.model.isClosingSoon() ? Colors.red : Colors.black,
+                                            color: model.isClosed() || model.isClosingSoon() ? Colors.red : Colors.black,
                                           ),
                                         )
                                       ],
@@ -139,7 +136,7 @@ class _RestaurantCardState extends State<RestaurantCard> {
                                 child: Padding(
                                   padding: EdgeInsets.only(left: 8.0, right: 15),
                                   child: Text(
-                                    widget.model.phone!,
+                                    model.phone!,
                                     // Сокрашение текста до ...
                                     overflow: TextOverflow.ellipsis,
                                     //Без переноса - 1 строчка

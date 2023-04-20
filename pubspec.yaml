@@ -45,6 +45,8 @@ dependencies:
   provider:
   google_nav_bar:
   firebase_auth: ^4.3.0
+  flutter_svg:
+  shimmer:
 
 dev_dependencies:
   flutter_test:

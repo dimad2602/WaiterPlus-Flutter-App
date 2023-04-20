@@ -2,11 +2,14 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_project2/models/restaurants_model.dart';
+import 'package:flutter_project2/pages/menu_page.dart';
 import 'package:flutter_project2/services/firebase_storage_service.dart';
 import 'package:get/get.dart';
 
 import '../../firebase_ref/references.dart';
+import '../../pages/menu/menu_fire_page.dart';
 
 class RestaurantPaperController extends GetxController {
   final allPaperImages = <String>[].obs;
@@ -43,6 +46,18 @@ class RestaurantPaperController extends GetxController {
     } catch (e) {
       print("my error");
       print(e);
+    }
+  }
+
+  void navigateToMenu({required RestaurantModel paper, bool tryAgain=false}) {
+    if(tryAgain){
+      if (kDebugMode) {
+        print("tryAgain message");
+        //Get.back();
+      }
+    }
+    else {
+      Get.toNamed(MenuFirePage.routeName, arguments: paper);
     }
   }
 }

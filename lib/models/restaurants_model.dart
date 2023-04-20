@@ -201,6 +201,11 @@ class Menu {
         name = json['name'],
         items = (json['items'] as List).map((e) => Items.fromJson(e)).toList();
 
+  Menu.fromSnapshot(QueryDocumentSnapshot<Map<String, dynamic>> snapshot)
+  :id = snapshot.id,
+  name = snapshot['name'],
+  items = [];
+
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
@@ -238,6 +243,15 @@ class Items {
         description = json['description'],
         imagePath = json['imagePath'],
         typeId = json['type_id'];
+
+  Items.fromSnapshot(QueryDocumentSnapshot<Map<String, dynamic>> snapshot)
+      : id = snapshot['id'],
+        itemName = snapshot['itemName'] as String?,
+        itemPrice = snapshot['itemPrice'] as String?,
+        weight = snapshot['weight'] as String?,
+        description = snapshot['description'] as String?,
+        imagePath = snapshot['imagePath'] as String?,
+        typeId = snapshot['type_id'] as String?;
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
