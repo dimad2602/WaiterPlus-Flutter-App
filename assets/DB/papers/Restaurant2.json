@@ -16,11 +16,11 @@
   "menu": [
     {
       "id": "1",
-      "name": "Starters",
+      "name": "Starters2",
       "items": [
         {
           "id": "1",
-          "itemName": "name1",
+          "itemName": "name12",
           "itemPrice": "123",
           "weight": "350",
           "description": "Toasted bread topped with fresh tomatoes, garlic, and basil",
@@ -52,8 +52,8 @@
       "name": "Pizza",
       "items": [
         {
-          "id": "4",
-          "itemName": "name4",
+          "id": "1",
+          "itemName": "name42",
           "itemPrice": "123",
           "weight": "350",
           "description": "Toasted bread topped with fresh tomatoes, garlic, and basil",
@@ -61,8 +61,8 @@
           "type_id": "2"
         },
         {
-          "id": "5",
-          "itemName": "name5",
+          "id": "2",
+          "itemName": "name52",
           "itemPrice": "123",
           "weight": "350",
           "description": "Toasted bread topped with fresh tomatoes, garlic, and basil",
@@ -70,8 +70,8 @@
           "type_id": "2"
         },
         {
-          "id": "6",
-          "itemName": "name6",
+          "id": "3",
+          "itemName": "name62",
           "itemPrice": "123",
           "weight": "350",
           "description": "Toasted bread topped with fresh tomatoes, garlic, and basil",
@@ -85,7 +85,7 @@
       "name": "drinks",
       "items": [
         {
-          "id": "7",
+          "id": "1",
           "itemName": "name7",
           "itemPrice": "123",
           "weight": "350",
@@ -94,7 +94,7 @@
           "type_id": "3"
         },
         {
-          "id": "8",
+          "id": "2",
           "itemName": "name8",
           "itemPrice": "123",
           "weight": "350",
@@ -103,7 +103,7 @@
           "type_id": "3"
         },
         {
-          "id": "9",
+          "id": "3",
           "itemName": "name9",
           "itemPrice": "123",
           "weight": "350",

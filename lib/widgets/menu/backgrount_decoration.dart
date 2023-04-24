@@ -9,7 +9,7 @@ class BackgrountDecoration extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        child
+        Positioned.fill(child: SafeArea(child: child))
       ],
     );
   }

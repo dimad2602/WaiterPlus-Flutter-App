@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project2/Configs/ui_parametrs.dart';
+import 'package:flutter_project2/components/main_button.dart';
 import 'package:flutter_project2/controllers/menu_controller/menu_controller.dart';
 import 'package:flutter_project2/firebase_ref/loading_status.dart';
+import 'package:flutter_project2/pages/menu/menu_overview_page.dart';
+import 'package:flutter_project2/pages/restaurants/restaurant_fire_page.dart';
 import 'package:flutter_project2/widgets/content_area.dart';
 import 'package:flutter_project2/widgets/menu/backgrount_decoration.dart';
 import 'package:flutter_project2/widgets/menu/menu_fire_card.dart';
@@ -27,6 +31,7 @@ class MenuFirePage extends GetView<MenuPaperController> {
                     //Content Area это собственный виджет по обертке
                     child: ContentArea(
                       child: SingleChildScrollView(
+                        padding: const EdgeInsets.only(top: 25),
                         child: Column(
                           children: [
                             Center(
@@ -35,27 +40,79 @@ class MenuFirePage extends GetView<MenuPaperController> {
                                 style: TextStyle(fontSize: 24),
                               ),
                             ),
-                            GetBuilder<MenuPaperController>(builder: (context) {
-                              return ListView.separated(
-                                shrinkWrap: true,
-                                  itemBuilder: (BuildContext context, int index){
-                                    //тут пока береться item, но скорее нужно просто menu
-                                   final item =  controller.currentMenu.value!.items[index];
-                                   final menu = controller.currentMenu.value!.name;
-                                    return MenuCard(menuCard: '${item.id}. ${item.itemName} test ${menu}', onTap: (){
-                                      controller.selectedItem(item.id);
+                            GetBuilder<MenuPaperController>(
+                                id: 'menu_list',
+                                builder: (context) {
+                                  return ListView.separated(
+                                      shrinkWrap: true,
+                                      padding: const EdgeInsets.only(top: 25),
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        //тут пока береться item, но скорее нужно просто menu
+                                        final item = controller
+                                            .currentMenu.value!.items[index];
+                                        final menu =
+                                            controller.currentMenu.value!.name;
+                                        return MenuCard(
+                                          menuCard:
+                                              '${item.id}. ${item.itemName} test ${menu}',
+                                          onTap: () {
+                                            controller.selectedItem(item.id);
+                                          },
+                                          isSelected: item.id ==
+                                              controller.currentMenu.value!
+                                                  .selectedItem,
+                                        );
                                       },
-                                      isSelected: item.id == controller.currentMenu.value!.selectedItem,
-                                    );
-                                  },
-                                  separatorBuilder: (BuildContext context, int index)=>const SizedBox(height:10),
-                                  itemCount: controller.currentMenu.value!.items.length);
-                            })
+                                      separatorBuilder:
+                                          (BuildContext context, int index) =>
+                                              const SizedBox(height: 10),
+                                      itemCount: controller
+                                          .currentMenu.value!.items.length);
+                                }),
                           ],
                         ),
                       ),
                     ),
-                  )
+                  ),
+                ColoredBox(
+                  color: Colors.brown.shade300,
+                  child: Padding(
+                    padding: UIParameters.mobileScreenPadding,
+                    child: Row(
+                      children: [
+                        Visibility(
+                          visible: controller.isFirstMenu,
+                          child: SizedBox(
+                            width: 55,
+                            height: 55,
+                            child: MainButton(
+                                onTap: () {
+                                  controller.prevMenu();
+                                },
+                                child: Icon(
+                                  Icons.arrow_back_ios_new,
+                                  size: 40,
+                                )),
+                          ),
+                        ),
+                        SizedBox(width: 8,),
+                        Expanded(
+                          child: Visibility(
+                            visible: controller.loadingStatus.value ==LoadingStatus.completed,
+                              child: MainButton(
+                                  onTap: () {
+                                    controller.isLastMenu?Get.toNamed(MenuOverviewPage.routeName):
+                                    controller.nextMenu();
+                                  },
+                                  title: controller.isLastMenu?'Complete': 'Next',
+                              ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                )
               ],
             )),
       ),

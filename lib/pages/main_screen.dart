@@ -202,7 +202,7 @@ class _MainScreenState extends State<MainScreen> {
                   color: Colors.tealAccent,
                   size: 40,
                 )),
-            /*ElevatedButton(
+            ElevatedButton(
                 onPressed: () {
                   Navigator.pushNamed(context, '/get_material_app');
                   //splash_screen
@@ -211,7 +211,7 @@ class _MainScreenState extends State<MainScreen> {
                   Icons.get_app,
                   color: Colors.tealAccent,
                   size: 40,
-                )),*/
+                )),
           ],
         ));
   }

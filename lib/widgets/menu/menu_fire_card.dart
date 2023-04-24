@@ -14,18 +14,20 @@ class MenuCard extends StatelessWidget {
       borderRadius: UIParameters.cardBorderRadius,
       onTap: onTap,
       child: Ink(
-        child: Text(
-          menuCard,
-          style: TextStyle(
-            color:isSelected?onSurfaceTextColor:null,
-          ),
-        ),
+        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
         decoration: BoxDecoration(
           borderRadius: UIParameters.cardBorderRadius,
           color: isSelected?Colors.pink.shade300 :Colors.blue.shade300,
             border: Border.all(
             color: isSelected?Colors.pink:Colors.blue.shade300
         )
+        ),
+        child: Text(
+          menuCard,
+          style: TextStyle(
+            color:isSelected?onSurfaceTextColor:null,
+            fontSize: 18
+          ),
         )
       ),
     );

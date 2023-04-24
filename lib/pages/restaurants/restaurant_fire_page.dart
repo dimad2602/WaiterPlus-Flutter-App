@@ -1,49 +1,48 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 
+import '../../components/AppBar/custom_app_bar2.dart';
+import '../../components/Search/search_bar.dart';
 import '../../controllers/restaurants_controlelr/restaurant_paper_controller.dart';
 import '../../widgets/restaurant/restaurant_card.dart';
 
 class RestaurantFirePage extends StatelessWidget {
-  const RestaurantFirePage({Key? key}) : super(key: key);
+  final TextEditingController searchController = TextEditingController();
+  RestaurantFirePage({Key? key}) : super(key: key);
+  static const String routeName = "/firerestaurant_page";
 
   @override
   Widget build(BuildContext context) {
     RestaurantPaperController _restaurantPaperController = Get.find();
     return Obx(() => Scaffold(
-        body: ListView.separated(
-            itemBuilder: (BuildContext context, int index) {
-              return /*ClipRRect(
-                child: SizedBox(
-                    height: 200,
-                    width: 200,
-                    child:
-                    // старая загрузка изображений
-                    // FadeInImage(
-                    //   image: NetworkImage(
-                    //       _restaurantPaperController.allPaperImages[index]),
-                    //   placeholder: AssetImage("assets/images/qr-menu.png"),
-                    // )
-                  CachedNetworkImage(
-                    imageUrl: _restaurantPaperController.allPapers[index].img!,
-                    placeholder: (context, url) => Container(
-                      alignment: Alignment.center,
-                      //можно добавить pre loader image
-                      child: const CircularProgressIndicator(),
-                    ),
-                    errorWidget: (context, url, error) => Image.asset("assets/images/qr-menu.png"),
-                  )
-                ),
-              );*/
-              RestaurantCard(model: _restaurantPaperController.allPapers[index]);
-            },
-            separatorBuilder: (BuildContext context, int index) {
-              return const SizedBox(
-                height: 20,
-              );
-            },
-            itemCount: _restaurantPaperController.allPapers.length),
+      appBar: CustomAppBar2(),
+      backgroundColor: Color(0xFFf5ebdc),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              //SearchBar(controller: searchController),
+              //SearchBar(controller: _restaurantPaperController.searchController), // передаем searchQuery
+              GestureDetector(
+                child: ListView.separated(
+                    // Позволяем перекрывать категории
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemBuilder: (BuildContext context, int index) {
+                      return
+                      RestaurantCard(model: _restaurantPaperController.allPapers[index]);
+                    },
+                    separatorBuilder: (BuildContext context, int index) {
+                      return const SizedBox(
+                        height: 20,
+                      );
+                    },
+                    itemCount: _restaurantPaperController.allPapers.length),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

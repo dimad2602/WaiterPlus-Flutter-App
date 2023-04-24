@@ -9,6 +9,7 @@ import 'package:flutter_project2/pages/login_or_register_page.dart';
 import 'package:flutter_project2/pages/login_page.dart';
 import 'package:flutter_project2/pages/main_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_project2/pages/menu/menu_overview_page.dart';
 import 'package:flutter_project2/pages/menu_page.dart';
 import 'package:flutter_project2/pages/qr_page.dart';
 import 'package:flutter_project2/pages/register_page.dart';
@@ -18,10 +19,12 @@ import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'bindings.dart';
 import 'controllers/menu_controller/menu_controller.dart';
+import 'controllers/restaurants_controlelr/restaurant_detail_controller.dart';
 import 'controllers/restaurants_controlelr/restaurant_paper_controller.dart';
 import 'pages/menu/menu_fire_page.dart';
 import 'pages/menu_rest2_page.dart';
 import 'pages/restaurant_page.dart';
+import 'pages/restaurants/restaurant_detail_page.dart';
 import 'pages/restaurants/restaurant_fire_page.dart';
 import 'services/firebase_storage_service.dart';
 import 'util/top10_dishes_title.dart';
@@ -67,11 +70,21 @@ void main() async {
             //Get.put(RestaurantPaperController());
             return RestaurantFirePage();
           },
+          '/firerestaurantdetail_page': (context) {
+            //Get.put(FirebaseStorageService());
+            //Get.put(RestaurantPaperController());
+            Get.put(RestaurantDetailController());
+            return RestaurantDetailPage();
+          },
           '/firemenu_page': (context) {
             //Get.put(FirebaseStorageService());
             //Get.put(RestaurantPaperController());
             Get.put(MenuPaperController());
             return MenuFirePage();
+          },
+          '/menuoverview': (context) {
+            Get.put(MenuPaperController());
+            return MenuOverviewPage();
           },
         },
       ),

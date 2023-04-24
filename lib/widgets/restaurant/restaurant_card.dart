@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -20,10 +22,10 @@ class RestaurantCard extends GetView<RestaurantPaperController> {
           alignment: Alignment.centerRight,
           child: InkWell(
             onTap: (){
-              print("${model.name}");
-              print("${isAuthenticated.toString()}");
+              /*print("${model.name}");
+              print("${isAuthenticated.toString()}");*/
               //Navigator.pushNamed(context, '/firemenu_page');
-              controller.navigateToMenu(paper: model, tryAgain: false,);
+              controller.navigateToRestDetail(paper: model, tryAgain: false);
             },
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0),
