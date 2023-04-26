@@ -8,6 +8,7 @@ import '../../util/food_detail_text.dart';
 
 class TopFoodDetailPage extends StatelessWidget {
   const TopFoodDetailPage({Key? key}) : super(key: key);
+  static const String routeName = "/top_food_detail_page";
 
   @override
   Widget build(BuildContext context) {

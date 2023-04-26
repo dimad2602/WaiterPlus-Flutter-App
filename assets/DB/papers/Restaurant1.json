@@ -112,6 +112,39 @@
           "type_id": "3"
         }
       ]
+    },
+    {
+      "id": "4",
+      "name": "Десерты",
+      "items": [
+        {
+          "id": "10",
+          "itemName": "Десерт1",
+          "itemPrice": "100",
+          "weight": "80",
+          "description": "Toasted bread topped with fresh tomatoes, garlic, and basil",
+          "imagePath": "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8cGl6emF8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+          "type_id": "3"
+        },
+        {
+          "id": "11",
+          "itemName": "Десерт2",
+          "itemPrice": "150",
+          "weight": "120",
+          "description": "Toasted bread topped with fresh tomatoes, garlic, and basil",
+          "imagePath": "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8cGl6emF8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+          "type_id": "3"
+        },
+        {
+          "id": "12",
+          "itemName": "Десерт3",
+          "itemPrice": "180",
+          "weight": "150",
+          "description": "Toasted bread topped with fresh tomatoes, garlic, and basil",
+          "imagePath": "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8cGl6emF8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+          "type_id": "3"
+        }
+      ]
     }
   ]
 }

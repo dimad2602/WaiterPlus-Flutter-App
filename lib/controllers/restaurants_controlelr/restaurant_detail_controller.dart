@@ -9,12 +9,14 @@ import 'package:flutter_project2/pages/menu_page.dart';
 import 'package:flutter_project2/services/firebase_storage_service.dart';
 import 'package:get/get.dart';
 
+import '../../firebase_ref/loading_status.dart';
 import '../../firebase_ref/references.dart';
 import '../../pages/menu/menu_fire_page.dart';
 import '../../pages/restaurants/restaurant_detail_page.dart';
 import '../menu_controller/menu_controller.dart';
 
 class RestaurantDetailController extends GetxController {
+  final loadingStatus = LoadingStatus.loading.obs;
   final allPaperImages = <String>[].obs;
   final ChosenRestaurant = <RestaurantModel>[].obs;
 
@@ -53,6 +55,7 @@ class RestaurantDetailController extends GetxController {
     }*/
     List<String> imgName = ["cheez", "ioanidis", "perchi", "perchi", "Delicious Eats"];
     restaurantModel = restaurant;
+    loadingStatus.value = LoadingStatus.loading;
     try {
       QuerySnapshot<Map<String, dynamic>> data =
       await restaurantRF.get();
@@ -77,6 +80,7 @@ class RestaurantDetailController extends GetxController {
     catch(e) {
       print('ошибка?');
     }
+    loadingStatus.value = LoadingStatus.completed;
     // из за индекса тут пока не очень понимаю как настроить
     //currentRest.value = restaurant[0];
   }
@@ -89,10 +93,10 @@ class RestaurantDetailController extends GetxController {
       }
     }
     else {
-
       // Код для попадания на страницу меню
       final controller = Get.put(MenuPaperController());
       controller.loadData(paper);
+      controller.getAllCategories(paper);
       Get.toNamed(MenuFirePage.routeName, arguments: paper);
     }
   }

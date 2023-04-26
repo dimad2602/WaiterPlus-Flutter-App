@@ -5,9 +5,13 @@ import 'package:get/get.dart';
 
 import '../../components/AppBar/custom_app_bar2.dart';
 import '../../components/main_button.dart';
+import '../../controllers/menu_controller/menu_controller.dart';
 import '../../controllers/restaurants_controlelr/restaurant_paper_controller.dart';
+import '../../firebase_ref/loading_status.dart';
 import '../../models/restaurants_model.dart';
+import '../../widgets/content_area.dart';
 import '../../widgets/restaurant/restaurant_card.dart';
+import '../../widgets/shimmer effect/menu/menu_shimmer.dart';
 
 class RestaurantDetailPage extends GetView<RestaurantDetailController> {
   const RestaurantDetailPage({Key? key}) : super(key: key);
@@ -25,6 +29,11 @@ class RestaurantDetailPage extends GetView<RestaurantDetailController> {
         body: SingleChildScrollView(
           child: Column(
             children: [
+              if (controller.loadingStatus.value == LoadingStatus.loading)
+              //Content Area это собственный виджет по обертке
+                ContentArea(child: MenuShimmer()),
+              //
+              if (controller.loadingStatus.value == LoadingStatus.completed)
               Stack(
                 children: [
                   SingleChildScrollView(

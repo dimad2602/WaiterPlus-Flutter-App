@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project2/controllers/items_controller/item_detail_controller.dart';
 import 'package:flutter_project2/controllers/popular_product_controller.dart';
 import 'package:flutter_project2/data_uploader_screen.dart';
 import 'package:flutter_project2/pages/auth_page.dart';
@@ -63,6 +64,8 @@ void main() async {
           '/splash_screen': (context) {
             Get.put(FirebaseStorageService());
             Get.put(RestaurantPaperController());
+            Get.put(MenuPaperController());
+            Get.put(ItemDetailController());
             return SplashScreen();
           },
           '/firerestaurant_page': (context) {
@@ -73,17 +76,23 @@ void main() async {
           '/firerestaurantdetail_page': (context) {
             //Get.put(FirebaseStorageService());
             //Get.put(RestaurantPaperController());
-            Get.put(RestaurantDetailController());
+
+
+            //Get.put(RestaurantDetailController());
             return RestaurantDetailPage();
           },
           '/firemenu_page': (context) {
             //Get.put(FirebaseStorageService());
             //Get.put(RestaurantPaperController());
-            Get.put(MenuPaperController());
+
+
+            //Get.put(MenuPaperController());
             return MenuFirePage();
           },
           '/menuoverview': (context) {
-            Get.put(MenuPaperController());
+
+
+            //Get.put(MenuPaperController());
             return MenuOverviewPage();
           },
         },
