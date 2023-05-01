@@ -26,7 +26,7 @@ class _UserPageState extends State<UserPage> {
 
     bool isAuthenticated = user != null;
     return Scaffold(
-      backgroundColor: Color(0xFFf5ebdc),
+      backgroundColor: const Color(0xFFf5ebdc),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.only(top: 35.0),
@@ -89,16 +89,16 @@ class _UserPageState extends State<UserPage> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: const Row(
+            title: Row(
               children: [
-                Icon(Icons.exit_to_app, size: 20, weight: 20),
-                Padding(
+                const Icon(Icons.exit_to_app, size: 20, weight: 20),
+                const Padding(
                   padding: EdgeInsets.only(left: 8),
                   child: Text('Sign out'),
                 )
               ],
             ),
-            content: Text('Do you want to sign out'),
+            content: const Text('Do you want to sign out'),
             actions: [
               TextButton(
                   onPressed: () {
@@ -143,7 +143,7 @@ class _UserPageState extends State<UserPage> {
         style: TextStyle(
           fontSize: 24,
           fontWeight: FontWeight.bold,
-          color: (title == 'Выйти из профиля')? Color(0xFFd60000) : (title == 'Войти в профиль') ? Color(0xFFd60000) : Colors.black, //title == 'Выйти из профиля' ? Color(0xFFd60000) : Colors.black,
+          color: (title == 'Выйти из профиля')? const Color(0xFFd60000) : (title == 'Войти в профиль') ? const Color(0xFFd60000) : Colors.black, //title == 'Выйти из профиля' ? Color(0xFFd60000) : Colors.black,
         ),
       ),
       // subtitle: Text(
@@ -151,7 +151,7 @@ class _UserPageState extends State<UserPage> {
       //   style: const TextStyle(fontSize: 15),
       // ),
       leading: Icon(icon,
-          color: title == 'Выйти из профиля' ? Color(0xFFd60000) : (title == 'Войти в профиль') ? Color(0xFFd60000) : null),
+          color: title == 'Выйти из профиля' ? const Color(0xFFd60000) : (title == 'Войти в профиль') ? const Color(0xFFd60000) : null),
       trailing: const Icon(Icons.keyboard_arrow_right),
       onTap: () {
         onPressed();

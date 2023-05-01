@@ -5,7 +5,17 @@ import 'constants.dart';
 
 class FoodDetailtextWidget extends StatelessWidget {
   final String foodName;
-  const FoodDetailtextWidget({Key? key, required this.foodName}) : super(key: key);
+  final String foodWeight;
+  final String foodDescription;
+  final String foodCost;
+
+  const FoodDetailtextWidget(
+      {Key? key,
+      required this.foodName,
+      required this.foodWeight,
+      required this.foodDescription,
+      required this.foodCost})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,23 +26,27 @@ class FoodDetailtextWidget extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            BigText(text: foodName, size: Constants.font26,),
-            Text('\$ стоимость'),
+            BigText(
+              text: foodName,
+              size: Constants.font26,
+            ),
+            Text('\$ $foodCost'),
           ],
         ),
         Wrap(
           children: List.generate(5, (index) {
-            return Icon(Icons.star, size: 15,);
+            return Icon(
+              Icons.star,
+              size: 15,
+            );
           }),
         ),
         Row(
-          children: [Text('Грамовки')],
+          children: [Text('$foodWeight г.')],
         ),
-        Row(
-          children: [
-            Text('Описание-состав ')
-          ],
-        )
+        /*Row(
+          children: [Text('Описание-состав ')],
+        )*/
       ],
     );
   }

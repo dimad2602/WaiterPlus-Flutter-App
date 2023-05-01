@@ -100,7 +100,9 @@ class MenuFirePage extends GetView<MenuPaperController> {
                 ),*/
                 if (controller.loadingStatus.value == LoadingStatus.loading)
                   //Content Area это собственный виджет по обертке
-                  const Expanded(child: ContentArea(child: MenuShimmer())),
+                  //shimmer
+                    const Expanded(child: ContentArea(child: MenuShimmer())),
+                    //CircularProgressIndicator(),
                 if (controller.loadingStatus.value == LoadingStatus.completed)
                 Expanded(
                   child: ListView.separated(

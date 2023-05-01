@@ -49,7 +49,7 @@ class _CartPageState extends State<CartPage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFD3AF9C),
+      backgroundColor: const Color(0xFFD3AF9C),
       // стрелку назад я бы поменял по дизайну
       appBar: AppBar(
           //automaticallyImplyLeading: false,
@@ -127,7 +127,7 @@ class _CartPageState extends State<CartPage> with TickerProviderStateMixin {
             Expanded(
               child: ListView.builder(
                 itemCount: value.cartItems.length,
-                padding: EdgeInsets.all(12),
+                padding: const EdgeInsets.all(12),
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -155,15 +155,15 @@ class _CartPageState extends State<CartPage> with TickerProviderStateMixin {
                         ),
                         title: Text(
                           value.cartItems[index].itemName,
-                          style: TextStyle(fontSize: 18),
+                          style: const TextStyle(fontSize: 18),
                         ),
                         subtitle: Text(
                           value.cartItems[index].itemPrice + '\$',
-                          style: TextStyle(fontSize: 16),
+                          style: const TextStyle(fontSize: 16),
                         ),
                         trailing: IconButton(
                             color: Colors.red,
-                            icon: Icon(Icons.close),
+                            icon: const Icon(Icons.close),
                             onPressed: () =>
                                 Provider.of<CartModel>(context, listen: false)
                                     .removeItemFromCart(index)),
@@ -178,9 +178,9 @@ class _CartPageState extends State<CartPage> with TickerProviderStateMixin {
               padding: const EdgeInsets.all(36.0),
               child: Container(
                 decoration: BoxDecoration(
-                    color: Color(0xFF88A763),
+                    color: const Color(0xFF88A763),
                     borderRadius: BorderRadius.circular(12)),
-                padding: EdgeInsets.all(24),
+                padding: const EdgeInsets.all(24),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -208,14 +208,14 @@ class _CartPageState extends State<CartPage> with TickerProviderStateMixin {
                       decoration: BoxDecoration(
                           border: Border.all(color: Colors.green.shade100),
                           borderRadius: BorderRadius.circular(12)),
-                      padding: EdgeInsets.all(12),
-                      child: const Row(
+                      padding: const EdgeInsets.all(12),
+                      child: Row(
                         children: [
-                          Text(
+                          const Text(
                             "Оформить",
                             style: TextStyle(color: Colors.white, fontSize: 18),
                           ),
-                          Icon(
+                          const Icon(
                             Icons.arrow_forward_ios,
                             size: 16,
                             color: Colors.white,

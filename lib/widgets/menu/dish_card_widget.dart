@@ -6,13 +6,15 @@ import 'package:get/get.dart';
 import '../../models/restaurants_model.dart';
 
 class DishCardWidget extends StatelessWidget {
+  final Items model;
   final String testName;
   final String imagePath;
   final String itemCosts;
   const DishCardWidget({Key? key,
     required this.testName,
     required this.imagePath,
-    required this.itemCosts}) : super(key: key);
+    required this.itemCosts,
+    required this.model}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,8 +32,8 @@ class DishCardWidget extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: (){
-                    final RestaurantModel model;//_itemDetailController.currentRest.value!;
-                    _itemDetailController.navigateToRestDetail(); //navigateToMenu(paper: model, tryAgain: false);
+                    //_itemDetailController.currentRest.value!;
+                    _itemDetailController.navigateToRestDetail(paper: model); //navigateToMenu(paper: model, tryAgain: false);
                   },
                   child: ClipRRect(
                     borderRadius: const BorderRadius.all(Radius.circular(12.0),
