@@ -13,6 +13,7 @@ import '../../firebase_ref/loading_status.dart';
 import '../../firebase_ref/references.dart';
 import '../../pages/menu/menu_fire_page.dart';
 import '../../pages/restaurants/restaurant_detail_page.dart';
+import '../cart_controller/cart_controller.dart';
 import '../menu_controller/menu_controller.dart';
 
 class RestaurantDetailController extends GetxController {
@@ -97,6 +98,8 @@ class RestaurantDetailController extends GetxController {
       final controller = Get.put(MenuPaperController());
       controller.loadData(paper);
       controller.getAllCategories(paper);
+      //очишаем карзину если заходим в ресторан // потом нужно сделать, только при захоже на другой ресторан
+      Get.find<CartController>().items.clear();
       Get.toNamed(MenuFirePage.routeName, arguments: paper);
     }
   }

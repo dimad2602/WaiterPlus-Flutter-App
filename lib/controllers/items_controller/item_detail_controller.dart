@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_project2/controllers/cart_controller/cart_controller.dart';
 import 'package:get/get.dart';
 
 import '../../firebase_ref/loading_status.dart';
@@ -8,15 +10,26 @@ import '../../models/restaurants_model.dart';
 import '../../pages/food/top_food_detail.dart';
 import '../../services/firebase_storage_service.dart';
 
-class ItemDetailController extends GetxController{
+class ItemDetailController extends GetxController {
   final loadingStatus = LoadingStatus.loading.obs;
   late RestaurantModel restaurantModel;
   late Items itemsModel;
 
   final allRest = <RestaurantModel>[].obs;
+
   //Rxn<Items> currentRest = Rxn<Items>();
   Rxn<RestaurantModel> currentRest = Rxn<RestaurantModel>();
   Rxn<Items> currentItem = Rxn<Items>();
+
+  late CartController _cart;
+
+  int _quantity = 0;
+
+  int get quantity => _quantity;
+
+  int _inCartItems = 0;
+
+  int get inCartItems => _inCartItems + _quantity;
 
   @override
   void onReady() {
@@ -81,8 +94,7 @@ class ItemDetailController extends GetxController{
       // currentRest.value = paperList[index];
       //
       // print('индекс: =  $index');
-    }
-    catch(e) {
+    } catch (e) {
       print('ошибка ItemDetailController');
     }
     loadingStatus.value = LoadingStatus.completed;
@@ -90,18 +102,74 @@ class ItemDetailController extends GetxController{
     //currentRest.value = restaurant[0];
   }
 
-  void navigateToRestDetail(
-      { //required RestaurantModel paper,
-        required Items paper,
-        bool tryAgain=false}
-      ) {
-    if(tryAgain){
+  void setQuantity(bool isIncrement) {
+    if (isIncrement) {
+      _quantity = checkQuantity(_quantity + 1);
+    } else {
+      _quantity = checkQuantity(_quantity - 1);
+    }
+    update();
+  }
+
+
+  int checkQuantity(int quantity) {
+    if (_inCartItems+quantity < 0) {
+      Get.snackbar("Item count", "You can't have less",
+          backgroundColor: Color(0xFFf5ebdc), colorText: Colors.black87);
+      if(_inCartItems>0){
+        _quantity = - _inCartItems;
+        return _quantity;
+      }
+      return 0;
+    } else if (_inCartItems+quantity > 20) {
+      Get.snackbar("Item count", "You can't add more",
+          backgroundColor: Color(0xFFf5ebdc), colorText: Colors.black87);
+      return 15;
+    } else {
+      return quantity;
+    }
+  }
+
+  //инициализируем
+  void initItem(Items item, CartController cart) {
+    _quantity = 0;
+    _inCartItems = 0;
+    //инициализируем карзину
+    _cart = cart;
+    var exist = false;
+    exist = _cart.existInCart(item);
+
+    //if exist
+    //get from storage _inCartItems=3
+    print("exist or not ${exist.toString()}");
+    if (exist){
+      _inCartItems =_cart.getQuantity(item);
+    }
+    print("the quantity in the cart is ${_inCartItems.toString()}");
+  }
+
+  void addItem(Items item) {
+      //добавляем item
+      _cart.addItem(item, _quantity);
+      _quantity = 0;
+      _inCartItems = _cart.getQuantity(item);
+      _cart.items.forEach((key, value) {
+        print("The id is ${value.id.toString()} The quantity is ${value.quantity}");
+      });
+    update();
+  }
+
+  int get totalItems{
+    return _cart.totalItems;
+  }
+
+  void navigateToRestDetail({required Items paper, bool tryAgain = false}) {
+    if (tryAgain) {
       if (kDebugMode) {
         print("tryAgain message");
         //Get.back();
       }
-    }
-    else {
+    } else {
       /*final controller = Get.put(RestaurantDetailController());
       controller.getPaper(paper);
       Get.toNamed(RestaurantDetailPage.routeName, arguments: paper);*/

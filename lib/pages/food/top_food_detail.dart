@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project2/components/app_icon.dart';
+import 'package:flutter_project2/controllers/cart_controller/cart_controller.dart';
 import 'package:get/get.dart';
 
 import '../../firebase_ref/loading_status.dart';
@@ -20,6 +21,10 @@ class TopFoodDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ItemDetailController _itemDetailController = Get.find();
+    _itemDetailController.initItem(
+        _itemDetailController.itemsModel,
+        Get.find<
+            CartController>()); //Get.find<ItemDetailController>().initItem();
     double _screenHeight = MediaQuery.of(context).size.height;
     double _screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -56,13 +61,13 @@ class TopFoodDetailPage extends StatelessWidget {
                 height: _screenHeight / 2.41,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: imageProvider,
-                      fit: BoxFit.cover,
-                      ),
+                    image: imageProvider,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
-              placeholder: (context, url) => CircularProgressIndicator(),
-              errorWidget: (context, url, error) => Icon(Icons.error),
+              placeholder: (context, url) => const CircularProgressIndicator(),
+              errorWidget: (context, url, error) => const Icon(Icons.error),
             ),
           ),
           //icon widgets
@@ -78,12 +83,43 @@ class TopFoodDetailPage extends StatelessWidget {
                       onTap: () {
                         Navigator.pop(context);
                       }),
-                  AppIcon(
-                    icon: Icons.shopping_cart_outlined,
-                    onTap: () {
-                      Navigator.pushNamed(context, '/cart_page');
-                    },
-                  )
+                  GetBuilder<ItemDetailController>(builder: (controller) {
+                    return Stack(
+                      children: [
+                        AppIcon(
+                          icon: Icons.shopping_cart_outlined,
+                          onTap: () {
+                            Navigator.pushNamed(context, '/cart_page');
+                          },
+                        ),
+                        Get.find<ItemDetailController>().totalItems >= 1
+                            ? const Positioned(
+                                right: 0,
+                                top: 0,
+                                child: AppIcon(
+                                  icon: Icons.circle,
+                                  size: 20,
+                                  iconColor: Colors.transparent,
+                                  backgroundColor: Color(0xFF4ecb71),
+                                ),
+                              )
+                            : Container(),
+                        Get.find<ItemDetailController>().totalItems >= 1
+                            ? Positioned(
+                                right: 3,
+                                top: 3,
+                                child: BigText(
+                                  text: Get.find<ItemDetailController>()
+                                      .totalItems
+                                      .toString(),
+                                  size: 12,
+                                  color: Colors.white,
+                                ),
+                              )
+                            : Container()
+                      ],
+                    );
+                  })
                 ],
               )),
           //introduction of food
@@ -132,77 +168,128 @@ class TopFoodDetailPage extends StatelessWidget {
                         text:
                             '${_itemDetailController.currentItem.value!.description}',
                       ))),
-                      SizedBox(
+                      const SizedBox(
                         height: 15,
-                      )
+                      ),
+                      // Другие кнопочки добавления
+                      GetBuilder<ItemDetailController>(
+                          builder: (Item) {
+                            return Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                GestureDetector(
+                                    onTap: () {
+                                      Item.setQuantity(false);
+                                    },
+                                    child: Icon(Icons.remove_circle_outline_rounded, size: 40, color: Color(0xFF4ecb71),)),
+                                BigText(
+                                  text:
+                                  '\$ ${_itemDetailController.currentItem.value!.itemPrice} X ${Item.inCartItems.toString()}',
+                                  color: Colors.black87,
+                                  size: 25,
+                                ),
+                                GestureDetector(
+                                    onTap: () {
+                                      Item.setQuantity(true);
+                                    },
+                                    child: AppIcon(icon: Icons.add, size: 38, iconColor: Colors.white, backgroundColor: Color(0xFF4ecb71), iconSize24: true,)),
+                              ],
+                            );
+                          }
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
                     ],
-                  ))),
+
+                  )
+              )
+          ),
         ],
       ),
-      bottomNavigationBar: Container(
-        height: Constants.bottomHeightBar,
-        padding: EdgeInsets.only(
-            top: Constants.height20,
-            bottom: Constants.height20,
-            left: Constants.width20,
-            right: Constants.width20),
-        decoration: BoxDecoration(
-            color: Colors.grey.shade300,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(Constants.radius20 * 2),
-              topRight: Radius.circular(Constants.radius20 * 2),
-            )),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-              padding: EdgeInsets.only(
-                  top: Constants.height20,
-                  bottom: Constants.height20,
-                  left: Constants.width20,
-                  right: Constants.width20),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(Constants.radius20),
-                color: Colors.white,
-              ),
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.remove,
-                    color: Colors.black45,
+      bottomNavigationBar: GetBuilder<ItemDetailController>(
+        builder: (Item) {
+          return Container(
+            height: Constants.bottomHeightBar,
+            padding: EdgeInsets.only(
+                top: Constants.height20,
+                bottom: Constants.height20,
+                left: Constants.width20,
+                right: Constants.width20),
+            decoration: BoxDecoration(
+                color: Colors.grey.shade300,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(Constants.radius20 * 2),
+                  topRight: Radius.circular(Constants.radius20 * 2),
+                )),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  padding: EdgeInsets.only(
+                      top: Constants.height20,
+                      bottom: Constants.height20,
+                      left: Constants.width20,
+                      right: Constants.width20),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(Constants.radius20),
+                    color: Colors.white,
                   ),
-                  SizedBox(
-                    width: Constants.width10 / 2,
+                  child: Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Item.setQuantity(false);
+                        },
+                        child: const Icon(
+                          Icons.remove,
+                          color: Colors.black45,
+                        ),
+                      ),
+                      SizedBox(
+                        width: Constants.width10 / 2,
+                      ),
+                      BigText(text: Item.inCartItems.toString()),
+                      SizedBox(
+                        width: Constants.width10 / 2,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Item.setQuantity(true);
+                        },
+                        child: const Icon(
+                          Icons.add,
+                          color: Colors.black45,
+                        ),
+                      ),
+                    ],
                   ),
-                  BigText(text: '0'),
-                  SizedBox(
-                    width: Constants.width10 / 2,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Item.addItem(_itemDetailController.currentItem.value!);
+                  },
+                  child: Container(
+                    padding: EdgeInsets.only(
+                        top: Constants.height20,
+                        bottom: Constants.height20,
+                        left: Constants.width20,
+                        right: Constants.width20),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(Constants.radius20),
+                      color: const Color(0xFF4ecb71),
+                    ),
+                    child: BigText(
+                      text:
+                          '\$ ${int.parse(_itemDetailController.currentItem.value!.itemPrice!) * Item.inCartItems} | Add to cart',
+                      color: Colors.white,
+                    ),
                   ),
-                  Icon(
-                    Icons.add,
-                    color: Colors.black45,
-                  ),
-                ],
-              ),
+                )
+              ],
             ),
-            Container(
-              padding: EdgeInsets.only(
-                  top: Constants.height20,
-                  bottom: Constants.height20,
-                  left: Constants.width20,
-                  right: Constants.width20),
-              child: BigText(
-                text:
-                    '\$${_itemDetailController.currentItem.value!.itemPrice} | Add to cart',
-                color: Colors.white,
-              ),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(Constants.radius20),
-                color: Color(0xFF4ecb71),
-              ),
-            )
-          ],
-        ),
+          );
+        },
       ),
     );
   }

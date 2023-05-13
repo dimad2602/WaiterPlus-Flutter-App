@@ -43,36 +43,6 @@ class MenuWidget extends StatelessWidget {
                 style: TextStyle(fontSize: 18),
               ),
             ),
-            /*Container(
-              height: _screenHeight * 0.25,
-              child: ListView.builder(
-                  // Позволяем перекрывать категории
-                  shrinkWrap: true,
-                  // делаем лист вертикальным
-                  scrollDirection: Axis.horizontal,
-                  //Свойство которе убирает ошибку когда пролистываешь до края
-                  physics: BouncingScrollPhysics(),
-                  itemBuilder: (BuildContext context, int index) {
-
-                    return DishCardWidget(
-                      testName:
-                          '${_menuPaperController.allItemsForCategory[IndexCount][index].itemName *//*model[index].itemName*//*}.;',
-                      imagePath:
-                          '${_menuPaperController.allItemsForCategory[IndexCount][index].imagePath}',
-                      itemCosts:
-                          '${_menuPaperController.allItemsForCategory[IndexCount][index].itemPrice}',
-                      model: _menuPaperController.allItemsForCategory[IndexCount][index],
-                    );
-                  },
-                  *//*separatorBuilder: (BuildContext context, int index) {
-                    return const SizedBox(
-                      width: 40,
-                    );
-                  },*//*
-                  itemCount: _menuPaperController
-                      .allItemsForCategory[IndexCount]
-                      .length),
-            ),*/
             if (_menuPaperController.loadingStatus.value == LoadingStatus.loading)
             //Content Area это собственный виджет по обертке
               //Expanded(child: ContentArea(child: MenuShimmer())),

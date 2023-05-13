@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project2/controllers/cart_controller/cart_controller.dart';
 import 'package:flutter_project2/controllers/items_controller/item_detail_controller.dart';
 import 'package:flutter_project2/controllers/popular_product_controller.dart';
 import 'package:flutter_project2/data_uploader_screen.dart';
@@ -44,8 +45,16 @@ void main() async {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primaryColor: Colors.deepPurpleAccent,
+          pageTransitionsTheme: PageTransitionsTheme(
+            // Анимеция перехода
+            builders: {
+              TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
+              TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+            },
+          ),
         ),
         initialRoute: '/splash_screen', //'/auth_page',
+
         routes: {
           '/': (context) => MainScreen(context: context,),
           '/auth_page': (context) => AuthPage(),
@@ -59,13 +68,16 @@ void main() async {
           '/qr_page': (context) => QrPage(),
           '/user_page': (context) => UserPage(context: context,),
           '/restaurant_page': (context) => RestaurantPage(),
-          '/top_food_detail_page': (context) => TopFoodDetailPage(),
+          '/top_food_detail_page': (context) {
+            return TopFoodDetailPage();
+          },
           '/get_material_app': (context) => DataUploaderScreen(),
           '/splash_screen': (context) {
             Get.put(FirebaseStorageService());
             Get.put(RestaurantPaperController());
             Get.put(MenuPaperController());
             Get.put(ItemDetailController());
+            Get.put(CartController());
             return SplashScreen();
           },
           '/firerestaurant_page': (context) {
@@ -84,8 +96,6 @@ void main() async {
           '/firemenu_page': (context) {
             //Get.put(FirebaseStorageService());
             //Get.put(RestaurantPaperController());
-
-
             //Get.put(MenuPaperController());
             return MenuFirePage();
           },

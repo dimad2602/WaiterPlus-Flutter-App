@@ -25,88 +25,96 @@ class RestaurantDetailPage extends GetView<RestaurantDetailController> {
     double _screenHeight = MediaQuery.of(context).size.height;
     return Obx(
       () => Scaffold(
-        appBar: const CustomAppBar2(),
+        appBar: controller.loadingStatus.value == LoadingStatus.completed
+            ? CustomAppBar2(
+                restName: _restaurantDetailController.restaurantModel.name,
+                restImg: _restaurantDetailController.restaurantModel.img,
+              )
+            : null,
         backgroundColor: const Color(0xFFf5ebdc),
         body: SingleChildScrollView(
           child: Column(
             children: [
+              SizedBox(
+                height: 5,
+              ),
               if (controller.loadingStatus.value == LoadingStatus.loading)
-              //Content Area это собственный виджет по обертке
+                //Content Area это собственный виджет по обертке
                 ContentArea(child: MenuShimmer()),
               if (controller.loadingStatus.value == LoadingStatus.completed)
-              Container(
-                height: _screenHeight*0.9,
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        CachedNetworkImage(
-                          imageUrl:
-                              _restaurantDetailController.currentRest.value!.img!,
-                          height: _screenWidth * 0.5,
-                          width: _screenWidth * 0.9,
-                          fit: BoxFit.cover,
-                          placeholder: (context, url) => Container(
-                            alignment: Alignment.center,
-                            //можно добавить pre loader image
-                            child: const CircularProgressIndicator(),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text(_restaurantDetailController.currentRest.value!.name),
-                      ]
-                    ),
-                    Row(
-                      children: [
-                        Text(_restaurantDetailController
-                            .currentRest.value!.description),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Container(
-                          height: _screenHeight*0.1,
-                          width: _screenWidth*0.7,
-                          child: MainButton(
-                            onTap: () {
-                              final RestaurantModel model =
-                              _restaurantDetailController.currentRest.value!;
-                              _restaurantDetailController.navigateToMenu(
-                                  paper: model, tryAgain: false);
-                            },
-                            title: 'Перейти в меню',
-                          ),
-                        )
-                      ],
-                    ),
-                    // с первой попытки в row не поместилось, я пока убрал
-                    Expanded(
-                      child: Container(
-                        height: _screenHeight*0.1,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Column(
-                              children: [
-                                Icon(Icons.phone),
-                              ],
+                Container(
+                  height: _screenHeight * 0.9,
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          CachedNetworkImage(
+                            imageUrl: _restaurantDetailController
+                                .currentRest.value!.img!,
+                            height: _screenWidth * 0.5,
+                            width: _screenWidth * 0.9,
+                            fit: BoxFit.cover,
+                            placeholder: (context, url) => Container(
+                              alignment: Alignment.center,
+                              //можно добавить pre loader image
+                              child: const CircularProgressIndicator(),
                             ),
-                            Column(
-                              children: [
-                                Icon(Icons.map),
-                              ],
-                            )
-                          ],
+                          ),
+                        ],
+                      ),
+                      Row(children: [
+                        Text(_restaurantDetailController
+                            .currentRest.value!.name),
+                      ]),
+                      Row(
+                        children: [
+                          Text(_restaurantDetailController
+                              .currentRest.value!.description),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Container(
+                            height: _screenHeight * 0.1,
+                            width: _screenWidth * 0.7,
+                            child: MainButton(
+                              onTap: () {
+                                final RestaurantModel model =
+                                    _restaurantDetailController
+                                        .currentRest.value!;
+                                _restaurantDetailController.navigateToMenu(
+                                    paper: model, tryAgain: false);
+                              },
+                              title: 'Перейти в меню',
+                            ),
+                          )
+                        ],
+                      ),
+                      // с первой попытки в row не поместилось, я пока убрал
+                      Expanded(
+                        child: Container(
+                          height: _screenHeight * 0.1,
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Column(
+                                children: [
+                                  Icon(Icons.phone),
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  Icon(Icons.map),
+                                ],
+                              )
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              )
+                    ],
+                  ),
+                )
             ],
           ),
         ),
@@ -114,5 +122,3 @@ class RestaurantDetailPage extends GetView<RestaurantDetailController> {
     );
   }
 }
-
-
