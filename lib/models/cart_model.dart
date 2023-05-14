@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_project2/models/restaurants_model.dart';
 
 class CartModel {
   String? id;
@@ -9,6 +10,7 @@ class CartModel {
   int? quantity;
   bool? isExist;
   String? time;
+  Items? item;
 
   CartModel({
     this.id,
@@ -19,6 +21,7 @@ class CartModel {
     this.quantity,
     this.isExist,
     this.time,
+    this.item,
   });
 
   CartModel.fromJson(Map<String, dynamic> json)
@@ -29,7 +32,8 @@ class CartModel {
         imagePath = json['imagePath'],
         quantity = json['quantity'],
         isExist = json['isExist'],
-        time = json['time'];
+        time = json['time'],
+        item = Items.fromJson(json['item']);
 
   CartModel.fromSnapshot(QueryDocumentSnapshot<Map<String, dynamic>> snapshot)
       : id = snapshot['id'],

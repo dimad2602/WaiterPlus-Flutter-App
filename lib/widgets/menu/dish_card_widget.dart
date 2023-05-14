@@ -33,6 +33,8 @@ class DishCardWidget extends StatelessWidget {
                 GestureDetector(
                   onTap: (){
                     //_itemDetailController.currentRest.value!;
+                    //TODO: что с названием метода?
+                    print("Переход");
                     _itemDetailController.navigateToRestDetail(paper: model); //navigateToMenu(paper: model, tryAgain: false);
                   },
                   child: ClipRRect(

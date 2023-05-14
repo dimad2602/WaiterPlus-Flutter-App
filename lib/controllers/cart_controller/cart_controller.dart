@@ -32,6 +32,7 @@ class CartController extends GetxController {
           quantity: value.quantity! + quantity,
           isExist: true,
           time: DateTime.now().toString(),
+          item: item,
         );
       });
       if (totalQuantity <=0){
@@ -50,6 +51,7 @@ class CartController extends GetxController {
             quantity: quantity,
             isExist: true,
             time: DateTime.now().toString(),
+            item: item,
           );
         });
       } else{
@@ -57,6 +59,7 @@ class CartController extends GetxController {
             backgroundColor: Color(0xFFf5ebdc), colorText: Colors.black87);
       }
     }
+    update();
   }
 
   bool existInCart(Items item){

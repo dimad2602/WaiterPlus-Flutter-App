@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project2/components/app_icon.dart';
 import 'package:flutter_project2/controllers/cart_controller/cart_controller.dart';
+import 'package:flutter_project2/pages/cart/cart_page_fire.dart';
 import 'package:get/get.dart';
 
 import '../../firebase_ref/loading_status.dart';
@@ -14,6 +15,7 @@ import '../../util/expandable_text_widget.dart';
 import '../../util/food_detail_text.dart';
 import '../../widgets/content_area.dart';
 import '../../widgets/shimmer effect/menu/menu_shimmer.dart';
+import '../menu/menu_fire_page.dart';
 
 class TopFoodDetailPage extends StatelessWidget {
   const TopFoodDetailPage({Key? key}) : super(key: key);
@@ -87,8 +89,9 @@ class TopFoodDetailPage extends StatelessWidget {
                   GetBuilder<ItemDetailController>(builder: (controller) {
                     return GestureDetector(
                       onTap: () {
-                        Navigator.pushNamed(
-                            context, '/cart_fire_page');
+                        /*Navigator.pushNamed(
+                            context, '/cart_fire_page');*/
+                        Get.toNamed(CartPageFire.routeName);
                       },
                       child: Stack(
                         children: [
@@ -277,6 +280,7 @@ class TopFoodDetailPage extends StatelessWidget {
                 GestureDetector(
                   onTap: () {
                     Item.addItem(_itemDetailController.currentItem.value!);
+                    Get.toNamed(MenuFirePage.routeName);
                   },
                   child: Container(
                     padding: EdgeInsets.only(
