@@ -8,6 +8,7 @@ import '../../firebase_ref/loading_status.dart';
 
 import '../../components/big_text.dart';
 import '../../controllers/items_controller/item_detail_controller.dart';
+import '../../util/AppColors.dart';
 import '../../util/constants.dart';
 import '../../util/expandable_text_widget.dart';
 import '../../util/food_detail_text.dart';
@@ -84,40 +85,43 @@ class TopFoodDetailPage extends StatelessWidget {
                         Navigator.pop(context);
                       }),
                   GetBuilder<ItemDetailController>(builder: (controller) {
-                    return Stack(
-                      children: [
-                        AppIcon(
-                          icon: Icons.shopping_cart_outlined,
-                          onTap: () {
-                            Navigator.pushNamed(context, '/cart_page');
-                          },
-                        ),
-                        Get.find<ItemDetailController>().totalItems >= 1
-                            ? const Positioned(
-                                right: 0,
-                                top: 0,
-                                child: AppIcon(
-                                  icon: Icons.circle,
-                                  size: 20,
-                                  iconColor: Colors.transparent,
-                                  backgroundColor: Color(0xFF4ecb71),
-                                ),
-                              )
-                            : Container(),
-                        Get.find<ItemDetailController>().totalItems >= 1
-                            ? Positioned(
-                                right: 3,
-                                top: 3,
-                                child: BigText(
-                                  text: Get.find<ItemDetailController>()
-                                      .totalItems
-                                      .toString(),
-                                  size: 12,
-                                  color: Colors.white,
-                                ),
-                              )
-                            : Container()
-                      ],
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(
+                            context, '/cart_fire_page');
+                      },
+                      child: Stack(
+                        children: [
+                          const AppIcon(
+                            icon: Icons.shopping_cart_outlined,
+                          ),
+                          Get.find<ItemDetailController>().totalItems >= 1
+                              ? Positioned(
+                                  right: 0,
+                                  top: 0,
+                                  child: AppIcon(
+                                    icon: Icons.circle,
+                                    size: 20,
+                                    iconColor: Colors.transparent,
+                                    backgroundColor: AppColors.bottonColor,
+                                  ),
+                                )
+                              : Container(),
+                          Get.find<ItemDetailController>().totalItems >= 1
+                              ? Positioned(
+                                  right: 3,
+                                  top: 3,
+                                  child: BigText(
+                                    text: Get.find<ItemDetailController>()
+                                        .totalItems
+                                        .toString(),
+                                    size: 12,
+                                    color: Colors.white,
+                                  ),
+                                )
+                              : Container()
+                        ],
+                      ),
                     );
                   })
                 ],
@@ -172,39 +176,44 @@ class TopFoodDetailPage extends StatelessWidget {
                         height: 15,
                       ),
                       // Другие кнопочки добавления
-                      GetBuilder<ItemDetailController>(
-                          builder: (Item) {
-                            return Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                GestureDetector(
-                                    onTap: () {
-                                      Item.setQuantity(false);
-                                    },
-                                    child: Icon(Icons.remove_circle_outline_rounded, size: 40, color: Color(0xFF4ecb71),)),
-                                BigText(
-                                  text:
+                      GetBuilder<ItemDetailController>(builder: (Item) {
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            GestureDetector(
+                                onTap: () {
+                                  Item.setQuantity(false);
+                                },
+                                child: Icon(
+                                  Icons.remove_circle_outline_rounded,
+                                  size: 40,
+                                  color: Color(0xFF4ecb71),
+                                )),
+                            BigText(
+                              text:
                                   '\$ ${_itemDetailController.currentItem.value!.itemPrice} X ${Item.inCartItems.toString()}',
-                                  color: Colors.black87,
-                                  size: 25,
-                                ),
-                                GestureDetector(
-                                    onTap: () {
-                                      Item.setQuantity(true);
-                                    },
-                                    child: AppIcon(icon: Icons.add, size: 38, iconColor: Colors.white, backgroundColor: Color(0xFF4ecb71), iconSize24: true,)),
-                              ],
-                            );
-                          }
-                      ),
+                              color: Colors.black87,
+                              size: 25,
+                            ),
+                            GestureDetector(
+                                onTap: () {
+                                  Item.setQuantity(true);
+                                },
+                                child: AppIcon(
+                                  icon: Icons.add,
+                                  size: 38,
+                                  iconColor: Colors.white,
+                                  backgroundColor: Color(0xFF4ecb71),
+                                  iconSize24: true,
+                                )),
+                          ],
+                        );
+                      }),
                       const SizedBox(
                         height: 15,
                       ),
                     ],
-
-                  )
-              )
-          ),
+                  ))),
         ],
       ),
       bottomNavigationBar: GetBuilder<ItemDetailController>(

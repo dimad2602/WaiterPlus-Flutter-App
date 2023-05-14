@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../util/AppColors.dart';
+
 class MainScreen extends StatefulWidget {
   MainScreen({Key? key, required this.context}) : super(key: key);
 
@@ -45,7 +47,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color(0xFFD3AF9C),
+        backgroundColor: AppColors.mainColor,
         // appBar: AppBar(
         //   title: Text('kuku'),
         //   centerTitle: true,

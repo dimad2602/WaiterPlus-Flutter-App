@@ -2,9 +2,10 @@ import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_project2/util/AppColors.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'auth_page.dart';
+import '../auth_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -57,7 +58,7 @@ class _LoginPageState extends State<LoginPage> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            backgroundColor: const Color(0xFF79290C),
+            backgroundColor: AppColors.RedBottonColor,
             title: Text(
               message,
               style: const TextStyle(
@@ -92,7 +93,7 @@ class _LoginPageState extends State<LoginPage> {
         ) ?? false;
       },
       child: Scaffold(
-        backgroundColor: const Color(0xFFD3AF9C),
+        backgroundColor: AppColors.OldMainColor,
         body: SafeArea(
           child: SingleChildScrollView(
             child: Center(
@@ -202,11 +203,11 @@ class _LoginPageState extends State<LoginPage> {
                       padding: const EdgeInsets.only(right: 40.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
-                        children: const [
+                        children: [
                           Text(
                             'Forgot Password?',
                             style: TextStyle(
-                              color: Color(0xFF79290C),
+                              color: AppColors.RedBottonColor,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -225,7 +226,7 @@ class _LoginPageState extends State<LoginPage> {
                         child: Container(
                           padding: const EdgeInsets.all(20),
                           decoration: BoxDecoration(
-                            color: const Color(0xFF79290C),
+                            color: AppColors.RedBottonColor,
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: const Center(
@@ -278,10 +279,10 @@ class _LoginPageState extends State<LoginPage> {
                           onTap: (){
                             Navigator.pushNamed(context, '/register_page');
                           },
-                          child: const Text(
+                          child: Text(
                             ' Register now',
                             style: TextStyle(
-                              color: Color(0xFF79290C),
+                              color: AppColors.RedBottonColor,
                               fontWeight: FontWeight.bold,
                             ),
                           ),

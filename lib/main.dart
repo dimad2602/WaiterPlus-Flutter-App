@@ -4,17 +4,18 @@ import 'package:flutter_project2/controllers/items_controller/item_detail_contro
 import 'package:flutter_project2/controllers/popular_product_controller.dart';
 import 'package:flutter_project2/data_uploader_screen.dart';
 import 'package:flutter_project2/pages/auth_page.dart';
+import 'package:flutter_project2/pages/cart/cart_page_fire.dart';
 import 'package:flutter_project2/pages/cart_page.dart';
 import 'package:flutter_project2/pages/food/top_food_detail.dart';
 import 'package:flutter_project2/pages/home.dart';
-import 'package:flutter_project2/pages/login_or_register_page.dart';
-import 'package:flutter_project2/pages/login_page.dart';
+import 'package:flutter_project2/pages/login/login_or_register_page.dart';
+import 'package:flutter_project2/pages/login/login_page.dart';
 import 'package:flutter_project2/pages/main_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_project2/pages/menu/menu_overview_page.dart';
 import 'package:flutter_project2/pages/menu_page.dart';
 import 'package:flutter_project2/pages/qr_page.dart';
-import 'package:flutter_project2/pages/register_page.dart';
+import 'package:flutter_project2/pages/login/register_page.dart';
 import 'package:flutter_project2/pages/splash/splash_screen.dart';
 import 'package:flutter_project2/pages/user_page.dart';
 import 'package:get/get.dart';
@@ -104,6 +105,9 @@ void main() async {
 
             //Get.put(MenuPaperController());
             return MenuOverviewPage();
+          },
+          '/cart_fire_page': (context) {
+            return CartPageFire();
           },
         },
       ),

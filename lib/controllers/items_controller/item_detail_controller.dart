@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 
 import '../../firebase_ref/loading_status.dart';
 import '../../firebase_ref/references.dart';
+import '../../models/cart_model.dart';
 import '../../models/restaurants_model.dart';
 import '../../pages/food/top_food_detail.dart';
 import '../../services/firebase_storage_service.dart';
@@ -121,10 +122,10 @@ class ItemDetailController extends GetxController {
         return _quantity;
       }
       return 0;
-    } else if (_inCartItems+quantity > 20) {
+    } else if (_inCartItems + quantity > 15) {
       Get.snackbar("Item count", "You can't add more",
           backgroundColor: Color(0xFFf5ebdc), colorText: Colors.black87);
-      return 15;
+      return 0;
     } else {
       return quantity;
     }
@@ -161,6 +162,10 @@ class ItemDetailController extends GetxController {
 
   int get totalItems{
     return _cart.totalItems;
+  }
+
+  List<CartModel> get getItems{
+    return _cart.getItems;
   }
 
   void navigateToRestDetail({required Items paper, bool tryAgain = false}) {

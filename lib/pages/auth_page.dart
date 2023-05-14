@@ -2,8 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project2/pages/home.dart';
 
-import 'login_or_register_page.dart';
-import 'login_page.dart';
+import 'login/login_or_register_page.dart';
+import 'login/login_page.dart';
 import 'main_screen.dart';
 import 'menu_page.dart';
 import 'restaurant_page.dart';

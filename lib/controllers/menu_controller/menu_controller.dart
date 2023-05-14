@@ -209,9 +209,12 @@ class MenuPaperController extends GetxController {
   }
 
   String get completedMenu {
+    // loadingStatus скорее всег оне нужен, но я пытаюсь избавиться от ошибки на странице меню
+    loadingStatus.value = LoadingStatus.loading;
     final selected = allMenu.where((element) =>
     element.selectedItem!=null)
       .toList().length;
+    loadingStatus.value = LoadingStatus.completed;
     return "$selected of ${allMenu.length}";
   }
 
