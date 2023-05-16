@@ -1,9 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_project2/components/big_text.dart';
 import 'package:flutter_project2/controllers/items_controller/item_detail_controller.dart';
 import 'package:get/get.dart';
 
 import '../../models/restaurants_model.dart';
+import '../../util/constants.dart';
 
 class DishCardWidget extends StatelessWidget {
   final Items model;
@@ -26,6 +28,18 @@ class DishCardWidget extends StatelessWidget {
       child: Container(
         height: _screenWidth * 0.3,
         width: _screenWidth * 0.5,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(Constants.radius20),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 2,
+              blurRadius: 4,
+              offset: Offset(0, 2),
+            ),
+          ],
+        ),
         child: Column(
           children: [
             Row(
@@ -58,33 +72,20 @@ class DishCardWidget extends StatelessWidget {
               ],
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
+              padding: EdgeInsets.symmetric(horizontal: Constants.width10, vertical: Constants.height10 *0.5),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        testName,
-                        style: const TextStyle(
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-
+                      BigText(text: testName, bold: true)
                     ],
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Text(
-                        itemCosts,
-                        style: const TextStyle(
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      )
+                      BigText(text: itemCosts, bold: true)
                     ],
                   )
                 ],

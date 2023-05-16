@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project2/components/big_text.dart';
+import 'package:flutter_project2/util/constants.dart';
 import 'package:get/get.dart';
 
 import '../../controllers/menu_controller/menu_controller.dart';
@@ -8,7 +10,7 @@ import '../content_area.dart';
 import '../shimmer effect/menu/menu_shimmer.dart';
 import 'dish_card_widget.dart';
 
-class MenuWidget extends StatelessWidget {
+class MenuWidget extends StatefulWidget {
   final String menuCard;
 
   //final List<Items> model;
@@ -28,6 +30,22 @@ class MenuWidget extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<MenuWidget> createState() => _MenuWidgetState();
+}
+
+class _MenuWidgetState extends State<MenuWidget> {
+
+  ScrollController _scrollController = ScrollController();
+  double _previousPosition = 0;
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+
+  @override
   Widget build(BuildContext context) {
     double _screenHeight = MediaQuery.of(context).size.height;
     MenuPaperController _menuPaperController = Get.find();
@@ -37,10 +55,10 @@ class MenuWidget extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              child: Text(
-                menuCard,
-                style: TextStyle(fontSize: 18),
+            Padding(
+              padding: EdgeInsets.only(left: Constants.width10),
+              child: BigText(
+               text: widget.menuCard, bold: true,
               ),
             ),
             if (_menuPaperController.loadingStatus.value == LoadingStatus.loading)
@@ -49,26 +67,27 @@ class MenuWidget extends StatelessWidget {
               CircularProgressIndicator(),
             if (_menuPaperController.loadingStatus.value == LoadingStatus.completed)
             Container(
-              height: _screenHeight * 0.25,
+              height: _screenHeight * 0.26,
               child: ListView.builder(
+                controller: _scrollController,
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
                 physics: BouncingScrollPhysics(),
                 itemBuilder: (BuildContext context, int index) {
 
                   // перемешиваю первую строку
-                  List<Items> items = _menuPaperController.allItemsForCategory[IndexCount];
-                  if (IndexCount == 0 && index == 0) {
+                  List<Items> items = _menuPaperController.allItemsForCategory[widget.IndexCount];
+                  if (widget.IndexCount == 0 && index == 0) {
                     items.shuffle();
                   }
                   return DishCardWidget(
-                    testName: '${items[index].itemName}.;',
+                    testName: '${items[index].itemName}',
                     imagePath: '${items[index].imagePath}',
                     itemCosts: '${items[index].itemPrice}',
                     model: items[index],
                   );
                 },
-                itemCount: _menuPaperController.allItemsForCategory[IndexCount].length,
+                itemCount: _menuPaperController.allItemsForCategory[widget.IndexCount].length,
               ),
             ),
           ],

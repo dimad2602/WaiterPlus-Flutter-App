@@ -38,8 +38,16 @@ class RestaurantCard extends GetView<RestaurantPaperController> {
                   //Хочеться слабо прозрачный черный // Хотя цвет с цифрой, очень не плох
                   //color: Colors.white38,
                   color: Color(0xffffffff),
-                  border:
-                      Border.all(color: Colors.black.withOpacity(0.7), width: 2),
+                  /*border:
+                      Border.all(color: Colors.black.withOpacity(0.7), width: 2),*/
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 2,
+                      blurRadius: 4,
+                      offset: Offset(0, 2),
+                    ),
+                  ],
                 ),
                 child: Column(
                   children: [

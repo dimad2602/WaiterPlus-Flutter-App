@@ -24,6 +24,8 @@ class ItemDetailController extends GetxController {
 
   late CartController _cart;
 
+  bool initialized = false; // Переменная для контроля инициализации
+
   int _quantity = 0;
 
   int get quantity => _quantity;
@@ -112,13 +114,12 @@ class ItemDetailController extends GetxController {
     update();
   }
 
-
   int checkQuantity(int quantity) {
-    if (_inCartItems+quantity < 0) {
+    if (_inCartItems + quantity < 0) {
       Get.snackbar("Item count", "You can't have less",
           backgroundColor: Color(0xFFf5ebdc), colorText: Colors.black87);
-      if(_inCartItems>0){
-        _quantity = - _inCartItems;
+      if (_inCartItems > 0) {
+        _quantity = -_inCartItems;
         return _quantity;
       }
       return 0;
@@ -143,28 +144,31 @@ class ItemDetailController extends GetxController {
     //if exist
     //get from storage _inCartItems=3
     print("exist or not ${exist.toString()}");
-    if (exist){
-      _inCartItems =_cart.getQuantity(item);
+    if (exist) {
+      _inCartItems = _cart.getQuantity(item);
     }
+    initialized = true; // Устанавливаем флаг инициализации в true
+
     print("the quantity in the cart is ${_inCartItems.toString()}");
   }
 
   void addItem(Items item) {
-      //добавляем item
-      _cart.addItem(item, _quantity);
-      _quantity = 0;
-      _inCartItems = _cart.getQuantity(item);
-      _cart.items.forEach((key, value) {
-        print("The id is ${value.id.toString()} The quantity is ${value.quantity}");
-      });
+    //добавляем item
+    _cart.addItem(item, _quantity);
+    _quantity = 0;
+    _inCartItems = _cart.getQuantity(item);
+    _cart.items.forEach((key, value) {
+      print(
+          "The id is ${value.id.toString()} The quantity is ${value.quantity}");
+    });
     update();
   }
 
-  int get totalItems{
+  int get totalItems {
     return _cart.totalItems;
   }
 
-  List<CartModel> get getItems{
+  List<CartModel> get getItems {
     return _cart.getItems;
   }
 

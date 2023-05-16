@@ -54,7 +54,7 @@ class CartPageFire extends StatelessWidget {
                 ],
               )),
           Positioned(
-              top: Constants.height20 * 5,
+              top: Constants.height20 * 6,
               left: Constants.width20,
               right: Constants.width20,
               bottom: 0,

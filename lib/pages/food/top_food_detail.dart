@@ -32,7 +32,7 @@ class TopFoodDetailPage extends StatelessWidget {
     double _screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       //backgroundColor: Color(0xFFD3AF9C),
-      backgroundColor: const Color(0xFFf5ebdc),
+      backgroundColor: AppColors.mainColor,
       body: Stack(
         children: [
           //Отображение картинки по старому
@@ -85,6 +85,7 @@ class TopFoodDetailPage extends StatelessWidget {
                       icon: Icons.arrow_back_ios,
                       onTap: () {
                         Navigator.pop(context);
+                        //Get.toNamed(MenuFirePage.routeName);
                       }),
                   GetBuilder<ItemDetailController>(builder: (controller) {
                     return GestureDetector(
@@ -144,6 +145,14 @@ class TopFoodDetailPage extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(Constants.radius20),
                     color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 2,
+                        blurRadius: 4,
+                        offset: Offset(0, 2),
+                      ),
+                    ],
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -233,7 +242,16 @@ class TopFoodDetailPage extends StatelessWidget {
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(Constants.radius20 * 2),
                   topRight: Radius.circular(Constants.radius20 * 2),
-                )),
+                ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 2,
+                  blurRadius: 4,
+                  offset: const Offset(0, 2),
+                ),
+              ],
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -246,6 +264,14 @@ class TopFoodDetailPage extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(Constants.radius20),
                     color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 2,
+                        blurRadius: 4,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
                   ),
                   child: Row(
                     children: [
@@ -280,6 +306,7 @@ class TopFoodDetailPage extends StatelessWidget {
                 GestureDetector(
                   onTap: () {
                     Item.addItem(_itemDetailController.currentItem.value!);
+                    //TODO: Вохможно тут нужно использовать Navigate.pup, но тогда есть проблемы с обновлением страници, а сейчас проблема сос скролом
                     Get.toNamed(MenuFirePage.routeName);
                   },
                   child: Container(
@@ -291,6 +318,14 @@ class TopFoodDetailPage extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(Constants.radius20),
                       color: const Color(0xFF4ecb71),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 2,
+                          blurRadius: 4,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
                     ),
                     child: BigText(
                       text:

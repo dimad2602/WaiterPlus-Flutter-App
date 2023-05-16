@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../util/constants.dart';
 
 class AppIcon extends StatelessWidget {
-
   final IconData icon;
   final Color backgroundColor;
   final Color iconColor;
@@ -13,12 +12,12 @@ class AppIcon extends StatelessWidget {
 
   const AppIcon(
       {Key? key,
-        required this.icon,
-        this.backgroundColor = const Color(0xfffcf4e4),
-        this.iconColor = Colors.black87,
-        this.iconSize24 = false,
-        this.size = 40,
-        this.onTap})
+      required this.icon,
+      this.backgroundColor = const Color(0xfffcf4e4),
+      this.iconColor = Colors.black87,
+      this.iconSize24 = false,
+      this.size = 40,
+      this.onTap})
       : super(key: key);
 
   @override
@@ -30,13 +29,21 @@ class AppIcon extends StatelessWidget {
         width: size,
         height: size,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(size/2),
-            color: backgroundColor
+          borderRadius: BorderRadius.circular(size / 2),
+          color: backgroundColor,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 2,
+              blurRadius: 4,
+              offset: Offset(0, 2),
+            ),
+          ],
         ),
         child: Icon(
           icon,
           color: iconColor,
-          size: iconSize24?Constants.iconSize24:Constants.iconSize16,
+          size: iconSize24 ? Constants.iconSize24 : Constants.iconSize16,
         ),
       ),
     );
