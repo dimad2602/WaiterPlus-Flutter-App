@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project2/controllers/cart_controller/cart_controller.dart';
 import 'package:flutter_project2/controllers/items_controller/item_detail_controller.dart';
 import 'package:flutter_project2/controllers/popular_product_controller.dart';
+import 'package:flutter_project2/data/repository/cart_repo.dart';
 import 'package:flutter_project2/data_uploader_screen.dart';
 import 'package:flutter_project2/pages/auth_page.dart';
 import 'package:flutter_project2/pages/cart/cart_page_fire.dart';
@@ -16,10 +17,12 @@ import 'package:flutter_project2/pages/menu/menu_overview_page.dart';
 import 'package:flutter_project2/pages/menu_page.dart';
 import 'package:flutter_project2/pages/qr_page.dart';
 import 'package:flutter_project2/pages/login/register_page.dart';
+import 'package:flutter_project2/pages/splash/splash_new_page.dart';
 import 'package:flutter_project2/pages/splash/splash_screen.dart';
 import 'package:flutter_project2/pages/user_page.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'bindings.dart';
 import 'controllers/menu_controller/menu_controller.dart';
 import 'controllers/restaurants_controlelr/restaurant_detail_controller.dart';
@@ -34,10 +37,19 @@ import 'util/top10_dishes_title.dart';
 import 'model/cart_model.dart';
 import 'helper/dependencies.dart' as dep;
 
+/*Future<void> init() async {
+
+  Get.lazyPut(() => CartRepo(sharedPreferences:Get.find()));
+}*/
+
 void main() async {
+  /*final sharedPreferences = await SharedPreferences.getInstance();
+
+  Get.lazyPut(() => sharedPreferences);*/
   WidgetsFlutterBinding.ensureInitialized();
   //await dep.init();
   await Firebase.initializeApp();
+  //Get.find<CartController>().getCartData();
   //Get.find<PopularProductController>().getPopularProductList();
   runApp(
     ChangeNotifierProvider(
@@ -74,12 +86,15 @@ void main() async {
           },
           '/get_material_app': (context) => DataUploaderScreen(),
           '/splash_screen': (context) {
-            Get.put(FirebaseStorageService());
+            //OLD
+            /*Get.put(FirebaseStorageService());
             Get.put(RestaurantPaperController());
             Get.put(MenuPaperController());
             Get.put(ItemDetailController());
-            Get.put(CartController());
-            return SplashScreen();
+            Get.put(CartController());*/
+            return SplashPage();
+            // OLD
+           // return SplashScreen();
           },
           '/firerestaurant_page': (context) {
             //Get.put(FirebaseStorageService());

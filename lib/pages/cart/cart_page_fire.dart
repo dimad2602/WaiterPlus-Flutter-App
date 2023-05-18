@@ -7,6 +7,7 @@ import 'package:flutter_project2/pages/menu/menu_fire_page.dart';
 import 'package:get/get.dart';
 
 import '../../components/big_text.dart';
+import '../../controllers/items_controller/item_detail_controller.dart';
 import '../../controllers/restaurants_controlelr/restaurant_detail_controller.dart';
 import '../../models/restaurants_model.dart';
 import '../../util/AppColors.dart';
@@ -22,6 +23,13 @@ class CartPageFire extends StatelessWidget {
   Widget build(BuildContext context) {
     double _screenWidth = MediaQuery.of(context).size.width;
     double _screenHeight = MediaQuery.of(context).size.height;
+    int totalItems = 0;
+    String textCountItems = "";
+    if (Get.find<ItemDetailController>().initialized){
+      totalItems = Get.find<ItemDetailController>().totalItems;
+      String itemsText = totalItems == 1 ? 'товар' : (totalItems >= 2 && totalItems <= 4 ? 'товара' : 'товаров');
+      textCountItems = '${totalItems.toString()} $itemsText';
+    }
     return Scaffold(
       backgroundColor: AppColors.mainColor,
       body: Stack(
@@ -97,6 +105,102 @@ class CartPageFire extends StatelessWidget {
               ))
         ],
       ),
+      bottomNavigationBar: GetBuilder<CartController>(
+        builder: (cartController) {
+          return Container(
+            height: Constants.bottomHeightBar,
+            padding: EdgeInsets.only(
+                top: Constants.height20,
+                bottom: Constants.height20,
+                left: Constants.width20,
+                right: Constants.width20),
+            decoration: BoxDecoration(
+              color: Colors.grey.shade300,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(Constants.radius20 * 2),
+                topRight: Radius.circular(Constants.radius20 * 2),
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 2,
+                  blurRadius: 4,
+                  offset: const Offset(0, 2),
+                ),
+              ],
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  padding: EdgeInsets.only(
+                      top: Constants.height15,
+                      bottom: Constants.height15,
+                      left: Constants.width20,
+                      right: Constants.width20),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(Constants.radius20),
+                    color: Colors.white,
+                    /*boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 2,
+                        blurRadius: 4,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],*/
+                  ),
+                  child: Row(
+                    children: [
+                      Column(
+                        children: [
+                          SmallText(
+                              text: textCountItems),
+                          SizedBox(height: Constants.height10 * 0.5,),
+                          BigText(text: "\$ ${cartController.totalPrice.toString()}"),
+                        ],
+                      ),
+                      SizedBox(
+                        width: Constants.width10 / 2,
+                      ),
+                    ],
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+
+                  },
+                  child: Container(
+                    padding: EdgeInsets.only(
+                        top: Constants.height20,
+                        bottom: Constants.height20,
+                        left: Constants.width20,
+                        right: Constants.width20),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(Constants.radius20),
+                      color: const Color(0xFF4ecb71),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 2,
+                          blurRadius: 4,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: BigText(
+                      text:
+                      'Сделать заказ',
+                      color: Colors.white,
+                    ),
+                  ),
+                )
+              ],
+            ),
+          );
+        },
+      ),
+
     );
   }
 }

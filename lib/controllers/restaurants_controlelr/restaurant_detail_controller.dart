@@ -9,6 +9,7 @@ import 'package:flutter_project2/pages/menu_page.dart';
 import 'package:flutter_project2/services/firebase_storage_service.dart';
 import 'package:get/get.dart';
 
+import '../../data/repository/cart_repo.dart';
 import '../../firebase_ref/loading_status.dart';
 import '../../firebase_ref/references.dart';
 import '../../pages/menu/menu_fire_page.dart';
@@ -98,8 +99,12 @@ class RestaurantDetailController extends GetxController {
       final controller = Get.put(MenuPaperController());
       controller.loadData(paper);
       controller.getAllCategories(paper);
-      //очишаем карзину если заходим в ресторан // потом нужно сделать, только при захоже на другой ресторан
-      Get.find<CartController>().items.clear();
+
+      //TODO: Сейчас надпись о том сколько товаров в карзине не отображаеться при первом запуске, это происходит из за отсутсвия объекта карзина
+      //TODO: очишаем карзину если заходим в ресторан // потом нужно сделать, только при захоже на другой ресторан
+      //Get.find<CartController>().items.clear();
+      CartRepo cartRepo = Get.find<CartRepo>();
+      cartRepo.clearCartListIfDifferentRestaurant(paper.id);
       Get.toNamed(MenuFirePage.routeName, arguments: paper);
     }
   }

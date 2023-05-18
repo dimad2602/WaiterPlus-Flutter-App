@@ -7,6 +7,7 @@ import '../util/AppColors.dart';
 class MainScreen extends StatefulWidget {
   MainScreen({Key? key, required this.context}) : super(key: key);
 
+  static const String routeName = "/";
   final BuildContext context;
 
   @override

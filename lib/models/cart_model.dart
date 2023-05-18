@@ -55,6 +55,20 @@ class CartModel {
     data['quantity'] = this.quantity;
     data['isExist'] = this.isExist;
     data['time'] = this.time;
+    data['item'] = this.item!.toJson();
     return data;
   }
+
+  /*Map<String, dynamic> toJson2() {
+    return{
+      "id": this.id,
+      "itemName": this.itemName,
+      "itemPrice": this.itemPrice,
+      "weight": this.weight,
+      "imagePath": this.imagePath,
+      "quantity": this.quantity,
+      "isExist": this.isExist,
+      "time": this.time
+    };
+  }*/
 }

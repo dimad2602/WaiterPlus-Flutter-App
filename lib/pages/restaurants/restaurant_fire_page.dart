@@ -7,18 +7,31 @@ import '../../components/AppBar/custom_app_bar2.dart';
 import '../../components/Search/search_bar.dart';
 import '../../controllers/restaurants_controlelr/restaurant_paper_controller.dart';
 import '../../widgets/restaurant/restaurant_card.dart';
+import '../main_screen.dart';
 
 class RestaurantFirePage extends StatelessWidget {
   final TextEditingController searchController = TextEditingController();
+
   RestaurantFirePage({Key? key}) : super(key: key);
   static const String routeName = "/firerestaurant_page";
 
   @override
   Widget build(BuildContext context) {
     RestaurantPaperController _restaurantPaperController = Get.find();
-    return Obx(() => Scaffold(
-      appBar: CustomAppBar2(),
-      backgroundColor: Color(0xFFf5ebdc),
+    return Obx(
+      () => Scaffold(
+        appBar: CustomAppBar2(
+          leftIcon: GestureDetector(
+            onTap: () {
+              Get.toNamed(MainScreen.routeName);
+            },
+            child: Icon(
+              Icons.arrow_back_ios,
+              color: Colors.black,
+            ),
+          ),
+        ),
+        backgroundColor: Color(0xFFf5ebdc),
         body: SingleChildScrollView(
           child: Column(
             children: [
@@ -30,8 +43,8 @@ class RestaurantFirePage extends StatelessWidget {
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
                     itemBuilder: (BuildContext context, int index) {
-                      return
-                      RestaurantCard(model: _restaurantPaperController.allPapers[index]);
+                      return RestaurantCard(
+                          model: _restaurantPaperController.allPapers[index]);
                     },
                     separatorBuilder: (BuildContext context, int index) {
                       return const SizedBox(

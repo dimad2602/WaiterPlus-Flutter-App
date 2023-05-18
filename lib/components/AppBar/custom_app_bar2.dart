@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 class CustomAppBar2 extends StatelessWidget implements PreferredSizeWidget {
   final String? leftText;
   final Widget? leftIcon;
+  final String? leftOnTap;
   final Widget? rightIcon;
   final String? restName;
   final String? restImg;
@@ -15,7 +16,8 @@ class CustomAppBar2 extends StatelessWidget implements PreferredSizeWidget {
       this.rightIcon,
       this.leftText,
       this.restName = "name",
-      this.restImg})
+      this.restImg,
+      this.leftOnTap})
       : super(key: key);
 
   @override
@@ -28,13 +30,14 @@ class CustomAppBar2 extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Colors.transparent,
       title: Padding(
         padding: const EdgeInsets.only(left: 8.0),
-        child: Text(
-          restName!,
-          style: GoogleFonts.bebasNeue(
-            fontSize: 22,
-            color: Colors.black,
-          ),
-        ),
+        child: leftIcon ??
+            Text(
+              restName!,
+              style: GoogleFonts.bebasNeue(
+                fontSize: 22,
+                color: Colors.black,
+              ),
+            ),
       ),
       actions: [
         Padding(
