@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:core';
 
 import 'package:flutter_project2/util/app_constants.dart';
 import 'package:get/get.dart';
@@ -13,19 +14,26 @@ class CartRepo {
   CartRepo({required this.sharedPreferences});
 
   List<String> cart = [];
+  List<String> cartHistory =[];
   String selectedRestaurantId = '';
 
   void addToCartList(List<CartModel> cartList) {
+    //sharedPreferences.remove(AppConstants.CART_LIST);
+    //sharedPreferences.remove(AppConstants.CART_HISTORY_LIST);
+    var time = DateTime.now().toString();
     cart = [];
     /*
      convert objects to string because shared preferences only accepts string
     */
 
-    cartList.forEach((element)=>cart.add(jsonEncode(element)));
+    cartList.forEach((element) {
+      element.time = time;
+      return cart.add(jsonEncode(element));
+    });
 
     sharedPreferences.setStringList(AppConstants.CART_LIST, cart);
     //print(sharedPreferences.getStringList(AppConstants.CART_LIST));
-    getCartList();
+    //getCartList();
   }
 
   void clearCartList() {
@@ -54,5 +62,36 @@ class CartRepo {
     carts.forEach((element)=>cartList.add(CartModel.fromJson(jsonDecode(element))));
 
     return cartList;
+  }
+
+  List<CartModel> getCartHistoryList() {
+    if(sharedPreferences.containsKey(AppConstants.CART_HISTORY_LIST)){
+      //cartHistory=[];
+      cartHistory = sharedPreferences.getStringList(AppConstants.CART_HISTORY_LIST)!;
+    }
+    List<CartModel> carListHistory = [];
+    cartHistory.forEach((element) => carListHistory.add(CartModel.fromJson(jsonDecode(element))));
+    return carListHistory;
+  }
+
+  void addToCartHistoryList(){
+    if(sharedPreferences.containsKey(AppConstants.CART_HISTORY_LIST)){
+      cartHistory = sharedPreferences.getStringList(AppConstants.CART_HISTORY_LIST)!;
+    }
+    for(var i=0; i<cart.length; i++){
+      //print("history list ${cart[i]}");
+      cartHistory.add(cart[i]);
+    }
+    removeCart();
+    sharedPreferences.setStringList(AppConstants.CART_HISTORY_LIST, cartHistory);
+    print("the lenght of history list is ${getCartHistoryList().length.toString()}");
+    for(var j=0; j<getCartHistoryList().length; j++){
+      print("time of history list is ${getCartHistoryList()[j].time}");
+    }
+  }
+
+  void removeCart(){
+    cart=[];
+    sharedPreferences.remove(AppConstants.CART_LIST);
   }
 }

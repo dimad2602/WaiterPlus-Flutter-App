@@ -29,6 +29,7 @@ import 'controllers/restaurants_controlelr/restaurant_detail_controller.dart';
 import 'controllers/restaurants_controlelr/restaurant_paper_controller.dart';
 import 'pages/menu/menu_fire_page.dart';
 import 'pages/menu_rest2_page.dart';
+import 'pages/order/order_history.dart';
 import 'pages/restaurant_page.dart';
 import 'pages/restaurants/restaurant_detail_page.dart';
 import 'pages/restaurants/restaurant_fire_page.dart';
@@ -121,6 +122,9 @@ void main() async {
           },
           '/cart_fire_page': (context) {
             return CartPageFire();
+          },
+          '/order_history': (context) {
+            return OrderHistory();
           },
         },
       ),

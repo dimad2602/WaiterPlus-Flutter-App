@@ -62,7 +62,7 @@ class CartPageFire extends StatelessWidget {
                 ],
               )),
           Positioned(
-              top: Constants.height20 * 6,
+              top: Constants.height20 * 5.5,
               left: Constants.width20,
               right: Constants.width20,
               bottom: 0,
@@ -168,7 +168,7 @@ class CartPageFire extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-
+                    cartController.addToHistory();
                   },
                   child: Container(
                     padding: EdgeInsets.only(

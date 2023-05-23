@@ -1,12 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_project2/pages/order/order_history.dart';
+import 'package:get/get.dart';
 
 import '../util/AppColors.dart';
+import 'main_screen.dart';
 
 class UserPage extends StatefulWidget {
   const UserPage({Key? key, required this.context}) : super(key: key);
-
+  static const String routeName = "/user_page";
   final BuildContext context;
 
   @override
@@ -27,58 +30,66 @@ class _UserPageState extends State<UserPage> {
   Widget build(BuildContext context) {
 
     bool isAuthenticated = user != null;
-    return Scaffold(
-      backgroundColor: const Color(0xFFf5ebdc),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.only(top: 35.0),
-          child: Center(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 20.0),
-                  child: RichText(
-                      text: TextSpan(
-                          text: 'Hello, ',
-                          style: const TextStyle(
-                              fontSize: 27,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black),
-                          children: <TextSpan>[
-                        TextSpan(
-                            text: user?.email ?? 'Guest',
+    return WillPopScope(
+      onWillPop: () async {
+        Get.toNamed(MainScreen.routeName);
+        return false;
+      },
+      child: Scaffold(
+        backgroundColor: const Color(0xFFf5ebdc),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.only(top: 35.0),
+            child: Center(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20.0),
+                    child: RichText(
+                        text: TextSpan(
+                            text: 'Hello, ',
                             style: const TextStyle(
-                                fontSize: 25, fontWeight: FontWeight.w600),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                print('Tap');
-                              })
-                      ])),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                const Divider(
-                  thickness: 2,
-                ),
-                _listTiles(
-                    title: 'Профиль',
-                    // subtitle: 'Subtitle',
-                    icon: Icons.person,
-                    onPressed: () {}),
-                _listTiles(
-                    title: 'Мои заказы', icon: Icons.history, onPressed: () {}),
-                _listTiles(
-                    title: 'Любимое', icon: Icons.favorite, onPressed: () {}),
-                _listTiles(
-                    title: isAuthenticated ? 'Выйти из профиля' : 'Войти в профиль',
-                    icon: Icons.logout,
-                    onPressed: () async {
-                      isAuthenticated ? await _showLogoutDialog() : await _NavigateToLoginDialog();
-                    }),
-              ],
+                                fontSize: 27,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black),
+                            children: <TextSpan>[
+                          TextSpan(
+                              text: user?.email ?? 'Guest',
+                              style: const TextStyle(
+                                  fontSize: 25, fontWeight: FontWeight.w600),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  print('Tap');
+                                })
+                        ])),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  const Divider(
+                    thickness: 2,
+                  ),
+                  _listTiles(
+                      title: 'Профиль',
+                      // subtitle: 'Subtitle',
+                      icon: Icons.person,
+                      onPressed: () {}),
+                  _listTiles(
+                      title: 'Мои заказы', icon: Icons.history, onPressed: () {
+                        Get.toNamed(OrderHistory.routeName);
+                  }),
+                  _listTiles(
+                      title: 'Любимое', icon: Icons.favorite, onPressed: () {}),
+                  _listTiles(
+                      title: isAuthenticated ? 'Выйти из профиля' : 'Войти в профиль',
+                      icon: Icons.logout,
+                      onPressed: () async {
+                        isAuthenticated ? await _showLogoutDialog() : await _NavigateToLoginDialog();
+                      }),
+                ],
+              ),
             ),
           ),
         ),

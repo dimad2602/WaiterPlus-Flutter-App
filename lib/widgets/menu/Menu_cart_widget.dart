@@ -51,7 +51,7 @@ class _MenuWidgetState extends State<MenuWidget> {
     MenuPaperController _menuPaperController = Get.find();
     return InkWell(
       child: Padding(
-        padding: const EdgeInsets.only(left: 12.0),
+        padding: EdgeInsets.only(left: Constants.width10 * 1.4),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

@@ -143,13 +143,13 @@ class ItemDetailController extends GetxController {
 
     //if exist
     //get from storage _inCartItems=3
-    print("exist or not ${exist.toString()}");
+    //print("exist or not ${exist.toString()}");
     if (exist) {
       _inCartItems = _cart.getQuantity(item);
     }
     initialized = true; // Устанавливаем флаг инициализации в true
-
-    print("the quantity in the cart is ${_inCartItems.toString()}");
+    //ctrl shift f
+    //print("the quantity in the cart is ${_inCartItems.toString()}");
   }
 
   void addItem(Items item) {

@@ -100,8 +100,8 @@ class MenuFirePage extends GetView<MenuPaperController> {
                             },
                             separatorBuilder:
                                 (BuildContext context, int index) {
-                              return const SizedBox(
-                                width: 20,
+                              return SizedBox(
+                                width: Constants.width20,
                               );
                             },
                             itemCount:
@@ -111,7 +111,7 @@ class MenuFirePage extends GetView<MenuPaperController> {
                     SizedBox(
                       height: Constants.height20,
                     ),
-                    // Решено (Нужно как то проверять сушествование иначе страница не будет при первом запуске открываться)
+                    // Решено (Нужно как то проверять сушествование иначе страница не будет открываться при первом запуске )
                     Get.find<ItemDetailController>().initialized
                         ? Get.find<ItemDetailController>().totalItems > 0
                             ? Container(
