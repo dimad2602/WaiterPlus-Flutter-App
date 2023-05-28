@@ -4,6 +4,7 @@ import 'package:flutter_project2/components/Small_text.dart';
 import 'package:flutter_project2/components/app_icon.dart';
 import 'package:flutter_project2/controllers/cart_controller/cart_controller.dart';
 import 'package:flutter_project2/model/cart_model.dart';
+import 'package:flutter_project2/pages/base/no_data_page.dart';
 import 'package:flutter_project2/pages/menu/menu_fire_page.dart';
 import 'package:get/get.dart';
 
@@ -36,6 +37,7 @@ class CartPageFire extends StatelessWidget {
       backgroundColor: AppColors.mainColor,
       body: Stack(
         children: [
+          //header
           Positioned(
               top: Constants.height20 * 3,
               left: Constants.width20,
@@ -63,48 +65,53 @@ class CartPageFire extends StatelessWidget {
                   SizedBox(width: Constants.width20 * 2),
                 ],
               )),
-          Positioned(
-              top: Constants.height20 * 5.5,
-              left: Constants.width20,
-              right: Constants.width20,
-              bottom: 0,
-              child: Container(
-                margin: EdgeInsets.only(top: Constants.height15),
-                /*color: Colors.black12,*/
-                child: MediaQuery.removePadding(
-                  context: context,
-                  removeTop: true,
-                  child: GetBuilder<CartController>(
-                    builder: (cartController) {
-                      var _cartList = cartController.getItems;
-                      return ListView.builder(
-                          itemCount: _cartList.length,
-                          itemBuilder: (_, index) {
-                            return CardForCartWidget(
-                                itemName:
-                                    cartController.getItems[index].itemName!,
-                                imagePath:
-                                    cartController.getItems[index].imagePath!,
-                                itemPrice:
-                                    cartController.getItems[index].itemPrice!,
-                                itemWeight:
-                                    cartController.getItems[index].weight!,
-                                itemCount: _cartList[index].quantity.toString(),
-                                cartController: cartController,
-                              item: _cartList[index].item,);
-                          });
-                    },
-                  ),
-                ),
-              )),
-          Positioned(
+          //body
+          GetBuilder<CartController>(
+            builder: (_cartController){
+              return _cartController.getItems.length>0 ? Positioned(
+                  top: Constants.height20 * 5.5,
+                  left: Constants.width20,
+                  right: Constants.width20,
+                  bottom: 0,
+                  child: Container(
+                    margin: EdgeInsets.only(top: Constants.height15),
+                    /*color: Colors.black12,*/
+                    child: MediaQuery.removePadding(
+                      context: context,
+                      removeTop: true,
+                      child: GetBuilder<CartController>(
+                        builder: (cartController) {
+                          var _cartList = cartController.getItems;
+                          return ListView.builder(
+                              itemCount: _cartList.length,
+                              itemBuilder: (_, index) {
+                                return CardForCartWidget(
+                                  itemName:
+                                  cartController.getItems[index].itemName!,
+                                  imagePath:
+                                  cartController.getItems[index].imagePath!,
+                                  itemPrice:
+                                  cartController.getItems[index].itemPrice!,
+                                  itemWeight:
+                                  cartController.getItems[index].weight!,
+                                  itemCount: _cartList[index].quantity.toString(),
+                                  cartController: cartController,
+                                  item: _cartList[index].item,);
+                              });
+                        },
+                      ),
+                    ),
+                  )): NoDataPage(text: "Ваша корзина пуста!");
+            }
+          ),
+          /*Positioned(
               top: Constants.height20 * 40,
               left: Constants.width20,
               right: Constants.width20,
               bottom: 0,
               child: Container(
                 color: Colors.red,
-              ))
+              ))*/
         ],
       ),
       bottomNavigationBar: GetBuilder<CartController>(
@@ -131,7 +138,7 @@ class CartPageFire extends StatelessWidget {
                 ),
               ],
             ),
-            child: Row(
+            child: cartController.getItems.length>0? Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
@@ -199,7 +206,7 @@ class CartPageFire extends StatelessWidget {
                   ),
                 )
               ],
-            ),
+            ):Container(),
           );
         },
       ),

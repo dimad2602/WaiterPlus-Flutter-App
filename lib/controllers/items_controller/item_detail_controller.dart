@@ -165,6 +165,7 @@ class ItemDetailController extends GetxController {
   }
 
   int get totalItems {
+    print("Проверка totalItems, totalItems := ${_cart.totalItems}");
     return _cart.totalItems;
   }
 

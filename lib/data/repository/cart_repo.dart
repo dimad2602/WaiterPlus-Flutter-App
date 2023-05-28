@@ -10,7 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../controllers/cart_controller/cart_controller.dart';
 import '../../models/cart_model.dart';
 
-class CartRepo {
+class CartRepo extends GetxController{
   final SharedPreferences sharedPreferences;
 
   CartRepo({required this.sharedPreferences});
@@ -135,5 +135,7 @@ class CartRepo {
   void removeHistory(){
     cartHistory = [];
     sharedPreferences.remove(AppConstants.CART_HISTORY_LIST);
+    //TODO: все равно не обновляет
+    update();
   }
 }

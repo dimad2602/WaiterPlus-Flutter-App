@@ -4,6 +4,7 @@ import 'package:flutter_project2/components/Small_text.dart';
 import 'package:flutter_project2/components/big_text.dart';
 import 'package:flutter_project2/controllers/cart_controller/cart_controller.dart';
 import 'package:flutter_project2/controllers/menu_controller/menu_controller.dart';
+import 'package:flutter_project2/data/repository/cart_repo.dart';
 import 'package:flutter_project2/firebase_ref/loading_status.dart';
 import 'package:flutter_project2/pages/restaurants/restaurant_fire_page.dart';
 import 'package:flutter_project2/widgets/content_area.dart';
@@ -23,10 +24,18 @@ class MenuFirePage extends GetView<MenuPaperController> {
 
   @override
   Widget build(BuildContext context) {
+    CartController _cartController = Get.find();
+
+    /*ItemDetailController _itemDetailController = Get.find();
+    _itemDetailController.initItem(
+        _itemDetailController.itemsModel,
+        Get.find<
+            CartController>());*/
+
     int totalItems = 0;
     String textCountItems = "";
-    if (Get.find<ItemDetailController>().initialized) {
-      totalItems = Get.find<ItemDetailController>().totalItems;
+    if (/*Get.find<ItemDetailController>().initialized*/_cartController.items.isNotEmpty) {
+      totalItems =  _cartController.items.length; // OLD Get.find<ItemDetailController>().totalItems;
       String itemsText = totalItems == 1
           ? 'товар'
           : (totalItems >= 2 && totalItems <= 4 ? 'товара' : 'товаров');
@@ -36,6 +45,7 @@ class MenuFirePage extends GetView<MenuPaperController> {
     MenuPaperController _menuPaperController = Get.find();
     double _screenWidth = MediaQuery.of(context).size.width;
     double _screenHeight = MediaQuery.of(context).size.height;
+
 
     // TODO: // Мне кажется из за Obx возникают ошибки
     return WillPopScope(
@@ -93,7 +103,8 @@ class MenuFirePage extends GetView<MenuPaperController> {
                             itemBuilder: (BuildContext context, int index) {
                               try {
                                 return MenuWidget(
-                                  menuCard: _menuPaperController.allCategories[index].name,
+                                  menuCard: _menuPaperController
+                                      .allCategories[index].name,
                                   IndexCount: index,
                                 );
                               } catch (e) {
@@ -116,11 +127,13 @@ class MenuFirePage extends GetView<MenuPaperController> {
                       height: Constants.height20,
                     ),
 
-                    //TODO: Не отображаеться пока не разу не булдет открыта корзина
+                    //TODO: Не отображаеться пока не разу не булдет открыта корзина -- РЕШЕНО
                     // Решено (Нужно как то проверять сушествование иначе страница не будет открываться при первом запуске )
-                    Get.find<ItemDetailController>().initialized
-                        ? Get.find<ItemDetailController>().totalItems > 0
-                            ? Container(
+                    /*Get.find<ItemDetailController>().initialized
+                        ? Get.find<ItemDetailController>().totalItems > 0 ?*/
+                    _cartController.items.isNotEmpty
+                            ?  controller.loadingStatus.value ==
+                        LoadingStatus.completed? Container(
                                 color: Colors.white70,
                                 padding: EdgeInsets.symmetric(
                                     horizontal: Constants.width20,
@@ -183,7 +196,7 @@ class MenuFirePage extends GetView<MenuPaperController> {
                                 ),
                               )
                             : const SizedBox()
-                        : const SizedBox()
+                        : const SizedBox() //: const SizedBox()
                   ],
                 )),
           ),
