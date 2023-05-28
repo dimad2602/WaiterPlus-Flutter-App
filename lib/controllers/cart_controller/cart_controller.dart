@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project2/pages/menu/menu_fire_page.dart';
 import 'package:get/get.dart';
 
 import '../../data/repository/cart_repo.dart';
 import '../../models/cart_model.dart';
 import '../../models/restaurants_model.dart';
+import '../../pages/restaurants/restaurant_detail_page.dart';
+import '../menu_controller/menu_controller.dart';
+import '../restaurants_controlelr/restaurant_detail_controller.dart';
 
 class CartController extends GetxController {
   final CartRepo cartRepo;
@@ -13,6 +17,10 @@ class CartController extends GetxController {
   Map<int, CartModel> _items = {};
 
   Map<int, CartModel> get items => _items;
+
+  /*Map<int, RestaurantModel> _restaurant = {};
+
+  Map<int, RestaurantModel> get restaurant => _restaurant;*/
 
   /*
   only for storage and sharedpreferences
@@ -40,6 +48,8 @@ class CartController extends GetxController {
           quantity: value.quantity! + quantity,
           isExist: true,
           time: DateTime.now().toString(),
+          restaurantId: value.restaurantId,
+          //restaurant: value.restaurant,
           item: item,
         );
       });
@@ -50,6 +60,8 @@ class CartController extends GetxController {
       if (quantity > 0) {
         // за место int.parse можно изменить Map на Map<String, CartModel> _items = {};
         _items.putIfAbsent(int.parse(item.id), () {
+          RestaurantModel modelOfRestaurant = Get.find<MenuPaperController>().restaurantModel;
+          print("Модель ресторана = ${Get.find<MenuPaperController>().restaurantModel.name}");
           return CartModel(
             id: item.id,
             itemName: item.itemName,
@@ -59,6 +71,9 @@ class CartController extends GetxController {
             quantity: quantity,
             isExist: true,
             time: DateTime.now().toString(),
+            restaurantId: modelOfRestaurant.id,
+            //TODO: а можно ли это не помешать в метод? проверить!
+            //restaurant: modelOfRestaurant,
             item: item,
           );
         });
@@ -69,6 +84,7 @@ class CartController extends GetxController {
       }
     }
     cartRepo.addToCartList(getItems);
+
     update();
   }
 
@@ -138,5 +154,29 @@ class CartController extends GetxController {
 
   List<CartModel> getCartHistoryList(){
     return cartRepo.getCartHistoryList();
+  }
+
+  set setItems(Map<int, CartModel> setItems){
+    _items = {};
+    _items = setItems;
+  }
+
+  //не нужен?
+  /*set setRestaurantModel(Map<int, RestaurantModel> setRestaurantModel){
+    _restaurant = {};
+    _restaurant = setRestaurantModel;
+  }*/
+
+  void addToCartList(){
+    cartRepo.addToCartList(getItems);
+
+    update();
+  }
+
+  //не готово
+  void navigateToCartFromHistory({required RestaurantModel paper}) {
+      final controller = Get.put(RestaurantDetailController());
+      controller.getPaper(paper);
+      Get.toNamed(RestaurantDetailPage.routeName, arguments: paper);
   }
 }

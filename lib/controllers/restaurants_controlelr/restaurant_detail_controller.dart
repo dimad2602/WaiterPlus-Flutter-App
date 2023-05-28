@@ -87,7 +87,7 @@ class RestaurantDetailController extends GetxController {
     //currentRest.value = restaurant[0];
   }
 
-  void navigateToMenu({required RestaurantModel paper, bool tryAgain=false}) {
+  void navigateToMenu({required RestaurantModel paper, bool tryAgain=false, bool needClear=true}) {
     if(tryAgain){
       if (kDebugMode) {
         print("tryAgain message");
@@ -104,7 +104,9 @@ class RestaurantDetailController extends GetxController {
       //TODO: очишаем карзину если заходим в ресторан // потом нужно сделать, только при захоже на другой ресторан
       //Get.find<CartController>().items.clear();
       CartRepo cartRepo = Get.find<CartRepo>();
-      cartRepo.clearCartListIfDifferentRestaurant(paper.id);
+      needClear == true? cartRepo.clearCartListIfDifferentRestaurant(paper.id): print("Очиска отменена");
+      //cartRepo.rememberRestorauntForCart(paper);
+      //Get.find<CartRepo>().removeHistory();
       Get.toNamed(MenuFirePage.routeName, arguments: paper);
     }
   }

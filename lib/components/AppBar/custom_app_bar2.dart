@@ -57,6 +57,13 @@ class CustomAppBar2 extends StatelessWidget implements PreferredSizeWidget {
               ),
             ),
           ),
+          Align(
+            alignment: Alignment.centerRight,
+            child: Padding(
+              padding: const EdgeInsets.only(right: 8.0),
+              child: rightIcon
+            ),
+          )
         ],
       ),
       actions: [

@@ -10,7 +10,10 @@ class CartModel {
   int? quantity;
   bool? isExist;
   String? time;
+  String? restaurantId;
+  //RestaurantModel? restaurant;
   Items? item;
+
 
   CartModel({
     this.id,
@@ -21,6 +24,8 @@ class CartModel {
     this.quantity,
     this.isExist,
     this.time,
+    this.restaurantId,
+    //this.restaurant,
     this.item,
   });
 
@@ -33,6 +38,8 @@ class CartModel {
         quantity = json['quantity'],
         isExist = json['isExist'],
         time = json['time'],
+        restaurantId = json['restaurantId'],
+        //restaurant = RestaurantModel.fromJson(json['restaurant']),
         item = Items.fromJson(json['item']);
 
   CartModel.fromSnapshot(QueryDocumentSnapshot<Map<String, dynamic>> snapshot)
@@ -55,6 +62,8 @@ class CartModel {
     data['quantity'] = this.quantity;
     data['isExist'] = this.isExist;
     data['time'] = this.time;
+    data['restaurantId'] = this.restaurantId;
+    //data['restaurant'] = this.restaurant!.toJson();
     data['item'] = this.item!.toJson();
     return data;
   }

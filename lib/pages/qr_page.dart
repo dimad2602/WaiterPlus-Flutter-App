@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
+import '../controllers/restaurants_controlelr/restaurant_paper_controller.dart';
+import '../models/restaurants_model.dart';
+
+//TODO: Нужно обработать не правильные результаты
 class QrPage extends StatefulWidget {
   const QrPage({Key? key}) : super(key: key);
+  static const String routeName = "/qr_page";
 
   @override
   State<QrPage> createState() => _QrPageState();
@@ -28,8 +34,10 @@ class _QrPageState extends State<QrPage> {
       setState(() {
         result = event;
         if (result != null) {
-          Navigator.pop(context);
-          Navigator.pushNamed(context, '${result!.code}');
+          //Navigator.pop(context);
+          //Navigator.pushNamed(context, '${result!.code}');
+          RestaurantModel? paper = Get.find<RestaurantPaperController>().getRestaurantById('${result!.code}');
+          Get.find<RestaurantPaperController>().navigateToRestDetail(paper: paper!, qr: true);
         }
       });
     });

@@ -12,11 +12,14 @@ class DishCardWidget extends StatelessWidget {
   final String testName;
   final String imagePath;
   final String itemCosts;
-  const DishCardWidget({Key? key,
-    required this.testName,
-    required this.imagePath,
-    required this.itemCosts,
-    required this.model}) : super(key: key);
+
+  const DishCardWidget(
+      {Key? key,
+      required this.testName,
+      required this.imagePath,
+      required this.itemCosts,
+      required this.model})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -45,14 +48,17 @@ class DishCardWidget extends StatelessWidget {
             Row(
               children: [
                 GestureDetector(
-                  onTap: (){
+                  onTap: () {
                     //_itemDetailController.currentRest.value!;
                     //TODO: что с названием метода?
                     print("Переход");
-                    _itemDetailController.navigateToRestDetail(paper: model); //navigateToMenu(paper: model, tryAgain: false);
+                    _itemDetailController.navigateToRestDetail(
+                        paper:
+                            model); //navigateToMenu(paper: model, tryAgain: false);
                   },
                   child: ClipRRect(
-                    borderRadius: const BorderRadius.all(Radius.circular(12.0),
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(12.0),
                     ),
                     child: CachedNetworkImage(
                       imageUrl: imagePath,
@@ -72,21 +78,42 @@ class DishCardWidget extends StatelessWidget {
               ],
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: Constants.width10, vertical: Constants.height10 *0.5),
+              padding: EdgeInsets.symmetric(
+                  horizontal: Constants.width10,
+                  vertical: Constants.height10 * 0.5),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      BigText(text: testName, bold: true)
+                      /* BigText(
+                        text: testName,
+                        bold: true,
+                        overflow: TextOverflow.ellipsis,
+                        //Без переноса - 1 строчка
+                        // maxLines: 1,
+                      )*/
+                      Container(
+                          //height: Constants.height20*1.4,
+                          width: _screenWidth * 0.35, //Constants.width20*9,
+                          child: BigText(
+                              text: testName,
+                              bold: true,
+                              overflow: TextOverflow.ellipsis)
+                          /*Text(
+                        testName,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                        style: TextStyle(fontSize: 18),
+                      )*/
+                          )
                     ],
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      BigText(text: itemCosts, bold: true)
-                    ],
+                    children: [BigText(text: itemCosts, bold: true)],
                   )
                 ],
               ),

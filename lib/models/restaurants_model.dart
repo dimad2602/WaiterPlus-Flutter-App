@@ -1,16 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class RestaurantModel {
-  String id;
-  String name;
-  String description;
-  String costs;
-  String? img;
-  String? phone;
-  String? time;
-  List<Address>? address;
-  List<Menu>? menu;
-  int restaurantCount;
+  class RestaurantModel {
+    String id;
+    String name;
+    String description;
+    String costs;
+    String? img;
+    String? phone;
+    String? time;
+    List<Address>? address;
+    List<Menu>? menu;
+  //int restaurantCount;
 
   RestaurantModel(
       {required this.id,
@@ -21,7 +21,7 @@ class RestaurantModel {
       this.phone,
       this.time,
       this.address,
-      required this.restaurantCount,
+      //required this.restaurantCount,
       this.menu});
 
   RestaurantModel.fromJson(Map<String, dynamic> json)
@@ -32,7 +32,7 @@ class RestaurantModel {
         img = json['img'] as String,
         phone = json['phone'] as String,
         time = json['time'] as String,
-        restaurantCount = 0,
+        //restaurantCount = 0,
         address = (json['address'] as List)
             .map((dynamic e) => Address.fromJson(e as Map<String, dynamic>))
             .toList(),
@@ -52,7 +52,7 @@ class RestaurantModel {
         //     .map((dynamic e) => Address.fromJson(e as Map<String, dynamic>))
         //     .toList(),
         address = [],
-        restaurantCount = 1,//json['restaurant_count'] as int,
+        //restaurantCount = 1,//json['restaurant_count'] as int,
         menu = [];
 
   /*String timeClose() {

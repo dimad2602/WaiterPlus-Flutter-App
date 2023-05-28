@@ -8,6 +8,7 @@ import '../../components/Search/search_bar.dart';
 import '../../controllers/restaurants_controlelr/restaurant_paper_controller.dart';
 import '../../widgets/restaurant/restaurant_card.dart';
 import '../main_screen.dart';
+import '../qr_page.dart';
 
 class RestaurantFirePage extends StatelessWidget {
   final TextEditingController searchController = TextEditingController();
@@ -30,6 +31,18 @@ class RestaurantFirePage extends StatelessWidget {
               color: Colors.black,
             ),
           ),
+          rightIcon: GestureDetector(
+            onTap: () {
+              //Navigator.pushNamed(context, '/qr_page');
+              Get.toNamed(QrPage.routeName);
+            },
+            child: Icon(
+              Icons.qr_code,
+              size: 35,
+              color: Colors.black,
+            ),
+          )
+
         ),
         backgroundColor: Color(0xFFf5ebdc),
         body: SingleChildScrollView(

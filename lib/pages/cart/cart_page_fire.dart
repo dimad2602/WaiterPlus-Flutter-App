@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project2/components/Small_text.dart';
 import 'package:flutter_project2/components/app_icon.dart';
 import 'package:flutter_project2/controllers/cart_controller/cart_controller.dart';
+import 'package:flutter_project2/model/cart_model.dart';
 import 'package:flutter_project2/pages/menu/menu_fire_page.dart';
 import 'package:get/get.dart';
 
 import '../../components/big_text.dart';
 import '../../controllers/items_controller/item_detail_controller.dart';
+import '../../controllers/menu_controller/menu_controller.dart';
 import '../../controllers/restaurants_controlelr/restaurant_detail_controller.dart';
 import '../../models/restaurants_model.dart';
 import '../../util/AppColors.dart';
@@ -168,6 +170,7 @@ class CartPageFire extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
+                    print("restaurant id is QQQQQQ = ${Get.find<MenuPaperController>().restaurantModel.toJson().toString()}");
                     cartController.addToHistory();
                   },
                   child: Container(

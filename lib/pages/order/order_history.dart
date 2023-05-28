@@ -1,9 +1,15 @@
+import 'dart:convert';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project2/components/Small_text.dart';
 import 'package:flutter_project2/components/app_icon.dart';
 import 'package:flutter_project2/components/big_text.dart';
 import 'package:flutter_project2/controllers/cart_controller/cart_controller.dart';
+import 'package:flutter_project2/controllers/menu_controller/menu_controller.dart';
+import 'package:flutter_project2/models/restaurants_model.dart';
+import 'package:flutter_project2/pages/cart/cart_page_fire.dart';
+import 'package:flutter_project2/pages/menu/menu_fire_page.dart';
 import 'package:flutter_project2/util/constants.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -11,6 +17,10 @@ import 'package:intl/intl.dart';
 import '../../components/AppBar/custom_app_bar.dart';
 import '../../components/AppBar/custom_app_bar2.dart';
 import '../../components/app_bar.dart';
+import '../../controllers/restaurants_controlelr/restaurant_detail_controller.dart';
+import '../../controllers/restaurants_controlelr/restaurant_paper_controller.dart';
+import '../../data/repository/cart_repo.dart';
+import '../../models/cart_model.dart';
 import '../../util/AppColors.dart';
 import '../../widgets/order/order_card_widget.dart';
 import '../user_page.dart';
@@ -32,11 +42,14 @@ class OrderHistory extends StatelessWidget {
         cartItemsPerOrder.putIfAbsent(getCartHistoryList[i].time!, () => 1);
       }
     }
-    List<int> CartOrderTimeToList() {
+    List<int> cartItemsPerOrderToList() {
       return cartItemsPerOrder.entries.map((e) => e.value).toList();
     }
+    List<String> cartOrderTimeToList() {
+      return cartItemsPerOrder.entries.map((e) => e.key).toList();
+    }
 
-    List<int> itemsPerOrder = CartOrderTimeToList();
+    List<int> itemsPerOrder = cartItemsPerOrderToList();
 
     int listCounter = 0;
 
@@ -79,6 +92,19 @@ class OrderHistory extends StatelessWidget {
                     text: 'История заказов',
                     bold: true,
                   )),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(right: Constants.width10/5),
+                  child: AppIcon(
+                    icon: Icons.restore_from_trash,
+                    iconColor: Colors.black87,
+                    backgroundColor: AppColors.mainColor,
+                    iconSize24: true,
+                    //TODO: сделать окно подтвержения, изменить иконку
+                    onTap: () {
+                      Get.find<CartRepo>().removeHistory();
+                    },
+                  ),
                 ),
                 SizedBox(width: Constants.width20 * 2),
               ],
@@ -169,20 +195,59 @@ class OrderHistory extends StatelessWidget {
                                       color: Colors.black,
                                     ),
                                     //BigText(text: totalCost.toString()),
-                                    Container(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: Constants.width10,
-                                          vertical: Constants.height10 / 2),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(
-                                            Constants.radius15 / 3),
-                                        border: Border.all(
-                                            width: 1,
-                                            color: AppColors.bottonColor),
-                                      ),
-                                      child: SmallText(
-                                        text: "Повторить",
-                                        color: AppColors.bottonColor,
+                                    GestureDetector(
+                                      onTap: () {
+                                        Get.put(RestaurantDetailController());
+                                        var cartRepo = Get.find<CartRepo>();
+                                        Get.put(CartController(cartRepo: cartRepo));
+                                        var orderTime = cartOrderTimeToList();
+                                        var restId;
+                                        Map<int, CartModel> repeatOrder ={};
+                                        for(int j = 0; j < getCartHistoryList.length; j++) {
+                                          if(getCartHistoryList[j].time == orderTime[i]){
+                                            repeatOrder.putIfAbsent(int.parse(getCartHistoryList[j].id!), () =>
+                                            CartModel.fromJson(jsonDecode(jsonEncode(getCartHistoryList[j])))
+                                            );
+                                          }
+                                        }
+                                        //выводим id
+                                        for(int j = 0; j < getCartHistoryList.length; j++) {
+                                          if(getCartHistoryList[j].time == orderTime[i]){
+                                            restId = repeatOrder.putIfAbsent(int.parse(getCartHistoryList[j].id!), () =>
+                                                CartModel.fromJson(jsonDecode(jsonEncode(getCartHistoryList[j])))
+                                            ).restaurantId;
+                                          }
+                                        }
+
+                                        /*final cartRepo = Get.find<CartRepo>();
+                                        final selectedRestaurantId = cartRepo.getSelectedRestaurantId;*/
+
+                                        Get.find<CartController>().setItems = repeatOrder;
+                                        Get.find<CartController>().addToCartList();
+                                        //TODO: Переход на предыдуший ресторан, а не на нужный
+                                        //Get.find<CartController>().navigateToCartFromHistory(paper: getCartHistoryList[0].item);
+                                        //Get.toNamed(MenuFirePage.routeName);
+                                        RestaurantModel? paper = Get.find<RestaurantPaperController>().getRestaurantById(restId);
+                                        Get.find<RestaurantDetailController>().navigateToMenu(paper: paper!, needClear: false);
+
+                                        //print("Restaurant id is = ${selectedRestaurantId.toString()}");
+                                        //print(cartRepo.selectedRestaurantId);
+                                      },
+                                      child: Container(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: Constants.width10,
+                                            vertical: Constants.height10 / 2),
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(
+                                              Constants.radius15 / 3),
+                                          border: Border.all(
+                                              width: 1,
+                                              color: AppColors.bottonColor),
+                                        ),
+                                        child: SmallText(
+                                          text: "Повторить",
+                                          color: AppColors.bottonColor,
+                                        ),
                                       ),
                                     )
                                   ],

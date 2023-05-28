@@ -78,7 +78,7 @@ class RestaurantPaperController extends GetxController {
     }
   }
 
-  void navigateToRestDetail({required RestaurantModel paper, bool tryAgain=false}) {
+  void navigateToRestDetail({required RestaurantModel paper, bool tryAgain=false, bool qr=false}) {
     if(tryAgain){
       if (kDebugMode) {
         print("tryAgain message");
@@ -94,7 +94,32 @@ class RestaurantPaperController extends GetxController {
 
       final controller = Get.put(RestaurantDetailController());
       controller.getPaper(paper);
-      Get.toNamed(RestaurantDetailPage.routeName, arguments: paper);
+      qr? Get.offAndToNamed(RestaurantDetailPage.routeName, arguments: paper) : Get.toNamed(RestaurantDetailPage.routeName, arguments: paper);
+    }
+  }
+
+  RestaurantModel? getRestaurantById(String restaurantId) {
+    for (var paper in allPapers) {
+      if (paper.id == restaurantId) {
+        return paper;
+      }
+    }
+    return null;
+  }
+
+  void navigateToRestDetailFromQR({required String restaurantId, bool tryAgain=false}) {
+    if(tryAgain){
+      if (kDebugMode) {
+        print("tryAgain message");
+        //Get.back();
+      }
+    }
+    else {
+      Get.put(RestaurantDetailController());
+      //RestaurantModel? paper = Get.find<RestaurantPaperController>().getRestaurantById(restId);
+      /*final controller = Get.put(RestaurantDetailController());
+      controller.getPaper(paper);
+      Get.toNamed(RestaurantDetailPage.routeName, arguments: paper);*/
     }
   }
 

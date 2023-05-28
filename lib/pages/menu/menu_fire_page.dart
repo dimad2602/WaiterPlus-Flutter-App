@@ -45,19 +45,18 @@ class MenuFirePage extends GetView<MenuPaperController> {
               builder: (context) => AlertDialog(
                 title: const Text('Вы уверены?'),
                 //TODO: Другая надпись
-               // content: const Text('Корзина будет очищена'),
+                // content: const Text('Корзина будет очищена'),
                 actions: <Widget>[
                   TextButton(
                     onPressed: () => Navigator.of(context).pop(false),
                     child: const Text('No'),
                   ),
                   TextButton(
-                    onPressed:
-                        () {
-                          /*CartRepo cartRepo = Get.find<CartRepo>();
+                    onPressed: () {
+                      /*CartRepo cartRepo = Get.find<CartRepo>();
                           cartRepo.clearCartList();*/
-                          Get.toNamed(RestaurantFirePage.routeName);
-                        }, //exit(0),//Navigator.of(context).pop(true),
+                      Get.toNamed(RestaurantFirePage.routeName);
+                    }, //exit(0),//Navigator.of(context).pop(true),
                     child: const Text('Yes'),
                   ),
                 ],
@@ -92,11 +91,16 @@ class MenuFirePage extends GetView<MenuPaperController> {
                             scrollDirection: Axis.vertical,
                             //physics: NeverScrollableScrollPhysics(),
                             itemBuilder: (BuildContext context, int index) {
-                              return MenuWidget(
-                                menuCard:
-                                    _menuPaperController.allCategories[index].name,
-                                IndexCount: index,
-                              );
+                              try {
+                                return MenuWidget(
+                                  menuCard: _menuPaperController.allCategories[index].name,
+                                  IndexCount: index,
+                                );
+                              } catch (e) {
+                                print("Ошибка: $e");
+                                // Выполните перезагрузку страницы или обновление
+                                return CircularProgressIndicator(); // Пример заглушки для обновления
+                              }
                             },
                             separatorBuilder:
                                 (BuildContext context, int index) {
@@ -111,6 +115,8 @@ class MenuFirePage extends GetView<MenuPaperController> {
                     SizedBox(
                       height: Constants.height20,
                     ),
+
+                    //TODO: Не отображаеться пока не разу не булдет открыта корзина
                     // Решено (Нужно как то проверять сушествование иначе страница не будет открываться при первом запуске )
                     Get.find<ItemDetailController>().initialized
                         ? Get.find<ItemDetailController>().totalItems > 0
@@ -147,9 +153,10 @@ class MenuFirePage extends GetView<MenuPaperController> {
                                       },
                                       child: Container(
                                         padding: EdgeInsets.symmetric(
-                                          vertical: Constants.height10*1.2, // Отступы по вертикали
-                                          horizontal:
-                                              Constants.width10*1.6, // Отступы по горизонтали
+                                          vertical: Constants.height10 * 1.2,
+                                          // Отступы по вертикали
+                                          horizontal: Constants.width10 *
+                                              1.6, // Отступы по горизонтали
                                         ),
                                         decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(

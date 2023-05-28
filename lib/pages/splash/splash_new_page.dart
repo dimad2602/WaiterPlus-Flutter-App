@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_project2/controllers/restaurants_controlelr/restaurant_detail_controller.dart';
 import 'package:flutter_project2/pages/auth_page.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -48,6 +49,7 @@ class _SplashScreenState extends State<SplashPage>
     await Get.put(CartController(cartRepo: cartRepo));
     // Загружаем из локального хранилиша items в корзину
     Get.find<CartController>().getCartData();
+    //Get.put(RestaurantDetailController());
   }
 
   @override

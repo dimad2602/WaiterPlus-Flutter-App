@@ -1,7 +1,7 @@
 {
   "id": "1",
-  "name": "Delicious Eats",
-  "description": "A cozy little restaurant that serves delicious food!",
+  "name": "Вкусная Еда",
+  "description": "Маленький уютный ресторан с отличной едой!",
   "costs": "$$",
   "img": "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8cGl6emF8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
   "phone": "555-123-0000",
@@ -9,107 +9,140 @@
   "address": [
     {
       "id": "1",
-      "street": "Streat1",
-      "city": "Anytown1"
+      "street": "Улица 2",
+      "city": "Уездный город Н"
     }
   ],
   "menu": [
     {
+      "id": "0",
+      "name": "Рекомендации",
+      "items": [
+        {
+          "id": "7",
+          "itemName": "Кола",
+          "itemPrice": "50",
+          "weight": "330",
+          "description": "Газированный напиток Coca-Cola",
+          "imagePath": "https://i2.wp.com/effectcheck.com/wp-content/uploads/2012/05/shutterstock_532172443.jpg?fit=4833%2C3201&ssl=1",
+          "type_id": "3"
+        },
+        {
+          "id": "5",
+          "itemName": "Пепперони",
+          "itemPrice": "400",
+          "weight": "500",
+          "description": "Пицца с пепперони, томатами и сыром",
+          "imagePath": "http://filadelfiya-nk.ru/wa-data/public/shop/products/62/04/462/images/304/304.280.jpeg",
+          "type_id": "2"
+        },
+        {
+          "id": "3",
+          "itemName": "Картофель фри",
+          "itemPrice": "99",
+          "weight": "200",
+          "description": "Аппетитные картофельные палочки, обжаренные в глубоком масле",
+          "imagePath": "https://cdn.lifehacker.ru/wp-content/uploads/2019/12/shutterstock_1154255068_1577700632-e1578638356632-1280x640.jpg",
+          "type_id": "1"
+          }
+      ]
+    },
+    {
       "id": "1",
-      "name": "Starters1",
+      "name": "Закуски",
       "items": [
         {
           "id": "1",
-          "itemName": "name11",
+          "itemName": "Хлеб с томатами",
           "itemPrice": "123",
           "weight": "350",
-          "description": "Toasted bread topped with fresh tomatoes, garlic, and basil",
-          "imagePath": "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8cGl6emF8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+          "description": "Хлеб с томатами, чесноком и базиликом",
+          "imagePath": "https://i.pinimg.com/736x/bb/d4/90/bbd490684c2aaa6e69fd93c4a117fabd--originals-bread.jpg",
           "type_id": "1"
         },
         {
           "id": "2",
-          "itemName": "name2",
-          "itemPrice": "123",
-          "weight": "350",
-          "description": "Toasted bread topped with fresh tomatoes, garlic, and basil",
-          "imagePath": "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8cGl6emF8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+          "itemName": "Брускетта",
+          "itemPrice": "150",
+          "weight": "200",
+          "description": "Тост с помидорами, оливковым маслом и базиликом",
+          "imagePath": "https://ampravda.ru/files/images2/images/%D0%BF%D0%B8%D0%BA%D0%BD%D0%B8%D0%BA%20%D0%B1%D1%80%D1%83%D1%81%D0%BA%D0%B5%D1%82%D0%B0.jpg",
           "type_id": "1"
         },
         {
           "id": "3",
-          "itemName": "name3",
-          "itemPrice": "123",
-          "weight": "350",
-          "description": "Toasted bread topped with fresh tomatoes, garlic, and basil",
-          "imagePath": "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8cGl6emF8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+          "itemName": "Картофель фри",
+          "itemPrice": "99",
+          "weight": "200",
+          "description": "Аппетитные картофельные палочки, обжаренные в глубоком масле",
+          "imagePath": "https://cdn.lifehacker.ru/wp-content/uploads/2019/12/shutterstock_1154255068_1577700632-e1578638356632-1280x640.jpg",
           "type_id": "1"
-        }
+          }
       ]
     },
     {
       "id": "2",
-      "name": "Pizza",
+      "name": "Пицца",
       "items": [
         {
           "id": "4",
-          "itemName": "name41",
-          "itemPrice": "123",
-          "weight": "350",
-          "description": "Toasted bread topped with fresh tomatoes, garlic, and basil",
-          "imagePath": "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8cGl6emF8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+          "itemName": "Маргарита",
+          "itemPrice": "350",
+          "weight": "450",
+          "description": "Традиционная пицца с томатами, моцареллой и базиликом",
+          "imagePath": "https://static.tildacdn.com/tild6539-6266-4164-a262-656537383761/DSCF9189.jpg",
           "type_id": "2"
         },
         {
           "id": "5",
-          "itemName": "name51",
-          "itemPrice": "123",
-          "weight": "350",
-          "description": "Toasted bread topped with fresh tomatoes, garlic, and basil",
-          "imagePath": "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8cGl6emF8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+          "itemName": "Пепперони",
+          "itemPrice": "400",
+          "weight": "500",
+          "description": "Пицца с пепперони, томатами и сыром",
+          "imagePath": "http://filadelfiya-nk.ru/wa-data/public/shop/products/62/04/462/images/304/304.280.jpeg",
           "type_id": "2"
         },
         {
-          "id": "6",
-          "itemName": "name61",
-          "itemPrice": "123",
-          "weight": "350",
-          "description": "Toasted bread topped with fresh tomatoes, garlic, and basil",
-          "imagePath": "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8cGl6emF8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
-          "type_id": "2"
+        "id": "6",
+        "itemName": "Гавайская",
+        "itemPrice": "270",
+        "weight": "400",
+        "description": "Пицца с курицей, ананасами, томатным соусом и сыром",
+        "imagePath": "https://ohotamyasa.ru/wp-content/uploads/5/a/8/5a88692f3b7a475a4b6ad34a7905c8b7.jpeg",
+        "type_id": "2"
         }
       ]
     },
     {
       "id": "3",
-      "name": "drinks",
+      "name": "Напитки",
       "items": [
         {
           "id": "7",
-          "itemName": "name7",
-          "itemPrice": "123",
-          "weight": "350",
-          "description": "Toasted bread topped with fresh tomatoes, garlic, and basil",
-          "imagePath": "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8cGl6emF8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+          "itemName": "Кола",
+          "itemPrice": "50",
+          "weight": "330",
+          "description": "Газированный напиток Coca-Cola",
+          "imagePath": "https://i2.wp.com/effectcheck.com/wp-content/uploads/2012/05/shutterstock_532172443.jpg?fit=4833%2C3201&ssl=1",
           "type_id": "3"
         },
         {
           "id": "8",
-          "itemName": "name8",
-          "itemPrice": "123",
-          "weight": "350",
-          "description": "Toasted bread topped with fresh tomatoes, garlic, and basil",
-          "imagePath": "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8cGl6emF8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+          "itemName": "Чай",
+          "itemPrice": "80",
+          "weight": "250",
+          "description": "Чай черный или зеленый",
+          "imagePath": "https://about-tea.ru/wp-content/uploads/2/6/1/2614ee4c451fa4707d83ad92ee080cea.jpeg",
           "type_id": "3"
         },
         {
-          "id": "9",
-          "itemName": "name9",
-          "itemPrice": "123",
-          "weight": "350",
-          "description": "Toasted bread topped with fresh tomatoes, garlic, and basil",
-          "imagePath": "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8cGl6emF8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
-          "type_id": "3"
+        "id": "9",
+        "itemName": "Кофе",
+        "itemPrice": "90",
+        "weight": "250",
+        "description": "Классический кофе Espresso",
+        "imagePath": "https://sun9-45.userapi.com/c858528/v858528312/1e45cc/bA6uQjAGsf4.jpg",
+        "type_id": "3"
         }
       ]
     },
@@ -119,30 +152,30 @@
       "items": [
         {
           "id": "10",
-          "itemName": "Десерт1",
+          "itemName": "Вафля",
           "itemPrice": "100",
           "weight": "80",
-          "description": "Toasted bread topped with fresh tomatoes, garlic, and basil",
-          "imagePath": "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8cGl6emF8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
-          "type_id": "3"
+          "description": "Вафля с начинкой",
+          "imagePath": "https://podacha-blud.com/uploads/posts/2022-12/1671071788_98-podacha-blud-com-p-venskie-vafli-s-nachinkoi-foto-103.jpg",
+          "type_id": "4"
         },
         {
           "id": "11",
-          "itemName": "Десерт2",
-          "itemPrice": "150",
-          "weight": "120",
-          "description": "Toasted bread topped with fresh tomatoes, garlic, and basil",
-          "imagePath": "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8cGl6emF8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
-          "type_id": "3"
+          "itemName": "Тирамису",
+          "itemPrice": "200",
+          "weight": "150",
+          "description": "Классический итальянский десерт Тирамису",
+          "imagePath": "https://montisbar.ru/wp-content/uploads/b/9/3/b93c85fe1d3dfd86ec6fb85a288e2073.jpeg",
+          "type_id": "4"
         },
         {
-          "id": "12",
-          "itemName": "Десерт3",
-          "itemPrice": "180",
-          "weight": "150",
-          "description": "Toasted bread topped with fresh tomatoes, garlic, and basil",
-          "imagePath": "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8cGl6emF8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
-          "type_id": "3"
+        "id": "12",
+        "itemName": "Шоколадный фондан",
+        "itemPrice": "180",
+        "weight": "200",
+        "description": "Теплый шоколадный кекс с жидким шоколадным центром",
+        "imagePath": "https://mykaleidoscope.ru/uploads/posts/2022-07/1657302915_49-mykaleidoscope-ru-p-shokoladnii-brauni-s-zhidkoi-nachinkoi-vku-50.png",
+        "type_id": "4"
         }
       ]
     }
