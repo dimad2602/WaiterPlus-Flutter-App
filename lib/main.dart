@@ -15,6 +15,7 @@ import 'package:flutter_project2/pages/main_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_project2/pages/menu/menu_overview_page.dart';
 import 'package:flutter_project2/pages/menu_page.dart';
+import 'package:flutter_project2/pages/order/order_incoming.dart';
 import 'package:flutter_project2/pages/qr_page.dart';
 import 'package:flutter_project2/pages/login/register_page.dart';
 import 'package:flutter_project2/pages/splash/splash_new_page.dart';
@@ -125,6 +126,9 @@ void main() async {
           },
           '/order_history': (context) {
             return OrderHistory();
+          },
+          '/order_incoming': (context) {
+            return OrderIncoming();
           },
         },
       ),

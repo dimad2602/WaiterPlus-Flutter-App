@@ -1,7 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_project2/pages/order/order_incoming.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../controllers/order/incoming_order_controller.dart';
+import '../firebase_ref/loading_status.dart';
 import '../util/AppColors.dart';
 
 class MainScreen extends StatefulWidget {
@@ -212,6 +216,37 @@ class _MainScreenState extends State<MainScreen> {
                 },
                 child: const Icon(
                   Icons.get_app,
+                  color: Colors.tealAccent,
+                  size: 40,
+                )),
+            /*if (_incomingOrderController.loadingStatus.value ==
+                LoadingStatus.loading)
+              const CircularProgressIndicator(),*/
+            ElevatedButton(
+                onPressed: () async {
+                  IncomingOrderController _incomingOrderController = Get.find();
+                  _incomingOrderController.setloadingStatusIsLoading();
+                  print(_incomingOrderController.loadingStatus.value);
+                  //TODO: Нужно сделать тоже самое в корзине
+                  await _incomingOrderController.getAllPapers();
+
+                  if (_incomingOrderController.loadingStatus.value == LoadingStatus.loading)
+                    const CircularProgressIndicator();
+                  if (_incomingOrderController.loadingStatus.value == LoadingStatus.completed)
+
+                  /*await _incomingOrderController.getAllCategories(_incomingOrderController.allPapers[0]);
+                  print("allCategories.length := ${_incomingOrderController.allCategories.length}");*/
+
+                  //TODO: вроде CircularProgressIndicator не работает, вообше нужно на страницу OrderIncoming его добавлять
+                  if (_incomingOrderController.loadingStatus.value ==
+                      LoadingStatus.loading) const CircularProgressIndicator();
+                  print(_incomingOrderController.loadingStatus.value);
+                  print("incomingOrderController.allPapers.length is = ${_incomingOrderController.allPapers.length}");
+
+                  Get.toNamed(OrderIncoming.routeName);
+                },
+                child: const Icon(
+                  Icons.checklist_rtl_outlined,
                   color: Colors.tealAccent,
                   size: 40,
                 )),

@@ -1,133 +1,209 @@
 {
   "id": "2",
-  "name": "Cheez",
-  "description": "A cozy little restaurant that serves delicious food!",
-  "costs": "$$",
-  "img": "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8cGl6emF8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
-  "phone": "555-123-4567",
-  "time": "08:00-21:00",
+  "name": "У Артуро",
+  "description": "Уютное итальянское заведение с аутентичными блюдами итальянской кухни!",
+  "costs": "Средний ценовой диапазон ($$)",
+  "img": "https://i.pinimg.com/originals/60/f4/2d/60f42d52183dd123cc065db471a03479.jpg",
+  "phone": "555-456-7890",
+  "time": "12:00-23:00",
   "address": [
     {
       "id": "1",
-      "street": "Streat2",
-      "city": "Anytown"
+      "street": "Улица заблудших ламп",
+      "city": "Город, которого нет"
     }
   ],
   "menu": [
     {
-      "id": "1",
-      "name": "Starters2",
+    "id": "0",
+      "name": "Рекомендации",
       "items": [
         {
           "id": "1",
-          "itemName": "name12",
-          "itemPrice": "123",
-          "weight": "350",
-          "description": "Toasted bread topped with fresh tomatoes, garlic, and basil",
-          "imagePath": "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8cGl6emF8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
-          "type_id": "1"
-        },
-        {
-          "id": "2",
-          "itemName": "name2",
-          "itemPrice": "123",
-          "weight": "350",
-          "description": "Toasted bread topped with fresh tomatoes, garlic, and basil",
-          "imagePath": "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8cGl6emF8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+          "itemName": "Капрезе",
+          "itemPrice": "180",
+          "weight": "250",
+          "description": "Салат Капрезе с помидорами, моцареллой и базиликом",
+          "imagePath": "https://almode.ru/uploads/posts/2022-12/1671383461_29-almode-ru-p-motsarella-s-pomidorami-i-bazilikom-31.jpg",
           "type_id": "1"
         },
         {
           "id": "3",
-          "itemName": "name3",
-          "itemPrice": "123",
-          "weight": "350",
-          "description": "Toasted bread topped with fresh tomatoes, garlic, and basil",
-          "imagePath": "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8cGl6emF8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+          "itemName": "Карпаччо",
+          "itemPrice": "220",
+          "weight": "180",
+          "description": "Тонко нарезанная говядина с рукколой и пармезаном",
+          "imagePath": "https://www.burgermeister.ru/images/docs/Image/beefcar-xxl.jpg",
+          "type_id": "1"
+        },
+        {
+          "id": "6",
+          "itemName": "Карбонара",
+          "itemPrice": "270",
+          "weight": "400",
+          "description": "Пицца с беконом, яйцом, сыром и сливками",
+          "imagePath": "https://kartinkin.net/uploads/posts/2021-03/thumbs/1617159120_15-p-pitstsa-karbonara-krasivo-24.jpg",
+          "type_id": "2"
+        },
+        {
+          "id": "8",
+          "itemName": "Капуччино",
+          "itemPrice": "120",
+          "weight": "250",
+          "description": "Итальянский капуччино с молочной пенкой",
+          "imagePath": "https://mobimg.b-cdn.net/v3/fetch/ff/ff2f5163f6f3c3d8a89b6e93b6bbf77c.jpeg",
+          "type_id": "3"
+        },
+        {
+          "id": "9",
+          "itemName": "Лимончелло",
+          "itemPrice": "150",
+          "weight": "50",
+          "description": "Традиционный итальянский ликер Лимончелло",
+          "imagePath": "https://artcafe-royal.ru/wp-content/uploads/9/b/6/9b6655389cb742d5928e51b38f09bca1.jpeg",
+          "type_id": "3"
+        },
+        {
+          "id": "12",
+          "itemName": "Канноли",
+          "itemPrice": "170",
+          "weight": "120",
+          "description": "Традиционные итальянские канноли с начинкой из рикотты",
+          "imagePath": "https://www.silver.ru/upload/medialibrary/890/89087ee342ecc9f858fc4a234d727741.jpg",
+          "type_id": "4"
+        }
+      ]
+    },
+    {
+      
+      "id": "1",
+      "name": "Антипасти",
+      "items": [
+        {
+          "id": "1",
+          "itemName": "Капрезе",
+          "itemPrice": "180",
+          "weight": "250",
+          "description": "Салат Капрезе с помидорами, моцареллой и базиликом",
+          "imagePath": "https://almode.ru/uploads/posts/2022-12/1671383461_29-almode-ru-p-motsarella-s-pomidorami-i-bazilikom-31.jpg",
+          "type_id": "1"
+        },
+        {
+          "id": "2",
+          "itemName": "Брускетта",
+          "itemPrice": "150",
+          "weight": "200",
+          "description": "Хрустящие ломтики хлеба с томатами и чесноком",
+          "imagePath": "https://star-m.ru/800/600/https/www.ok-magazine.ru/files/media_wysiwyg/brusketta_s_medovymi_tomatami_i_bazilikom_rukkola_3.jpg",
+          "type_id": "1"
+        },
+        {
+          "id": "3",
+          "itemName": "Карпаччо",
+          "itemPrice": "220",
+          "weight": "180",
+          "description": "Тонко нарезанная говядина с рукколой и пармезаном",
+          "imagePath": "https://www.burgermeister.ru/images/docs/Image/beefcar-xxl.jpg",
           "type_id": "1"
         }
       ]
     },
     {
       "id": "2",
-      "name": "Pizza",
+      "name": "Пицца",
       "items": [
         {
-          "id": "1",
-          "itemName": "name42",
-          "itemPrice": "123",
-          "weight": "350",
-          "description": "Toasted bread topped with fresh tomatoes, garlic, and basil",
-          "imagePath": "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8cGl6emF8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
-          "type_id": "2"
-        },
-        {
-          "id": "2",
-          "itemName": "name52",
-          "itemPrice": "123",
-          "weight": "350",
-          "description": "Toasted bread topped with fresh tomatoes, garlic, and basil",
-          "imagePath": "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8cGl6emF8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
-          "type_id": "2"
-        },
-        {
-          "id": "3",
-          "itemName": "name62",
-          "itemPrice": "123",
-          "weight": "350",
-          "description": "Toasted bread topped with fresh tomatoes, garlic, and basil",
-          "imagePath": "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8cGl6emF8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
-          "type_id": "2"
-        },
-        {
           "id": "4",
-          "itemName": "name772",
-          "itemPrice": "123",
-          "weight": "350",
-          "description": "Toasted bread topped with fresh tomatoes, garlic, and basil",
-          "imagePath": "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8cGl6emF8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+          "itemName": "Маргарита",
+          "itemPrice": "250",
+          "weight": "400",
+          "description": "Традиционная пицца с томатным соусом, моцареллой и базиликом",
+          "imagePath": "https://sgastronomy.ru/wp-content/uploads/2023/01/02r0-8220732.jpg",
           "type_id": "2"
         },
         {
           "id": "5",
-          "itemName": "name882",
-          "itemPrice": "123",
-          "weight": "350",
-          "description": "Toasted bread topped with fresh tomatoes, garlic, and basil",
-          "imagePath": "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8cGl6emF8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+          "itemName": "Капричоза",
+          "itemPrice": "280",
+          "weight": "400",
+          "description": "Пицца с ветчиной, артишоками, грибами и моцареллой",
+          "imagePath": "https://static.cookist.it/wp-content/uploads/sites/21/2017/12/istock-480277738.jpg",
+          "type_id": "2"
+        },
+        {
+          "id": "6",
+          "itemName": "Карбонара",
+          "itemPrice": "270",
+          "weight": "400",
+          "description": "Пицца с беконом, яйцом, сыром и сливками",
+          "imagePath": "https://kartinkin.net/uploads/posts/2021-03/thumbs/1617159120_15-p-pitstsa-karbonara-krasivo-24.jpg",
           "type_id": "2"
         }
       ]
     },
     {
       "id": "3",
-      "name": "drinks",
+      "name": "Напитки",
       "items": [
         {
-          "id": "1",
-          "itemName": "name7",
-          "itemPrice": "123",
-          "weight": "350",
-          "description": "Toasted bread topped with fresh tomatoes, garlic, and basil",
-          "imagePath": "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8cGl6emF8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+          "id": "7",
+          "itemName": "Эспрессо",
+          "itemPrice": "100",
+          "weight": "50",
+          "description": "Крепкий итальянский эспрессо",
+          "imagePath": "https://i2.wp.com/iloveprg.ru/wp-content/uploads/2014/01/IMG_9785.jpg",
           "type_id": "3"
         },
         {
-          "id": "2",
-          "itemName": "name8",
-          "itemPrice": "123",
-          "weight": "350",
-          "description": "Toasted bread topped with fresh tomatoes, garlic, and basil",
-          "imagePath": "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8cGl6emF8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+          "id": "8",
+          "itemName": "Капуччино",
+          "itemPrice": "120",
+          "weight": "250",
+          "description": "Итальянский капуччино с молочной пенкой",
+          "imagePath": "https://mobimg.b-cdn.net/v3/fetch/ff/ff2f5163f6f3c3d8a89b6e93b6bbf77c.jpeg",
           "type_id": "3"
         },
         {
-          "id": "3",
-          "itemName": "name9",
-          "itemPrice": "123",
-          "weight": "350",
-          "description": "Toasted bread topped with fresh tomatoes, garlic, and basil",
-          "imagePath": "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8cGl6emF8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+          "id": "9",
+          "itemName": "Лимончелло",
+          "itemPrice": "150",
+          "weight": "50",
+          "description": "Традиционный итальянский ликер Лимончелло",
+          "imagePath": "https://artcafe-royal.ru/wp-content/uploads/9/b/6/9b6655389cb742d5928e51b38f09bca1.jpeg",
           "type_id": "3"
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "name": "Десерты",
+      "items": [
+        {
+          "id": "10",
+          "itemName": "Тирамису",
+          "itemPrice": "200",
+          "weight": "150",
+          "description": "Классический итальянский десерт Тирамису",
+          "imagePath": "https://montisbar.ru/wp-content/uploads/b/9/3/b93c85fe1d3dfd86ec6fb85a288e2073.jpeg",
+          "type_id": "4"
+        },
+        {
+          "id": "11",
+          "itemName": "Панна-котта",
+          "itemPrice": "180",
+          "weight": "150",
+          "description": "Десерт Панна-котта со сливочным вкусом",
+          "imagePath": "https://aroma-avenue.ru/wp-content/uploads/0/9/9/099baf5654cf30171e7aea2dbe50b44c.jpeg",
+          "type_id": "4"
+        },
+        {
+          "id": "12",
+          "itemName": "Канноли",
+          "itemPrice": "170",
+          "weight": "120",
+          "description": "Традиционные итальянские канноли с начинкой из рикотты",
+          "imagePath": "https://www.silver.ru/upload/medialibrary/890/89087ee342ecc9f858fc4a234d727741.jpg",
+          "type_id": "4"
         }
       ]
     }

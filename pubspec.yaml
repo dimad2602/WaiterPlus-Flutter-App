@@ -50,6 +50,7 @@ dependencies:
   flutter_svg:
   shimmer:
   easy_separator:
+  carbon_icons:
 
 dev_dependencies:
   flutter_test:

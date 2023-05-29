@@ -1,115 +1,264 @@
 {
   "id": "3",
-  "name": "Restaurant3",
-  "description": "A cozy little restaurant that serves delicious food!",
-  "costs": "$$",
-  "img": "",
-  "phone": "555-123-4567",
-  "time": "08:00-21:00",
+  "name": "Токугава",
+  "description": "Элегантное место, посвященное японской кухне и вдохновленное гастрономическими предпочтениями знаменитого сегуна.",
+  "costs": "Высокий ценовой диапазон ($$$)",
+  "img": "https://i.pinimg.com/originals/5a/2a/c5/5a2ac547faeb7b97d48b3a757dba909a.jpg",
+  "phone": "555-789-0123",
+  "time": "18:00-23:00",
   "address": [
     {
       "id": "1",
-      "street": "Streat3",
-      "city": "Anytown3"
+      "street": "Улица 3",
+      "city": "Город 3"
     }
   ],
   "menu": [
     {
-      "id": "1",
-      "name": "Starters",
+      "id": "0",
+      "name": "Рекомендации",
       "items": [
         {
           "id": "1",
-          "itemName": "name1",
-          "itemPrice": "123",
-          "weight": "350",
-          "description": "Toasted bread topped with fresh tomatoes, garlic, and basil",
-          "imagePath": "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8cGl6emF8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+          "itemName": "Нигири с лососем",
+          "itemPrice": "300",
+          "weight": "80",
+          "description": "Свежий лосось на рисовой подушке",
+          "imagePath": "https://pizzamore.ru/d/sushi_s_lososem.jpg",
           "type_id": "1"
         },
         {
           "id": "2",
-          "itemName": "name2",
-          "itemPrice": "123",
+          "itemName": "Сяке маки",
+          "itemPrice": "280",
+          "weight": "120",
+          "description": "Лосось, авокадо и огурец в ролле",
+          "imagePath": "https://media.leverans.ru/product_images_inactive/moscow/sushi-master/6116284eb149e90a722fdad5_1.jpeg",
+          "type_id": "1"
+        },
+        {
+          "id": "4",
+          "itemName": "Унаги нигири",
+          "itemPrice": "320",
+          "weight": "70",
+          "description": "Гриль-унаги на рисовой подушке",
+          "imagePath": "https://static.tildacdn.com/stor6631-6363-4230-b962-663134376265/47014877.jpg",
+          "type_id": "1"
+        },
+        {
+          "id": "15",
+          "itemName": "Рамен",
+          "itemPrice": "300",
           "weight": "350",
-          "description": "Toasted bread topped with fresh tomatoes, garlic, and basil",
-          "imagePath": "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8cGl6emF8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+          "description": "Традиционный японский суп с лапшой, мясом и яйцом",
+          "imagePath": "https://i.pinimg.com/originals/0b/11/98/0b1198e899126330c725944daa2a4691.jpg",
+          "type_id": "3"
+        },
+        {
+          "id": "19",
+          "itemName": "Караге",
+          "itemPrice": "380",
+          "weight": "250",
+          "description": "Жареные кусочки курицы в панировке",
+          "imagePath": "https://comerjapones.com/wp-content/uploads/karaage.jpg",
+          "type_id": "4"
+        }
+      ]
+      },
+    {
+      "id": "1",
+      "name": "Суши",
+      "items": [
+        {
+          "id": "1",
+          "itemName": "Нигири с лососем",
+          "itemPrice": "300",
+          "weight": "80",
+          "description": "Свежий лосось на рисовой подушке",
+          "imagePath": "https://pizzamore.ru/d/sushi_s_lososem.jpg",
+          "type_id": "1"
+        },
+        {
+          "id": "2",
+          "itemName": "Сяке маки",
+          "itemPrice": "280",
+          "weight": "120",
+          "description": "Лосось, авокадо и огурец в ролле",
+          "imagePath": "https://media.leverans.ru/product_images_inactive/moscow/sushi-master/6116284eb149e90a722fdad5_1.jpeg",
           "type_id": "1"
         },
         {
           "id": "3",
-          "itemName": "name3",
-          "itemPrice": "123",
-          "weight": "350",
-          "description": "Toasted bread topped with fresh tomatoes, garlic, and basil",
-          "imagePath": "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8cGl6emF8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+          "itemName": "Магуро татаки",
+          "itemPrice": "350",
+          "weight": "100",
+          "description": "Тонко нарезанный тунец с соусом",
+          "imagePath": "https://bentosushi.lv/image/cache/catalog/products/Su%C5%A1i/Maguro-Tataki-800x557.jpg",
+          "type_id": "1"
+        },
+        {
+          "id": "4",
+          "itemName": "Унаги нигири",
+          "itemPrice": "320",
+          "weight": "70",
+          "description": "Гриль-унаги на рисовой подушке",
+          "imagePath": "https://static.tildacdn.com/stor6631-6363-4230-b962-663134376265/47014877.jpg",
+          "type_id": "1"
+        },
+        {
+          "id": "5",
+          "itemName": "Хамачи сашими",
+          "itemPrice": "380",
+          "weight": "90",
+          "description": "Свежий желтый хамачи на тонких ломтиках",
+          "imagePath": "https://poke-fresh.com/wp-content/uploads/2020/11/Hamachi-Cut.jpg",
           "type_id": "1"
         }
       ]
     },
     {
       "id": "2",
-      "name": "Pizza",
+      "name": "Роллы",
       "items": [
         {
-          "id": "4",
-          "itemName": "name43",
-          "itemPrice": "123",
-          "weight": "350",
-          "description": "Toasted bread topped with fresh tomatoes, garlic, and basil",
-          "imagePath": "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8cGl6emF8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
-          "type_id": "2"
-        },
-        {
-          "id": "5",
-          "itemName": "name53",
-          "itemPrice": "123",
-          "weight": "350",
-          "description": "Toasted bread topped with fresh tomatoes, garlic, and basil",
-          "imagePath": "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8cGl6emF8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
-          "type_id": "2"
-        },
-        {
           "id": "6",
-          "itemName": "name63",
-          "itemPrice": "123",
-          "weight": "350",
-          "description": "Toasted bread topped with fresh tomatoes, garlic, and basil",
-          "imagePath": "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8cGl6emF8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+          "itemName": "Филадельфия ролл",
+          "itemPrice": "320",
+          "weight": "200",
+          "description": "Лосось, сливочный сыр, огурец и авокадо в ролле",
+          "imagePath": "https://narmedia.ru/wp-content/uploads/2023/03/qji9mOFxndc.jpg",
+         
+
+ "type_id": "2"
+        },
+        {
+          "id": "7",
+          "itemName": "Унаги ролл",
+          "itemPrice": "350",
+          "weight": "220",
+          "description": "Гриль-унаги, огурец и соус унаги в ролле",
+          "imagePath": "https://pirate18.ru/wp-content/uploads/2018/09/Roll-Unagi.jpg",
+          "type_id": "2"
+        },
+        {
+          "id": "8",
+          "itemName": "Темпура ролл",
+          "itemPrice": "320",
+          "weight": "180",
+          "description": "Жареная креветка, огурец и авокадо в хрустящем панцире",
+          "imagePath": "https://sushy-express.ru/menu/wp-content/uploads/2021/02/%D0%9A%D0%B0%D0%BD%D0%B8-%D1%82%D0%B5%D0%BC%D0%BF%D1%83%D1%80%D0%B0.jpg",
+          "type_id": "2"
+        },
+        {
+          "id": "9",
+          "itemName": "Калифорния ролл",
+          "itemPrice": "300",
+          "weight": "200",
+          "description": "Крабовое мясо, огурец и авокадо в ролле",
+          "imagePath": "https://goodtrading.ru/wp-content/uploads/2023/03/2pcoji5ablg.jpg",
+          "type_id": "2"
+        },
+        {
+          "id": "10",
+          "itemName": "Дракон ролл",
+          "itemPrice": "380",
+          "weight": "240",
+          "description": "Унаги, крем-сыр, огурец и авокадо в ролле с соусом унаги",
+          "imagePath": "https://goldenrolls.ru/images/stories/virtuemart/product/%D0%B4%D1%80%D0%B0%D0%BA%D0%BE%D0%BD.jpg",
           "type_id": "2"
         }
       ]
     },
     {
       "id": "3",
-      "name": "drinks",
+      "name": "Супы",
       "items": [
         {
-          "id": "7",
-          "itemName": "name7",
-          "itemPrice": "123",
-          "weight": "350",
-          "description": "Toasted bread topped with fresh tomatoes, garlic, and basil",
-          "imagePath": "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8cGl6emF8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+          "id": "11",
+          "itemName": "Мисо суп",
+          "itemPrice": "200",
+          "weight": "250",
+          "description": "Традиционный японский суп с соевым соусом и тофу",
+          "imagePath": "https://api.niyama.ru/media/63629/blob",
           "type_id": "3"
         },
         {
-          "id": "8",
-          "itemName": "name8",
-          "itemPrice": "123",
-          "weight": "350",
-          "description": "Toasted bread topped with fresh tomatoes, garlic, and basil",
-          "imagePath": "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8cGl6emF8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+          "id": "12",
+          "itemName": "Удон суп",
+          "itemPrice": "250",
+          "weight": "300",
+          "description": "Толстые японские лапша с курицей, овощами и грибами",
+          "imagePath": "https://lh5.googleusercontent.com/proxy/Ehz7BQVf2KhQgvwmBTBXMkjUG3ERe1WJL38jYV-Z_7DIqGMCBx0VL8f5dPGjun73WAu5A6ugEC7W5tbwMPnuakweZdp-kp3GK5oYSNlTuIcPEXVA0k6LTtpY7jm72BcNoqqbhoFtpEj9=w1200-h630-p-k-no-nu",
           "type_id": "3"
         },
         {
-          "id": "9",
-          "itemName": "name99",
-          "itemPrice": "123",
-          "weight": "350",
-          "description": "Toasted bread topped with fresh tomatoes, garlic, and basil",
-          "imagePath": "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8cGl6emF8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+          "id": "13",
+          "itemName": "Том Ям",
+          "itemPrice": "280",
+          "weight": "300",
+          "description": "Острый тайский суп с морепродуктами и ароматными специями",
+          "imagePath": "http://static.tildacdn.com/tild3137-6531-4337-a366-623035336432/2S9A0575.jpg",
           "type_id": "3"
+        },
+        {
+          "id": "14",
+          "itemName": "Соба суп",
+          "itemPrice": "230",
+          "weight": "280",
+          "description": "Тонкие японские гречневые лапша с курицей, овощами и яйцом",
+          "imagePath": "https://voyagist.ru/wp-content/uploads/2018/12/SHIBA_Goryachaya-soba.jpg",
+          "type_id": "3"
+        },
+        {
+          "id": "15",
+          "itemName": "Рамен",
+          "itemPrice": "300",
+          "weight": "350",
+          "description": "Традиционный японский суп с лапшой, мясом и яйцом",
+          "imagePath": "https://i.pinimg.com/originals/0b/11/98/0b1198e899126330c725944daa2a4691.jpg",
+          "type_id": "3"
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "name": "Основные блюда",
+      "items": [
+        {
+          "id": "16",
+          "itemName": "Сашими сет",
+          "itemPrice": "600",
+          "weight": "400",
+          "description": "Ассорти свежих рыбных ломтиков",
+          "imagePath": "http://static.tildacdn.com/tild3264-6637-4163-a631-336237643664/_DSC03656.jpg",
+          "type_id": "4"
+        },
+        {
+          "id": "17",
+          "itemName": "Терияки с лососем",
+          "itemPrice": "480",
+          "weight": "300",
+          "description": "Жареный лосось с соусом терияки и овощами",
+          "imagePath": "https://activefisher.net/wp-content/uploads/6/7/2/672dc388f1b9bb99153a8284e5234c5c.jpg",
+          "type_id": "4"
+        },
+        {
+          "id": "18",
+          "itemName": "Унаги дон",
+          "itemPrice": "550",
+          "weight": "350",
+          "description": "Гриль-унаги с соусом унаги на рисе",
+          "imagePath": "https://www.japanesecooking101.com/wp-content/uploads/2013/05/IMG_9979.jpg",
+          "type_id": "4"
+        },
+        {
+          "id": "19",
+          "itemName": "Караге",
+          "itemPrice": "380",
+          "weight": "250",
+          "description": "Жареные кусочки курицы в панировке",
+          "imagePath": "https://comerjapones.com/wp-content/uploads/karaage.jpg",
+          "type_id": "4"
         }
       ]
     }

@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_project2/controllers/order/incoming_order_controller.dart';
+import 'package:flutter_project2/controllers/order/order_uploader.dart';
 import 'package:flutter_project2/controllers/restaurants_controlelr/restaurant_detail_controller.dart';
 import 'package:flutter_project2/pages/auth_page.dart';
 import 'package:get/get.dart';
@@ -38,12 +40,14 @@ class _SplashScreenState extends State<SplashPage>
   Future<void> _loadResource() async {
     await Get.put(FirebaseStorageService());
     await Get.put(RestaurantPaperController());
+    Get.put(IncomingOrderController());
     await Get.put(MenuPaperController());
     await Get.put(ItemDetailController());
     SharedPreferences sharedPreferences =
         await SharedPreferences.getInstance(); // Instantiate SharedPreferences
     Get.put(sharedPreferences); // Register SharedPreferences instance
     Get.lazyPut(() => CartRepo(sharedPreferences: Get.find()));
+    Get.lazyPut(()=>OrderUploader());
     await Get.put(CartRepo(sharedPreferences: sharedPreferences));
     cartRepo = Get.find<CartRepo>();
     await Get.put(CartController(cartRepo: cartRepo));

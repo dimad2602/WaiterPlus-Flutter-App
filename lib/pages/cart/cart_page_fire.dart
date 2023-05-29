@@ -11,7 +11,9 @@ import 'package:get/get.dart';
 import '../../components/big_text.dart';
 import '../../controllers/items_controller/item_detail_controller.dart';
 import '../../controllers/menu_controller/menu_controller.dart';
+import '../../controllers/order/order_uploader.dart';
 import '../../controllers/restaurants_controlelr/restaurant_detail_controller.dart';
+import '../../firebase_ref/loading_status.dart';
 import '../../models/restaurants_model.dart';
 import '../../util/AppColors.dart';
 import '../../util/constants.dart';
@@ -19,11 +21,12 @@ import '../../widgets/cart/card_for_cart_widget.dart';
 import '../../widgets/cart/item_card_for_cart_widget.dart';
 
 class CartPageFire extends StatelessWidget {
-  const CartPageFire({Key? key}) : super(key: key);
+  CartPageFire({Key? key}) : super(key: key);
   static const String routeName = "/cart_fire_page";
 
   @override
   Widget build(BuildContext context) {
+    OrderUploader _orderUploader = Get.find();
     double _screenWidth = MediaQuery.of(context).size.width;
     double _screenHeight = MediaQuery.of(context).size.height;
     int totalItems = 0;
@@ -166,7 +169,12 @@ class CartPageFire extends StatelessWidget {
                           SmallText(
                               text: textCountItems),
                           SizedBox(height: Constants.height10 * 0.5,),
-                          BigText(text: "\$ ${cartController.totalPrice.toString()}"),
+                          Row(
+                            children: [
+                              Icon( Icons.currency_ruble, size: Constants.width20,),
+                              BigText(text: "${cartController.totalPrice.toString()}"),
+                            ],
+                          )
                         ],
                       ),
                       SizedBox(
@@ -177,7 +185,15 @@ class CartPageFire extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    print("restaurant id is QQQQQQ = ${Get.find<MenuPaperController>().restaurantModel.toJson().toString()}");
+                    _orderUploader.setloadingStatusIsLoading();
+                    //print("restaurant id is QQQQQQ = ${Get.find<MenuPaperController>().restaurantModel.toJson().toString()}");
+                    //print("cartHistory := ${cartController.cartRepo.cartHistory}");
+                    //print("cart := ${cartController.cartRepo.cart}");
+                    print("dfdfdf1  ${_orderUploader.loadingStatus.value}");
+                    if (_orderUploader.loadingStatus.value == LoadingStatus.loading){
+                      const CircularProgressIndicator();
+                      _orderUploader.uploadData(cartController.cartRepo.cart);
+                    }
                     cartController.addToHistory();
                   },
                   child: Container(

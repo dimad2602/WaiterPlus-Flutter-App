@@ -8,72 +8,61 @@ import 'package:flutter_project2/models/restaurants_model.dart';
 import 'package:get/get.dart';
 
 import '../../data/repository/cart_repo.dart';
+import '../../models/cart_model.dart';
 
 //Отложено
 class OrderUploader extends GetxController {
-  final CartRepo cartRepo;
-
-  OrderUploader({required this.cartRepo});
-
   @override
   void onReady() {
-    uploadData();
+    //uploadData();
+    //loadingStatus.value = LoadingStatus.loading;
     super.onReady();
   }
 
   final loadingStatus = LoadingStatus.loading.obs;
 
-  Future<void> uploadData() async {
+  /*final CartRepo cartRepo;
+  OrderUploader({required this.cartRepo});*/
+  void setloadingStatusIsLoading() {
+    loadingStatus.value = LoadingStatus.loading;
+  }
+
+  void uploadData(List<String> cart) {
     loadingStatus.value = LoadingStatus.loading;
 
     final firestore = FirebaseFirestore.instance;
-    List<RestaurantModel> restaurants = [];
 
-    // Получение данных из репозитория CartRepo
-    //restaurants = cartRepo.getRestaurants();
-
-    var batch = firestore.batch();
-
-    for (var paper in restaurants) {
-      batch.set(orderRF.doc(paper.id), {
-        "name": paper.name,
-        "description": paper.description,
-        "costs": paper.costs,
-        "img": paper.img,
-        "phone": paper.phone,
-        "time": paper.time,
-        "address_count": paper.address == null ? 0 : paper.address!.length,
-        "menu_count": paper.menu == null ? 0 : paper.menu!.length
-      });
-      for (var addres in paper.address!) {
-        final addresPath =
-        adressRF(restaurantId: paper.id, addresId: addres.id);
-        batch.set(addresPath, {
-          "id": addres.id,
-          "street": addres.street,
-        });
-      }
-      for (var menu in paper.menu!) {
-        final menuPath = menuRF(restaurantId: paper.id, menuId: menu.id);
-        batch.set(menuPath, {
-          "id": menu.id,
-          "name": menu.name,
-        });
-        for (var items in menu.items) {
-          batch.set(menuPath.collection("items").doc(items.id), {
-            "id": items.id,
-            "itemName": items.itemName,
-            "itemPrice": items.itemPrice,
-            "weight": items.weight,
-            "description": items.description,
-            "imagePath": items.imagePath,
-            "type_id": items.typeId,
-          });
-        }
-      }
+    List<CartModel> cartList = [];
+    for (var paper in cart) {
+      cartList.add(CartModel.fromJson(jsonDecode(paper)));
     }
 
-    await batch.commit();
-    loadingStatus.value = LoadingStatus.completed;
+    var batch = firestore.batch();
+    try {
+      //if (cartList[0].restaurantId == "1") {
+        batch.set(orderRF.doc(cartList[0].time),{
+          "id": cartList[0].time,
+        });
+      for (var paper in cartList) {
+          final orderItemsPath = orderItemsRF(time: paper.time!, itemId: paper.id!);
+          batch.set(orderItemsPath, { //batch.set(orderItemsRF(restaurantId: paper.restaurantId.toString()).doc(paper.id)
+            //"time": paper.time,
+            "id": paper.id,
+            "itemName": paper.itemName,
+            "itemPrice": paper.itemPrice,
+            "quantity": paper.quantity,
+            "img": paper.imagePath,
+            "restaurantId": paper.restaurantId,
+            "item": paper.item == null ? 0 : paper.item!.typeId,
+          });
+
+      }
+      batch.commit();
+      loadingStatus.value = LoadingStatus.completed;
+      print(loadingStatus.value);
+      //}
+    } catch (e) {
+      print(e);
+    }
   }
 }
