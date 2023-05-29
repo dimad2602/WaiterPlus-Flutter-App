@@ -96,7 +96,7 @@ void main() async {
             Get.put(CartController());*/
             return SplashPage();
             // OLD
-           // return SplashScreen();
+            //return SplashScreen();
           },
           '/firerestaurant_page': (context) {
             //Get.put(FirebaseStorageService());

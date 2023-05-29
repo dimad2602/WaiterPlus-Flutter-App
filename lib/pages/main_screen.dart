@@ -1,12 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project2/pages/order/order_incoming.dart';
+import 'package:flutter_project2/pages/restaurants/restaurant_fire_page.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../controllers/order/incoming_order_controller.dart';
 import '../firebase_ref/loading_status.dart';
 import '../util/AppColors.dart';
+import '../util/constants.dart';
 
 class MainScreen extends StatefulWidget {
   MainScreen({Key? key, required this.context}) : super(key: key);
@@ -125,16 +127,17 @@ class _MainScreenState extends State<MainScreen> {
                     color: Colors.black87),
               )),
             ),
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
             GestureDetector(
               onTap: () {
                 //Navigator.pushNamed(context, '/');
-                Navigator.pushNamed(context, '/restaurant_page');
+                //Navigator.pushNamed(context, '/restaurant_page');
+                Get.toNamed(RestaurantFirePage.routeName);
               },
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 100.0),
                 child: Container(
-                  padding: EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
                     color: Colors.black,
                     borderRadius: BorderRadius.circular(12),
@@ -197,7 +200,7 @@ class _MainScreenState extends State<MainScreen> {
             //       color: Colors.tealAccent,
             //       size: 40,
             //     )),
-            ElevatedButton(
+            /*ElevatedButton(
                 onPressed: () {
                   //Navigator.pushNamed(context, '/get_material_app');
                   //Navigator.pushNamed(context, '/splash_screen');
@@ -208,8 +211,9 @@ class _MainScreenState extends State<MainScreen> {
                   Icons.restaurant,
                   color: Colors.tealAccent,
                   size: 40,
-                )),
-            ElevatedButton(
+                )),*/
+            //ЗАГРУЗКА JSON
+           /* ElevatedButton(
                 onPressed: () {
                   Navigator.pushNamed(context, '/get_material_app');
                   //splash_screen
@@ -218,11 +222,11 @@ class _MainScreenState extends State<MainScreen> {
                   Icons.get_app,
                   color: Colors.tealAccent,
                   size: 40,
-                )),
+                )),*/
             /*if (_incomingOrderController.loadingStatus.value ==
                 LoadingStatus.loading)
               const CircularProgressIndicator(),*/
-            ElevatedButton(
+            /*ElevatedButton(
                 onPressed: () async {
                   IncomingOrderController _incomingOrderController = Get.find();
                   _incomingOrderController.setloadingStatusIsLoading();
@@ -234,8 +238,8 @@ class _MainScreenState extends State<MainScreen> {
                     const CircularProgressIndicator();
                   if (_incomingOrderController.loadingStatus.value == LoadingStatus.completed)
 
-                  /*await _incomingOrderController.getAllCategories(_incomingOrderController.allPapers[0]);
-                  print("allCategories.length := ${_incomingOrderController.allCategories.length}");*/
+                  *//*await _incomingOrderController.getAllCategories(_incomingOrderController.allPapers[0]);
+                  print("allCategories.length := ${_incomingOrderController.allCategories.length}");*//*
 
                   //TODO: вроде CircularProgressIndicator не работает, вообше нужно на страницу OrderIncoming его добавлять
                   if (_incomingOrderController.loadingStatus.value ==
@@ -249,7 +253,54 @@ class _MainScreenState extends State<MainScreen> {
                   Icons.checklist_rtl_outlined,
                   color: Colors.tealAccent,
                   size: 40,
-                )),
+                )),*/
+            SizedBox(height: Constants.height20*2,),
+            GestureDetector(
+              onTap: () async {
+                IncomingOrderController _incomingOrderController = Get.find();
+                _incomingOrderController.setloadingStatusIsLoading();
+                print(_incomingOrderController.loadingStatus.value);
+                //TODO: Нужно сделать тоже самое в корзине
+                await _incomingOrderController.getAllPapers();
+
+                if (_incomingOrderController.loadingStatus.value == LoadingStatus.loading)
+                  const CircularProgressIndicator();
+                if (_incomingOrderController.loadingStatus.value == LoadingStatus.completed)
+
+                  /*await _incomingOrderController.getAllCategories(_incomingOrderController.allPapers[0]);
+                  print("allCategories.length := ${_incomingOrderController.allCategories.length}");*/
+
+                  //TODO: вроде CircularProgressIndicator не работает, вообше нужно на страницу OrderIncoming его добавлять
+                  if (_incomingOrderController.loadingStatus.value ==
+                      LoadingStatus.loading) const CircularProgressIndicator();
+                print(_incomingOrderController.loadingStatus.value);
+                print("incomingOrderController.allPapers.length is = ${_incomingOrderController.allPapers.length}");
+
+                Get.toNamed(OrderIncoming.routeName);
+              },
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 100.0),
+                child: Container(
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: const FittedBox(
+                    fit: BoxFit.scaleDown,
+                    alignment: Alignment.center,
+                    child: Text(
+                      'Поступившие заказы',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
           ],
         ));
   }

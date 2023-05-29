@@ -5,6 +5,7 @@ import 'package:flutter_project2/pages/order/order_history.dart';
 import 'package:get/get.dart';
 
 import '../util/AppColors.dart';
+import 'login/login_page.dart';
 import 'main_screen.dart';
 
 class UserPage extends StatefulWidget {
@@ -21,7 +22,9 @@ class _UserPageState extends State<UserPage> {
   // sign user out method
   void signUserOut() {
     FirebaseAuth.instance.signOut();
-    Navigator.pushNamed(widget.context, '/auth_page');
+    //TODO: Правильно все?
+    //Navigator.pushNamed(widget.context, '/auth_page');
+    Get.offNamed(LoginPage.routeName);
   }
 
   User? user = FirebaseAuth.instance.currentUser;

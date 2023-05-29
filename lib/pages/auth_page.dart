@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project2/pages/home.dart';
+import 'package:flutter_project2/pages/restaurants/restaurant_fire_page.dart';
+import 'package:get/get.dart';
 
 import 'login/login_or_register_page.dart';
 import 'login/login_page.dart';
@@ -30,7 +32,7 @@ class AuthPage extends StatelessWidget {
             // работает
             //return MainScreen(context: context);
 
-            return RestaurantPage();
+            return RestaurantFirePage();//RestaurantPage();
           }
           //user is NOT logged in
           else {

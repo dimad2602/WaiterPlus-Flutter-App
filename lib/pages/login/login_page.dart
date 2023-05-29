@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_project2/pages/restaurants/restaurant_fire_page.dart';
 import 'package:flutter_project2/util/AppColors.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../auth_page.dart';
@@ -10,6 +12,7 @@ import '../auth_page.dart';
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
+  static const String routeName = "/login_page";
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
@@ -244,7 +247,8 @@ class _LoginPageState extends State<LoginPage> {
                     GestureDetector(
                       onTap: () {
                         //Navigator.pushNamed(context, '/');
-                        Navigator.pushNamed(context, '/restaurant_page');
+                        //Navigator.pushNamed(context, '/restaurant_page');
+                        Get.offNamed(RestaurantFirePage.routeName);
                       },
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 100.0),
