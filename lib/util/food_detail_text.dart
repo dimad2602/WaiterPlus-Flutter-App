@@ -30,7 +30,12 @@ class FoodDetailtextWidget extends StatelessWidget {
               text: foodName,
               size: Constants.font26,
             ),
-            Text('\$ $foodCost'),
+            Row(
+              children: [
+                Icon( Icons.currency_ruble, size: Constants.width15,),
+                Text('$foodCost', style: TextStyle(fontSize: Constants.width15),),
+              ],
+            ),
           ],
         ),
         Wrap(

@@ -39,6 +39,7 @@ class CustomAppBar2 extends StatelessWidget implements PreferredSizeWidget {
             child: Padding(
               padding: const EdgeInsets.only(left: 8.0),
               child: leftIcon ??
+                  //TODO: Добавить динамическое изменение размера текста
                   Text(
                     restName!,
                     style: GoogleFonts.bebasNeue(

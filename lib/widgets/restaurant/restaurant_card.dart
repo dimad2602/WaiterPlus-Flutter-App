@@ -7,6 +7,8 @@ import 'package:flutter_project2/controllers/restaurants_controlelr/restaurant_p
 import 'package:flutter_project2/models/restaurants_model.dart';
 import 'package:get/get.dart';
 
+import '../../util/constants.dart';
+
 class RestaurantCard extends GetView<RestaurantPaperController> {
   final RestaurantModel model;
   const RestaurantCard({Key? key, required this.model}) : super(key: key);
@@ -140,7 +142,7 @@ class RestaurantCard extends GetView<RestaurantPaperController> {
                                   ],
                                 ),
                               ),
-                              SizedBox(width: 60),
+                              SizedBox(width: Constants.width20*2),
                               Icon(Icons.room),
                               Flexible(
                                 child: Padding(

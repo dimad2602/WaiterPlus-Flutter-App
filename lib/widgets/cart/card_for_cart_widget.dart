@@ -110,7 +110,7 @@ class CardForCartWidget extends StatelessWidget {
                           text: itemName,
                           color: Colors.black87,
                         ),
-                        SmallText(text: itemWeight),
+                        SmallText(text: "$itemWeight г"),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -162,13 +162,21 @@ class CardForCartWidget extends StatelessWidget {
                               ),
                             ),
                             Padding(
-                                padding: EdgeInsets.only(
-                                  right: Constants.width10,
-                                ),
-                                child: BigText(
-                                  text: "\$ ${itemPrice}",
-                                  color: AppColors.redColor,
-                                )),
+                              padding: EdgeInsets.only(
+                                right: Constants.width10,
+                              ),
+                              child: Row(
+                                children: [
+                                  Icon(Icons.currency_ruble,
+                                      size: Constants.width20,
+                                      color: AppColors.redColor),
+                                  BigText(
+                                    text: itemPrice,
+                                    color: AppColors.redColor,
+                                  )
+                                ],
+                              ),
+                            ),
                           ],
                         )
                       ],

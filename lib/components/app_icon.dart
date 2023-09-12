@@ -9,6 +9,9 @@ class AppIcon extends StatelessWidget {
   final double size;
   final VoidCallback? onTap;
   final bool iconSize24;
+  final double customSize;
+  final bool swadowOff;
+
 
   const AppIcon(
       {Key? key,
@@ -17,7 +20,9 @@ class AppIcon extends StatelessWidget {
       this.iconColor = Colors.black87,
       this.iconSize24 = false,
       this.size = 40,
-      this.onTap})
+      this.customSize = 0,
+      this.onTap,
+      this.swadowOff = true})
       : super(key: key);
 
   @override
@@ -32,18 +37,19 @@ class AppIcon extends StatelessWidget {
           borderRadius: BorderRadius.circular(size / 2),
           color: backgroundColor,
           boxShadow: [
+            swadowOff ?
             BoxShadow(
               color: Colors.grey.withOpacity(0.5),
               spreadRadius: 2,
               blurRadius: 4,
               offset: Offset(0, 2),
-            ),
+            ): BoxShadow(),
           ],
         ),
         child: Icon(
           icon,
           color: iconColor,
-          size: iconSize24 ? Constants.iconSize24 : Constants.iconSize16,
+          size: customSize > 0 ? customSize : iconSize24 ? Constants.iconSize24 : Constants.iconSize16,
         ),
       ),
     );

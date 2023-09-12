@@ -2,11 +2,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project2/pages/order/order_history.dart';
+import 'package:flutter_project2/pages/usermenu/profile_page.dart';
 import 'package:get/get.dart';
+import '../../widgets/listTiel/list_tile_for_profile.dart';
 
-import '../util/AppColors.dart';
-import 'login/login_page.dart';
-import 'main_screen.dart';
+import '../../util/AppColors.dart';
+import '../login/login_page.dart';
+import '../main_screen.dart';
 
 class UserPage extends StatefulWidget {
   const UserPage({Key? key, required this.context}) : super(key: key);
@@ -74,18 +76,20 @@ class _UserPageState extends State<UserPage> {
                   const Divider(
                     thickness: 2,
                   ),
-                  _listTiles(
+                  listTiles(
                       title: 'Профиль',
                       // subtitle: 'Subtitle',
                       icon: Icons.person,
-                      onPressed: () {}),
-                  _listTiles(
+                      onPressed: () {
+                        Get.toNamed(ProfileSettings.routeName);
+                      }),
+                  listTiles(
                       title: 'Мои заказы', icon: Icons.history, onPressed: () {
                         Get.toNamed(OrderHistory.routeName);
                   }),
-                  _listTiles(
+                  listTiles(
                       title: 'Любимое', icon: Icons.favorite, onPressed: () {}),
-                  _listTiles(
+                  listTiles(
                       title: isAuthenticated ? 'Выйти из профиля' : 'Войти в профиль',
                       icon: Icons.logout,
                       onPressed: () async {
@@ -148,30 +152,30 @@ class _UserPageState extends State<UserPage> {
     Navigator.pushNamed(context, '/login_page');
   }
 
-  Widget _listTiles(
-      {required String title,
-      String? subtitle,
-      required IconData icon,
-      required Function onPressed}) {
-    return ListTile(
-      title: Text(
-        title,
-        style: TextStyle(
-          fontSize: 24,
-          fontWeight: FontWeight.bold,
-          color: (title == 'Выйти из профиля')? AppColors.redColor : (title == 'Войти в профиль') ? AppColors.redColor : Colors.black, //title == 'Выйти из профиля' ? Color(0xFFd60000) : Colors.black,
-        ),
-      ),
-      // subtitle: Text(
-      //   subtitle ?? "",
-      //   style: const TextStyle(fontSize: 15),
-      // ),
-      leading: Icon(icon,
-          color: title == 'Выйти из профиля' ? AppColors.redColor : (title == 'Войти в профиль') ? AppColors.redColor : null),
-      trailing: const Icon(Icons.keyboard_arrow_right),
-      onTap: () {
-        onPressed();
-      },
-    );
-  }
+  // Widget _listTiles(
+  //     {required String title,
+  //     String? subtitle,
+  //     required IconData icon,
+  //     required Function onPressed}) {
+  //   return ListTile(
+  //     title: Text(
+  //       title,
+  //       style: TextStyle(
+  //         fontSize: 24,
+  //         fontWeight: FontWeight.bold,
+  //         color: (title == 'Выйти из профиля')? AppColors.redColor : (title == 'Войти в профиль') ? AppColors.redColor : Colors.black, //title == 'Выйти из профиля' ? Color(0xFFd60000) : Colors.black,
+  //       ),
+  //     ),
+  //     // subtitle: Text(
+  //     //   subtitle ?? "",
+  //     //   style: const TextStyle(fontSize: 15),
+  //     // ),
+  //     leading: Icon(icon,
+  //         color: title == 'Выйти из профиля' ? AppColors.redColor : (title == 'Войти в профиль') ? AppColors.redColor : null),
+  //     trailing: const Icon(Icons.keyboard_arrow_right),
+  //     onTap: () {
+  //       onPressed();
+  //     },
+  //   );
+  // }
 }

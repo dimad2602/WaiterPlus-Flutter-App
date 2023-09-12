@@ -184,8 +184,8 @@ class TopFoodDetailPage extends StatelessWidget {
                         text:
                             '${_itemDetailController.currentItem.value!.description}',
                       ))),
-                      const SizedBox(
-                        height: 15,
+                      SizedBox(
+                        height: Constants.height15,
                       ),
                       // Другие кнопочки добавления
                       GetBuilder<ItemDetailController>(builder: (Item) {
@@ -201,11 +201,16 @@ class TopFoodDetailPage extends StatelessWidget {
                                   size: 40,
                                   color: Color(0xFF4ecb71),
                                 )),
-                            BigText(
-                              text:
-                                  '\$ ${_itemDetailController.currentItem.value!.itemPrice} X ${Item.inCartItems.toString()}',
-                              color: Colors.black87,
-                              size: 25,
+                            Row(
+                              children: [
+                                Icon( Icons.currency_ruble, size: Constants.width10*2.3,),
+                                BigText(
+                                  text:
+                                  '${_itemDetailController.currentItem.value!.itemPrice} X ${Item.inCartItems.toString()}',
+                                  color: Colors.black87,
+                                  size: 25,
+                                ),
+                              ],
                             ),
                             GestureDetector(
                                 onTap: () {
@@ -327,11 +332,14 @@ class TopFoodDetailPage extends StatelessWidget {
                         ),
                       ],
                     ),
-                    child: BigText(
-                      text:
-                          '\$ ${int.parse(_itemDetailController.currentItem.value!.itemPrice!) * Item.inCartItems} | Add to cart',
-                      color: Colors.white,
-                    ),
+                    child: Row(children: [
+                      Icon( Icons.currency_ruble, size: Constants.width20, color: Colors.white,),
+                      BigText(
+                        text:
+                        '${int.parse(_itemDetailController.currentItem.value!.itemPrice!) * Item.inCartItems} | Add to cart',
+                        color: Colors.white,
+                      ),
+                    ],)
                   ),
                 )
               ],

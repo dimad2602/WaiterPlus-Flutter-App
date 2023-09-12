@@ -24,7 +24,7 @@ import '../../data/repository/cart_repo.dart';
 import '../../models/cart_model.dart';
 import '../../util/AppColors.dart';
 import '../../widgets/order/order_card_widget.dart';
-import '../user_page.dart';
+import '../usermenu/user_page.dart';
 
 class OrderHistory extends StatelessWidget {
   const OrderHistory({Key? key}) : super(key: key);

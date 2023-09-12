@@ -6,6 +6,7 @@ import '../../data/repository/cart_repo.dart';
 import '../../models/cart_model.dart';
 import '../../models/restaurants_model.dart';
 import '../../pages/restaurants/restaurant_detail_page.dart';
+import '../items_controller/item_detail_controller.dart';
 import '../menu_controller/menu_controller.dart';
 import '../restaurants_controlelr/restaurant_detail_controller.dart';
 
@@ -88,6 +89,17 @@ class CartController extends GetxController {
     update();
   }
 
+  /*String getTextCountItems(){
+      int totalItems = 0;
+      String textCountItems = "";
+      totalItems = Get.find<ItemDetailController>().totalItems;
+      String itemsText = totalItems == 1 ? 'товар' : (totalItems >= 2 && totalItems <= 4 ? 'товара' : 'товаров');
+      textCountItems = '${totalItems.toString()} $itemsText';
+
+      update();
+      return textCountItems;
+  }*/
+
   bool existInCart(Items item) {
     if (_items.containsKey(int.parse(item.id))) {
       return true;
@@ -113,6 +125,19 @@ class CartController extends GetxController {
       totalQuantity += value.quantity!;
     });
     return totalQuantity;
+  }
+
+  String get totalItemsAndText {
+    String textCountItems = "";
+    var totalQuantity = 0;
+    _items.forEach((key, value) {
+      totalQuantity += value.quantity!;
+    });
+
+    String itemsText = totalQuantity == 1 ? 'товар' : (totalQuantity >= 2 && totalQuantity <= 4 ? 'товара' : 'товаров');
+    textCountItems = '${totalItems.toString()} $itemsText';
+
+    return textCountItems;
   }
 
   int get totalPrice {

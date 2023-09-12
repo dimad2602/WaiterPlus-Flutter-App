@@ -25,6 +25,18 @@ class OrderIncoming extends StatelessWidget {
       print("toJson() ${_incomingOrderController.allPapers.toJson()}");
    // }
     //AddTolist;
+
+    /*Widget timeWidget(int index) {
+      var outputDate = DateTime.now().toString();
+      if (index < getCartHistoryList.length) {
+        DateTime parseDate = DateFormat("yyyy-MM-dd HH:mm:ss")
+            .parse(getCartHistoryList[listCounter].time!);
+        var inputDate = DateTime.parse(parseDate.toString());
+        var outputFormat = DateFormat("dd/MM/yyyy HH:mm");
+        outputDate = outputFormat.format(parseDate);
+      }
+      return BigText(text: outputDate);
+    }*/
     return Obx(
         () => Scaffold(
           backgroundColor: AppColors.mainColor,
@@ -43,7 +55,7 @@ class OrderIncoming extends StatelessWidget {
                         return //Text("${_incomingOrderController.allPapers[index]}"); //${_incomingOrderController.allPapers[0].itemName}
                           //Obx(() =>
                               OrderIncomingWidget(
-                            model: _incomingOrderController.allPapers[index],
+                            model: _incomingOrderController.allPapers.reversed.toList()[index],//_incomingOrderController.allPapers[index],
                             index: index,
                             orderItems: _incomingOrderController.allCategories,
                             //orderModel: _incomingOrderController.getAllCategories(_incomingOrderController.allPapers[0]),

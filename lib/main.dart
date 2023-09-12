@@ -20,7 +20,8 @@ import 'package:flutter_project2/pages/qr_page.dart';
 import 'package:flutter_project2/pages/login/register_page.dart';
 import 'package:flutter_project2/pages/splash/splash_new_page.dart';
 import 'package:flutter_project2/pages/splash/splash_screen.dart';
-import 'package:flutter_project2/pages/user_page.dart';
+import 'package:flutter_project2/pages/usermenu/profile_page.dart';
+import 'package:flutter_project2/pages/usermenu/user_page.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -130,6 +131,9 @@ void main() async {
           '/order_incoming': (context) {
             return OrderIncoming();
           },
+          '/profile_settings': (context) {
+            return ProfileSettings();
+          }
         },
       ),
     ),

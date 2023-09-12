@@ -97,7 +97,7 @@ class DishCardWidget extends StatelessWidget {
                       )*/
                       Container(
                           //height: Constants.height20*1.4,
-                          width: _screenWidth * 0.35, //Constants.width20*9,
+                          width: _screenWidth * 0.30, //Constants.width20*9,
                           child: BigText(
                               text: testName,
                               bold: true,
@@ -112,9 +112,16 @@ class DishCardWidget extends StatelessWidget {
                     ],
                   ),
                   Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [BigText(text: itemCosts, bold: true)],
-                  )
+                    //crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Row(
+                        children: [
+                          BigText(text: itemCosts),
+                          Icon( Icons.currency_ruble, size: Constants.width20,),
+                        ],
+                      )
+                    ],
+                  ),
                 ],
               ),
             ),

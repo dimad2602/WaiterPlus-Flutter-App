@@ -36,6 +36,13 @@ class CartPageFire extends StatelessWidget {
       String itemsText = totalItems == 1 ? 'товар' : (totalItems >= 2 && totalItems <= 4 ? 'товара' : 'товаров');
       textCountItems = '${totalItems.toString()} $itemsText';
     }
+    /*void getTextCountItems(){
+      if (Get.find<ItemDetailController>().initialized){
+        totalItems = Get.find<ItemDetailController>().totalItems;
+        String itemsText = totalItems == 1 ? 'товар' : (totalItems >= 2 && totalItems <= 4 ? 'товара' : 'товаров');
+        textCountItems = '${totalItems.toString()} $itemsText';
+      }
+    }*/
     return Scaffold(
       backgroundColor: AppColors.mainColor,
       body: Stack(
@@ -167,7 +174,7 @@ class CartPageFire extends StatelessWidget {
                       Column(
                         children: [
                           SmallText(
-                              text: textCountItems),
+                              text: cartController.totalItemsAndText /*cartController.totalItems.toString()*/ /*textCountItems*/),
                           SizedBox(height: Constants.height10 * 0.5,),
                           Row(
                             children: [

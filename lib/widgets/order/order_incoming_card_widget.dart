@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project2/components/big_text.dart';
 import 'package:flutter_project2/util/constants.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../../controllers/order/incoming_order_controller.dart';
 import '../../models/order_model.dart';
@@ -13,17 +14,29 @@ class OrderIncomingWidget extends GetView<IncomingOrderController> {
 
   //final OrderItems orderModel;
 
-  const OrderIncomingWidget({
-    Key? key,
-    required this.model,
-    required this.index,
-    required this.orderItems
-  }) : super(key: key);
+  const OrderIncomingWidget(
+      {Key? key,
+      required this.model,
+      required this.index,
+      required this.orderItems})
+      : super(key: key);
 
   //await _incomingOrderController.getAllCategories(_incomingOrderController.allPapers[0]);
   @override
   Widget build(BuildContext context) {
+    /*String timeWidget() {
+      var outputDate = DateTime.now().toString();
+      print("fdfdfdfdf ${model.id!}");
+      DateTime parseDate = DateFormat("yyyy-MM-dd HH:mm:ss").parse(model.id!);
+      var outputFormat = DateFormat("dd/MM/yyyy HH:mm");
+      outputDate = outputFormat.format(parseDate);
+      print("fdfdfdfdf2 ${outputDate}");
+      return outputDate;
+    }*/
+
     //get.find<IncomingOrderController> //_incomingOrderController.getAllCategories(_incomingOrderController.allPapers[0]);
+    final dateTime = DateTime.parse(model.id!);
+    final formattedTime = DateFormat('HH:mm dd-MM-yyyy ').format(dateTime);
     return Stack(
       children: [
         Align(
@@ -31,11 +44,13 @@ class OrderIncomingWidget extends GetView<IncomingOrderController> {
           child: InkWell(
             onTap: () {},
             child: Padding(
-              padding: EdgeInsets.symmetric(vertical: Constants.height10, horizontal: Constants.width15),
+              padding: EdgeInsets.symmetric(
+                  vertical: Constants.height10, horizontal: Constants.width15),
               child: Container(
                 height: Constants.height45 * 4,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(Constants.radius15)),
+                  borderRadius:
+                      BorderRadius.all(Radius.circular(Constants.radius15)),
                   color: Color(0xffffffff),
                   boxShadow: [
                     BoxShadow(
@@ -50,24 +65,35 @@ class OrderIncomingWidget extends GetView<IncomingOrderController> {
                   child: Column(
                     children: [
                       SizedBox(height: Constants.height20),
+                      //BigText(text: "${timeWidget.toString()}"),
+                      BigText(text: formattedTime),
                       GestureDetector(
                         child: ListView.separated(
-                          // Позволяем перекрывать категории
+                            // Позволяем перекрывать категории
                             shrinkWrap: true,
                             physics: NeverScrollableScrollPhysics(),
                             itemBuilder: (BuildContext context, int index2) {
                               return Container(
                                 child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsets.symmetric(horizontal: Constants.width20),
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: Constants.width20),
                                       child: Container(
                                         child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
-                                            BigText(text: "${model.orderItems![index2].itemName}", bold: true,),
-                                            BigText(text: "x ${model.orderItems![index2].quantity}")
+                                            BigText(
+                                              text:
+                                                  "${model.orderItems![index2].itemName}",
+                                              bold: true,
+                                            ),
+                                            BigText(
+                                                text:
+                                                    "x ${model.orderItems![index2].quantity}")
                                           ],
                                         ),
                                       ),
@@ -76,12 +102,14 @@ class OrderIncomingWidget extends GetView<IncomingOrderController> {
                                 ),
                               );
                             },
-                            separatorBuilder: (BuildContext context, int index) {
+                            separatorBuilder:
+                                (BuildContext context, int index) {
                               return SizedBox(
                                 height: Constants.height10,
                               );
                             },
-                            itemCount: model.orderItems!.length), //orderItems.length),
+                            itemCount:
+                                model.orderItems!.length), //orderItems.length),
                       ),
                       SizedBox(height: Constants.height20),
                     ],

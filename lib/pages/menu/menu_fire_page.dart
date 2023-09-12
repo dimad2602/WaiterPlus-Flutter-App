@@ -126,8 +126,7 @@ class MenuFirePage extends GetView<MenuPaperController> {
                     SizedBox(
                       height: Constants.height20,
                     ),
-
-                    //TODO: Не отображаеться пока не разу не булдет открыта корзина -- РЕШЕНО
+                    //TODO: Не отображаеться пока не разу не будет открыта корзина -- РЕШЕНО
                     // Решено (Нужно как то проверять сушествование иначе страница не будет открываться при первом запуске )
                     /*Get.find<ItemDetailController>().initialized
                         ? Get.find<ItemDetailController>().totalItems > 0 ?*/
@@ -152,10 +151,15 @@ class MenuFirePage extends GetView<MenuPaperController> {
                                           SizedBox(
                                             height: Constants.height10 * 0.5,
                                           ),
-                                          BigText(
-                                            text:
-                                                "${Get.find<CartController>().totalPrice.toString()} \$",
-                                            bold: true,
+                                          Row(
+                                            children: [
+                                              BigText(
+                                                text:
+                                                "${Get.find<CartController>().totalPrice.toString()}",
+                                                bold: true,
+                                              ),
+                                              Icon( Icons.currency_ruble, size: Constants.width20),
+                                            ],
                                           )
                                         ],
                                       ),
@@ -174,7 +178,7 @@ class MenuFirePage extends GetView<MenuPaperController> {
                                         decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(
                                               Constants.radius20),
-                                          color: const Color(0xFF4ecb71),
+                                          color: AppColors.bottonColor,
                                           boxShadow: [
                                             BoxShadow(
                                               color:
