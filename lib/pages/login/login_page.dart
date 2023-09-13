@@ -61,7 +61,7 @@ class _LoginPageState extends State<LoginPage> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            backgroundColor: AppColors.RedBottonColor,
+            backgroundColor: AppColors.redBottonColor,
             title: Text(
               message,
               style: const TextStyle(
@@ -96,7 +96,7 @@ class _LoginPageState extends State<LoginPage> {
         ) ?? false;
       },
       child: Scaffold(
-        backgroundColor: AppColors.OldMainColor,
+        backgroundColor: AppColors.oldMainColor,
         body: SafeArea(
           child: SingleChildScrollView(
             child: Center(
@@ -210,7 +210,7 @@ class _LoginPageState extends State<LoginPage> {
                           Text(
                             'Forgot Password?',
                             style: TextStyle(
-                              color: AppColors.RedBottonColor,
+                              color: AppColors.redBottonColor,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -229,7 +229,7 @@ class _LoginPageState extends State<LoginPage> {
                         child: Container(
                           padding: const EdgeInsets.all(20),
                           decoration: BoxDecoration(
-                            color: AppColors.RedBottonColor,
+                            color: AppColors.redBottonColor,
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: const Center(
@@ -286,7 +286,7 @@ class _LoginPageState extends State<LoginPage> {
                           child: Text(
                             ' Register now',
                             style: TextStyle(
-                              color: AppColors.RedBottonColor,
+                              color: AppColors.redBottonColor,
                               fontWeight: FontWeight.bold,
                             ),
                           ),

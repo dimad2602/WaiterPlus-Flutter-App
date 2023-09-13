@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_project2/controllers/registration_controller/auth_controller.dart';
 import 'package:flutter_project2/pages/order/order_history.dart';
 import 'package:flutter_project2/pages/usermenu/profile_page.dart';
 import 'package:get/get.dart';
@@ -81,6 +82,14 @@ class _UserPageState extends State<UserPage> {
                       // subtitle: 'Subtitle',
                       icon: Icons.person,
                       onPressed: () {
+                        //TODO: Так будет работать проверка на авторизацию
+                        // if(Get.find<AuthController>().userLogedIn()){
+                        //   Get.toNamed(ProfileSettings.routeName);
+                        // }
+                        // else{
+                        //
+                        // }
+
                         Get.toNamed(ProfileSettings.routeName);
                       }),
                   listTiles(
@@ -89,10 +98,18 @@ class _UserPageState extends State<UserPage> {
                   }),
                   listTiles(
                       title: 'Любимое', icon: Icons.favorite, onPressed: () {}),
+
                   listTiles(
                       title: isAuthenticated ? 'Выйти из профиля' : 'Войти в профиль',
                       icon: Icons.logout,
                       onPressed: () async {
+                        //TODO: Так нужно будет сделать "Выйти из аккаунтра"
+                        // if(Get.find<AuthController>().userLogedIn()){
+                        //   Get.find<AuthController>().clearSharedData();
+                        // Корзину тоде можно очистить //вызвать метод очишения у контроллера корзины
+                        // }else{
+                        //
+                        // }
                         isAuthenticated ? await _showLogoutDialog() : await _NavigateToLoginDialog();
                       }),
                 ],

@@ -18,31 +18,34 @@ class AccountWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //TODO: Не уверен в дизайне
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(size / 2),
-        color: backgroundColor,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
-            spreadRadius: 2,
-            blurRadius: 4,
-            offset: Offset(0, 2),
-          ),
-        ],
-      ),
-      padding: EdgeInsets.only(
-          left: Constants.width20,
-          top: Constants.width10,
-          bottom: Constants.width10),
-      child: Row(
-        children: [
-          appIcon,
-          SizedBox(
-            width: Constants.width20,
-          ),
-          bigText,
-        ],
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: Constants.width10),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(size / 2),
+          color: backgroundColor,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.3),
+              spreadRadius: 2,
+              blurRadius: 4,
+              offset: Offset(0, 2),
+            ),
+          ],
+        ),
+        padding: EdgeInsets.only(
+            left: Constants.width20,
+            top: Constants.width10,
+            bottom: Constants.width10),
+        child: Row(
+          children: [
+            appIcon,
+            SizedBox(
+              width: Constants.width20,
+            ),
+            bigText,
+          ],
+        ),
       ),
     );
   }
