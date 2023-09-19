@@ -11,7 +11,7 @@ class AppConstants{
   //user and auth end points
   static const String REGISTRATION_URI="api/v1/auth/register";
   static const String LOGIN_URI="api/v1/auth/register";
-  static const String USER_INFO_URI="api/v1/customer/info";
+  static const String USER_INFO_URI="api/v1/customer/info"; //info - это endpoint
 
   static const String TOKEN=""; //DBtoken
   static const String PHONE="";

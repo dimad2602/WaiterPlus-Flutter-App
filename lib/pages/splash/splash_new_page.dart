@@ -3,10 +3,12 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_project2/controllers/order/incoming_order_controller.dart';
 import 'package:flutter_project2/controllers/order/order_uploader.dart';
+import 'package:flutter_project2/controllers/registration_controller/auth_controller.dart';
 import 'package:flutter_project2/controllers/restaurants_controlelr/restaurant_detail_controller.dart';
 import 'package:flutter_project2/pages/auth_page.dart';
 import 'package:flutter_project2/pages/login/login_page.dart';
 import 'package:flutter_project2/pages/restaurants/restaurant_fire_page.dart';
+import 'package:flutter_project2/util/app_constants.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -15,9 +17,15 @@ import '../../controllers/cart_controller/cart_controller.dart';
 import '../../controllers/items_controller/item_detail_controller.dart';
 import '../../controllers/menu_controller/menu_controller.dart';
 import '../../controllers/restaurants_controlelr/restaurant_paper_controller.dart';
+import '../../controllers/user_controller/user_controller.dart';
+import '../../data/api/api_client.dart';
+import '../../data/repository/auth_repo.dart';
 import '../../data/repository/cart_repo.dart';
+import '../../data/repository/user_repo.dart';
 import '../../services/firebase_storage_service.dart';
 import '../../util/constants.dart';
+//import '../../helper/dependencies.dart';
+
 
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);
@@ -46,6 +54,7 @@ class _SplashScreenState extends State<SplashPage>
     Get.put(IncomingOrderController());
     await Get.put(MenuPaperController());
     await Get.put(ItemDetailController());
+    //await init(); // TODO: правильно ли? кажется нет
     SharedPreferences sharedPreferences =
         await SharedPreferences.getInstance(); // Instantiate SharedPreferences
     Get.put(sharedPreferences); // Register SharedPreferences instance
@@ -57,6 +66,24 @@ class _SplashScreenState extends State<SplashPage>
     // Загружаем из локального хранилиша items в корзину
     Get.find<CartController>().getCartData();
     //Get.put(RestaurantDetailController());
+
+    //TODO: перенес содержиое dependencies сюда
+    //api client
+    Get.lazyPut(()=> ApiClient(appBaseUrl: AppConstants.BASE_URL));
+    //TODO: скорее всего нужно сделать также для остальных репозиториев (например CartRepo)
+    //Get.lazyPut(() => ApiClient(appBaseUrl:"https://mvs.bslmeiyu.com")); //Правильно будет поместить в Constants BASE_URL
+    Get.lazyPut(() => AuthRepo(apiClient: Get.find(), sharedPreferences:  Get.find()));
+    Get.lazyPut(() => UserRepo(apiClient: Get.find()));
+    //repos
+    //Get.lazyPut(() => PopularProductRepo(apiClient:Get.find()));
+
+
+    //controllers
+    //TODO: Так же нужно сделать для остальных контроллеров для backend
+    //Get.lazyPut(() => PopularProductController(popularProductRepo:Get.find()));
+    Get.lazyPut(() => AuthController(authRepo: Get.find()));
+    Get.lazyPut(() => UserController(userRepo: Get.find()));
+
   }
 
   @override
@@ -69,7 +96,7 @@ class _SplashScreenState extends State<SplashPage>
           ..forward();
     animation = CurvedAnimation(parent: controller, curve: Curves.linear);
     Timer(Duration(seconds: 3), () {
-      print("sdfsdfsdfsd");
+      print("splash screen");
       FirebaseAuth auth = FirebaseAuth.instance;
       User? user = auth.currentUser;
       if (user != null) {
