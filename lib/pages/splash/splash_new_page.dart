@@ -69,7 +69,7 @@ class _SplashScreenState extends State<SplashPage>
 
     //TODO: перенес содержиое dependencies сюда
     //api client
-    Get.lazyPut(()=> ApiClient(appBaseUrl: AppConstants.BASE_URL));
+    Get.lazyPut(()=> ApiClient(appBaseUrl: AppConstants.BASE_URL, sharedPreferences: Get.find()));
     //TODO: скорее всего нужно сделать также для остальных репозиториев (например CartRepo)
     //Get.lazyPut(() => ApiClient(appBaseUrl:"https://mvs.bslmeiyu.com")); //Правильно будет поместить в Constants BASE_URL
     Get.lazyPut(() => AuthRepo(apiClient: Get.find(), sharedPreferences:  Get.find()));
