@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project2/controllers/registration_controller/auth_controller.dart';
 import 'package:flutter_project2/controllers/user_controller/user_controller.dart';
+import 'package:flutter_project2/pages/maps/add_address_page.dart';
 import 'package:flutter_project2/pages/usermenu/user_page.dart';
 import 'package:flutter_project2/widgets/profile/account_widget.dart';
 import 'package:get/get.dart';
@@ -9,6 +10,7 @@ import '../../components/big_text.dart';
 import '../../util/AppColors.dart';
 import '../../util/constants.dart';
 import '../../widgets/listTiel/list_tile_for_profile.dart';
+import '../maps/profile_map_page.dart';
 import '../order/order_history.dart';
 
 class ProfileSettings extends StatelessWidget {
@@ -17,7 +19,7 @@ class ProfileSettings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool _userLoggedIn = Get.find<AuthController>().userLogedIn();
+    bool _userLoggedIn = Get.find<AuthController>().userLoggedIn();
     if (_userLoggedIn){
       Get.find<UserController>().getUserInfo();
       print('test profile login');
@@ -259,15 +261,35 @@ class ProfileSettings extends StatelessWidget {
                           bigText: BigText(text:'mail')),
                       SizedBox(height: Constants.height20,),
                       //address
-                      AccountWidget(
-                          appIcon:
-                          AppIcon(icon: Icons.location_on,
-                            backgroundColor: AppColors.lightGreenColor,
-                            iconColor: AppColors.redColor,
-                            customSize: Constants.height10*5/2,
-                            size: Constants.height10*5,
-                            swadowOff: false,),
-                          bigText: BigText(text:'address')),
+                      GestureDetector(
+                        onTap: (){
+                          Get.toNamed(ProfileMap.routeName);
+                        },
+                        child: AccountWidget(
+                            appIcon:
+                            AppIcon(icon: Icons.location_on,
+                              backgroundColor: AppColors.lightGreenColor,
+                              iconColor: AppColors.redColor,
+                              customSize: Constants.height10*5/2,
+                              size: Constants.height10*5,
+                              swadowOff: false,),
+                            bigText: BigText(text:'address')),
+                      ),
+                      SizedBox(height: Constants.height20,),
+                      GestureDetector(
+                        onTap: (){
+                          Get.toNamed(AddAddressPage.routeName);
+                        },
+                        child: AccountWidget(
+                            appIcon:
+                            AppIcon(icon: Icons.terrain_sharp,
+                              backgroundColor: AppColors.lightGreenColor,
+                              iconColor: AppColors.redColor,
+                              customSize: Constants.height10*5/2,
+                              size: Constants.height10*5,
+                              swadowOff: false,),
+                            bigText: BigText(text:'address')),
+                      ),
                       SizedBox(height: Constants.height20,),
                       //Note
                       AccountWidget(

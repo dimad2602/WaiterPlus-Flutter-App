@@ -38,6 +38,9 @@ dependencies:
   cached_network_image:
   shared_preferences:
   intl:
+  yandex_mapkit: ^3.3.3
+  geocoding:
+  geolocator:
 
 
   # The following adds the Cupertino Icons font to your application.

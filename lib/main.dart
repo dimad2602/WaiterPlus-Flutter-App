@@ -13,6 +13,8 @@ import 'package:flutter_project2/pages/login/login_or_register_page.dart';
 import 'package:flutter_project2/pages/login/login_page.dart';
 import 'package:flutter_project2/pages/main_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_project2/pages/maps/add_address_page.dart';
+import 'package:flutter_project2/pages/maps/profile_map_page.dart';
 import 'package:flutter_project2/pages/menu/menu_overview_page.dart';
 import 'package:flutter_project2/pages/menu_page.dart';
 import 'package:flutter_project2/pages/order/order_incoming.dart';
@@ -133,6 +135,12 @@ void main() async {
           },
           '/profile_settings': (context) {
             return ProfileSettings();
+          },
+          '/profile_map_page': (context) {
+            return ProfileMap();
+          },
+          '/add_address_page': (context) {
+            return AddAddressPage();
           }
         },
       ),

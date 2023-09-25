@@ -1,10 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_project2/controllers/map_controller/location_controller.dart';
 import 'package:flutter_project2/controllers/order/incoming_order_controller.dart';
 import 'package:flutter_project2/controllers/order/order_uploader.dart';
 import 'package:flutter_project2/controllers/registration_controller/auth_controller.dart';
 import 'package:flutter_project2/controllers/restaurants_controlelr/restaurant_detail_controller.dart';
+import 'package:flutter_project2/data/repository/location_repo.dart';
 import 'package:flutter_project2/pages/auth_page.dart';
 import 'package:flutter_project2/pages/login/login_page.dart';
 import 'package:flutter_project2/pages/restaurants/restaurant_fire_page.dart';
@@ -72,17 +74,19 @@ class _SplashScreenState extends State<SplashPage>
     Get.lazyPut(()=> ApiClient(appBaseUrl: AppConstants.BASE_URL, sharedPreferences: Get.find()));
     //TODO: скорее всего нужно сделать также для остальных репозиториев (например CartRepo)
     //Get.lazyPut(() => ApiClient(appBaseUrl:"https://mvs.bslmeiyu.com")); //Правильно будет поместить в Constants BASE_URL
+
+    //repos
     Get.lazyPut(() => AuthRepo(apiClient: Get.find(), sharedPreferences:  Get.find()));
     Get.lazyPut(() => UserRepo(apiClient: Get.find()));
-    //repos
+    Get.lazyPut(() => LocationRepo(apiClient: Get.find(), sharedPreferences: Get.find()));
     //Get.lazyPut(() => PopularProductRepo(apiClient:Get.find()));
-
 
     //controllers
     //TODO: Так же нужно сделать для остальных контроллеров для backend
     //Get.lazyPut(() => PopularProductController(popularProductRepo:Get.find()));
     Get.lazyPut(() => AuthController(authRepo: Get.find()));
     Get.lazyPut(() => UserController(userRepo: Get.find()));
+    Get.lazyPut(() => LocationController(locationRepo: Get.find()));
 
   }
 
