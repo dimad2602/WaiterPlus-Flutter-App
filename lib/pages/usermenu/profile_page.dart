@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project2/controllers/registration_controller/auth_controller.dart';
 import 'package:flutter_project2/controllers/user_controller/user_controller.dart';
 import 'package:flutter_project2/pages/maps/add_address_page.dart';
+import 'package:flutter_project2/pages/maps/address_search_page.dart';
 import 'package:flutter_project2/pages/usermenu/user_page.dart';
 import 'package:flutter_project2/widgets/profile/account_widget.dart';
 import 'package:get/get.dart';
@@ -263,7 +264,8 @@ class ProfileSettings extends StatelessWidget {
                       //address
                       GestureDetector(
                         onTap: (){
-                          Get.toNamed(ProfileMap.routeName);
+                          //Get.toNamed(AddressSearchPage.routeName);
+                          Navigator.push(context, AddressSearchPage.route());
                         },
                         child: AccountWidget(
                             appIcon:
@@ -273,7 +275,7 @@ class ProfileSettings extends StatelessWidget {
                               customSize: Constants.height10*5/2,
                               size: Constants.height10*5,
                               swadowOff: false,),
-                            bigText: BigText(text:'address')),
+                            bigText: BigText(text:'Address1')),
                       ),
                       SizedBox(height: Constants.height20,),
                       GestureDetector(

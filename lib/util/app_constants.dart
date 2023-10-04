@@ -13,7 +13,12 @@ class AppConstants{
   static const String LOGIN_URI="api/v1/auth/register";
   static const String USER_INFO_URI="api/v1/customer/info"; //info - это endpoint
 
+  //GEO
+  static const String USER_ADDRESS="user_address";
+  static const String GEOCODE_URI ="/api/v1/config/geocode-api";
+
   static const String TOKEN=""; //DBtoken - вроде нудно пустым оставлять?
   static const String PHONE="";
   static const String PASSWORD="";
+
 }

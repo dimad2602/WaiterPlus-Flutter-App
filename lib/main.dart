@@ -14,6 +14,7 @@ import 'package:flutter_project2/pages/login/login_page.dart';
 import 'package:flutter_project2/pages/main_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_project2/pages/maps/add_address_page.dart';
+import 'package:flutter_project2/pages/maps/address_search_page.dart';
 import 'package:flutter_project2/pages/maps/profile_map_page.dart';
 import 'package:flutter_project2/pages/menu/menu_overview_page.dart';
 import 'package:flutter_project2/pages/menu_page.dart';
@@ -141,6 +142,9 @@ void main() async {
           },
           '/add_address_page': (context) {
             return AddAddressPage();
+          },
+          '/address_search_page': (context) {
+            return AddressSearchPage();
           }
         },
       ),
