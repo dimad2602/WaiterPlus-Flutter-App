@@ -94,7 +94,7 @@ class OrderHistory extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.only(left: Constants.width20),
                       child: AppIcon(
-                        icon: Icons.arrow_back_ios,
+                        icon: Icons.arrow_back_ios_new,
                         iconColor: Colors.black87,
                         backgroundColor: AppColors.mainColor,
                         iconSize24: true,

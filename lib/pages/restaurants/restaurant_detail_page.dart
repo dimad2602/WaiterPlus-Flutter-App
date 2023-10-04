@@ -74,7 +74,7 @@ class RestaurantDetailPage extends GetView<RestaurantDetailController> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       AppIcon(
-                          icon: Icons.arrow_back_ios,
+                          icon: Icons.arrow_back_ios_new,
                           onTap: () {
                             Get.toNamed(RestaurantFirePage.routeName);
                             //Get.toNamed(MenuFirePage.routeName);

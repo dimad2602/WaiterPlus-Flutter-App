@@ -4,11 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project2/components/big_text.dart';
 import 'package:flutter_project2/pages/maps/map_page.dart';
 import 'package:flutter_project2/util/AppColors.dart';
+import 'package:flutter_project2/util/constants.dart';
+import 'package:get/get.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 
+import '../../components/Map/map_button.dart';
+import '../usermenu/profile_page.dart';
 
 class AddressSearchPage extends MapPage {
-  const AddressSearchPage({Key? key}) : super('Reverse search example', key: key);
+  const AddressSearchPage({Key? key})
+      : super('Reverse search example', key: key);
 
   static const String routeName = "/address_search_page";
 
@@ -36,12 +41,9 @@ class _ReverseSearchExampleState extends State<_ReverseSearchExample> {
     PlacemarkMapObject(
       mapId: cameraMapObjectId,
       point: const Point(latitude: 55.755848, longitude: 37.620409),
-      icon: PlacemarkIcon.single(
-          PlacemarkIconStyle(
-              image: BitmapDescriptor.fromAssetImage('lib/icons/place.png'),
-              scale: 0.75
-          )
-      ),
+      icon: PlacemarkIcon.single(PlacemarkIconStyle(
+          image: BitmapDescriptor.fromAssetImage('lib/icons/place.png'),
+          scale: 0.75)),
       opacity: 0.5,
     )
   ];
@@ -50,70 +52,144 @@ class _ReverseSearchExampleState extends State<_ReverseSearchExample> {
 
   @override
   Widget build(BuildContext context) {
-    const mapHeight = 300.0;
+    //const mapHeight = 300.0;
 
     return Scaffold(
-      body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            SizedBox(
-              width: MediaQuery.of(context).size.width,
-              height: mapHeight,
-              child: Stack(
-                fit: StackFit.expand,
+      body: Stack(
+        children: [
+          // Верхний элемент (карта)
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: Stack(
+              children: [
+                YandexMap(
+                  mapObjects: mapObjects,
+                  onCameraPositionChanged: (CameraPosition cameraPosition,
+                      CameraUpdateReason _, bool __) async {
+                    final placemarkMapObject = mapObjects
+                            .firstWhere((el) => el.mapId == cameraMapObjectId)
+                        as PlacemarkMapObject;
+
+                    setState(() {
+                      mapObjects[mapObjects.indexOf(placemarkMapObject)] =
+                          placemarkMapObject.copyWith(
+                              point: cameraPosition.target);
+                    });
+                  },
+                  onMapCreated:
+                      (YandexMapController yandexMapController) async {
+                    final placemarkMapObject = mapObjects
+                            .firstWhere((el) => el.mapId == cameraMapObjectId)
+                        as PlacemarkMapObject;
+
+                    controller = yandexMapController;
+
+                    await controller.moveCamera(CameraUpdate.newCameraPosition(
+                        CameraPosition(
+                            target: placemarkMapObject.point, zoom: 17)));
+                  },
+                ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 8.0, right: 8.0, bottom: Constants.height45*3),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        MapButton(
+                          icon: Icons.arrow_back_ios_new,
+                          isCircular: true,
+                          customSize: Constants.width15*2,
+                          onTap: () {
+                            Get.toNamed(ProfileSettings.routeName);
+                          },
+                        ),
+                        MapButton(
+                          icon: Icons.near_me,
+                          isCircular: true,
+                          customSize: Constants.width15*2,
+                          backgroundColor: Color.fromRGBO(252, 244, 228, 0.5),
+                          onTap: () {
+                            // Обработка нажатия
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: Padding(
+                    padding: EdgeInsets.only(right: Constants.width15),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        MapButton(
+                          icon: Icons.add,
+                          isCircular: false,
+                          customSize: Constants.width15*2,
+                          backgroundColor: Color.fromRGBO(252, 244, 228, 0.5),
+                          onTap: () {
+                            // Обработка нажатия
+                          },
+                        ),
+                        SizedBox(height: Constants.height15,),
+                        MapButton(
+                          icon: Icons.remove,
+                          isCircular: false,
+                          customSize: Constants.width15*2,
+                          backgroundColor: Color.fromRGBO(252, 244, 228, 0.5),
+                          onTap: () {
+                            // Обработка нажатия
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: Container(
+              padding: EdgeInsets.all(Constants.height45/2), // Подберите подходящий отступ
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(Constants.width10),
+                    topRight: Radius.circular(Constants.width10)),
+                color: AppColors.mainColor,
+              ),
+              child: Column(
                 children: [
-                  YandexMap(
-                    mapObjects: mapObjects,
-                    onCameraPositionChanged: (CameraPosition cameraPosition, CameraUpdateReason _, bool __) async {
-                      final placemarkMapObject = mapObjects
-                          .firstWhere((el) => el.mapId == cameraMapObjectId) as PlacemarkMapObject;
-
-                      setState(() {
-                        mapObjects[mapObjects.indexOf(placemarkMapObject)] = placemarkMapObject.copyWith(
-                            point: cameraPosition.target
-                        );
-                      });
-                    },
-                    onMapCreated: (YandexMapController yandexMapController) async {
-                      final placemarkMapObject = mapObjects
-                          .firstWhere((el) => el.mapId == cameraMapObjectId) as PlacemarkMapObject;
-
-                      controller = yandexMapController;
-
-                      await controller.moveCamera(
-                          CameraUpdate.newCameraPosition(CameraPosition(target: placemarkMapObject.point, zoom: 17))
-                      );
-                    },
-                  )
+                  Text('Ваш текст'),
+                  // ElevatedButton(
+                  //   onPressed: () {},
+                  //   child: Text('Кнопка 5'),
+                  // ),
+              GestureDetector(
+                    onTap: _search,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: AppColors.lightGreenColor,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: BigText(
+                        text: 'What is here?',
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
-            const SizedBox(height: 20),
-            Expanded(
-                child: SingleChildScrollView(
-                    child: Column(
-                        children: <Widget>[
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: <Widget>[
-                              GestureDetector(
-                                onTap: _search,
-                                child: Container(
-                                    decoration: BoxDecoration(
-                                      color: AppColors.lightGreenColor,
-                                      borderRadius: BorderRadius.circular(12),
-                                    ),
-                                    child: BigText(text: 'What is here?', color: Colors.black,),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ]
-                    )
-                )
-            )
-          ]
+          ),
+        ],
       ),
     );
   }
@@ -138,10 +214,7 @@ class _ReverseSearchExampleState extends State<_ReverseSearchExample> {
             builder: (BuildContext context) => _SessionPage(
                 cameraPosition.target,
                 resultWithSession.session,
-                resultWithSession.result
-            )
-        )
-    );
+                resultWithSession.result)));
   }
 }
 
@@ -194,25 +267,23 @@ class _SessionState extends State<_SessionPage> {
                       children: [
                         YandexMap(
                           mapObjects: mapObjects,
-                          onMapCreated: (YandexMapController yandexMapController) async {
+                          onMapCreated:
+                              (YandexMapController yandexMapController) async {
                             final placemarkMapObject = PlacemarkMapObject(
                                 mapId: const MapObjectId('search_placemark'),
                                 point: widget.point,
-                                icon: PlacemarkIcon.single(
-                                    PlacemarkIconStyle(
-                                        image: BitmapDescriptor.fromAssetImage('lib/assets/place.png'),
-                                        scale: 0.75
-                                    )
-                                )
-                            );
+                                icon: PlacemarkIcon.single(PlacemarkIconStyle(
+                                    image: BitmapDescriptor.fromAssetImage(
+                                        'lib/assets/place.png'),
+                                    scale: 0.75)));
 
                             setState(() {
                               mapObjects.add(placemarkMapObject);
                             });
 
                             await yandexMapController.moveCamera(
-                                CameraUpdate.newCameraPosition(CameraPosition(target: widget.point, zoom: 17))
-                            );
+                                CameraUpdate.newCameraPosition(CameraPosition(
+                                    target: widget.point, zoom: 17)));
                           },
                         ),
                       ],
@@ -221,53 +292,45 @@ class _SessionState extends State<_SessionPage> {
                   const SizedBox(height: 20),
                   Expanded(
                       child: SingleChildScrollView(
-                          child: Column(
-                              children: <Widget>[
-                                SizedBox(
-                                    height: 60,
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: [
-                                        const Text(
-                                          'Point',
-                                          style: TextStyle(fontSize: 20),
-                                        ),
-                                        !_progress ? Container() : TextButton.icon(
-                                            icon: const CircularProgressIndicator(),
-                                            label: const Text('Cancel'),
-                                            onPressed: _cancel
-                                        )
-                                      ],
-                                    )
-                                ),
-                                Row(children: [
-                                  Flexible(child:
-                                  Text('Lat: ${widget.point.latitude}, Lon: ${widget.point.longitude}')
-                                  )
-                                ]),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: <Widget>[
-                                    Flexible(
-                                      child: Padding(
-                                          padding: const EdgeInsets.only(top: 20),
-                                          child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: _getList(),
-                                          )
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ]
-                          )
-                      )
-                  )
-                ]
-            )
-        )
-    );
+                          child: Column(children: <Widget>[
+                    SizedBox(
+                        height: 60,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const Text(
+                              'Point',
+                              style: TextStyle(fontSize: 20),
+                            ),
+                            !_progress
+                                ? Container()
+                                : TextButton.icon(
+                                    icon: const CircularProgressIndicator(),
+                                    label: const Text('Cancel'),
+                                    onPressed: _cancel)
+                          ],
+                        )),
+                    Row(children: [
+                      Flexible(
+                          child: Text(
+                              'Lat: ${widget.point.latitude}, Lon: ${widget.point.longitude}'))
+                    ]),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Flexible(
+                          child: Padding(
+                              padding: const EdgeInsets.only(top: 20),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: _getList(),
+                              )),
+                        ),
+                      ],
+                    ),
+                  ])))
+                ])));
   }
 
   List<Widget> _getList() {
@@ -282,7 +345,8 @@ class _SessionState extends State<_SessionPage> {
       list.add(Container(height: 20));
 
       r.items!.asMap().forEach((i, item) {
-        list.add(Text('Item $i: ${item.toponymMetadata!.address.formattedAddress}'));
+        list.add(
+            Text('Item $i: ${item.toponymMetadata!.address.formattedAddress}'));
       });
 
       list.add(Container(height: 20));
@@ -294,7 +358,9 @@ class _SessionState extends State<_SessionPage> {
   Future<void> _cancel() async {
     await widget.session.cancel();
 
-    setState(() { _progress = false; });
+    setState(() {
+      _progress = false;
+    });
   }
 
   Future<void> _close() async {
@@ -306,7 +372,9 @@ class _SessionState extends State<_SessionPage> {
   }
 
   Future<void> _handleResult(SearchSessionResult result) async {
-    setState(() { _progress = false; });
+    setState(() {
+      _progress = false;
+    });
 
     if (result.error != null) {
       print('Error: ${result.error}');
@@ -315,11 +383,15 @@ class _SessionState extends State<_SessionPage> {
 
     print('Page ${result.page}: $result');
 
-    setState(() { results.add(result); });
+    setState(() {
+      results.add(result);
+    });
 
     if (await widget.session.hasNextPage()) {
       print('Got ${result.found} items, fetching next page...');
-      setState(() { _progress = true; });
+      setState(() {
+        _progress = true;
+      });
       await _handleResult(await widget.session.fetchNextPage());
     }
   }

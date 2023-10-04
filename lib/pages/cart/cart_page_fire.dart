@@ -55,7 +55,7 @@ class CartPageFire extends StatelessWidget {
               child: Row(
                 children: [
                   AppIcon(
-                    icon: Icons.arrow_back_ios,
+                    icon: Icons.arrow_back_ios_new,
                     iconColor: Colors.black87,
                     backgroundColor: AppColors.mainColor,
                     iconSize24: true,
@@ -196,7 +196,7 @@ class CartPageFire extends StatelessWidget {
                     //print("restaurant id is QQQQQQ = ${Get.find<MenuPaperController>().restaurantModel.toJson().toString()}");
                     //print("cartHistory := ${cartController.cartRepo.cartHistory}");
                     //print("cart := ${cartController.cartRepo.cart}");
-                    print("dfdfdf1  ${_orderUploader.loadingStatus.value}");
+                    print("Cart_page print  ${_orderUploader.loadingStatus.value}");
                     if (_orderUploader.loadingStatus.value == LoadingStatus.loading){
                       const CircularProgressIndicator();
                       _orderUploader.uploadData(cartController.cartRepo.cart);

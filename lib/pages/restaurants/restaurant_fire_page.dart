@@ -27,7 +27,7 @@ class RestaurantFirePage extends StatelessWidget {
               Get.toNamed(MainScreen.routeName);
             },
             child: Icon(
-              Icons.arrow_back_ios,
+              Icons.arrow_back_ios_new,
               color: Colors.black,
             ),
           ),

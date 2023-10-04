@@ -82,7 +82,7 @@ class TopFoodDetailPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   AppIcon(
-                      icon: Icons.arrow_back_ios,
+                      icon: Icons.arrow_back_ios_new,
                       onTap: () {
                         Navigator.pop(context);
                         //Get.toNamed(MenuFirePage.routeName);
