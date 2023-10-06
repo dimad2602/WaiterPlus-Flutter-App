@@ -48,16 +48,21 @@ class _ReverseSearchExampleState extends State<_ReverseSearchExample> {
     )
   ];
 
+  final List<MapObject> mapObjectsSearch = [];
+
+  final List<SearchSessionResult> results = [];
+
+  bool _isCameraMoving = true;
+
+  late SearchSession session;
+
   final MapObjectId cameraMapObjectId = const MapObjectId('camera_placemark');
 
   @override
   Widget build(BuildContext context) {
-    //const mapHeight = 300.0;
-
     return Scaffold(
       body: Stack(
         children: [
-          // Верхний элемент (карта)
           Positioned(
             top: 0,
             left: 0,
@@ -69,6 +74,10 @@ class _ReverseSearchExampleState extends State<_ReverseSearchExample> {
                   mapObjects: mapObjects,
                   onCameraPositionChanged: (CameraPosition cameraPosition,
                       CameraUpdateReason _, bool __) async {
+                    setState(() {
+                      _isCameraMoving = true;
+                    });
+
                     final placemarkMapObject = mapObjects
                             .firstWhere((el) => el.mapId == cameraMapObjectId)
                         as PlacemarkMapObject;
@@ -78,6 +87,11 @@ class _ReverseSearchExampleState extends State<_ReverseSearchExample> {
                           placemarkMapObject.copyWith(
                               point: cameraPosition.target);
                     });
+
+                    if (__) {
+                      print('Camera position movement has been finished');
+                      _search();
+                    }
                   },
                   onMapCreated:
                       (YandexMapController yandexMapController) async {
@@ -95,14 +109,15 @@ class _ReverseSearchExampleState extends State<_ReverseSearchExample> {
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: Padding(
-                    padding: EdgeInsets.only(left: 8.0, right: 8.0, bottom: Constants.height45*3),
+                    padding: EdgeInsets.only(
+                        left: 8.0, right: 8.0, bottom: Constants.height45 * 3),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         MapButton(
                           icon: Icons.arrow_back_ios_new,
                           isCircular: true,
-                          customSize: Constants.width15*2,
+                          customSize: Constants.width15 * 2,
                           onTap: () {
                             Get.toNamed(ProfileSettings.routeName);
                           },
@@ -110,7 +125,7 @@ class _ReverseSearchExampleState extends State<_ReverseSearchExample> {
                         MapButton(
                           icon: Icons.near_me,
                           isCircular: true,
-                          customSize: Constants.width15*2,
+                          customSize: Constants.width15 * 2,
                           backgroundColor: Color.fromRGBO(252, 244, 228, 0.5),
                           onTap: () {
                             // Обработка нажатия
@@ -130,17 +145,19 @@ class _ReverseSearchExampleState extends State<_ReverseSearchExample> {
                         MapButton(
                           icon: Icons.add,
                           isCircular: false,
-                          customSize: Constants.width15*2,
+                          customSize: Constants.width15 * 2,
                           backgroundColor: Color.fromRGBO(252, 244, 228, 0.5),
                           onTap: () {
                             // Обработка нажатия
                           },
                         ),
-                        SizedBox(height: Constants.height15,),
+                        SizedBox(
+                          height: Constants.height15,
+                        ),
                         MapButton(
                           icon: Icons.remove,
                           isCircular: false,
-                          customSize: Constants.width15*2,
+                          customSize: Constants.width15 * 2,
                           backgroundColor: Color.fromRGBO(252, 244, 228, 0.5),
                           onTap: () {
                             // Обработка нажатия
@@ -158,7 +175,8 @@ class _ReverseSearchExampleState extends State<_ReverseSearchExample> {
             right: 0,
             bottom: 0,
             child: Container(
-              padding: EdgeInsets.all(Constants.height45/2), // Подберите подходящий отступ
+              padding: EdgeInsets.all(Constants.height45 / 2),
+              // Подберите подходящий отступ
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(Constants.width10),
@@ -167,20 +185,30 @@ class _ReverseSearchExampleState extends State<_ReverseSearchExample> {
               ),
               child: Column(
                 children: [
-                  Text('Ваш текст'),
-                  // ElevatedButton(
-                  //   onPressed: () {},
-                  //   child: Text('Кнопка 5'),
-                  // ),
-              GestureDetector(
-                    onTap: _search,
+                  BigText(
+                    text: "Двигайте карту, чтобы указать место",
+                  ),
+                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                    _isCameraMoving
+                        ? CircularProgressIndicator()
+                        : Flexible(
+                            child: Padding(
+                                padding: const EdgeInsets.only(top: 20),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: _getList(),
+                                )),
+                          ),
+                  ]),
+                  GestureDetector(
+                    //onTap: ,//_search,
                     child: Container(
                       decoration: BoxDecoration(
                         color: AppColors.lightGreenColor,
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: BigText(
-                        text: 'What is here?',
+                        text: 'Готово',
                         color: Colors.black,
                       ),
                     ),
@@ -208,173 +236,28 @@ class _ReverseSearchExampleState extends State<_ReverseSearchExample> {
       ),
     );
 
-    await Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (BuildContext context) => _SessionPage(
-                cameraPosition.target,
-                resultWithSession.session,
-                resultWithSession.result)));
-  }
-}
+    setState(() {
+      session = resultWithSession.session;
+      results.clear(); // Очистим предыдущие результаты
+    });
 
-class _SessionPage extends StatefulWidget {
-  final Future<SearchSessionResult> result;
-  final SearchSession session;
-  final Point point;
-
-  const _SessionPage(this.point, this.session, this.result);
-
-  @override
-  _SessionState createState() => _SessionState();
-}
-
-class _SessionState extends State<_SessionPage> {
-  final List<MapObject> mapObjects = [];
-
-  final List<SearchSessionResult> results = [];
-  bool _progress = true;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _init();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-
-    _close();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(title: Text('Search ${widget.session.id}')),
-        body: Container(
-            padding: const EdgeInsets.all(8),
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    height: 300,
-                    child: Stack(
-                      fit: StackFit.expand,
-                      children: [
-                        YandexMap(
-                          mapObjects: mapObjects,
-                          onMapCreated:
-                              (YandexMapController yandexMapController) async {
-                            final placemarkMapObject = PlacemarkMapObject(
-                                mapId: const MapObjectId('search_placemark'),
-                                point: widget.point,
-                                icon: PlacemarkIcon.single(PlacemarkIconStyle(
-                                    image: BitmapDescriptor.fromAssetImage(
-                                        'lib/assets/place.png'),
-                                    scale: 0.75)));
-
-                            setState(() {
-                              mapObjects.add(placemarkMapObject);
-                            });
-
-                            await yandexMapController.moveCamera(
-                                CameraUpdate.newCameraPosition(CameraPosition(
-                                    target: widget.point, zoom: 17)));
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  Expanded(
-                      child: SingleChildScrollView(
-                          child: Column(children: <Widget>[
-                    SizedBox(
-                        height: 60,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            const Text(
-                              'Point',
-                              style: TextStyle(fontSize: 20),
-                            ),
-                            !_progress
-                                ? Container()
-                                : TextButton.icon(
-                                    icon: const CircularProgressIndicator(),
-                                    label: const Text('Cancel'),
-                                    onPressed: _cancel)
-                          ],
-                        )),
-                    Row(children: [
-                      Flexible(
-                          child: Text(
-                              'Lat: ${widget.point.latitude}, Lon: ${widget.point.longitude}'))
-                    ]),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        Flexible(
-                          child: Padding(
-                              padding: const EdgeInsets.only(top: 20),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: _getList(),
-                              )),
-                        ),
-                      ],
-                    ),
-                  ])))
-                ])));
+    await _handleResult(await resultWithSession.result);
   }
 
   List<Widget> _getList() {
     final list = <Widget>[];
 
-    if (results.isEmpty) {
-      list.add((const Text('Nothing found')));
-    }
-
     for (var r in results) {
-      list.add(Text('Page: ${r.page}'));
-      list.add(Container(height: 20));
-
-      r.items!.asMap().forEach((i, item) {
+      if(list.isEmpty){
         list.add(
-            Text('Item $i: ${item.toponymMetadata!.address.formattedAddress}'));
-      });
-
-      list.add(Container(height: 20));
+            Text('${r.items?[0].toponymMetadata!.address.formattedAddress}'));
+      }
     }
 
     return list;
   }
 
-  Future<void> _cancel() async {
-    await widget.session.cancel();
-
-    setState(() {
-      _progress = false;
-    });
-  }
-
-  Future<void> _close() async {
-    await widget.session.close();
-  }
-
-  Future<void> _init() async {
-    await _handleResult(await widget.result);
-  }
-
   Future<void> _handleResult(SearchSessionResult result) async {
-    setState(() {
-      _progress = false;
-    });
 
     if (result.error != null) {
       print('Error: ${result.error}');
@@ -385,14 +268,17 @@ class _SessionState extends State<_SessionPage> {
 
     setState(() {
       results.add(result);
+      _isCameraMoving = false;
     });
 
-    if (await widget.session.hasNextPage()) {
-      print('Got ${result.found} items, fetching next page...');
-      setState(() {
-        _progress = true;
-      });
-      await _handleResult(await widget.session.fetchNextPage());
-    }
+    // if (await session.hasNextPage()) {
+    //   print('Got ${result.found} items, fetching next page...');
+    //   setState(() {
+    //     //_progress = true;
+    //     _isCameraMoving = false;
+    //
+    //   });
+    //   await _handleResult(await session.fetchNextPage());
+    // }
   }
 }
