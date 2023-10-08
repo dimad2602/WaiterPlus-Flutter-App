@@ -6,6 +6,7 @@ import 'package:flutter_project2/controllers/cart_controller/cart_controller.dar
 import 'package:flutter_project2/model/cart_model.dart';
 import 'package:flutter_project2/pages/base/no_data_page.dart';
 import 'package:flutter_project2/pages/menu/menu_fire_page.dart';
+import 'package:flutter_project2/pages/order/order_confirm.dart';
 import 'package:get/get.dart';
 
 import '../../components/big_text.dart';
@@ -60,9 +61,8 @@ class CartPageFire extends StatelessWidget {
                     backgroundColor: AppColors.mainColor,
                     iconSize24: true,
                     onTap: () {
-                      //Navigator.pop(context);
-                      //Get.until((route) => Get.currentRoute == MenuFirePage.routeName);
-                      Get.toNamed(MenuFirePage.routeName);
+                      Navigator.pop(context);
+                      //Get.toNamed(MenuFirePage.routeName);
                     },
                   ),
                   Expanded(
@@ -72,7 +72,16 @@ class CartPageFire extends StatelessWidget {
                       bold: true,
                     )),
                   ),
-                  SizedBox(width: Constants.width20 * 2),
+                  AppIcon(
+                    icon: Icons.restaurant,
+                    iconColor: Colors.black87,
+                    backgroundColor: AppColors.mainColor,
+                    iconSize24: true,
+                    onTap: () {
+                      Get.toNamed(MenuFirePage.routeName);
+                    },
+                  ),
+                  //SizedBox(width: Constants.width20 * 2),
                 ],
               )),
           //body
@@ -173,7 +182,7 @@ class CartPageFire extends StatelessWidget {
                     children: [
                       Column(
                         children: [
-                          SmallText(
+                          SmollText(
                               text: cartController.totalItemsAndText /*cartController.totalItems.toString()*/ /*textCountItems*/),
                           SizedBox(height: Constants.height10 * 0.5,),
                           Row(
@@ -192,16 +201,18 @@ class CartPageFire extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    _orderUploader.setloadingStatusIsLoading();
-                    //print("restaurant id is QQQQQQ = ${Get.find<MenuPaperController>().restaurantModel.toJson().toString()}");
-                    //print("cartHistory := ${cartController.cartRepo.cartHistory}");
-                    //print("cart := ${cartController.cartRepo.cart}");
-                    print("Cart_page print  ${_orderUploader.loadingStatus.value}");
-                    if (_orderUploader.loadingStatus.value == LoadingStatus.loading){
-                      const CircularProgressIndicator();
-                      _orderUploader.uploadData(cartController.cartRepo.cart);
-                    }
-                    cartController.addToHistory();
+                    Get.toNamed(OrderConfirm.routeName);
+                    //working
+                    // _orderUploader.setloadingStatusIsLoading();
+                    // //print("restaurant id is QQQQQQ = ${Get.find<MenuPaperController>().restaurantModel.toJson().toString()}");
+                    // //print("cartHistory := ${cartController.cartRepo.cartHistory}");
+                    // //print("cart := ${cartController.cartRepo.cart}");
+                    // print("Cart_page print  ${_orderUploader.loadingStatus.value}");
+                    // if (_orderUploader.loadingStatus.value == LoadingStatus.loading){
+                    //   const CircularProgressIndicator();
+                    //   _orderUploader.uploadData(cartController.cartRepo.cart);
+                    // }
+                    // cartController.addToHistory();
                   },
                   child: Container(
                     padding: EdgeInsets.only(

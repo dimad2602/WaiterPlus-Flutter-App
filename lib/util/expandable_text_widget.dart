@@ -39,10 +39,10 @@ class _ExpandableTextWidgetState extends State<ExpandableTextWidget> {
   Widget build(BuildContext context) {
     return Container(
       child: secondHalf.isEmpty
-          ? SmallText(size: Constants.font16, text: firsHalf)
+          ? SmollText(size: Constants.font16, text: firsHalf)
           : Column(
               children: [
-                SmallText(height: 1.8,color: Colors.black87, size: Constants.font16, text: hiddenText
+                SmollText(height: 1.8,color: Colors.black87, size: Constants.font16, text: hiddenText
                     ? (firsHalf + "...")
                     : (firsHalf + secondHalf)),
                 InkWell(
@@ -53,7 +53,7 @@ class _ExpandableTextWidgetState extends State<ExpandableTextWidget> {
                   },
                   child: Row(
                     children: [
-                      SmallText(text:
+                      SmollText(text:
                         'Show more', color: Color(0xFF4ecb71),
                         ),
                       Icon(hiddenText?Icons.arrow_drop_down:Icons.arrow_drop_up,

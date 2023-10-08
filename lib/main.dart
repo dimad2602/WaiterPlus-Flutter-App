@@ -18,6 +18,7 @@ import 'package:flutter_project2/pages/maps/address_search_page.dart';
 import 'package:flutter_project2/pages/maps/profile_map_page.dart';
 import 'package:flutter_project2/pages/menu/menu_overview_page.dart';
 import 'package:flutter_project2/pages/menu_page.dart';
+import 'package:flutter_project2/pages/order/order_confirm.dart';
 import 'package:flutter_project2/pages/order/order_incoming.dart';
 import 'package:flutter_project2/pages/qr_page.dart';
 import 'package:flutter_project2/pages/login/register_page.dart';
@@ -133,6 +134,9 @@ void main() async {
           },
           '/order_incoming': (context) {
             return OrderIncoming();
+          },
+          '/order_confirm': (context) {
+            return OrderConfirm();
           },
           '/profile_settings': (context) {
             return ProfileSettings();

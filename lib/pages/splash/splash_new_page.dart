@@ -67,6 +67,11 @@ class _SplashScreenState extends State<SplashPage>
     await Get.put(CartController(cartRepo: cartRepo));
     // Загружаем из локального хранилиша items в корзину
     Get.find<CartController>().getCartData();
+
+    //Загружаем из локального хранилища restaurantModel
+    Get.lazyPut(() => RestaurantDetailController());
+    // Get.find<RestaurantDetailController>().getRestaurantModel();
+    //Get.find<ItemDetailController>().getItems
     //Get.put(RestaurantDetailController());
 
     //TODO: перенес содержиое dependencies сюда

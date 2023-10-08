@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project2/components/Small_text.dart';
 import 'package:flutter_project2/controllers/registration_controller/auth_controller.dart';
 import 'package:flutter_project2/controllers/user_controller/user_controller.dart';
 import 'package:flutter_project2/pages/maps/add_address_page.dart';
@@ -8,9 +9,11 @@ import 'package:flutter_project2/widgets/profile/account_widget.dart';
 import 'package:get/get.dart';
 import '../../components/app_icon.dart';
 import '../../components/big_text.dart';
+import '../../controllers/cart_controller/cart_controller.dart';
 import '../../util/AppColors.dart';
 import '../../util/constants.dart';
 import '../../widgets/listTiel/list_tile_for_profile.dart';
+import '../cart/cart_page_fire.dart';
 import '../maps/profile_map_page.dart';
 import '../order/order_history.dart';
 
@@ -20,6 +23,7 @@ class ProfileSettings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    CartController _cartController = Get.find();
     bool _userLoggedIn = Get.find<AuthController>().userLoggedIn();
     if (_userLoggedIn){
       Get.find<UserController>().getUserInfo();
@@ -199,24 +203,68 @@ class ProfileSettings extends StatelessWidget {
                         //         )),
                       ),
                     ),
+                    //TODO: Не обработано нажатие, не уверен что нужно
                     //Переход на корзину
-                    Padding(
-                      padding: EdgeInsets.only(right: Constants.width10 / 5),
-                      child: AppIcon(
-                        icon: Icons.shopping_cart_outlined,
-                        iconColor: Colors.black87,
-                        backgroundColor: AppColors.mainColor,
-                        iconSize24: true,
-                        //TODO: сделать переход в корзину (явно вылезут проблемы) если корзина пуста кнопка не кликабельна
-                        onTap: () {},
-                      ),
-                    ),
+                    // Padding(
+                    //   padding: EdgeInsets.only(right: Constants.width10 / 5),
+                    //   child: AppIcon(
+                    //     icon: Icons.shopping_cart_outlined,
+                    //     iconColor: Colors.black87,
+                    //     backgroundColor: AppColors.mainColor,
+                    //     iconSize24: true,
+                    //     //TODO: сделать переход в корзину (явно вылезут проблемы) если корзина пуста кнопка не кликабельна
+                    //     onTap: () {},
+                    //   ),
+                    // ),
+                    _cartController.totalItems >= 1?
+                    Stack(
+                      children: [
+                        AppIcon(
+                              icon: Icons.shopping_cart_outlined,
+                              iconColor: Colors.black87,
+                              backgroundColor: AppColors.mainColor,
+                              iconSize24: true,
+                              //TODO: сделать переход в корзину (явно вылезут проблемы) если корзина пуста кнопка не кликабельна
+                              onTap: () {
+                                Get.toNamed(CartPageFire.routeName);
+                              },
+                        ),
+                        // GestureDetector(
+                        //   onTap: () {
+                        //     Get.toNamed(CartPageFire.routeName);
+                        //   },
+                        //   child: AppIcon(
+                        //     Icons.shopping_cart,
+                        //     size: 35,
+                        //     color: Colors.black,
+                        //   ),
+                        // ),
+                        Positioned(
+                          right: 0,
+                          top: 0,
+                          child: AppIcon(
+                            icon: Icons.circle,
+                            size: Constants.iconSize24,
+                            //size: 20,
+                            iconColor: Colors.transparent,
+                            backgroundColor: AppColors.bottonColor,
+                          ),
+                        ),
+                        Positioned(
+                          right: 3,
+                          top: 3,
+                          child: BigText(
+                            text: _cartController.totalItems.toString(),
+                            size: Constants.font16,
+                            //size: 12,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ): SizedBox(),
                     SizedBox(width: Constants.width20 * 2),
                   ],
                 ),
-              ),
-              const SizedBox(
-                height: 10,
               ),
               Expanded(
                 child: SingleChildScrollView(

@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_project2/data/repository/restaurant_repo.dart';
 import 'package:flutter_project2/models/restaurants_model.dart';
 import 'package:flutter_project2/pages/menu_page.dart';
 import 'package:flutter_project2/services/firebase_storage_service.dart';
@@ -21,6 +22,10 @@ class RestaurantDetailController extends GetxController {
   final loadingStatus = LoadingStatus.loading.obs;
   final allPaperImages = <String>[].obs;
   final ChosenRestaurant = <RestaurantModel>[].obs;
+
+  // final RestaurantRepo restaurantRepo;
+  //
+  // RestaurantDetailController({required this.restaurantRepo});
 
   final allRest = <RestaurantModel>[].obs;
 
@@ -110,4 +115,36 @@ class RestaurantDetailController extends GetxController {
       Get.toNamed(MenuFirePage.routeName, arguments: paper);
     }
   }
+
+  void initMenuWithOutToNamed({required RestaurantModel paper, bool tryAgain=false, bool needClear=true}) {
+    if(tryAgain){
+      if (kDebugMode) {
+        print("tryAgain message");
+      }
+    }
+    else {
+      final controller = Get.put(MenuPaperController());
+      controller.loadData(paper);
+      controller.getAllCategories(paper);
+
+      // CartRepo cartRepo = Get.find<CartRepo>();
+      // needClear == true? cartRepo.clearCartListIfDifferentRestaurant(paper.id): print("Очиска отменена");
+
+      // Get.toNamed(MenuFirePage.routeName, arguments: paper);
+    }
+  }
+
+  // RestaurantModel getRestaurantModel() {
+  //   setRestaurantModel = restaurantRepo.getRestaurantModel();
+  //   return storageItems;
+  // }
+  //
+  // set setRestaurantModel(RestaurantModel restaurantModel) {
+  //   restaurantModel = restaurantModel;
+  //   //print("length of cart items: ${storageItems.length.toString()}");
+  //   for (var i = 0; i < storageItems.length; i++) {
+  //     _items.putIfAbsent(
+  //         int.parse(storageItems[i].item!.id), () => storageItems[i]);
+  //   }
+  // }
 }

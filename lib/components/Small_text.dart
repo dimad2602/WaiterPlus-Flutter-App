@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 
 import '../util/constants.dart';
 
-class SmallText extends StatelessWidget {
+class SmollText extends StatelessWidget {
   Color? color;
   final String text;
   double size;
   double height;
-  SmallText({
+  SmollText({
     Key? key,
     this.color = const Color(0xFF332d2b),
     required this.text,

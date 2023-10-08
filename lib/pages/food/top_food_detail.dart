@@ -82,6 +82,7 @@ class TopFoodDetailPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   AppIcon(
+                      iconSize24: true,
                       icon: Icons.arrow_back_ios_new,
                       onTap: () {
                         Navigator.pop(context);
@@ -105,7 +106,8 @@ class TopFoodDetailPage extends StatelessWidget {
                                   top: 0,
                                   child: AppIcon(
                                     icon: Icons.circle,
-                                    size: 20,
+                                    size: Constants.iconSize24,
+                                    //size: 20,
                                     iconColor: Colors.transparent,
                                     backgroundColor: AppColors.bottonColor,
                                   ),
@@ -119,7 +121,7 @@ class TopFoodDetailPage extends StatelessWidget {
                                     text: Get.find<ItemDetailController>()
                                         .totalItems
                                         .toString(),
-                                    size: 12,
+                                    size: Constants.font16,
                                     color: Colors.white,
                                   ),
                                 )

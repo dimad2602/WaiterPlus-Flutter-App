@@ -125,6 +125,8 @@ class CartController extends GetxController {
       totalQuantity += value.quantity!;
     });
     return totalQuantity;
+
+
   }
 
   String get totalItemsAndText {

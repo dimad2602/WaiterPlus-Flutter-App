@@ -110,7 +110,7 @@ class CardForCartWidget extends StatelessWidget {
                           text: itemName,
                           color: Colors.black87,
                         ),
-                        SmallText(text: "$itemWeight г"),
+                        SmollText(text: "$itemWeight г"),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -350,7 +350,7 @@ class CardForCartWidget extends StatelessWidget {
                           text: itemName,
                           color: Colors.black87,
                         ),
-                        SmallText(text: itemWeight),
+                        SmollText(text: itemWeight),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [

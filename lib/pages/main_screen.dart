@@ -5,10 +5,14 @@ import 'package:flutter_project2/pages/restaurants/restaurant_fire_page.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../components/app_icon.dart';
+import '../components/big_text.dart';
+import '../controllers/cart_controller/cart_controller.dart';
 import '../controllers/order/incoming_order_controller.dart';
 import '../firebase_ref/loading_status.dart';
 import '../util/AppColors.dart';
 import '../util/constants.dart';
+import 'cart/cart_page_fire.dart';
 
 class MainScreen extends StatefulWidget {
   MainScreen({Key? key, required this.context}) : super(key: key);
@@ -53,6 +57,7 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    CartController _cartController = Get.find();
     return Scaffold(
         backgroundColor: AppColors.mainColor,
         // appBar: AppBar(
@@ -80,6 +85,41 @@ class _MainScreenState extends State<MainScreen> {
                 color: Colors.black87,
               )),
           actions: [
+            _cartController.totalItems >= 1?
+            Stack(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Get.toNamed(CartPageFire.routeName);
+                  },
+                  child: Icon(
+                    Icons.shopping_cart,
+                    size: 35,
+                    color: Colors.black,
+                  ),
+                ),
+                Positioned(
+                  right: 0,
+                  top: 0,
+                  child: AppIcon(
+                    icon: Icons.circle,
+                    size: Constants.iconSize24,
+                    //size: 20,
+                    iconColor: Colors.transparent,
+                    backgroundColor: AppColors.bottonColor,
+                  ),
+                ),
+                Positioned(
+                  right: 3,
+                  top: 3,
+                  child: BigText(
+                    text: _cartController.totalItems.toString(),
+                    size: Constants.font16,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ): SizedBox(),
             Padding(
               padding: const EdgeInsets.only(right: 8.0),
               child: IconButton(

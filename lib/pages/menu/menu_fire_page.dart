@@ -35,7 +35,8 @@ class MenuFirePage extends GetView<MenuPaperController> {
     int totalItems = 0;
     String textCountItems = "";
     if (/*Get.find<ItemDetailController>().initialized*/_cartController.items.isNotEmpty) {
-      totalItems =  _cartController.items.length; // OLD Get.find<ItemDetailController>().totalItems;
+      //totalItems =  _cartController.items.length; // OLD Get.find<ItemDetailController>().totalItems;
+      totalItems = _cartController.totalItems;
       String itemsText = totalItems == 1
           ? 'товар'
           : (totalItems >= 2 && totalItems <= 4 ? 'товара' : 'товаров');
@@ -147,7 +148,7 @@ class MenuFirePage extends GetView<MenuPaperController> {
                                           horizontal: Constants.width10),
                                       child: Column(
                                         children: [
-                                          SmallText(text: textCountItems),
+                                          SmollText(text: textCountItems),
                                           SizedBox(
                                             height: Constants.height10 * 0.5,
                                           ),

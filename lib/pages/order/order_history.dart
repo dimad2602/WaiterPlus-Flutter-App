@@ -214,7 +214,7 @@ class OrderHistory extends StatelessWidget {
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.end,
                                                   children: [
-                                                    SmallText(text: "Итого"),
+                                                    SmollText(text: "Итого"),
                                                     BigText(
                                                       text:
                                                           "${itemsPerOrder[i].toString()} ${itemsPerOrder[i] == 1 ? 'товар' : (itemsPerOrder[i] >= 2 && itemsPerOrder[i] <= 4 ? 'товара' : 'товаров')}",
@@ -323,7 +323,7 @@ class OrderHistory extends StatelessWidget {
                                                               color: AppColors
                                                                   .bottonColor),
                                                         ),
-                                                        child: SmallText(
+                                                        child: SmollText(
                                                           text: "Повторить",
                                                           color: AppColors
                                                               .bottonColor,
