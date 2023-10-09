@@ -9,6 +9,7 @@ import '../components/app_icon.dart';
 import '../components/big_text.dart';
 import '../controllers/cart_controller/cart_controller.dart';
 import '../controllers/order/incoming_order_controller.dart';
+import '../controllers/restaurants_controlelr/restaurant_paper_controller.dart';
 import '../firebase_ref/loading_status.dart';
 import '../util/AppColors.dart';
 import '../util/constants.dart';
@@ -17,7 +18,7 @@ import 'cart/cart_page_fire.dart';
 class MainScreen extends StatefulWidget {
   MainScreen({Key? key, required this.context}) : super(key: key);
 
-  static const String routeName = "/";
+  static const String routeName = "/main_page";
   final BuildContext context;
 
   @override
@@ -58,6 +59,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     CartController _cartController = Get.find();
+    //_cartController = Get.put(CartController());
     return Scaffold(
         backgroundColor: AppColors.mainColor,
         // appBar: AppBar(
@@ -170,7 +172,7 @@ class _MainScreenState extends State<MainScreen> {
             const SizedBox(height: 30),
             GestureDetector(
               onTap: () {
-                //Navigator.pushNamed(context, '/');
+                //Navigator.pushNamed(context, '/main_page');
                 //Navigator.pushNamed(context, '/restaurant_page');
                 Get.toNamed(RestaurantFirePage.routeName);
               },

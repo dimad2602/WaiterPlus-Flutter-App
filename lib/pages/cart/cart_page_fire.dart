@@ -61,7 +61,19 @@ class CartPageFire extends StatelessWidget {
                     backgroundColor: AppColors.mainColor,
                     iconSize24: true,
                     onTap: () {
+                      //TODO: Надо думать над тем как сделать переход
+                      //Можно ли узнать с какой страници я попал на текущую? и в зависимости от этого сделать переход
                       Navigator.pop(context);
+                      // Navigator.of(context).popUntil((route) {
+                      //   if (route.settings.name == OrderConfirm.routeName/*.settings.name == '/order_confirm'*/) {
+                      //     //return true; // Пропускаем эту страницу
+                      //
+                      //     Navigator.pop(context);
+                      //   }
+                      //   Get.toNamed(MenuFirePage.routeName);
+                      //   //return false;
+                      //   return true;
+                      // });
                       //Get.toNamed(MenuFirePage.routeName);
                     },
                   ),
@@ -83,7 +95,8 @@ class CartPageFire extends StatelessWidget {
                   ),
                   //SizedBox(width: Constants.width20 * 2),
                 ],
-              )),
+              ),
+          ),
           //body
           GetBuilder<CartController>(
             builder: (_cartController){

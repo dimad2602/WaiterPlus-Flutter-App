@@ -106,7 +106,7 @@ class _RestaurantPageState extends State<RestaurantPage> {
               padding: EdgeInsets.only(left: 8.0),
               child: IconButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/');
+                  Navigator.pushNamed(context, '/main_page');
                   //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MainScreen(context: context,)),);
                   // Navigator.pushAndRemoveUntil(
                   //   context,

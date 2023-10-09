@@ -76,7 +76,7 @@ void main() async {
         initialRoute: '/splash_screen', //'/auth_page',
 
         routes: {
-          '/': (context) => MainScreen(context: context,),
+          '/main_page': (context) => MainScreen(context: context,),
           '/auth_page': (context) => AuthPage(),
           '/todo': (context) => Home(),
           '/login_page': (context) => LoginPage(),
@@ -172,7 +172,7 @@ void main() async {
 //         ),
 //         initialRoute: '/auth_page',
 //         routes: {
-//           '/': (context) => MainScreen(context: context,),
+//           '/main_page': (context) => MainScreen(context: context,),
 //           '/auth_page': (context) => AuthPage(),
 //           '/todo': (context) => Home(),
 //           '/login_page': (context) => LoginPage(),
@@ -200,9 +200,9 @@ void main() async {
 //       // brightness: Brightness.dark
 //     ),
 //     //home: Home(),
-//     initialRoute: '/',
+//     initialRoute: '/main_page',
 //     routes: {
-//       '/': (context) => MainScreen(),
+//       '/main_page': (context) => MainScreen(),
 //       '/todo': (context) => Home(),
 //       '/login_page': (context) => LoginPage(),
 //       '/menu_page': (context) => MenuPage(),

@@ -80,7 +80,7 @@ class _MenuRest2PageState extends State<MenuRest2Page> {
       //     builder: (context) => HomePage(),
       //   ));
       //   break;
-        Navigator.pushNamed(context, '/');
+        Navigator.pushNamed(context, '/main_screen');
         break;
       case 1:
         Navigator.pushNamed(context, '/menu_page');  //'/login_page'

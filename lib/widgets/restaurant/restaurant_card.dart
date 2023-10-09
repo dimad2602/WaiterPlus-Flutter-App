@@ -17,6 +17,7 @@ class RestaurantCard extends GetView<RestaurantPaperController> {
   Widget build(BuildContext context) {
     User? user = FirebaseAuth.instance.currentUser;
     bool isAuthenticated = user != null;
+    //TODO: Нужно отдельно с высотой сделать, а иначе ошибки в отображении будут
     double _screenWidth = MediaQuery.of(context).size.width;
     return Stack(
       children: [

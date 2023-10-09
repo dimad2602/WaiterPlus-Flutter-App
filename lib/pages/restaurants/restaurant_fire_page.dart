@@ -56,75 +56,168 @@ class RestaurantFirePage extends StatelessWidget {
     //_cartController.items;
     return Obx(
       () => Scaffold(
-        appBar: CustomAppBar2(
-            leftIcon: GestureDetector(
-              onTap: () {
-                Get.toNamed(MainScreen.routeName);
-              },
-              child: Icon(
-                Icons.arrow_back_ios_new,
-                color: Colors.black,
-              ),
-            ),
-            rightIcon: Row(
-              children: [
-                _cartController.totalItems >= 1?
-                Stack(
-                  children: [
-                        GestureDetector(
-                          onTap: () {
-                            Get.toNamed(CartPageFire.routeName);
-                          },
-                          child: Icon(
-                            Icons.shopping_cart,
-                            size: 35,
-                            color: Colors.black,
-                          ),
-                        ),
-                        Positioned(
-                            right: 0,
-                            top: 0,
-                            child: AppIcon(
-                              icon: Icons.circle,
-                              size: Constants.iconSize24,
-                              //size: 20,
-                              iconColor: Colors.transparent,
-                              backgroundColor: AppColors.bottonColor,
-                            ),
-                          ),
-                        Positioned(
-                            right: 3,
-                            top: 3,
-                            child: BigText(
-                              text: _cartController.totalItems.toString(),
-                              size: Constants.font16,
-                              color: Colors.white,
-                            ),
-                          ),
-                  ],
-                ): SizedBox(),
-                SizedBox(
-                  width: Constants.width15,
-                ),
-                GestureDetector(
-                  onTap: () {
-                    //Navigator.pushNamed(context, '/qr_page');
-                    Get.toNamed(QrPage.routeName);
-                  },
-                  child: Icon(
-                    Icons.qr_code,
-                    size: 35,
-                    color: Colors.black,
-                  ),
-                ),
-              ],
-            )),
+        // appBar: CustomAppBar2(
+        //     leftIcon: GestureDetector(
+        //       onTap: () {
+        //         Get.toNamed(MainScreen.routeName);
+        //       },
+        //       child: Icon(
+        //         Icons.arrow_back_ios_new,
+        //         color: Colors.black,
+        //       ),
+        //     ),
+        //     rightIcon: Row(
+        //       children: [
+        //         _cartController.totalItems >= 1?
+        //         Stack(
+        //           children: [
+        //                 GestureDetector(
+        //                   onTap: () {
+        //                     Get.toNamed(CartPageFire.routeName);
+        //                   },
+        //                   child: Icon(
+        //                     Icons.shopping_cart,
+        //                     size: 35,
+        //                     color: Colors.black,
+        //                   ),
+        //                 ),
+        //                 Positioned(
+        //                     right: 0,
+        //                     top: 0,
+        //                     child: AppIcon(
+        //                       icon: Icons.circle,
+        //                       size: Constants.iconSize24,
+        //                       //size: 20,
+        //                       iconColor: Colors.transparent,
+        //                       backgroundColor: AppColors.bottonColor,
+        //                     ),
+        //                   ),
+        //                 Positioned(
+        //                     right: 3,
+        //                     top: 3,
+        //                     child: BigText(
+        //                       text: _cartController.totalItems.toString(),
+        //                       size: Constants.font16,
+        //                       color: Colors.white,
+        //                     ),
+        //                   ),
+        //           ],
+        //         ): SizedBox(),
+        //         SizedBox(
+        //           width: Constants.width15,
+        //         ),
+        //         GestureDetector(
+        //           onTap: () {
+        //             //Navigator.pushNamed(context, '/qr_page');
+        //             Get.toNamed(QrPage.routeName);
+        //           },
+        //           child: Icon(
+        //             Icons.qr_code,
+        //             size: 35,
+        //             color: Colors.black,
+        //           ),
+        //         ),
+        //       ],
+        //     )),
         backgroundColor: Color(0xFFf5ebdc),
         body: SingleChildScrollView(
           child: Column(
             children: [
               //SearchBar(controller: searchController),
               //SearchBar(controller: _restaurantPaperController.searchController), // передаем searchQuery
+              Container(
+                height: Constants.height20 * 5,
+                width: double.maxFinite,
+                padding: EdgeInsets.only(top: Constants.height10 * 4.5),
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(left: Constants.width20),
+                      child: AppIcon(
+                        icon: Icons.arrow_back_ios_new,
+                        iconColor: Colors.black87,
+                        backgroundColor: AppColors.mainColor,
+                        iconSize24: true,
+                        onTap: () {
+                          Get.toNamed(MainScreen.routeName);
+                        },
+                      ),
+                    ),
+                    Expanded(
+                      child: Center(
+                        child: Center(
+                            child: BigText(
+                              text: 'Заведения',
+                              bold: true,
+                            )),
+                      ),
+                    ),
+                    // AppIcon(
+                    //   icon: Icons.restaurant,
+                    //   iconColor: Colors.black87,
+                    //   backgroundColor: AppColors.mainColor,
+                    //   iconSize24: true,
+                    //   onTap: () {
+                    //     Get.toNamed(MenuFirePage.routeName);
+                    //   },
+                    // ),
+                    Row(
+                      children: [
+                        _cartController.totalItems >= 1?
+                        Stack(
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                Get.toNamed(CartPageFire.routeName);
+                              },
+                              child: Icon(
+                                Icons.shopping_cart,
+                                size: 35,
+                                color: Colors.black,
+                              ),
+                            ),
+                            Positioned(
+                              right: 0,
+                              top: 0,
+                              child: AppIcon(
+                                icon: Icons.circle,
+                                size: Constants.iconSize24,
+                                //size: 20,
+                                iconColor: Colors.transparent,
+                                backgroundColor: AppColors.bottonColor,
+                              ),
+                            ),
+                            Positioned(
+                              right: 3,
+                              top: 3,
+                              child: BigText(
+                                text: _cartController.totalItems.toString(),
+                                size: Constants.font16,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ): SizedBox(),
+                        SizedBox(
+                          width: Constants.width15,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            //Navigator.pushNamed(context, '/qr_page');
+                            Get.toNamed(QrPage.routeName);
+                          },
+                          child: Icon(
+                            Icons.qr_code,
+                            size: 35,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ],
+                    ),
+                    //SizedBox(width: Constants.width20 * 2),
+                  ],
+                ),
+              ),
               GestureDetector(
                 child: ListView.separated(
                     // Позволяем перекрывать категории

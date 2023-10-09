@@ -55,7 +55,7 @@ class _HomeState extends State<Home> {
                   IconButton(onPressed: () {
                     Navigator.pop(context);
                     Navigator.pushNamedAndRemoveUntil(
-                        context, '/', (route) => false);
+                        context, '/main_page', (route) => false);
                   },
                       icon: Icon(Icons.backspace_rounded, size: 30,
                         color: Colors.green[400],)),

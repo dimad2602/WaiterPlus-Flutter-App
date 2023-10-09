@@ -246,7 +246,7 @@ class _LoginPageState extends State<LoginPage> {
                     // Continue as a guest
                     GestureDetector(
                       onTap: () {
-                        //Navigator.pushNamed(context, '/');
+                        //Navigator.pushNamed(context, '/main_page');
                         //Navigator.pushNamed(context, '/restaurant_page');
                         Get.offNamed(RestaurantFirePage.routeName);
                       },
