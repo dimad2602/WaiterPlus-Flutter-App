@@ -6,6 +6,7 @@ import 'package:flutter_project2/controllers/order/incoming_order_controller.dar
 import 'package:flutter_project2/controllers/order/order_uploader.dart';
 import 'package:flutter_project2/controllers/registration_controller/auth_controller.dart';
 import 'package:flutter_project2/controllers/restaurants_controlelr/restaurant_detail_controller.dart';
+import 'package:flutter_project2/controllers/restaurants_controlelr/restaurant_paper_controller_sql.dart';
 import 'package:flutter_project2/data/repository/location_repo.dart';
 import 'package:flutter_project2/pages/auth_page.dart';
 import 'package:flutter_project2/pages/login/login_page.dart';
@@ -23,6 +24,7 @@ import '../../controllers/user_controller/user_controller.dart';
 import '../../data/api/api_client.dart';
 import '../../data/repository/auth_repo.dart';
 import '../../data/repository/cart_repo.dart';
+import '../../data/repository/restaurant _repo_sql.dart';
 import '../../data/repository/user_repo.dart';
 import '../../services/firebase_storage_service.dart';
 import '../../util/constants.dart';
@@ -84,7 +86,12 @@ class _SplashScreenState extends State<SplashPage>
     Get.lazyPut(() => AuthRepo(apiClient: Get.find(), sharedPreferences:  Get.find()));
     Get.lazyPut(() => UserRepo(apiClient: Get.find()));
     Get.lazyPut(() => LocationRepo(apiClient: Get.find(), sharedPreferences: Get.find()));
+    Get.lazyPut(() => RestaurantRepoSql(apiClient: Get.find()));
     //Get.lazyPut(() => PopularProductRepo(apiClient:Get.find()));
+
+    //Try api sql
+    Get.lazyPut(() => RestaurantRepoSql(apiClient: Get.find()));
+    Get.put(RestaurantPaperControllerSql(restaurantRepoSql: Get.find()));
 
     //controllers
     //TODO: Так же нужно сделать для остальных контроллеров для backend

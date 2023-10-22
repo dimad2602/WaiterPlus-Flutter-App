@@ -226,7 +226,7 @@ class ProfileSettings extends StatelessWidget {
                               iconSize24: true,
                               //TODO: сделать переход в корзину (явно вылезут проблемы) если корзина пуста кнопка не кликабельна
                               onTap: () {
-                                Get.toNamed(CartPageFire.routeName);
+                                Get.toNamed(CartPageFire.routeName, arguments: ModalRoute.of(context)!.settings.name);
                               },
                         ),
                         // GestureDetector(

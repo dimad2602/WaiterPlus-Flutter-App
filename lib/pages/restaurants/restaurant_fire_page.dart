@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_project2/components/Small_text.dart';
 import 'package:flutter_project2/components/big_text.dart';
+import 'package:flutter_project2/controllers/restaurants_controlelr/restaurant_paper_controller_sql.dart';
 import 'package:flutter_project2/pages/cart/cart_page_fire.dart';
 import 'package:flutter_project2/util/constants.dart';
 import 'package:get/get.dart';
@@ -31,6 +32,8 @@ class RestaurantFirePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     RestaurantPaperController _restaurantPaperController = Get.find();
+    RestaurantPaperControllerSql _restaurantPaperControllerSql = Get.find();
+    print("API Проверка ${_restaurantPaperControllerSql.allPapers()}");
 
     CartController _cartController = Get.find();
     RestaurantModel? paper = _restaurantPaperController.getRestaurantById(_cartController.cartRepo.getSelectedRestaurantId());
@@ -152,29 +155,19 @@ class RestaurantFirePage extends StatelessWidget {
                             )),
                       ),
                     ),
-                    // AppIcon(
-                    //   icon: Icons.restaurant,
-                    //   iconColor: Colors.black87,
-                    //   backgroundColor: AppColors.mainColor,
-                    //   iconSize24: true,
-                    //   onTap: () {
-                    //     Get.toNamed(MenuFirePage.routeName);
-                    //   },
-                    // ),
                     Row(
                       children: [
                         _cartController.totalItems >= 1?
                         Stack(
                           children: [
-                            GestureDetector(
+                            AppIcon(
+                              icon: Icons.shopping_cart,
+                              iconColor: Colors.black87,
+                              backgroundColor: AppColors.mainColor,
+                              iconSize24: true,
                               onTap: () {
-                                Get.toNamed(CartPageFire.routeName);
+                                Get.toNamed(CartPageFire.routeName, arguments: ModalRoute.of(context)!.settings.name);
                               },
-                              child: Icon(
-                                Icons.shopping_cart,
-                                size: 35,
-                                color: Colors.black,
-                              ),
                             ),
                             Positioned(
                               right: 0,
@@ -201,15 +194,16 @@ class RestaurantFirePage extends StatelessWidget {
                         SizedBox(
                           width: Constants.width15,
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            //Navigator.pushNamed(context, '/qr_page');
-                            Get.toNamed(QrPage.routeName);
-                          },
-                          child: Icon(
-                            Icons.qr_code,
-                            size: 35,
-                            color: Colors.black,
+                        Padding(
+                          padding: EdgeInsets.only(right: Constants.width20),
+                          child: AppIcon(
+                            icon: Icons.qr_code,
+                            iconColor: Colors.black87,
+                            backgroundColor: AppColors.mainColor,
+                            iconSize24: true,
+                            onTap: () {
+                              Get.toNamed(QrPage.routeName);
+                            },
                           ),
                         ),
                       ],

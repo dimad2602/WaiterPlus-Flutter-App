@@ -167,7 +167,7 @@ class MenuFirePage extends GetView<MenuPaperController> {
                                     ),
                                     GestureDetector(
                                       onTap: () {
-                                        Get.toNamed(CartPageFire.routeName);
+                                        Get.toNamed(CartPageFire.routeName, arguments: ModalRoute.of(context)!.settings.name);
                                       },
                                       child: Container(
                                         padding: EdgeInsets.symmetric(

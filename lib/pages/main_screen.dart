@@ -62,80 +62,6 @@ class _MainScreenState extends State<MainScreen> {
     //_cartController = Get.put(CartController());
     return Scaffold(
         backgroundColor: AppColors.mainColor,
-        // appBar: AppBar(
-        //   title: Text('kuku'),
-        //   centerTitle: true,
-        //   actions: [
-        //     IconButton(
-        //         onPressed: () {
-        //           signUserOut();
-        //           print('dfdeeeee');
-        //         },
-        //         icon: Icon(Icons.logout))
-        //   ],
-        // ),
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          elevation: 0,
-          backgroundColor: Colors.transparent,
-          centerTitle: false,
-          title: const Padding(
-              padding: EdgeInsets.only(left: 8.0),
-              child: Icon(
-                Icons.logo_dev,
-                size: 35,
-                color: Colors.black87,
-              )),
-          actions: [
-            _cartController.totalItems >= 1?
-            Stack(
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Get.toNamed(CartPageFire.routeName);
-                  },
-                  child: Icon(
-                    Icons.shopping_cart,
-                    size: 35,
-                    color: Colors.black,
-                  ),
-                ),
-                Positioned(
-                  right: 0,
-                  top: 0,
-                  child: AppIcon(
-                    icon: Icons.circle,
-                    size: Constants.iconSize24,
-                    //size: 20,
-                    iconColor: Colors.transparent,
-                    backgroundColor: AppColors.bottonColor,
-                  ),
-                ),
-                Positioned(
-                  right: 3,
-                  top: 3,
-                  child: BigText(
-                    text: _cartController.totalItems.toString(),
-                    size: Constants.font16,
-                    color: Colors.white,
-                  ),
-                ),
-              ],
-            ): SizedBox(),
-            Padding(
-              padding: const EdgeInsets.only(right: 8.0),
-              child: IconButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/user_page');
-                  },
-                  icon: const Icon(
-                    Icons.person_outline,
-                    size: 35,
-                    color: Colors.black87,
-                  )),
-            )
-          ],
-        ),
         // bottomNavigationBar: BottomNavigationBar(
         //   currentIndex: 0,
         //   type: BottomNavigationBarType.fixed,
@@ -158,6 +84,75 @@ class _MainScreenState extends State<MainScreen> {
         // ),
         body: Column(
           children: [
+            Container(
+              height: Constants.height20 * 5,
+              width: double.maxFinite,
+              padding: EdgeInsets.only(top: Constants.height10 * 4.5),
+              child: Row(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(left: Constants.width20),
+                    child: _cartController.totalItems >= 1?
+                    Stack(
+                      children: [
+                        AppIcon(
+                          icon: Icons.shopping_cart,
+                          iconColor: Colors.black87,
+                          backgroundColor: AppColors.mainColor,
+                          iconSize24: true,
+                          onTap: () {
+                            Get.toNamed(CartPageFire.routeName, arguments: ModalRoute.of(context)!.settings.name);
+                          },
+                        ),
+                        Positioned(
+                          right: 0,
+                          top: 0,
+                          child: AppIcon(
+                            icon: Icons.circle,
+                            size: Constants.iconSize24,
+                            //size: 20,
+                            iconColor: Colors.transparent,
+                            backgroundColor: AppColors.bottonColor,
+                          ),
+                        ),
+                        Positioned(
+                          right: 3,
+                          top: 3,
+                          child: BigText(
+                            text: _cartController.totalItems.toString(),
+                            size: Constants.font16,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ): SizedBox(),
+                  ),
+                  Expanded(
+                    child: Center(
+                      child: Center(
+                          child: BigText(
+                            text: 'Настройки',
+                            bold: true,
+                          )),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(right: Constants.width20),
+                    child: AppIcon(
+                      icon: Icons.person_outline,
+                      iconColor: Colors.black87,
+                      backgroundColor: AppColors.mainColor,
+                      iconSize24: true,
+                      onTap: () {
+                        //TODO: изменить на Get
+                        Navigator.pushNamed(context, '/user_page');
+                      },
+                    ),
+                  ),
+                  //SizedBox(width: Constants.width20 * 2),
+                ],
+              ),
+            ),
             const Padding(
               padding: EdgeInsets.only(top: 35.0),
               child: Center(

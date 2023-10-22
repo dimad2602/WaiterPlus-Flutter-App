@@ -52,7 +52,7 @@ class _OrderConfirmState extends State<OrderConfirm> {
                       backgroundColor: AppColors.mainColor,
                       iconSize24: true,
                       onTap: () {
-                        Get.toNamed(CartPageFire.routeName);
+                        Get.toNamed(CartPageFire.routeName, arguments: ModalRoute.of(context)!.settings.name);
                       },
                     ),
                   ),
@@ -350,18 +350,19 @@ class _OrderConfirmState extends State<OrderConfirm> {
                                   width: Constants.width20,
                                 ),
                                 //TODO: Отобразить переменную выбранного способа оплаты
-                                BigText(
-                                  text: 'Переменная выбранного способа',
-                                ),
-                                // Text("Переменная выбранного способа", // Сокрашение текста до ...
-                                //   overflow: TextOverflow.ellipsis,
-                                //   //Без переноса - 1 строчка
-                                //   maxLines: 1,
-                                //   style: TextStyle(
-                                //       fontFamily: 'Roboto',
-                                //       color: Colors.black,
-                                //       fontSize: Constants.font20,
-                                //   ),)
+                                // BigText(
+                                //   text: 'Переменная выбранного способа',
+                                // ),
+                                //TODO: Сделать контейнер для текста, задать его размер для того что бы текст не вылазил из экрана
+                                Text("1Переменная выбранного способа", // Сокрашение текста до ...
+                                  overflow: TextOverflow.ellipsis,
+                                  //Без переноса - 1 строчка
+                                  maxLines: 1,
+                                  style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      color: Colors.black,
+                                      fontSize: Constants.font20,
+                                  ),)
                               ],
                             ),
                           ],

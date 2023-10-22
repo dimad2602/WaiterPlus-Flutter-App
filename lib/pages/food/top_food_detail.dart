@@ -93,7 +93,7 @@ class TopFoodDetailPage extends StatelessWidget {
                       onTap: () {
                         /*Navigator.pushNamed(
                             context, '/cart_fire_page');*/
-                        Get.toNamed(CartPageFire.routeName);
+                        Get.toNamed(CartPageFire.routeName, arguments: ModalRoute.of(context)!.settings.name);
                       },
                       child: Stack(
                         children: [

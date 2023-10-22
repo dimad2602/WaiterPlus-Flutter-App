@@ -7,6 +7,7 @@ import 'package:flutter_project2/model/cart_model.dart';
 import 'package:flutter_project2/pages/base/no_data_page.dart';
 import 'package:flutter_project2/pages/menu/menu_fire_page.dart';
 import 'package:flutter_project2/pages/order/order_confirm.dart';
+import 'package:flutter_project2/pages/restaurants/restaurant_fire_page.dart';
 import 'package:get/get.dart';
 
 import '../../components/big_text.dart';
@@ -22,11 +23,13 @@ import '../../widgets/cart/card_for_cart_widget.dart';
 import '../../widgets/cart/item_card_for_cart_widget.dart';
 
 class CartPageFire extends StatelessWidget {
+  final String? previousRoute = Get.arguments ?? null;
   CartPageFire({Key? key}) : super(key: key);
   static const String routeName = "/cart_fire_page";
 
   @override
   Widget build(BuildContext context) {
+    print("Проверка какой предыдущий путь $previousRoute");
     OrderUploader _orderUploader = Get.find();
     double _screenWidth = MediaQuery.of(context).size.width;
     double _screenHeight = MediaQuery.of(context).size.height;
@@ -44,6 +47,28 @@ class CartPageFire extends StatelessWidget {
         textCountItems = '${totalItems.toString()} $itemsText';
       }
     }*/
+
+    void _handleBackButton() {
+      // Проверяем какой маршрут находится в стеке перед текущей страницей
+      if (previousRoute == '/order_confirm') {
+        Get.toNamed(RestaurantFirePage.routeName);
+      } else if(previousRoute == '/firemenu_page'){
+        Get.toNamed(previousRoute!);
+      }
+      else if (previousRoute != null){
+        Navigator.pop(context);
+      }
+      else{
+        Navigator.pop(context);
+      }
+      // if (previousRoute!) { //||  previousRoute == '/menu'
+      //   Get.toNamed(previousRoute);
+      //   Navigator.of(context).popUntil(ModalRoute.withName('/menu'));
+      // } else {
+      //   // Иначе используем обычный pop
+      //   Navigator.of(context).pop();
+      // }
+    }
     return Scaffold(
       backgroundColor: AppColors.mainColor,
       body: Stack(
@@ -63,7 +88,11 @@ class CartPageFire extends StatelessWidget {
                     onTap: () {
                       //TODO: Надо думать над тем как сделать переход
                       //Можно ли узнать с какой страници я попал на текущую? и в зависимости от этого сделать переход
-                      Navigator.pop(context);
+
+                      _handleBackButton();
+                      //Navigator.pop(context);
+
+
                       // Navigator.of(context).popUntil((route) {
                       //   if (route.settings.name == OrderConfirm.routeName/*.settings.name == '/order_confirm'*/) {
                       //     //return true; // Пропускаем эту страницу

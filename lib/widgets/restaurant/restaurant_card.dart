@@ -31,7 +31,7 @@ class RestaurantCard extends GetView<RestaurantPaperController> {
               controller.navigateToRestDetail(paper: model, tryAgain: false);
             },
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              padding: const EdgeInsets.symmetric(vertical: 2.0),
               child: Container(
                 height: _screenWidth * 0.71,
                 decoration: BoxDecoration(

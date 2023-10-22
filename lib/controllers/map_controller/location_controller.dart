@@ -56,7 +56,7 @@ class LocationController extends GetxController implements GetxService {
               altitude: 1,
               heading: 1,
               speed: 1,
-              speedAccuracy: 1);
+              speedAccuracy: 1, altitudeAccuracy: 1, headingAccuracy: 1);
         } else {
           _pickPosition = Position(
               latitude: position.target.latitude,
@@ -66,7 +66,9 @@ class LocationController extends GetxController implements GetxService {
               altitude: 1,
               heading: 1,
               speed: 1,
-              speedAccuracy: 1);
+              speedAccuracy: 1,
+              altitudeAccuracy: 15,
+              headingAccuracy: 1);
         }
         ;
         if (_changeAddress) {
