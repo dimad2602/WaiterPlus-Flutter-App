@@ -54,6 +54,10 @@ class RestaurantPaperController extends GetxController {
     List<String> imgName = ["cheez", "ioanidis", "perchi", "perchi", "Delicious Eats"];
     try {
       QuerySnapshot<Map<String, dynamic>> data = await restaurantRF.get();
+      // data.docs.forEach((doc) {
+      //   Map<String, dynamic> jsonData = doc.data() as Map<String, dynamic>;
+      //   print(jsonEncode(jsonData));
+      // });
       final paperList = data.docs
           .map((restaurants) => RestaurantModel.fromSnapshot(restaurants))
           .toList();

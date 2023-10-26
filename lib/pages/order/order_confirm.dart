@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project2/controllers/cart_controller/cart_controller.dart';
 import 'package:flutter_project2/pages/cart/cart_page_fire.dart';
+import 'package:flutter_project2/pages/restaurants/restaurant_fire_page.dart';
 import 'package:get/get.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 
+import '../../components/Small_text.dart';
 import '../../components/app_icon.dart';
 import '../../components/big_text.dart';
 import '../../controllers/restaurants_controlelr/restaurant_paper_controller.dart';
 import '../../models/restaurants_model.dart';
 import '../../util/AppColors.dart';
 import '../../util/constants.dart';
+import '../../widgets/order/order_check_sheet.dart';
 
 class OrderConfirm extends StatefulWidget {
   const OrderConfirm({Key? key}) : super(key: key);
@@ -388,6 +391,104 @@ class _OrderConfirmState extends State<OrderConfirm> {
               ),
             ),
           ]),
+      bottomNavigationBar: GetBuilder<CartController>(
+        builder: (cartController) {
+          return Container(
+            height: Constants.height45*2.5,
+            padding: EdgeInsets.only(
+                top: Constants.height15,
+                bottom: Constants.height15,
+                left: Constants.width20,
+                right: Constants.width20),
+            decoration: BoxDecoration(
+              color: Colors.white,//Colors.grey.shade300,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(Constants.radius20 * 2),
+                topRight: Radius.circular(Constants.radius20 * 2),
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 2,
+                  blurRadius: 4,
+                  offset: const Offset(0, 2),
+                ),
+              ],
+            ),
+            child: cartController.getItems.length>0? Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  padding: EdgeInsets.only(
+                      top: Constants.height20,
+                      bottom: Constants.height15,
+                      left: Constants.width20,
+                      right: Constants.width20),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(Constants.radius20),
+                    color: Colors.white,
+                  ),
+                  child: Row(
+                    children: [
+                      Column(
+                        children: [
+                          SmollText(
+                              text: "Итого" /*cartController.totalItems.toString()*/ /*textCountItems*/),
+                          SizedBox(height: Constants.height10 * 0.5,),
+                          Row(
+                            children: [
+                              Icon( Icons.currency_ruble, size: Constants.width20,),
+                              BigText(text: "${cartController.totalPrice.toString()}", bold: true,),
+                            ],
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        width: Constants.width10 / 2,
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () {
+                      showCustomBottomSheet(context);
+                      //Get.toNamed(RestaurantFirePage.routeName);
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.all(5),
+                      padding: EdgeInsets.only(
+                          top: Constants.height20,
+                          bottom: Constants.height20,
+                          left: Constants.width20,
+                          right: Constants.width20),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(Constants.radius20),
+                        color: const Color(0xFF4ecb71),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            spreadRadius: 2,
+                            blurRadius: 4,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      child: Center(
+                        child: BigText(
+                          text:
+                          'Оформить заказ',
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ):Container(),
+          );
+        },
+      ),
     );
   }
 }

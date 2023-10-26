@@ -9,6 +9,7 @@ class SmollText extends StatelessWidget {
   final String text;
   double size;
   double height;
+  bool upSize = false;
   SmollText({
     Key? key,
     this.color = const Color(0xFF332d2b),
@@ -26,7 +27,7 @@ class SmollText extends StatelessWidget {
       style: TextStyle(
           fontFamily: 'Roboto',
           color: color,
-          fontSize: size,
+          fontSize: upSize? size * 1.33 : size,
         height: height,
       ),
     );

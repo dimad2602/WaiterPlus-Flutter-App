@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_project2/firebase_ref/loading_status.dart';
@@ -66,6 +68,11 @@ class MenuPaperController extends GetxController {
     try {
       final QuerySnapshot<Map<String, dynamic>> menuQuery =
       await restaurantRF.doc(restaurant.id).collection("menu").get();
+      for (var doc in menuQuery.docs) {
+        Map<String, dynamic> jsonData = doc.data();
+        print(jsonData);
+      }
+      print("menuQuery");
       final menu = menuQuery.docs
           .map((snapshot) => Menu.fromSnapshot(snapshot))
           .toList();
@@ -83,6 +90,7 @@ class MenuPaperController extends GetxController {
         _menu.items = items;
       }
     } catch (e) {
+      print("ошибка menu_controller");
       if (kDebugMode) {
         print(e.toString());
       }
@@ -104,12 +112,15 @@ class MenuPaperController extends GetxController {
       allItemsForCategory.clear();
       final QuerySnapshot<Map<String, dynamic>> data =
       await restaurantRF.doc(restaurant.id).collection("menu").get();
+      data.docs.forEach((doc) {
+        Map<String, dynamic> jsonData = doc.data() as Map<String, dynamic>;
+        print("asdad ${jsonEncode(jsonData)}");
+      });
       final paperList = data.docs
           .map((snapshot) => Menu.fromSnapshot(snapshot))
           .toList();
       allCategories.assignAll(paperList);
       restaurant.menu = paperList;
-
       for (Menu _menu in restaurant.menu!) {
         final QuerySnapshot<Map<String, dynamic>> itemsQuery =
         await restaurantRF
