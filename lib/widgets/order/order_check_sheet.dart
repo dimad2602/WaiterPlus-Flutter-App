@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
+import '../../components/big_text.dart';
 import '../../util/constants.dart';
 
 void showCustomBottomSheet(BuildContext context) {
@@ -24,22 +26,20 @@ void showCustomBottomSheet(BuildContext context) {
                 ),
               ],
             ),
-            Center(
-              /*child: Image.asset(
-                "assets/images/table_order.jpg",
-                height: 100,
-              ),*/
-
+            BigText(
+              text: 'Заказ скоро принесут к твоему столу №...?',
+              bold: true,
             ),
-            Image.asset(
-              'assets/images/tO.png',
-              width: Constants.width20 * 10,
-              height: Constants.height20 * 10,
+            Center(
+              child: SvgPicture.asset(
+                'assets/images/table_order.svg',
+                height: MediaQuery.of(context).size.height * 0.22,
+                width: MediaQuery.of(context).size.width * 0.22,
+              ),
             ),
             SizedBox(height: 16.0),
-            Text(
-              'Некоторый текст1',
-              style: TextStyle(fontSize: 20),
+            BigText(
+              text: 'Некоторый текст1',
             ),
             SizedBox(height: 8.0),
             Text(

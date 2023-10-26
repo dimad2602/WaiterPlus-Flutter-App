@@ -1,24 +1,17 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_project2/components/Small_text.dart';
 import 'package:flutter_project2/components/big_text.dart';
 import 'package:flutter_project2/controllers/restaurants_controlelr/restaurant_paper_controller_sql.dart';
 import 'package:flutter_project2/pages/cart/cart_page_fire.dart';
 import 'package:flutter_project2/util/constants.dart';
 import 'package:get/get.dart';
-
-import '../../components/AppBar/custom_app_bar2.dart';
-import '../../components/Search/search_bar.dart';
 import '../../components/app_icon.dart';
 import '../../controllers/cart_controller/cart_controller.dart';
-import '../../controllers/items_controller/item_detail_controller.dart';
 import '../../controllers/menu_controller/menu_controller.dart';
-import '../../controllers/restaurants_controlelr/restaurant_detail_controller.dart';
 import '../../controllers/restaurants_controlelr/restaurant_paper_controller.dart';
 import '../../models/restaurants_model.dart';
 import '../../util/AppColors.dart';
-import '../../util/app_constants.dart';
+import '../../widgets/order/order_card.dart';
 import '../../widgets/restaurant/restaurant_card.dart';
 import '../main_screen.dart';
 import '../qr_page.dart';
@@ -148,6 +141,10 @@ class RestaurantFirePage extends StatelessWidget {
                     //SizedBox(width: Constants.width20 * 2),
                   ],
                 ),
+              ),
+              SizedBox(height: Constants.height45/2,),
+              GestureDetector(
+                child: OrderCard(),
               ),
               GestureDetector(
                 child: ListView.separated(

@@ -17,6 +17,7 @@ class RestaurantCard extends GetView<RestaurantPaperController> {
     bool isAuthenticated = user != null;
     //TODO: Нужно отдельно с высотой сделать, а иначе ошибки в отображении будут
     double _screenWidth = MediaQuery.of(context).size.width;
+    double _screenHeigt = MediaQuery.of(context).size.height;
     return Stack(
       children: [
         Align(
@@ -31,7 +32,7 @@ class RestaurantCard extends GetView<RestaurantPaperController> {
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 2.0),
               child: Container(
-                height: _screenWidth * 0.71,
+                height: _screenHeigt * 0.42,
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(12),
@@ -53,7 +54,7 @@ class RestaurantCard extends GetView<RestaurantPaperController> {
                 child: Column(
                   children: [
                     Container(
-                      height: _screenWidth * 0.69,
+                      height: _screenHeigt * 0.42,
                       width: _screenWidth * 0.9,
                       child: Column(
                         //crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,7 +63,7 @@ class RestaurantCard extends GetView<RestaurantPaperController> {
                             children: [
                               Container(
                                 //?
-                                height: _screenWidth * 0.4,
+                                height: _screenHeigt * 0.30,
                                 width: _screenWidth * 0.9,
                               ),
                               ClipRRect(
@@ -71,7 +72,7 @@ class RestaurantCard extends GetView<RestaurantPaperController> {
                                 ),
                                 child: CachedNetworkImage(
                                   imageUrl: model.img!,
-                                  height: _screenWidth * 0.5,
+                                  height: _screenHeigt * 0.30,
                                   width: _screenWidth * 0.9,
                                   fit: BoxFit.cover,
                                   placeholder: (context, url) => Container(

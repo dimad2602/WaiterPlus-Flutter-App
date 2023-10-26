@@ -8,6 +8,7 @@ class BigText extends StatelessWidget {
   double size;
   TextOverflow overflow;
   bool bold;
+  int? maxLines;
 
   BigText({
     Key? key,
@@ -15,7 +16,8 @@ class BigText extends StatelessWidget {
     required this.text,
     this.size = 0,
     this.overflow = TextOverflow.ellipsis,
-    this.bold = false
+    this.bold = false,
+    this.maxLines = 1,
   }) : super(key: key);
 
   @override
@@ -23,7 +25,7 @@ class BigText extends StatelessWidget {
     //final constants = Constants(screenHeight: MediaQuery.of(context).size.height, screenWidth: MediaQuery.of(context).size.width);
     return Text(
       text,
-      maxLines: 1,
+      maxLines: maxLines,
       overflow: overflow,
       style: TextStyle(
         fontFamily: 'Roboto',
