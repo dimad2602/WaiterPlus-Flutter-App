@@ -15,6 +15,7 @@ import '../../util/constants.dart';
 import '../../widgets/listTiel/list_tile_for_profile.dart';
 import '../cart/cart_page_fire.dart';
 import '../maps/profile_map_page.dart';
+import '../maps/restaurants_on_map_page.dart';
 import '../order/order_history.dart';
 
 class ProfileSettings extends StatelessWidget {
@@ -339,6 +340,22 @@ class ProfileSettings extends StatelessWidget {
                               size: Constants.height10*5,
                               swadowOff: false,),
                             bigText: BigText(text:'address')),
+                      ),
+                      SizedBox(height: Constants.height20,),
+                      GestureDetector(
+                        onTap: (){
+                          //Get.toNamed(AddressSearchPage.routeName);
+                          Navigator.push(context, RestaurantOnMappage.route());
+                        },
+                        child: AccountWidget(
+                            appIcon:
+                            AppIcon(icon: Icons.location_city,
+                              backgroundColor: AppColors.lightGreenColor,
+                              iconColor: AppColors.redColor,
+                              customSize: Constants.height10*5/2,
+                              size: Constants.height10*5,
+                              swadowOff: false,),
+                            bigText: BigText(text:'Address1')),
                       ),
                       SizedBox(height: Constants.height20,),
                       //Note

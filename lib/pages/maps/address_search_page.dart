@@ -48,6 +48,8 @@ class _ReverseSearchExampleState extends State<_ReverseSearchExample> {
     )
   ];
 
+  final animation = const MapAnimation(type: MapAnimationType.smooth, duration: 0.4);
+
   final List<MapObject> mapObjectsSearch = [];
 
   final List<SearchSessionResult> results = [];
@@ -147,7 +149,8 @@ class _ReverseSearchExampleState extends State<_ReverseSearchExample> {
                           isCircular: false,
                           customSize: Constants.width15 * 2,
                           backgroundColor: Color.fromRGBO(252, 244, 228, 0.5),
-                          onTap: () {
+                          onTap: () async {
+                            await controller.moveCamera(CameraUpdate.zoomIn(), animation: animation);
                             // Обработка нажатия
                           },
                         ),
@@ -159,7 +162,8 @@ class _ReverseSearchExampleState extends State<_ReverseSearchExample> {
                           isCircular: false,
                           customSize: Constants.width15 * 2,
                           backgroundColor: Color.fromRGBO(252, 244, 228, 0.5),
-                          onTap: () {
+                          onTap: () async {
+                            await controller.moveCamera(CameraUpdate.zoomOut(), animation: animation);
                             // Обработка нажатия
                           },
                         ),

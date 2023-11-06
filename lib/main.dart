@@ -16,6 +16,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_project2/pages/maps/add_address_page.dart';
 import 'package:flutter_project2/pages/maps/address_search_page.dart';
 import 'package:flutter_project2/pages/maps/profile_map_page.dart';
+import 'package:flutter_project2/pages/maps/restaurants_on_map_page.dart';
 import 'package:flutter_project2/pages/menu/menu_overview_page.dart';
 import 'package:flutter_project2/pages/menu_page.dart';
 import 'package:flutter_project2/pages/order/order_confirm.dart';
@@ -149,6 +150,9 @@ void main() async {
           },
           '/address_search_page': (context) {
             return AddressSearchPage();
+          },
+          '/restaurant_on_map_page': (context) {
+            return RestaurantOnMappage();
           }
         },
       ),
