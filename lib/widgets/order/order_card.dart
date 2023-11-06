@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project2/components/big_text.dart';
 import 'package:flutter_project2/controllers/restaurants_controlelr/restaurant_paper_controller.dart';
 import 'package:flutter_project2/models/restaurants_model.dart';
+import 'package:flutter_project2/util/AppColors.dart';
 import 'package:flutter_project2/util/constants.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -64,32 +65,31 @@ class OrderCard extends GetView<RestaurantPaperController> {
                                 Expanded(
                                   child: Padding(
                                     padding:
-                                    EdgeInsets.only(left: 8.0, top: 8.0),
+                                    EdgeInsets.only(left: 8.0, top: 8.0, right: 8, bottom: 8),
                                     child:
                                         //TODO: Заменить на BigText Узнать почему мой виджет не переносится
-                                    Text(
-                                      "Заказ скоро принесут к твоему столу №...?",
+                                    BigText(
                                       // Сокрашение текста до ...
                                       //Без переноса - 1 строчка
-                                      style: TextStyle(
-                                        fontSize: 24,
-                                      ),
+                                      text: "Заказ скоро принесут к твоему столу №...?",
+                                      size: Constants.font26,
+                                      bold: true,
+                                      maxLines: 3,
                                     ),
                                   ),
                                 ),
                               ],
                             ),
                           ),
-                          BigText(
-                            text: '1231541231231231231231312312313',
-                            maxLines: 4,
-                            bold: true,
-                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              BigText(
-                                text: "Детали заказа",
+                              Padding(
+                                padding: EdgeInsets.only(left: 10, bottom: 10),
+                                child: BigText(
+                                  color: AppColors.lightGreenColor,
+                                  text: "Детали заказа",
+                                ),
                               ),
                             ],
                           ),
@@ -103,17 +103,27 @@ class OrderCard extends GetView<RestaurantPaperController> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
-                            "Текст второй",
-                            style: TextStyle(fontSize: 16),
+                          Padding(
+                            padding: EdgeInsets.only(top: Constants.height10),
+                            child: Container(
+                              padding: EdgeInsets.all(Constants.height15),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(Constants.radius15),
+                                color: AppColors.qwe2,
+                              ),
+                              child: BigText(
+                                text: "1234",
+                                bold: true,
+                              ),
+                            ),
                           ),
                           ClipRRect(
                             child: Transform.translate(
-                              offset: Offset(Constants.width20*2, Constants.height10*2), // Смещаем изображение вниз и вправо
+                              offset: Offset(Constants.width20*2, Constants.height10/10), // Смещаем изображение вниз и вправо
                               child: Align(
                                 alignment: Alignment.topLeft,
                                 //widthFactor: 0.8,
-                                heightFactor: 0.88,
+                                heightFactor: 0.70,
                                 child: SvgPicture.asset(
                                   'assets/images/table_order.svg',
                                   height: MediaQuery.of(context).size.height * 0.24,
