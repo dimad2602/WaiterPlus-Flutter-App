@@ -2,22 +2,22 @@
 // в экземляр передаются значения
 class SignUpBody{
   String name;
-  String phone;
+  //String phone;
   String email;
-  String password;
+  String passwd;
   SignUpBody({
     required this.name,
-    required this.phone,
+    //required this.phone,
     required this.email,
-    required this.password,
+    required this.passwd,
 });
 
   Map<String, dynamic> toJson(){
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data["f_name"] = this.name; // f is - first name
-    data["phone"] = this.phone;
+    data["name"] = this.name; // f is - first name
+    //data["phone"] = this.phone;
     data["email"] = this.email;
-    data["password"] = this.password;
+    data["passwd"] = this.passwd;
     return data;
   }
 }

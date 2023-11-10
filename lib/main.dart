@@ -11,6 +11,7 @@ import 'package:flutter_project2/pages/food/top_food_detail.dart';
 import 'package:flutter_project2/pages/home.dart';
 import 'package:flutter_project2/pages/login/login_or_register_page.dart';
 import 'package:flutter_project2/pages/login/login_page.dart';
+import 'package:flutter_project2/pages/login/login_pageSQL.dart';
 import 'package:flutter_project2/pages/main_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_project2/pages/maps/add_address_page.dart';
@@ -153,7 +154,10 @@ void main() async {
           },
           '/restaurant_on_map_page': (context) {
             return RestaurantOnMappage();
-          }
+          },
+          '/login_page_sql': (context) {
+            return LoginPageSQL();
+          },
         },
       ),
     ),

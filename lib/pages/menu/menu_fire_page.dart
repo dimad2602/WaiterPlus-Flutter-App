@@ -133,7 +133,102 @@ class MenuFirePage extends GetView<MenuPaperController> {
                         ? Get.find<ItemDetailController>().totalItems > 0 ?*/
                     _cartController.items.isNotEmpty
                             ?  controller.loadingStatus.value ==
-                        LoadingStatus.completed? Container(
+                        LoadingStatus.completed?
+                    // Container(
+                    //   height: Constants.height45*2.5,
+                    //   padding: EdgeInsets.only(
+                    //       top: Constants.height15,
+                    //       bottom: Constants.height15,
+                    //       left: Constants.width20,
+                    //       right: Constants.width20),
+                    //   decoration: BoxDecoration(
+                    //     color: Colors.white,//Colors.grey.shade300,
+                    //     borderRadius: BorderRadius.only(
+                    //       topLeft: Radius.circular(Constants.radius20 * 2),
+                    //       topRight: Radius.circular(Constants.radius20 * 2),
+                    //     ),
+                    //     boxShadow: [
+                    //       BoxShadow(
+                    //         color: Colors.grey.withOpacity(0.5),
+                    //         spreadRadius: 2,
+                    //         blurRadius: 4,
+                    //         offset: const Offset(0, 2),
+                    //       ),
+                    //     ],
+                    //   ),
+                    //   child: _cartController.getItems.length>0? Row(
+                    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //     children: [
+                    //       Container(
+                    //         padding: EdgeInsets.only(
+                    //             top: Constants.height20,
+                    //             bottom: Constants.height15,
+                    //             left: Constants.width20,
+                    //             right: Constants.width20),
+                    //         decoration: BoxDecoration(
+                    //           borderRadius: BorderRadius.circular(Constants.radius20),
+                    //           color: Colors.white,
+                    //         ),
+                    //         child: Row(
+                    //           children: [
+                    //             Column(
+                    //               children: [
+                    //                 SmollText(
+                    //                     text: textCountItems,),
+                    //                 SizedBox(height: Constants.height10 * 0.5,),
+                    //                 Row(
+                    //                   children: [
+                    //                     Icon( Icons.currency_ruble, size: Constants.width20,),
+                    //                     BigText(text: "${Get.find<CartController>().totalPrice.toString()}", bold: true,),
+                    //                   ],
+                    //                 )
+                    //               ],
+                    //             ),
+                    //             SizedBox(
+                    //               width: Constants.width10 / 2,
+                    //             ),
+                    //           ],
+                    //         ),
+                    //       ),
+                    //       Expanded(
+                    //         child: GestureDetector(
+                    //           onTap: () {
+                    //             Get.toNamed(CartPageFire.routeName);
+                    //           },
+                    //           child: Container(
+                    //             margin: const EdgeInsets.all(5),
+                    //             padding: EdgeInsets.only(
+                    //                 top: Constants.height20,
+                    //                 bottom: Constants.height20,
+                    //                 left: Constants.width20,
+                    //                 right: Constants.width20),
+                    //             decoration: BoxDecoration(
+                    //               borderRadius: BorderRadius.circular(Constants.radius20),
+                    //               color: const Color(0xFF4ecb71),
+                    //               boxShadow: [
+                    //                 BoxShadow(
+                    //                   color: Colors.grey.withOpacity(0.5),
+                    //                   spreadRadius: 2,
+                    //                   blurRadius: 4,
+                    //                   offset: const Offset(0, 2),
+                    //                 ),
+                    //               ],
+                    //             ),
+                    //             child: Center(
+                    //               child: BigText(
+                    //                 text:
+                    //                 'Перейти к оформлению',
+                    //                 color: Colors.white,
+                    //               ),
+                    //             ),
+                    //           ),
+                    //         ),
+                    //       )
+                    //     ],
+                    //   ):Container(),
+                    // )
+                    //TODO: Старая нижняя панель, если меняю на новую, не обновляется состояние
+                    Container(
                                 color: Colors.white70,
                                 padding: EdgeInsets.symmetric(
                                     horizontal: Constants.width20,
@@ -191,7 +286,7 @@ class MenuFirePage extends GetView<MenuPaperController> {
                                           ],
                                         ),
                                         child: BigText(
-                                          text: 'Корзина',
+                                          text: 'Заказ',
                                           //${int.parse(_itemDetailController.currentItem.value!.itemPrice!) * Item.inCartItems}
                                           color: Colors.white,
                                         ),
@@ -203,7 +298,8 @@ class MenuFirePage extends GetView<MenuPaperController> {
                             : const SizedBox()
                         : const SizedBox() //: const SizedBox()
                   ],
-                )),
+                )
+            ),
           ),
         ),
       ),

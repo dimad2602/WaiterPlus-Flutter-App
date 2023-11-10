@@ -86,7 +86,7 @@ class _SplashScreenState extends State<SplashPage>
     Get.lazyPut(() => AuthRepo(apiClient: Get.find(), sharedPreferences:  Get.find()));
     Get.lazyPut(() => UserRepo(apiClient: Get.find()));
     Get.lazyPut(() => LocationRepo(apiClient: Get.find(), sharedPreferences: Get.find()));
-    Get.lazyPut(() => RestaurantRepoSql(apiClient: Get.find()));
+    //Get.lazyPut(() => RestaurantRepoSql(apiClient: Get.find()));
     //Get.lazyPut(() => PopularProductRepo(apiClient:Get.find()));
 
     //Try api sql

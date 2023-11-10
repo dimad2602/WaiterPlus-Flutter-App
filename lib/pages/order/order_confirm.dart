@@ -4,7 +4,8 @@ import 'package:flutter_project2/pages/cart/cart_page_fire.dart';
 import 'package:flutter_project2/pages/restaurants/restaurant_fire_page.dart';
 import 'package:get/get.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
-
+import '../../controllers/order/order_uploader.dart';
+import '../../firebase_ref/loading_status.dart';
 import '../../components/Small_text.dart';
 import '../../components/app_icon.dart';
 import '../../components/big_text.dart';
@@ -29,6 +30,8 @@ class _OrderConfirmState extends State<OrderConfirm> {
   Widget build(BuildContext context) {
     double _screenWidth = MediaQuery.of(context).size.width;
     double _screenHeight = MediaQuery.of(context).size.height;
+
+    OrderUploader _orderUploader = Get.find();
 
     RestaurantPaperController _restaurantPaperController = Get.find();
 
@@ -452,8 +455,18 @@ class _OrderConfirmState extends State<OrderConfirm> {
                 Expanded(
                   child: GestureDetector(
                     onTap: () {
+                      Get.toNamed(RestaurantFirePage.routeName);
                       showCustomBottomSheet(context);
-                      //Get.toNamed(RestaurantFirePage.routeName);
+                      _orderUploader.setloadingStatusIsLoading();
+                      //print("restaurant id is QQQQQQ = ${Get.find<MenuPaperController>().restaurantModel.toJson().toString()}");
+                      //print("cartHistory := ${cartController.cartRepo.cartHistory}");
+                      //print("cart := ${cartController.cartRepo.cart}");
+                      print("Cart_page print  ${_orderUploader.loadingStatus.value}");
+                      if (_orderUploader.loadingStatus.value == LoadingStatus.loading){
+                        const CircularProgressIndicator();
+                        _orderUploader.uploadData(cartController.cartRepo.cart);
+                      }
+                      cartController.addToHistory();
                     },
                     child: Container(
                       margin: const EdgeInsets.all(5),
@@ -477,7 +490,7 @@ class _OrderConfirmState extends State<OrderConfirm> {
                       child: Center(
                         child: BigText(
                           text:
-                          'Оформить заказ',
+                          'Сделать заказ',
                           color: Colors.white,
                         ),
                       ),

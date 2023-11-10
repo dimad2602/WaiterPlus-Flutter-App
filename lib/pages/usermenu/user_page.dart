@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project2/controllers/registration_controller/auth_controller.dart';
+import 'package:flutter_project2/pages/login/login_pageSQL.dart';
 import 'package:flutter_project2/pages/order/order_history.dart';
 import 'package:flutter_project2/pages/usermenu/profile_page.dart';
 import 'package:get/get.dart';
@@ -107,7 +108,11 @@ class _UserPageState extends State<UserPage> {
                         // }else{
                         //
                         // }
-                        isAuthenticated ? await _showLogoutDialog() : await _NavigateToLoginDialog();
+
+                        //Пока так
+                        //isAuthenticated ? await _showLogoutDialog() : await _NavigateToLoginDialog();
+                        //Тестирую новую страницу
+                        Get.toNamed(LoginPageSQL.routeName);
                       }),
                 ],
               ),

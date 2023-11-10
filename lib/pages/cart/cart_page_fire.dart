@@ -56,9 +56,10 @@ class CartPageFire extends StatelessWidget {
         Get.toNamed(previousRoute!);
       }
       else if (previousRoute != null){
-        Navigator.pop(context);
+        Get.toNamed(previousRoute!);
       }
       else{
+        // Get.toNamed(RestaurantFirePage.routeName);
         Navigator.pop(context);
       }
       // if (previousRoute!) { //||  previousRoute == '/menu'
@@ -86,9 +87,6 @@ class CartPageFire extends StatelessWidget {
                     backgroundColor: AppColors.mainColor,
                     iconSize24: true,
                     onTap: () {
-                      //TODO: Надо думать над тем как сделать переход
-                      //Можно ли узнать с какой страници я попал на текущую? и в зависимости от этого сделать переход
-
                       _handleBackButton();
                       //Navigator.pop(context);
 
@@ -178,6 +176,98 @@ class CartPageFire extends StatelessWidget {
       bottomNavigationBar: GetBuilder<CartController>(
         builder: (cartController) {
           return Container(
+            height: Constants.height45*2.5,
+            padding: EdgeInsets.only(
+                top: Constants.height15,
+                bottom: Constants.height15,
+                left: Constants.width20,
+                right: Constants.width20),
+            decoration: BoxDecoration(
+              color: Colors.white,//Colors.grey.shade300,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(Constants.radius20 * 2),
+                topRight: Radius.circular(Constants.radius20 * 2),
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 2,
+                  blurRadius: 4,
+                  offset: const Offset(0, 2),
+                ),
+              ],
+            ),
+            child: cartController.getItems.length>0? Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  padding: EdgeInsets.only(
+                      top: Constants.height20,
+                      bottom: Constants.height15,
+                      left: Constants.width20,
+                      right: Constants.width20),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(Constants.radius20),
+                    color: Colors.white,
+                  ),
+                  child: Row(
+                    children: [
+                      Column(
+                        children: [
+                          SmollText(
+                              text: "Итого" /*cartController.totalItems.toString()*/ /*textCountItems*/),
+                          SizedBox(height: Constants.height10 * 0.5,),
+                          Row(
+                            children: [
+                              Icon( Icons.currency_ruble, size: Constants.width20,),
+                              BigText(text: "${cartController.totalPrice.toString()}", bold: true,),
+                            ],
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        width: Constants.width10 / 2,
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () {
+                      Get.toNamed(OrderConfirm.routeName);
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.all(5),
+                      padding: EdgeInsets.only(
+                          top: Constants.height20,
+                          bottom: Constants.height20,
+                          left: Constants.width20,
+                          right: Constants.width20),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(Constants.radius20),
+                        color: const Color(0xFF4ecb71),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            spreadRadius: 2,
+                            blurRadius: 4,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      child: Center(
+                        child: BigText(
+                          text:
+                          'Перейти к оформлению',
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ):Container(),
+          );/*Container(
             height: Constants.bottomHeightBar,
             padding: EdgeInsets.only(
                 top: Constants.height20,
@@ -211,21 +301,21 @@ class CartPageFire extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(Constants.radius20),
                     color: Colors.white,
-                    /*boxShadow: [
+                    *//*boxShadow: [
                       BoxShadow(
                         color: Colors.grey.withOpacity(0.5),
                         spreadRadius: 2,
                         blurRadius: 4,
                         offset: const Offset(0, 2),
                       ),
-                    ],*/
+                    ],*//*
                   ),
                   child: Row(
                     children: [
                       Column(
                         children: [
                           SmollText(
-                              text: cartController.totalItemsAndText /*cartController.totalItems.toString()*/ /*textCountItems*/),
+                              text: cartController.totalItemsAndText *//*cartController.totalItems.toString()*//* *//*textCountItems*//*),
                           SizedBox(height: Constants.height10 * 0.5,),
                           Row(
                             children: [
@@ -283,7 +373,7 @@ class CartPageFire extends StatelessWidget {
                 )
               ],
             ):Container(),
-          );
+          );*/
         },
       ),
 
