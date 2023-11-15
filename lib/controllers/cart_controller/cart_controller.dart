@@ -200,6 +200,11 @@ class CartController extends GetxController {
     update();
   }
 
+  void clearCartHistory() {
+    cartRepo.clearCartHistory();
+    update();
+  }
+
   //не готово
   void navigateToCartFromHistory({required RestaurantModel paper}) {
       final controller = Get.put(RestaurantDetailController());

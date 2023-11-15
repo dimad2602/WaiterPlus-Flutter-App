@@ -10,6 +10,7 @@ import 'package:flutter_project2/controllers/restaurants_controlelr/restaurant_p
 import 'package:flutter_project2/data/repository/location_repo.dart';
 import 'package:flutter_project2/pages/auth_page.dart';
 import 'package:flutter_project2/pages/login/login_page.dart';
+import 'package:flutter_project2/pages/login/login_page_sql.dart';
 import 'package:flutter_project2/pages/restaurants/restaurant_fire_page.dart';
 import 'package:flutter_project2/util/app_constants.dart';
 import 'package:get/get.dart';
@@ -113,16 +114,24 @@ class _SplashScreenState extends State<SplashPage>
     animation = CurvedAnimation(parent: controller, curve: Curves.linear);
     Timer(Duration(seconds: 3), () {
       print("splash screen");
-      FirebaseAuth auth = FirebaseAuth.instance;
-      User? user = auth.currentUser;
-      if (user != null) {
+      //OLD Code for FireBase
+      // FirebaseAuth auth = FirebaseAuth.instance;
+      // User? user = auth.currentUser;
+      // if (user != null) {
+      //   // Пользователь авторизован, переход на соответствующую страницу
+      //   // Например, если у вас есть страница Home:
+      //   Get.offNamed(RestaurantFirePage.routeName);
+      // } else {
+      //   // Пользователь не авторизован, переход на страницу авторизации (например, LoginPage)
+      //   Get.offNamed(LoginPageSQL.routeName);
+      // }
+      if (Get.find<AuthController>().userLoggedIn()) {
         // Пользователь авторизован, переход на соответствующую страницу
         // Например, если у вас есть страница Home:
         Get.offNamed(RestaurantFirePage.routeName);
       } else {
         // Пользователь не авторизован, переход на страницу авторизации (например, LoginPage)
-        //TODO: Переделать на другую страницу авторизации
-        Get.offNamed(LoginPage.routeName);
+        Get.offNamed(LoginPageSQL.routeName);
       }
     });//Get.toNamed(LoginPage.routeName));
   }

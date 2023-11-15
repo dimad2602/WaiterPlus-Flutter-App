@@ -16,7 +16,7 @@ class AuthRepo{
     return await apiClient.postData(AppConstants.REGISTRATION_URI, signUpBody.toJson());
   }
 
-  bool userLogedIn() {
+  bool userLoggedIn() {
     return sharedPreferences.containsKey(AppConstants.TOKEN);
   }
 
@@ -34,10 +34,10 @@ class AuthRepo{
     return await sharedPreferences.setString(AppConstants.TOKEN, token);
   }
 
-  Future<void> saveUserNumberAndPassword(String number, String password) async {
+  Future<void> saveUserNumberAndPassword(String number, String email, String password) async {
     try{
       await sharedPreferences.setString(AppConstants.PHONE, number);
-      await sharedPreferences.setString(AppConstants.MAIL, number);
+      await sharedPreferences.setString(AppConstants.MAIL, email);
       await sharedPreferences.setString(AppConstants.PASSWORD, password);
     }
     catch(e){

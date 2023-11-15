@@ -17,9 +17,8 @@ class AuthController extends GetxController implements GetxService{
   bool get isLoading => _isLoading;
 
   Future<ResponseModel>registration(SignUpBody signUpBody) async {
-    print("Getting token"); // just test
-    print(authRepo.getUserToken().toString());// just test
     _isLoading = true;
+    update();
     Response response = await authRepo.registration(signUpBody);
     late ResponseModel responseModel;
     print(response.statusCode);
@@ -32,22 +31,27 @@ class AuthController extends GetxController implements GetxService{
       print('Error creating');
       responseModel = ResponseModel(false, response.statusText!);
     }
-    _isLoading = true;
+    _isLoading = false;
     update();
     return responseModel;
   }
 
-  Future<ResponseModel>login(String login, String password) async {
+  Future<ResponseModel>login(String email, String password) async {
+    print("Getting token"); // just test
+    print(authRepo.getUserToken().toString());// just test
     _isLoading = true;
-    Response response = await authRepo.login(login, password);
+    update();
+    Response response = await authRepo.login(email, password);
     late ResponseModel responseModel;
     if(response.statusCode == 200){
-      authRepo.saveUserToken(response.body["access_token"]);
+      print("backend token");
+      authRepo.saveUserToken(response.body["access_token"]); //mb need [token]
+      print(response.body["access_token"].toString());
       responseModel = ResponseModel(true, response.body["access_token"]);
     }else{
       responseModel = ResponseModel(false, response.statusText!);
     }
-    _isLoading = true;
+    _isLoading = false;
     update();
     return responseModel;
   }
@@ -80,12 +84,12 @@ class AuthController extends GetxController implements GetxService{
   //   }
   // }
 
-  void saveUserNumberAndPassword(String number, String password) {
-      authRepo.saveUserNumberAndPassword(number, password);
+  void saveUserNumberAndPassword(String number, String email, String password) {
+      authRepo.saveUserNumberAndPassword(number, email, password);
   }
 
   bool userLoggedIn() {
-    return authRepo.userLogedIn();
+    return authRepo.userLoggedIn();
   }
 
   bool clearSharedData() {

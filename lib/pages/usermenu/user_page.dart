@@ -6,10 +6,9 @@ import 'package:flutter_project2/pages/login/login_page_sql.dart';
 import 'package:flutter_project2/pages/order/order_history.dart';
 import 'package:flutter_project2/pages/usermenu/profile_page.dart';
 import 'package:get/get.dart';
+import '../../controllers/cart_controller/cart_controller.dart';
 import '../../widgets/listTiel/list_tile_for_profile.dart';
 
-import '../../util/AppColors.dart';
-import '../login/login_page.dart';
 import '../main_screen.dart';
 
 class UserPage extends StatefulWidget {
@@ -23,12 +22,11 @@ class UserPage extends StatefulWidget {
 
 class _UserPageState extends State<UserPage> {
 
-  // sign user out method
-  void signUserOut() {
-    FirebaseAuth.instance.signOut();
-    //TODO: Правильно все?
-    //Navigator.pushNamed(widget.context, '/auth_page');
-    Get.offNamed(LoginPage.routeName);
+  void signUserOutSQL() {
+    Get.find<AuthController>().clearSharedData();
+    Get.find<CartController>().clear();
+    Get.find<CartController>().clearCartHistory();
+    Get.offNamed(LoginPageSQL.routeName);
   }
 
   User? user = FirebaseAuth.instance.currentUser;
@@ -80,15 +78,15 @@ class _UserPageState extends State<UserPage> {
                       // subtitle: 'Subtitle',
                       icon: Icons.person,
                       onPressed: () {
-                        //TODO: Так будет работать проверка на авторизацию
-                        // if(Get.find<AuthController>().userLogedIn()){
-                        //   Get.toNamed(ProfileSettings.routeName);
-                        // }
-                        // else{
-                        //
-                        // }
-
-                        Get.toNamed(ProfileSettings.routeName);
+                        //Проверка на авторизацию SQL
+                        if(Get.find<AuthController>().userLoggedIn()){
+                          Get.toNamed(ProfileSettings.routeName);
+                        }
+                        else{
+                          print("Не авторизованы");
+                          Get.offNamed(LoginPageSQL.routeName);
+                        }
+                        //Get.toNamed(ProfileSettings.routeName);
                       }),
                   listTiles(
                       title: 'Мои заказы', icon: Icons.history, onPressed: () {
@@ -98,21 +96,18 @@ class _UserPageState extends State<UserPage> {
                       title: 'Любимое', icon: Icons.favorite, onPressed: () {}),
 
                   listTiles(
-                      title: isAuthenticated ? 'Выйти из профиля' : 'Войти в профиль',
+                      title: Get.find<AuthController>().userLoggedIn() ? 'Выйти из профиля' : 'Войти в профиль',
                       icon: Icons.logout,
                       onPressed: () async {
-                        //TODO: Так нужно будет сделать "Выйти из аккаунтра"
-                        // if(Get.find<AuthController>().userLogedIn()){
-                        //   Get.find<AuthController>().clearSharedData();
-                        // Корзину тоде можно очистить //вызвать метод очишения у контроллера корзины
-                        // }else{
-                        //
-                        // }
-
-                        //Пока так
+                        //"Выйти из аккаунтра"
+                        if(Get.find<AuthController>().userLoggedIn()){
+                            _showLogoutDialog();
+                        //TODO: Корзину тоде можно очистить //вызвать метод очишения у контроллера корзины
+                        }else{
+                          Get.offNamed(LoginPageSQL.routeName);
+                        }
+                        //Старый код
                         //isAuthenticated ? await _showLogoutDialog() : await _NavigateToLoginDialog();
-                        //Тестирую новую страницу
-                        Get.toNamed(LoginPageSQL.routeName);
                       }),
                 ],
               ),
@@ -123,21 +118,22 @@ class _UserPageState extends State<UserPage> {
     );
   }
 
+  //TODO: Обновить код
   Future<void> _showLogoutDialog() async {
     await showDialog(
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Row(
+            title: const Row(
               children: [
-                const Icon(Icons.exit_to_app, size: 20, weight: 20),
-                const Padding(
+                Icon(Icons.exit_to_app, size: 20, weight: 20),
+                Padding(
                   padding: EdgeInsets.only(left: 8),
-                  child: Text('Sign out'),
+                  child: Text('Выйти'),
                 )
               ],
             ),
-            content: const Text('Do you want to sign out'),
+            content: const Text('Вы действительно хотите выйти'),
             actions: [
               TextButton(
                   onPressed: () {
@@ -146,7 +142,7 @@ class _UserPageState extends State<UserPage> {
                     }
                   },
                   child: const Text(
-                    'Cancel',
+                    'Отмена',
                     style: TextStyle(color: Colors.black, fontSize: 18),
                   ),
               ),
@@ -155,10 +151,10 @@ class _UserPageState extends State<UserPage> {
                   // if (Navigator.canPop(context)) {
                   //   Navigator.pop(context);
                   // }
-                  signUserOut();
+                  signUserOutSQL();
                 },
                 child: const Text(
-                  'OK',
+                  'Да',
                   style: TextStyle(color: Colors.red, fontSize: 18),
                 ),
               ),
@@ -166,35 +162,4 @@ class _UserPageState extends State<UserPage> {
           );
         });
   }
-
-  Future<void> _NavigateToLoginDialog() async {
-    Navigator.pushNamed(context, '/login_page');
-  }
-
-  // Widget _listTiles(
-  //     {required String title,
-  //     String? subtitle,
-  //     required IconData icon,
-  //     required Function onPressed}) {
-  //   return ListTile(
-  //     title: Text(
-  //       title,
-  //       style: TextStyle(
-  //         fontSize: 24,
-  //         fontWeight: FontWeight.bold,
-  //         color: (title == 'Выйти из профиля')? AppColors.redColor : (title == 'Войти в профиль') ? AppColors.redColor : Colors.black, //title == 'Выйти из профиля' ? Color(0xFFd60000) : Colors.black,
-  //       ),
-  //     ),
-  //     // subtitle: Text(
-  //     //   subtitle ?? "",
-  //     //   style: const TextStyle(fontSize: 15),
-  //     // ),
-  //     leading: Icon(icon,
-  //         color: title == 'Выйти из профиля' ? AppColors.redColor : (title == 'Войти в профиль') ? AppColors.redColor : null),
-  //     trailing: const Icon(Icons.keyboard_arrow_right),
-  //     onTap: () {
-  //       onPressed();
-  //     },
-  //   );
-  // }
 }
