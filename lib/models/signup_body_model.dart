@@ -16,7 +16,8 @@ class SignUpBody{
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data["name"] = this.name; // f is - first name
     //data["phone"] = this.phone;
-    data["email"] = this.email;
+    //TODO: Мирослав email обозвал как login
+    data["login"] = this.email;
     data["passwd"] = this.passwd;
     return data;
   }

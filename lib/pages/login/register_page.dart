@@ -244,5 +244,22 @@ class _RegisterPageState extends State<RegisterPage> {
         ),
       ),
     );
+
+    // error message to user
+    void ShowErrorMessage(String message) {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              backgroundColor: Color(0xFF79290C),
+              title: Text(
+                message,
+                style: const TextStyle(
+                    color: Colors.white
+                ),
+              ),
+            );
+          });
+    }
   }
 }

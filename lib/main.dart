@@ -11,7 +11,8 @@ import 'package:flutter_project2/pages/food/top_food_detail.dart';
 import 'package:flutter_project2/pages/home.dart';
 import 'package:flutter_project2/pages/login/login_or_register_page.dart';
 import 'package:flutter_project2/pages/login/login_page.dart';
-import 'package:flutter_project2/pages/login/login_pageSQL.dart';
+import 'package:flutter_project2/pages/login/login_page_sql.dart';
+import 'package:flutter_project2/pages/login/register_page_sql.dart';
 import 'package:flutter_project2/pages/main_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_project2/pages/maps/add_address_page.dart';
@@ -157,6 +158,9 @@ void main() async {
           },
           '/login_page_sql': (context) {
             return LoginPageSQL();
+          },
+          '/register_page_sql': (context) {
+            return RegisterPageSQL();
           },
         },
       ),

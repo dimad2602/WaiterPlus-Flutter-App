@@ -2,20 +2,90 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_project2/components/big_text.dart';
+import 'package:flutter_project2/pages/login/register_page_sql.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 
+import '../../components/Small_text.dart';
+import '../../components/app_text_field.dart';
+import '../../components/register_button.dart';
+import '../../controllers/registration_controller/auth_controller.dart';
 import '../../util/AppColors.dart';
 import '../../util/constants.dart';
 import '../restaurants/restaurant_fire_page.dart';
 
-class LoginPageSQL extends StatelessWidget {
+class LoginPageSQL extends StatefulWidget {
   const LoginPageSQL({Key? key}) : super(key: key);
 
   static const String routeName = "/login_page_sql";
 
   @override
+  State<LoginPageSQL> createState() => _LoginPageSQLState();
+}
+
+class _LoginPageSQLState extends State<LoginPageSQL> {
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  @override
   Widget build(BuildContext context) {
+
+    // error message to user
+    void ShowErrorMessage(String message, {bool isError = true, String title = "Error"}) {
+      // showDialog(
+      //     context: context,
+      //     builder: (context) {
+      //       return AlertDialog(
+      //         backgroundColor: AppColors.mainColor,
+      //         title: BigText(
+      //           text: message,
+      //           color: Colors.black,
+      //           bold: true,
+      //         ),
+      //       );
+      //     });
+      Get.snackbar(title, message,
+          titleText: BigText(
+            text: title,
+            color: Colors.white,
+          ),
+          messageText: SmollText(
+            text: message,
+            color: Colors.white,
+          ),
+          colorText: Colors.white,
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: AppColors.redColor);
+    }
+
+    void _signUserIn() async{
+      var authController = Get.find<AuthController>();
+      String email = emailController.text.trim();
+      String password = passwordController.text.trim();
+
+      if (email.isEmpty) {
+        ShowErrorMessage("Введите почту", title: "Email");
+      }else if(password.isEmpty){
+        ShowErrorMessage("Введите пароль", title: "Пароль");
+      }else if (!GetUtils.isEmail(email)) {
+        ShowErrorMessage("Опечатка в почте", title: "Email");
+      }
+      showDialog(
+          context: context,
+          builder: (context) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          },
+        );
+      authController.login(email, password).then((status){
+        if(status.isSuccess){
+          print("Success login");
+          Get.offNamed(RestaurantFirePage.routeName);
+        }else{
+          ShowErrorMessage(status.message);
+        }
+      });
+    }
+
     return WillPopScope(
         onWillPop: () async {
           // закрываем приложение при нажатии кнопки "назад" на главном экране
@@ -58,74 +128,20 @@ class LoginPageSQL extends StatelessWidget {
                       ),
                       SizedBox(height: Constants.height45),
                       // email textfield
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: Constants.width15 * 2),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.3),
-                                spreadRadius: 2,
-                                blurRadius: 4,
-                                offset: Offset(0, 2),
-                              ),
-                            ],
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: Constants.width15 * 2),
-                            child: TextField(
-                              //controller: emailController,
-                              decoration: InputDecoration(
-                                prefixIcon: Icon(Icons.email, color: AppColors.qwe7 ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.white),
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(14),
-                                    borderSide: const BorderSide(
-                                        color: Colors.black54, width: 2.0)),
-                                fillColor: Colors.white,
-                                //Colors.grey.shade200,
-                                //border: InputBorder.none,
-                                filled: true,
-                                hintText: 'Почта',
-                              ),
-                            ),
-                          ),
+                      AppTextField(
+                        controller: emailController,
+                        text: 'Почта',
+                        icon: const Icon(
+                          Icons.email_outlined,
                         ),
                       ),
-                      SizedBox(height: Constants.height15),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: Constants.width15 * 2),
-                        child: Container(
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: Constants.width15 * 2),
-                            child: TextField(
-                              //controller: passwordController,
-                              obscureText: true,
-                              decoration: InputDecoration(
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide:
-                                      const BorderSide(color: Colors.white),
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(14),
-                                    borderSide: const BorderSide(
-                                        color: Colors.black54, width: 2.0)),
-                                fillColor: Colors.white,
-                                //border: InputBorder.none,
-                                filled: true,
-                                hintText: 'Пароль',
-                              ),
-                            ),
-                          ),
-                        ),
+                      // color: AppColors.qwe7
+                      SizedBox(height: Constants.height20),
+                      AppTextField(
+                        controller: passwordController,
+                        text: 'Пароль',
+                        hiddenText: true,
+                        icon: Icon(Icons.password_outlined),
                       ),
                       SizedBox(height: Constants.height15),
                       Padding(
@@ -144,7 +160,7 @@ class LoginPageSQL extends StatelessWidget {
                       ),
                       SizedBox(height: Constants.height15),
                       // sign in button
-                      GestureDetector(
+                      /*GestureDetector(
                         //onTap: signUserIn,
                         child: Padding(
                           padding: EdgeInsets.symmetric(
@@ -173,40 +189,54 @@ class LoginPageSQL extends StatelessWidget {
                             ),
                           ),
                         ),
+                      ),*/
+                      RegisterButton(
+                        text: 'Войти',
+                        color: AppColors.bottonColor,
+                        onTap: (){
+                          _signUserIn();
+                        },
                       ),
                       SizedBox(height: Constants.height15),
                       // Continue as a guest
-                      GestureDetector(
+                      // GestureDetector(
+                      //   onTap: () {
+                      //     Get.offNamed(RestaurantFirePage.routeName);
+                      //   },
+                      //   child: Padding(
+                      //     padding: EdgeInsets.symmetric(
+                      //         horizontal: Constants.width20 * 6.3),
+                      //     child: Container(
+                      //       padding: EdgeInsets.all(Constants.height20 * 1.2),
+                      //       decoration: BoxDecoration(
+                      //         color: AppColors.redColor,
+                      //         borderRadius: BorderRadius.circular(12),
+                      //         boxShadow: [
+                      //           BoxShadow(
+                      //             color: Colors.grey.withOpacity(0.3),
+                      //             spreadRadius: 2,
+                      //             blurRadius: 4,
+                      //             offset: Offset(0, 2),
+                      //           ),
+                      //         ],
+                      //       ),
+                      //       child: Center(
+                      //         child: BigText(
+                      //           text: 'Гость',
+                      //           color: Colors.white,
+                      //           bold: true,
+                      //           size: Constants.font20 * 1.2,
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
+                      RegisterButton(
+                        text: 'Гость',
+                        color: AppColors.redColor,
                         onTap: () {
                           Get.offNamed(RestaurantFirePage.routeName);
                         },
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: Constants.width20 * 6.3),
-                          child: Container(
-                            padding: EdgeInsets.all(Constants.height20 * 1.2),
-                            decoration: BoxDecoration(
-                              color: AppColors.redColor,
-                              borderRadius: BorderRadius.circular(12),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.3),
-                                  spreadRadius: 2,
-                                  blurRadius: 4,
-                                  offset: Offset(0, 2),
-                                ),
-                              ],
-                            ),
-                            child: Center(
-                              child: BigText(
-                                text: 'Гость',
-                                color: Colors.white,
-                                bold: true,
-                                size: Constants.font20 * 1.2,
-                              ),
-                            ),
-                          ),
-                        ),
                       ),
                       SizedBox(height: Constants.height20 * 1.2),
                       // not a meember? register now button
@@ -214,13 +244,14 @@ class LoginPageSQL extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           BigText(
-                            text: 'Нет аккаунта?',
+                            text: 'Нет аккаунта? ',
                             bold: true,
                             size: Constants.font16 * 1.15,
                           ),
                           GestureDetector(
                               onTap: () {
-                                Navigator.pushNamed(context, '/register_page');
+                                //Navigator.pushNamed(context, '/register_page_sql');
+                                Get.toNamed(RegisterPageSQL.routeName);
                               },
                               child: BigText(
                                 text: 'Зарегистрироватся',

@@ -54,7 +54,7 @@ class MenuFirePage extends GetView<MenuPaperController> {
         return await showDialog(
               context: context,
               builder: (context) => AlertDialog(
-                title: const Text('Вы уверены?'),
+                title: const Text('Выйти из страницы заведения?'),
                 //TODO: Другая надпись
                 // content: const Text('Корзина будет очищена'),
                 actions: <Widget>[

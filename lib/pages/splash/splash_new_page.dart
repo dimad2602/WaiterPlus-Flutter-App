@@ -121,6 +121,7 @@ class _SplashScreenState extends State<SplashPage>
         Get.offNamed(RestaurantFirePage.routeName);
       } else {
         // Пользователь не авторизован, переход на страницу авторизации (например, LoginPage)
+        //TODO: Переделать на другую страницу авторизации
         Get.offNamed(LoginPage.routeName);
       }
     });//Get.toNamed(LoginPage.routeName));

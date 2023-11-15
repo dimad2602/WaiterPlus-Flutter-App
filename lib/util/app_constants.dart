@@ -16,11 +16,8 @@ class AppConstants{
 
   //Auth Api
   //user and auth end points
-  static const String REGISTRATION_URI="/10.0.2.2:3000/users";
+  static const String REGISTRATION_URI="10.0.2.2:3000/users";
   static const String LOGIN_URI="10.0.2.2:3000/auth/login";
-  //static const String LOGIN_URI="api/v1/auth/register";
-  // static const String REGISTRATION_URI="api/v1/auth/register";
-  // static const String LOGIN_URI="api/v1/auth/register";
   static const String USER_INFO_URI="api/v1/customer/info"; //info - это endpoint
 
   static const String TOKEN=""; //DBtoken - вроде нудно пустым оставлять?

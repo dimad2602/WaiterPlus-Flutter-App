@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project2/controllers/registration_controller/auth_controller.dart';
-import 'package:flutter_project2/pages/login/login_pageSQL.dart';
+import 'package:flutter_project2/pages/login/login_page_sql.dart';
 import 'package:flutter_project2/pages/order/order_history.dart';
 import 'package:flutter_project2/pages/usermenu/profile_page.dart';
 import 'package:get/get.dart';
