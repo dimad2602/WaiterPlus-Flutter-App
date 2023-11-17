@@ -153,14 +153,18 @@ class RestaurantFirePage extends StatelessWidget {
                     physics: NeverScrollableScrollPhysics(),
                     itemBuilder: (BuildContext context, int index) {
                       return RestaurantCard(
-                          model: _restaurantPaperController.allPapers[index]);
+                          model: _restaurantPaperControllerSql.allPapers[index],
+                          //_restaurantPaperController.allPapers[index]
+                      );
                     },
                     separatorBuilder: (BuildContext context, int index) {
                       return const SizedBox(
                         height: 20,
                       );
                     },
-                    itemCount: _restaurantPaperController.allPapers.length),
+                    itemCount: _restaurantPaperControllerSql.allPapers.length,
+                    //_restaurantPaperController.allPapers.length
+                ),
               ),
             ],
           ),

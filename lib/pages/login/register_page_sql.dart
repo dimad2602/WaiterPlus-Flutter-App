@@ -11,6 +11,7 @@ import '../../components/register_button.dart';
 import '../../controllers/registration_controller/auth_controller.dart';
 import '../../util/AppColors.dart';
 import '../../util/constants.dart';
+import '../restaurants/restaurant_fire_page.dart';
 
 class RegisterPageSQL extends StatefulWidget {
   const RegisterPageSQL({Key? key}) : super(key: key);
@@ -60,6 +61,7 @@ class _RegisterPageSQLState extends State<RegisterPageSQL> {
     }
 
     void _register(AuthController _authController) async {
+      var authController = Get.find<AuthController>();
       String email = emailController.text.trim();
       String password = passwordController.text.trim();
       String passwordVerf = confirmPasswordController.text.trim();
@@ -88,9 +90,20 @@ class _RegisterPageSQLState extends State<RegisterPageSQL> {
         //   },
         // );
         SignUpBody signUpBody = SignUpBody(name: name, email: email, passwd: password);
+        print(signUpBody.toJson());
         _authController.registration(signUpBody).then((status){
+          print("status in registration = ${status}");
           if(status.isSuccess){
             print("Success registration");
+            //Get.offNamed(RestaurantFirePage.routeName);
+            authController.login(email, password).then((status){
+              if(status.isSuccess){
+                print("Success login");
+                Get.offNamed(RestaurantFirePage.routeName);
+              }else{
+                ShowErrorMessage(status.message);
+              }
+            });
           }else{
             ShowErrorMessage(status.message);
           }

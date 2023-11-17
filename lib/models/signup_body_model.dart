@@ -17,7 +17,7 @@ class SignUpBody{
     data["name"] = this.name; // f is - first name
     //data["phone"] = this.phone;
     //TODO: Мирослав email обозвал как login
-    data["login"] = this.email;
+    data["email"] = this.email;
     data["passwd"] = this.passwd;
     return data;
   }

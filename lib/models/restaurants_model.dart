@@ -1,146 +1,146 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class RestaurantModelSql {
-  int id;
-  String address;
-  /*String name;
-  String description;
-  String costs;
-  String? img;
-  String? phone;
-  String? time;
-  List<Address>? address;
-  List<Menu>? menu;*/
-
-  RestaurantModelSql(
-      {required this.id,
-        required this.address,
-        /*required this.name,
-        required this.description,
-        required this.costs,
-        this.img,
-        this.phone,
-        this.time,
-        this.address,
-        this.menu*/
-      });
-
-  RestaurantModelSql.fromJson(Map<String, dynamic> json)
-      : id = json['id'] as int,
-        address = json['address'] as String
-        /*name = json['name'] as String,
-        description = json['description'],
-        costs = json['costs'] as String,
-        img = json['img'] as String,
-        phone = json['phone'] as String,
-        time = json['time'] as String,
-        address = (json['address'] as List)
-            .map((dynamic e) => Address.fromJson(e as Map<String, dynamic>))
-            .toList(),
-        menu = (json['menu'] as List)
-            .map((dynamic e) => Menu.fromJson(e as Map<String, dynamic>))
-            .toList()*/;
-
-  RestaurantModelSql.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> json)
-      : id = json['id'],
-        address = json['address']
-        /*name = json['name'],
-        description = json['description'],
-        costs = json['costs'],
-        img = json['img'],
-        phone = json['phone'],
-        time = json['time'],
-        address = [],
-        menu = []*/;
-
-  /*String timeClose() {
-    final openTime = time?.split('-')[0].trim();
-    final closeTime = time?.split('-')[1].trim();
-
-    final timeNow = DateTime.now();
-    final closeDateTime = DateTime(
-      timeNow.year,
-      timeNow.month,
-      timeNow.day,
-      int.parse(closeTime!.split(':')[0]),
-      int.parse(closeTime.split(':')[1]),
-    );
-
-    if (timeNow.isAfter(closeDateTime)) {
-      final openDateTime = DateTime(
-        timeNow.year,
-        timeNow.month,
-        timeNow.day + 1,
-        int.parse(openTime!.split(':')[0]),
-        int.parse(openTime.split(':')[1]),
-      );
-
-      final difference = openDateTime.difference(timeNow);
-
-      final hours = difference.inHours.toString().padLeft(2, '0');
-      final minutes = (difference.inMinutes % 60).toString().padLeft(2, '0');
-      return '$hours:$minutes до открытия';
-    }
-
-    final difference = closeDateTime.difference(timeNow);
-
-    final hours = difference.inHours.toString().padLeft(2, '0');
-    final minutes = (difference.inMinutes % 60).toString().padLeft(2, '0');
-    return '$hours:$minutes до закрытия';
-  }
-
-  bool isClosed() {
-    final openTime = time?.split('-')[0].trim();
-    final closeTime = time?.split('-')[1].trim();
-
-    final timeNow = DateTime.now();
-    final openDateTime = DateTime(
-      timeNow.year,
-      timeNow.month,
-      timeNow.day,
-      int.parse(openTime!.split(':')[0]),
-      int.parse(openTime.split(':')[1]),
-    );
-    final closeDateTime = DateTime(
-      timeNow.year,
-      timeNow.month,
-      timeNow.day,
-      int.parse(closeTime!.split(':')[0]),
-      int.parse(closeTime.split(':')[1]),
-    );
-
-    return timeNow.isBefore(openDateTime) || timeNow.isAfter(closeDateTime);
-  }
-
-  bool isClosingSoon() {
-    final openTime = time?.split('-')[0].trim();
-    final closeTime = time?.split('-')[1].trim();
-
-    final timeNow = DateTime.now();
-    final closeDateTime = DateTime(
-      timeNow.year,
-      timeNow.month,
-      timeNow.day,
-      int.parse(closeTime!.split(':')[0]),
-      int.parse(closeTime.split(':')[1]),
-    );
-
-    final difference = closeDateTime.difference(timeNow);
-    return difference.inMinutes <= 59;
-  }
-*/
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['address'] = this.address;
-    /*data['name'] = this.name;
-    data['description'] = this.description;
-    data['costs'] = this.costs;
-    data['img'] = this.img;
-    data['phone'] = this.phone;
-    data['time'] = this.time;*/
-    return data;
-  }
-}
+// class RestaurantModelSql {
+//   int id;
+//   String address;
+//   /*String name;
+//   String description;
+//   String costs;
+//   String? img;
+//   String? phone;
+//   String? time;
+//   List<Address>? address;
+//   List<Menu>? menu;*/
+//
+//   RestaurantModelSql(
+//       {required this.id,
+//         required this.address,
+//         /*required this.name,
+//         required this.description,
+//         required this.costs,
+//         this.img,
+//         this.phone,
+//         this.time,
+//         this.address,
+//         this.menu*/
+//       });
+//
+//   RestaurantModelSql.fromJson(Map<String, dynamic> json)
+//       : id = json['id'] as int,
+//         address = json['address'] as String
+//         /*name = json['name'] as String,
+//         description = json['description'],
+//         costs = json['costs'] as String,
+//         img = json['img'] as String,
+//         phone = json['phone'] as String,
+//         time = json['time'] as String,
+//         address = (json['address'] as List)
+//             .map((dynamic e) => Address.fromJson(e as Map<String, dynamic>))
+//             .toList(),
+//         menu = (json['menu'] as List)
+//             .map((dynamic e) => Menu.fromJson(e as Map<String, dynamic>))
+//             .toList()*/;
+//
+//   RestaurantModelSql.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> json)
+//       : id = json['id'],
+//         address = json['address']
+//         /*name = json['name'],
+//         description = json['description'],
+//         costs = json['costs'],
+//         img = json['img'],
+//         phone = json['phone'],
+//         time = json['time'],
+//         address = [],
+//         menu = []*/;
+//
+//   /*String timeClose() {
+//     final openTime = time?.split('-')[0].trim();
+//     final closeTime = time?.split('-')[1].trim();
+//
+//     final timeNow = DateTime.now();
+//     final closeDateTime = DateTime(
+//       timeNow.year,
+//       timeNow.month,
+//       timeNow.day,
+//       int.parse(closeTime!.split(':')[0]),
+//       int.parse(closeTime.split(':')[1]),
+//     );
+//
+//     if (timeNow.isAfter(closeDateTime)) {
+//       final openDateTime = DateTime(
+//         timeNow.year,
+//         timeNow.month,
+//         timeNow.day + 1,
+//         int.parse(openTime!.split(':')[0]),
+//         int.parse(openTime.split(':')[1]),
+//       );
+//
+//       final difference = openDateTime.difference(timeNow);
+//
+//       final hours = difference.inHours.toString().padLeft(2, '0');
+//       final minutes = (difference.inMinutes % 60).toString().padLeft(2, '0');
+//       return '$hours:$minutes до открытия';
+//     }
+//
+//     final difference = closeDateTime.difference(timeNow);
+//
+//     final hours = difference.inHours.toString().padLeft(2, '0');
+//     final minutes = (difference.inMinutes % 60).toString().padLeft(2, '0');
+//     return '$hours:$minutes до закрытия';
+//   }
+//
+//   bool isClosed() {
+//     final openTime = time?.split('-')[0].trim();
+//     final closeTime = time?.split('-')[1].trim();
+//
+//     final timeNow = DateTime.now();
+//     final openDateTime = DateTime(
+//       timeNow.year,
+//       timeNow.month,
+//       timeNow.day,
+//       int.parse(openTime!.split(':')[0]),
+//       int.parse(openTime.split(':')[1]),
+//     );
+//     final closeDateTime = DateTime(
+//       timeNow.year,
+//       timeNow.month,
+//       timeNow.day,
+//       int.parse(closeTime!.split(':')[0]),
+//       int.parse(closeTime.split(':')[1]),
+//     );
+//
+//     return timeNow.isBefore(openDateTime) || timeNow.isAfter(closeDateTime);
+//   }
+//
+//   bool isClosingSoon() {
+//     final openTime = time?.split('-')[0].trim();
+//     final closeTime = time?.split('-')[1].trim();
+//
+//     final timeNow = DateTime.now();
+//     final closeDateTime = DateTime(
+//       timeNow.year,
+//       timeNow.month,
+//       timeNow.day,
+//       int.parse(closeTime!.split(':')[0]),
+//       int.parse(closeTime.split(':')[1]),
+//     );
+//
+//     final difference = closeDateTime.difference(timeNow);
+//     return difference.inMinutes <= 59;
+//   }
+// */
+//   Map<String, dynamic> toJson() {
+//     final Map<String, dynamic> data = new Map<String, dynamic>();
+//     data['address'] = this.address;
+//     /*data['name'] = this.name;
+//     data['description'] = this.description;
+//     data['costs'] = this.costs;
+//     data['img'] = this.img;
+//     data['phone'] = this.phone;
+//     data['time'] = this.time;*/
+//     return data;
+//   }
+// }
 
 class RestaurantModel {
     String id;

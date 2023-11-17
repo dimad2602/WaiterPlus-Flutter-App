@@ -27,8 +27,8 @@ class ProfileSettings extends StatelessWidget {
     CartController _cartController = Get.find();
     bool _userLoggedIn = Get.find<AuthController>().userLoggedIn();
     if (_userLoggedIn){
-      Get.find<UserController>().getUserInfo();
       print('test profile login');
+      //Get.find<UserController>().getUserInfo();
     }
     return Scaffold(
       backgroundColor: const Color(0xFFf5ebdc),
