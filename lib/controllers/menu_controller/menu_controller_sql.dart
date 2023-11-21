@@ -106,6 +106,7 @@ class MenuPaperControllerSql extends GetxController {
   //   }
   // }
   Future<void> getAllCategoriesSql(RestaurantModelSql restaurant) async {
+    restaurantModelSql = restaurant;
     print("getAllCategoriesSql enter = ${restaurant.toJson()}");
     loadingStatus.value = LoadingStatus.loading;
     try {

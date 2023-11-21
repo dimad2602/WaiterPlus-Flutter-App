@@ -100,7 +100,8 @@ class ItemDetailControllerSql extends GetxController {
 
   void addItem(Items item) {
     //добавляем item
-    _cart.addItem(item, _quantity);
+    _cart.addItem(item.item!, _quantity);
+    print("addItem пройден");
     _quantity = 0;
     _inCartItems = _cart.getQuantity(item);
     _cart.items.forEach((key, value) {

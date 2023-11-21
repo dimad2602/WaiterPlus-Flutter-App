@@ -5,12 +5,14 @@ import 'package:flutter_project2/controllers/cart_controller/cart_controller.dar
 import 'package:flutter_project2/controllers/cart_controller/cart_controller_sql.dart';
 import 'package:flutter_project2/controllers/items_controller/item_detail_controller_sql.dart';
 import 'package:flutter_project2/pages/cart/cart_page_fire.dart';
+import 'package:flutter_project2/pages/menu/menu_fire_page.dart';
 import 'package:get/get.dart';
 
 import '../../firebase_ref/loading_status.dart';
 
 import '../../components/big_text.dart';
 
+import '../../models/restaurant_model_sql.dart';
 import '../../util/AppColors.dart';
 import '../../util/constants.dart';
 import '../../util/expandable_text_widget.dart';
@@ -122,11 +124,9 @@ class ItemDetailSqlPage extends StatelessWidget {
                                   top: 3,
                                   child: BigText(
                                     text:
-                                    // Get.find<ItemDetailController>()
-                                    //     .totalItems
-                                    //     .toString()
-                                    "Test"
-                                    ,
+                                    Get.find<ItemDetailControllerSql>()
+                                        .totalItems
+                                        .toString(),
                                     size: Constants.font16,
                                     color: Colors.white,
                                   ),
@@ -244,125 +244,130 @@ class ItemDetailSqlPage extends StatelessWidget {
                   ))),
         ],
       ),
-      // bottomNavigationBar: GetBuilder<ItemDetailControllerSql>(
-      //   builder: (Item) {
-      //     return Container(
-      //       height: Constants.bottomHeightBar,
-      //       padding: EdgeInsets.only(
-      //           top: Constants.height20,
-      //           bottom: Constants.height20,
-      //           left: Constants.width20,
-      //           right: Constants.width20),
-      //       decoration: BoxDecoration(
-      //         color: Colors.grey.shade300,
-      //         borderRadius: BorderRadius.only(
-      //           topLeft: Radius.circular(Constants.radius20 * 2),
-      //           topRight: Radius.circular(Constants.radius20 * 2),
-      //         ),
-      //         boxShadow: [
-      //           BoxShadow(
-      //             color: Colors.grey.withOpacity(0.5),
-      //             spreadRadius: 2,
-      //             blurRadius: 4,
-      //             offset: const Offset(0, 2),
-      //           ),
-      //         ],
-      //       ),
-      //       child: Row(
-      //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //         children: [
-      //           Container(
-      //             padding: EdgeInsets.only(
-      //                 top: Constants.height20,
-      //                 bottom: Constants.height20,
-      //                 left: Constants.width20,
-      //                 right: Constants.width20),
-      //             decoration: BoxDecoration(
-      //               borderRadius: BorderRadius.circular(Constants.radius20),
-      //               color: Colors.white,
-      //               boxShadow: [
-      //                 BoxShadow(
-      //                   color: Colors.grey.withOpacity(0.5),
-      //                   spreadRadius: 2,
-      //                   blurRadius: 4,
-      //                   offset: const Offset(0, 2),
-      //                 ),
-      //               ],
-      //             ),
-      //             child: Row(
-      //               children: [
-      //                 GestureDetector(
-      //                   onTap: () {
-      //                     Item.setQuantity(false);
-      //                   },
-      //                   child: const Icon(
-      //                     Icons.remove,
-      //                     color: Colors.black45,
-      //                   ),
-      //                 ),
-      //                 SizedBox(
-      //                   width: Constants.width10 / 2,
-      //                 ),
-      //                 BigText(text: Item.inCartItems.toString()),
-      //                 SizedBox(
-      //                   width: Constants.width10 / 2,
-      //                 ),
-      //                 GestureDetector(
-      //                   onTap: () {
-      //                     Item.setQuantity(true);
-      //                   },
-      //                   child: const Icon(
-      //                     Icons.add,
-      //                     color: Colors.black45,
-      //                   ),
-      //                 ),
-      //               ],
-      //             ),
-      //           ),
-      //           GestureDetector(
-      //             onTap: () {
-      //               // Item.addItem(_itemDetailController.currentItem.value!);
-      //               // //TODO: Вохможно тут нужно использовать Navigate.pup, но тогда есть проблемы с обновлением страници, а сейчас проблема сос скролом
-      //               // Get.toNamed(MenuFirePage.routeName);
-      //             },
-      //             child: Container(
-      //                 padding: EdgeInsets.only(
-      //                     top: Constants.height20,
-      //                     bottom: Constants.height20,
-      //                     left: Constants.width20,
-      //                     right: Constants.width20),
-      //                 decoration: BoxDecoration(
-      //                   borderRadius: BorderRadius.circular(Constants.radius20),
-      //                   color: const Color(0xFF4ecb71),
-      //                   boxShadow: [
-      //                     BoxShadow(
-      //                       color: Colors.grey.withOpacity(0.5),
-      //                       spreadRadius: 2,
-      //                       blurRadius: 4,
-      //                       offset: const Offset(0, 2),
-      //                     ),
-      //                   ],
-      //                 ),
-      //                 child: Row(
-      //                   children: [
-      //                     Icon(
-      //                       Icons.currency_ruble,
-      //                       size: Constants.width20,
-      //                       color: Colors.white,
-      //                     ),
-      //                     BigText(
-      //                       text:
-      //                           '${_itemDetailController.currentItem.value!.item!.price! * Item.inCartItems} | Add to cart',
-      //                       color: Colors.white,
-      //                     ),
-      //                   ],
-      //                 )),
-      //           )
-      //         ],
-      //       ),
-      //     );
-      //   },
-      // ),
+      bottomNavigationBar: GetBuilder<ItemDetailControllerSql>(
+        builder: (Item) {
+          return Container(
+            height: Constants.bottomHeightBar,
+            padding: EdgeInsets.only(
+                top: Constants.height20,
+                bottom: Constants.height20,
+                left: Constants.width20,
+                right: Constants.width20),
+            decoration: BoxDecoration(
+              color: Colors.grey.shade300,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(Constants.radius20 * 2),
+                topRight: Radius.circular(Constants.radius20 * 2),
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 2,
+                  blurRadius: 4,
+                  offset: const Offset(0, 2),
+                ),
+              ],
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  padding: EdgeInsets.only(
+                      top: Constants.height20,
+                      bottom: Constants.height20,
+                      left: Constants.width20,
+                      right: Constants.width20),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(Constants.radius20),
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 2,
+                        blurRadius: 4,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  child: Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Item.setQuantity(false);
+                        },
+                        child: const Icon(
+                          Icons.remove,
+                          color: Colors.black45,
+                        ),
+                      ),
+                      SizedBox(
+                        width: Constants.width10 / 2,
+                      ),
+                      BigText(text: Item.inCartItems.toString()),
+                      SizedBox(
+                        width: Constants.width10 / 2,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Item.setQuantity(true);
+                        },
+                        child: const Icon(
+                          Icons.add,
+                          color: Colors.black45,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    print("1111");
+                    //print(_itemDetailController.currentItem.value!.toJson());
+                    //print(_itemDetailController.currentItem.value!.item?.toJson());
+                    Item.addItem(_itemDetailController.currentItem.value!);
+                    print("2222");
+                    //TODO: Вохможно тут нужно использовать Navigate.pup, но тогда есть проблемы с обновлением страници, а сейчас проблема сос скролом
+                    //TODO: Переходим только если
+                    Get.toNamed(MenuFirePage.routeName);
+                  },
+                  child: Container(
+                      padding: EdgeInsets.only(
+                          top: Constants.height20,
+                          bottom: Constants.height20,
+                          left: Constants.width20,
+                          right: Constants.width20),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(Constants.radius20),
+                        color: const Color(0xFF4ecb71),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            spreadRadius: 2,
+                            blurRadius: 4,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.currency_ruble,
+                            size: Constants.width20,
+                            color: Colors.white,
+                          ),
+                          BigText(
+                            text:
+                                '${_itemDetailController.currentItem.value!.item!.price! * Item.inCartItems} | Add to cart',
+                            color: Colors.white,
+                          ),
+                        ],
+                      )),
+                )
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 }

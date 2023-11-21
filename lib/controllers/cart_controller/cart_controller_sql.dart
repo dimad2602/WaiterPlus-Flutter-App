@@ -37,13 +37,13 @@ class CartControllerSql extends GetxController {
     super.onReady();
   }
 
-  void addItem(Items item, int quantity) {
+  void addItem(Item item, int quantity) {
     var totalQuantity = 0;
-    //print("length of item is ${_items.length.toString()}");
-    if (_items.containsKey(item.item?.id)) {
-      _items.update(item.item!.id!, (value) {
+    print ("addItem sql");
+    print("length of item is ${_items.length.toString()}");
+    if (_items.containsKey(item.id)) {
+      _items.update(item.id!, (value) {
         totalQuantity = value.quantity! + quantity;
-
         return CartModel(
           id: value.id,
           itemName: value.itemName,
@@ -59,20 +59,24 @@ class CartControllerSql extends GetxController {
         );
       });
       if (totalQuantity <= 0) {
-        _items.remove(item.item!.id!);
+        _items.remove(item.id!);
       }
     } else {
+      print("addItem else");
+      print("quantity = $quantity");
       if (quantity > 0) {
         // за место int.parse можно изменить Map на Map<String, CartModel> _items = {};
-        _items.putIfAbsent(item.item!.id!, () {
+        print(item.id!);
+        //print("Модель ресторана = ${Get.find<MenuPaperControllerSql>().restaurantModelSql.toJson()}");
+        _items.putIfAbsent(item.id!, () {
           RestaurantModelSql modelOfRestaurant = Get.find<MenuPaperControllerSql>().restaurantModelSql;
-          print("Модель ресторана = ${Get.find<MenuPaperController>().restaurantModel.name}");
+          //print("Модель ресторана = ${Get.find<MenuPaperController>().restaurantModel.name}");
           return CartModel(
-            id: item.item!.id.toString(),
-            itemName: item.item?.title,
-            itemPrice: item.item?.price.toString(),
-            weight: item.item?.weight.toString(),
-            imagePath: item.item?.image,
+            id: item.id.toString(),
+            itemName: item.title,
+            itemPrice: item.price.toString(),
+            weight: item.weight.toString(),
+            imagePath: item.image,
             quantity: quantity,
             isExist: true,
             time: DateTime.now().toString(),

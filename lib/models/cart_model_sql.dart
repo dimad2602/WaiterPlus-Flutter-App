@@ -13,7 +13,7 @@ class CartModel {
   String? time;
   String? restaurantId;
   //RestaurantModel? restaurant;
-  Items? item;
+  Item? item;
 
 
   CartModel({
@@ -41,7 +41,7 @@ class CartModel {
         time = json['time'],
         restaurantId = json['restaurantId'],
   //restaurant = RestaurantModel.fromJson(json['restaurant']),
-        item = Items.fromJson(json['item']);
+        item = Item.fromJson(json['item']);
 
   CartModel.fromSnapshot(QueryDocumentSnapshot<Map<String, dynamic>> snapshot)
       : id = snapshot['id'],
