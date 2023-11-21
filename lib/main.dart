@@ -7,6 +7,7 @@ import 'package:flutter_project2/data_uploader_screen.dart';
 import 'package:flutter_project2/pages/auth_page.dart';
 import 'package:flutter_project2/pages/cart/cart_page_fire.dart';
 import 'package:flutter_project2/pages/cart_page.dart';
+import 'package:flutter_project2/pages/food/item_detail_sql_page.dart';
 import 'package:flutter_project2/pages/food/top_food_detail.dart';
 import 'package:flutter_project2/pages/home.dart';
 import 'package:flutter_project2/pages/login/login_or_register_page.dart';
@@ -161,6 +162,9 @@ void main() async {
           },
           '/register_page_sql': (context) {
             return RegisterPageSQL();
+          },
+          '/item_detail_sql_page': (context) {
+            return ItemDetailSqlPage();
           },
         },
       ),

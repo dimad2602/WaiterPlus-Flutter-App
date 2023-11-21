@@ -82,17 +82,15 @@ class AuthController extends GetxController implements GetxService{
     return responseModel;
   }
 
+  //TODO: Обработать прием ошибки от бека и отобразить на экране
   Future<ResponseModel>login(String email, String password) async {
     print("Getting token"); // just test
-    print(authRepo.getUserToken().toString());// just test
     _isLoading = true;
     update();
     Response response = await authRepo.login(email, password);
     late ResponseModel responseModel;
     if(response.statusCode == 200){
-      AuthTokenLogin(email, password);
-      print("backend token");
-      //authRepo.saveUserToken(response.body["access_token"]); //mb need [token]
+      authRepo.saveUserToken(response.body["access_token"]);
       print(response.body["access_token"].toString());
       responseModel = ResponseModel(true, response.body["access_token"]);
     }else{

@@ -4,6 +4,12 @@ class AppConstants{
   static const String CART_HISTORY_LIST="cart-history-list";
   static const String RESTAURANT_CART_HISTORY_LIST="restaurant_cart-history-list";
 
+  //TODO: Не заменил
+  static const String CART_LIST_SQL="cart-list";
+  static const String TOTAL_ITEMS_IN_CART_SQL="total-items-in-cart";
+  static const String CART_HISTORY_LIST_SQL="cart-history-list";
+  static const String RESTAURANT_CART_HISTORY_LIST_SQL="restaurant_cart-history-list";
+
   static const String SELECTED_RESTAURANT_ID="selected_reservation_id";
 
   static const String BASE_URL="http://";
@@ -12,7 +18,8 @@ class AppConstants{
   //Restaurants
   static const String RESTAURANT_LIST ="10.0.2.2:3000/restaurants"; //localhost указывать нельзя!!! если использую эмулятор
   static const String RESTAURANT_LIST1 ="/10.0.2.2:3000/restaurants";
-  static const String RESTAURANTS="/api/v1/restaurants/"; // пример хорошего api
+  static const String RESTAURANTS_BY_ID="10.0.2.2:3000/restaurants/";
+
 
   //Auth Api
   //user and auth end points

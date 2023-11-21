@@ -1,7 +1,10 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter_project2/controllers/restaurants_controlelr/restaurant_detail_controller_sql.dart';
 import 'package:get/get.dart';
 
 import '../../data/repository/restaurant _repo_sql.dart';
 import '../../models/restaurant_model_sql.dart';
+import '../../pages/restaurants/restaurant_detail_page.dart';
 
 class RestaurantPaperControllerSql extends GetxController {
   final RestaurantRepoSql restaurantRepoSql;
@@ -34,6 +37,20 @@ class RestaurantPaperControllerSql extends GetxController {
       print("getRestaurants END ${allPapers.length}");
     } catch (e) {
       print("Error: $e");
+    }
+  }
+
+  void navigateToRestDetailSql({required RestaurantModelSql paper, bool tryAgain=false, bool qr=false}) {
+    if(tryAgain){
+      if (kDebugMode) {
+        print("tryAgain message");
+        //Get.back();
+      }
+    }
+    else {
+      final controller = Get.put(RestaurantDetailControllerSql(restaurantRepoSql: Get.find()));
+      controller.getPaper(paper);
+      qr? Get.offAndToNamed(RestaurantDetailPage.routeName, arguments: paper) : Get.toNamed(RestaurantDetailPage.routeName, arguments: paper);
     }
   }
 }

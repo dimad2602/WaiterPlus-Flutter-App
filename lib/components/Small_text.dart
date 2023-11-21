@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../util/constants.dart';
 
+//TODO: Обновить код
 class SmollText extends StatelessWidget {
   Color? color;
   final String text;

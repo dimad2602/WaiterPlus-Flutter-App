@@ -1,12 +1,15 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_project2/controllers/cart_controller/cart_controller_sql.dart';
+import 'package:flutter_project2/controllers/items_controller/item_detail_controller_sql.dart';
 import 'package:flutter_project2/controllers/map_controller/location_controller.dart';
 import 'package:flutter_project2/controllers/order/incoming_order_controller.dart';
 import 'package:flutter_project2/controllers/order/order_uploader.dart';
 import 'package:flutter_project2/controllers/registration_controller/auth_controller.dart';
 import 'package:flutter_project2/controllers/restaurants_controlelr/restaurant_detail_controller.dart';
 import 'package:flutter_project2/controllers/restaurants_controlelr/restaurant_paper_controller_sql.dart';
+import 'package:flutter_project2/data/repository/cart_repo_sql.dart';
 import 'package:flutter_project2/data/repository/location_repo.dart';
 import 'package:flutter_project2/pages/auth_page.dart';
 import 'package:flutter_project2/pages/login/login_page.dart';
@@ -44,14 +47,22 @@ class _SplashScreenState extends State<SplashPage>
   late Animation<double> animation;
   late AnimationController controller;
 
+  late CartRepoSql cartRepoSql;
+
   Future<void> init() async {
     SharedPreferences sharedPreferences =
         await SharedPreferences.getInstance(); // Instantiate SharedPreferences
     Get.put(sharedPreferences); // Register SharedPreferences instance
     Get.lazyPut(() => CartRepo(sharedPreferences: Get.find()));
+    Get.lazyPut(() => CartRepoSql(sharedPreferences: Get.find()));
+
+    //Get.lazyPut(() => CartControllerSql(cartRepo: cartRepoSql));
+    //await Get.put(CartControllerSql(cartRepo: cartRepoSql));
+    //Get.find<CartControllerSql>().getCartData();
   }
 
   late CartRepo cartRepo;
+  //late CartRepoSql cartRepoSql;
 
   Future<void> _loadResource() async {
     await Get.put(FirebaseStorageService());
@@ -59,6 +70,7 @@ class _SplashScreenState extends State<SplashPage>
     Get.put(IncomingOrderController());
     await Get.put(MenuPaperController());
     await Get.put(ItemDetailController());
+    await Get.put(ItemDetailControllerSql());
     //await init(); // TODO: правильно ли? кажется нет
     SharedPreferences sharedPreferences =
         await SharedPreferences.getInstance(); // Instantiate SharedPreferences
@@ -66,10 +78,22 @@ class _SplashScreenState extends State<SplashPage>
     Get.lazyPut(() => CartRepo(sharedPreferences: Get.find()));
     Get.lazyPut(()=>OrderUploader());
     await Get.put(CartRepo(sharedPreferences: sharedPreferences));
+
+    Get.lazyPut(() => CartRepoSql(sharedPreferences: Get.find()));
+    Get.lazyPut(()=>OrderUploader());
+    await Get.put(CartRepoSql(sharedPreferences: sharedPreferences));
+
     cartRepo = Get.find<CartRepo>();
     await Get.put(CartController(cartRepo: cartRepo));
+    //await Get.put(CartControllerSql(cartRepo: cartRepoSql));
+
+    cartRepoSql = Get.find<CartRepoSql>();
+    await Get.put(CartControllerSql(cartRepo: cartRepoSql));
+
     // Загружаем из локального хранилиша items в корзину
     Get.find<CartController>().getCartData();
+
+    Get.find<CartControllerSql>().getCartData();
 
     //Загружаем из локального хранилища restaurantModel
     Get.lazyPut(() => RestaurantDetailController());
