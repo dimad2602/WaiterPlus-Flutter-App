@@ -23,13 +23,6 @@ class CartControllerSql extends GetxController {
 
   Map<int, CartModel> get items => _items;
 
-  /*Map<int, RestaurantModel> _restaurant = {};
-
-  Map<int, RestaurantModel> get restaurant => _restaurant;*/
-
-  /*
-  only for storage and sharedpreferences
-  */
   List<CartModel> storageItems = [];
 
   @override

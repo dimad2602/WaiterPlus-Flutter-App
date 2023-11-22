@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project2/components/Small_text.dart';
 import 'package:flutter_project2/controllers/registration_controller/auth_controller.dart';
 import 'package:flutter_project2/controllers/user_controller/user_controller.dart';
+import 'package:flutter_project2/pages/cart/cart_page_sql.dart';
 import 'package:flutter_project2/pages/maps/add_address_page.dart';
 import 'package:flutter_project2/pages/maps/address_search_page.dart';
 import 'package:flutter_project2/pages/usermenu/user_page.dart';
@@ -227,7 +228,7 @@ class ProfileSettings extends StatelessWidget {
                               iconSize24: true,
                               //TODO: сделать переход в корзину (явно вылезут проблемы) если корзина пуста кнопка не кликабельна
                               onTap: () {
-                                Get.toNamed(CartPageFire.routeName, arguments: ModalRoute.of(context)!.settings.name);
+                                Get.toNamed(CartPageSql.routeName, arguments: ModalRoute.of(context)!.settings.name);
                               },
                         ),
                         // GestureDetector(

@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_project2/pages/cart/cart_page_sql.dart';
 import 'package:flutter_project2/pages/order/order_incoming.dart';
 import 'package:flutter_project2/pages/restaurants/restaurant_fire_page.dart';
 import 'package:get/get.dart';
@@ -101,7 +102,7 @@ class _MainScreenState extends State<MainScreen> {
                           backgroundColor: AppColors.mainColor,
                           iconSize24: true,
                           onTap: () {
-                            Get.toNamed(CartPageFire.routeName, arguments: ModalRoute.of(context)!.settings.name);
+                            Get.toNamed(CartPageSql.routeName, arguments: ModalRoute.of(context)!.settings.name);
                           },
                         ),
                         Positioned(

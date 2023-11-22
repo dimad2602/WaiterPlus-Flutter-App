@@ -6,6 +6,7 @@ import 'package:flutter_project2/data/repository/cart_repo.dart';
 import 'package:flutter_project2/data_uploader_screen.dart';
 import 'package:flutter_project2/pages/auth_page.dart';
 import 'package:flutter_project2/pages/cart/cart_page_fire.dart';
+import 'package:flutter_project2/pages/cart/cart_page_sql.dart';
 import 'package:flutter_project2/pages/cart_page.dart';
 import 'package:flutter_project2/pages/food/item_detail_sql_page.dart';
 import 'package:flutter_project2/pages/food/top_food_detail.dart';
@@ -132,6 +133,9 @@ void main() async {
           },
           '/cart_fire_page': (context) {
             return CartPageFire();
+          },
+          '/cart_sql_page': (context) {
+            return CartPageSql();
           },
           '/order_history': (context) {
             return OrderHistory();

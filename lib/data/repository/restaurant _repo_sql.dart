@@ -18,6 +18,11 @@ class RestaurantRepoSql extends GetxService {
     return await apiClient.getData(AppConstants.RESTAURANT_LIST, headers: {"Authorization": "Bearer $token"});
   }
 
+  Future<Response> getRestaurantsById() async {
+    var token = sharedPreferences.getString(AppConstants.TOKEN)??"";
+    return await apiClient.getData(AppConstants.RESTAURANTS_BY_ID, headers: {"Authorization": "Bearer $token"});
+  }
+
   // String? accessToken;
   // Response? response;
   // Future<void> login() async {

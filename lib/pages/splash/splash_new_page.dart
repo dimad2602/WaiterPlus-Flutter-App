@@ -49,82 +49,131 @@ class _SplashScreenState extends State<SplashPage>
 
   late CartRepoSql cartRepoSql;
 
-  Future<void> init() async {
-    SharedPreferences sharedPreferences =
-        await SharedPreferences.getInstance(); // Instantiate SharedPreferences
-    Get.put(sharedPreferences); // Register SharedPreferences instance
-    Get.lazyPut(() => CartRepo(sharedPreferences: Get.find()));
-    Get.lazyPut(() => CartRepoSql(sharedPreferences: Get.find()));
-
-    //Get.lazyPut(() => CartControllerSql(cartRepo: cartRepoSql));
-    //await Get.put(CartControllerSql(cartRepo: cartRepoSql));
-    //Get.find<CartControllerSql>().getCartData();
-  }
+  // Future<void> init() async {
+  //   SharedPreferences sharedPreferences =
+  //       await SharedPreferences.getInstance(); // Instantiate SharedPreferences
+  //   Get.put(sharedPreferences); // Register SharedPreferences instance
+  //   Get.lazyPut(() => CartRepo(sharedPreferences: Get.find()));
+  //   Get.lazyPut(() => CartRepoSql(sharedPreferences: Get.find()));
+  //   Get.lazyPut(() => CartController(cartRepo: Get.find()));
+  //   Get.lazyPut(() => CartControllerSql(cartRepo: Get.find()));
+  //   //await Get.put(CartControllerSql(cartRepo: cartRepoSql));
+  //   //Get.find<CartControllerSql>().getCartData();
+  // }
 
   late CartRepo cartRepo;
   //late CartRepoSql cartRepoSql;
 
+  // Future<void> _loadResource() async {
+  //   cartRepoSql = Get.find<CartRepoSql>();
+  //   await Get.put(FirebaseStorageService());
+  //
+  //   //controllers
+  //   //TODO: Так же нужно сделать для остальных контроллеров для backend
+  //   //Get.lazyPut(() => PopularProductController(popularProductRepo:Get.find()));
+  //   Get.lazyPut(() => AuthController(authRepo: Get.find()));
+  //   Get.lazyPut(() => UserController(userRepo: Get.find()));
+  //   Get.lazyPut(() => LocationController(locationRepo: Get.find()));
+  //
+  //   //init();
+  //   SharedPreferences sharedPreferences =
+  //   await SharedPreferences.getInstance(); // Instantiate SharedPreferences
+  //   Get.put(sharedPreferences); // Register SharedPreferences instance
+  //   Get.lazyPut(() => CartRepo(sharedPreferences: Get.find()));
+  //   Get.lazyPut(() => CartRepoSql(sharedPreferences: Get.find()));
+  //   Get.lazyPut(() => CartController(cartRepo: Get.find()));
+  //   Get.lazyPut(() => CartControllerSql(cartRepo: Get.find()));
+  //
+  //   await Get.put(RestaurantPaperController());
+  //   Get.put(IncomingOrderController());
+  //   await Get.put(MenuPaperController());
+  //   await Get.put(ItemDetailController());
+  //   await Get.put(ItemDetailControllerSql());
+  //   //await init(); // TODO: правильно ли? кажется нет
+  //
+  //   //Get.lazyPut(() => CartRepo(sharedPreferences: Get.find()));
+  //   //Get.lazyPut(()=>OrderUploader());
+  //
+  //   //Get.lazyPut(() => CartRepoSql(sharedPreferences: Get.find()));
+  //   Get.lazyPut(()=>OrderUploader());
+  //   //Get.lazyPut(() => CartRepoSql(sharedPreferences: Get.find()));
+  //
+  //   //cartRepo = Get.find<CartRepo>();
+  //   //await Get.put(CartController(cartRepo: cartRepo));
+  //
+  //   //cartRepoSql = Get.find<CartRepoSql>();
+  //   //await Get.put(CartControllerSql(cartRepo: cartRepoSql));
+  //
+  //   // Загружаем из локального хранилиша items в корзину
+  //   Get.find<CartController>().getCartData();
+  //
+  //   Get.find<CartControllerSql>().getCartData();
+  //
+  //   //Загружаем из локального хранилища restaurantModel
+  //   Get.lazyPut(() => RestaurantDetailController());
+  //   // Get.find<RestaurantDetailController>().getRestaurantModel();
+  //   //Get.find<ItemDetailController>().getItems
+  //   //Get.put(RestaurantDetailController());
+  //
+  //   //TODO: перенес содержиое dependencies сюда
+  //   //api client
+  //   Get.lazyPut(()=> ApiClient(appBaseUrl: AppConstants.BASE_URL, sharedPreferences: Get.find()));
+  //   //TODO: скорее всего нужно сделать также для остальных репозиториев (например CartRepo)
+  //   //Get.lazyPut(() => ApiClient(appBaseUrl:"https://mvs.bslmeiyu.com")); //Правильно будет поместить в Constants BASE_URL
+  //
+  //   //repos
+  //   Get.lazyPut(() => AuthRepo(apiClient: Get.find(), sharedPreferences:  Get.find()));
+  //   Get.lazyPut(() => UserRepo(apiClient: Get.find(), sharedPreferences:  Get.find()));
+  //   Get.lazyPut(() => LocationRepo(apiClient: Get.find(), sharedPreferences: Get.find()));
+  //   //Get.lazyPut(() => RestaurantRepoSql(apiClient: Get.find()));
+  //   //Get.lazyPut(() => PopularProductRepo(apiClient:Get.find()));
+  //
+  //   //Try api sql
+  //   Get.lazyPut(() => RestaurantRepoSql(apiClient: Get.find(), sharedPreferences:  Get.find()));
+  //   Get.put(RestaurantPaperControllerSql(restaurantRepoSql: Get.find()));
+  //
+  // }
   Future<void> _loadResource() async {
-    await Get.put(FirebaseStorageService());
+    // Instantiate SharedPreferences
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    // Register SharedPreferences instance
+    Get.put(sharedPreferences);
+
+    // Register and find CartRepoSql
+    Get.put(CartRepoSql(sharedPreferences: Get.find()));
+    cartRepoSql = Get.find<CartRepoSql>();
+
+    // Register other services and controllers
+    Get.put(FirebaseStorageService());
+    Get.lazyPut(() => AuthController(authRepo: Get.find()));
+    Get.lazyPut(() => UserController(userRepo: Get.find()));
+    Get.lazyPut(() => LocationController(locationRepo: Get.find()));
+    Get.lazyPut(() => CartRepo(sharedPreferences: Get.find()));
+    Get.lazyPut(() => CartRepoSql(sharedPreferences: Get.find()));
+    Get.lazyPut(() => CartController(cartRepo: Get.find()));
+    Get.lazyPut(() => CartControllerSql(cartRepo: Get.find()));
     await Get.put(RestaurantPaperController());
     Get.put(IncomingOrderController());
     await Get.put(MenuPaperController());
     await Get.put(ItemDetailController());
     await Get.put(ItemDetailControllerSql());
-    //await init(); // TODO: правильно ли? кажется нет
-    SharedPreferences sharedPreferences =
-        await SharedPreferences.getInstance(); // Instantiate SharedPreferences
-    Get.put(sharedPreferences); // Register SharedPreferences instance
-    Get.lazyPut(() => CartRepo(sharedPreferences: Get.find()));
-    Get.lazyPut(()=>OrderUploader());
-    await Get.put(CartRepo(sharedPreferences: sharedPreferences));
-
-    Get.lazyPut(() => CartRepoSql(sharedPreferences: Get.find()));
-    Get.lazyPut(()=>OrderUploader());
-    await Get.put(CartRepoSql(sharedPreferences: sharedPreferences));
-
-    cartRepo = Get.find<CartRepo>();
-    await Get.put(CartController(cartRepo: cartRepo));
-    //await Get.put(CartControllerSql(cartRepo: cartRepoSql));
-
-    cartRepoSql = Get.find<CartRepoSql>();
-    await Get.put(CartControllerSql(cartRepo: cartRepoSql));
+    Get.lazyPut(() => OrderUploader());
 
     // Загружаем из локального хранилиша items в корзину
-    Get.find<CartController>().getCartData();
-
+    //Get.find<CartController>().getCartData();
     Get.find<CartControllerSql>().getCartData();
 
-    //Загружаем из локального хранилища restaurantModel
     Get.lazyPut(() => RestaurantDetailController());
-    // Get.find<RestaurantDetailController>().getRestaurantModel();
-    //Get.find<ItemDetailController>().getItems
-    //Get.put(RestaurantDetailController());
 
-    //TODO: перенес содержиое dependencies сюда
-    //api client
-    Get.lazyPut(()=> ApiClient(appBaseUrl: AppConstants.BASE_URL, sharedPreferences: Get.find()));
-    //TODO: скорее всего нужно сделать также для остальных репозиториев (например CartRepo)
-    //Get.lazyPut(() => ApiClient(appBaseUrl:"https://mvs.bslmeiyu.com")); //Правильно будет поместить в Constants BASE_URL
-
-    //repos
-    Get.lazyPut(() => AuthRepo(apiClient: Get.find(), sharedPreferences:  Get.find()));
-    Get.lazyPut(() => UserRepo(apiClient: Get.find(), sharedPreferences:  Get.find()));
+    // Register API client and repos
+    Get.lazyPut(() => ApiClient(appBaseUrl: AppConstants.BASE_URL, sharedPreferences: Get.find()));
+    Get.lazyPut(() => AuthRepo(apiClient: Get.find(), sharedPreferences: Get.find()));
+    Get.lazyPut(() => UserRepo(apiClient: Get.find(), sharedPreferences: Get.find()));
     Get.lazyPut(() => LocationRepo(apiClient: Get.find(), sharedPreferences: Get.find()));
-    //Get.lazyPut(() => RestaurantRepoSql(apiClient: Get.find()));
-    //Get.lazyPut(() => PopularProductRepo(apiClient:Get.find()));
 
-    //Try api sql
-    Get.lazyPut(() => RestaurantRepoSql(apiClient: Get.find(), sharedPreferences:  Get.find()));
+    // Try API SQL
+    Get.lazyPut(() => RestaurantRepoSql(apiClient: Get.find(), sharedPreferences: Get.find()));
     Get.put(RestaurantPaperControllerSql(restaurantRepoSql: Get.find()));
-
-    //controllers
-    //TODO: Так же нужно сделать для остальных контроллеров для backend
-    //Get.lazyPut(() => PopularProductController(popularProductRepo:Get.find()));
-    Get.lazyPut(() => AuthController(authRepo: Get.find()));
-    Get.lazyPut(() => UserController(userRepo: Get.find()));
-    Get.lazyPut(() => LocationController(locationRepo: Get.find()));
-
   }
 
   @override

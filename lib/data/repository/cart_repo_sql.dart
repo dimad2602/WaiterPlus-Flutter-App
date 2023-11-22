@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:core';
 
+import 'package:flutter_project2/controllers/cart_controller/cart_controller_sql.dart';
 import 'package:flutter_project2/controllers/menu_controller/menu_controller.dart';
 import 'package:flutter_project2/controllers/menu_controller/menu_controller_sql.dart';
 import 'package:flutter_project2/models/restaurant_model_sql.dart';
@@ -46,20 +47,12 @@ class CartRepoSql extends GetxController{
   }
 
   void clearCartListIfDifferentRestaurant(String restaurantId) {
-    /*if (selectedRestaurantId.isNotEmpty &&
-        selectedRestaurantId != restaurantId) {
-      print("Restaurant $selectedRestaurantId");
-      clearCartList();
-      Get.find<CartController>().items.clear();
-    }
-    selectedRestaurantId = restaurantId;
-    sharedPreferences.setString(AppConstants.SELECTED_RESTAURANT_ID, restaurantId);*/
     selectedRestaurantId = getSelectedRestaurantId();
     if (selectedRestaurantId.isNotEmpty &&
         selectedRestaurantId != restaurantId) {
       print("Restaurant $selectedRestaurantId");
       clearCartList();
-      Get.find<CartController>().items.clear();
+      Get.find<CartControllerSql>().items.clear();
     }
     sharedPreferences.setString(AppConstants.SELECTED_RESTAURANT_ID, restaurantId);
   }

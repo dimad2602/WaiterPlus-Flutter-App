@@ -40,6 +40,38 @@ class RestaurantPaperControllerSql extends GetxController {
     }
   }
 
+  RestaurantModelSql? getRestaurantById(String restaurantId) {
+    // print("start getRestaurantById ${allPapers[0].toJson()}");
+    // print("restaurantId ${restaurantId}");
+    for (var paper in allPapers) {
+      if (paper.id.toString() == restaurantId) {
+        return paper;
+      }
+    }
+    return null;
+  }
+
+  // Future<void> getRestaurantById()async{
+  //   print('getRestaurants by id start');
+  //   try {
+  //     final response = await restaurantRepoSql.getRestaurantsById();
+  //     print("response = ${response.statusText}");
+  //     if (response.status.hasError) {
+  //       throw Exception("Error fetching data");
+  //     }
+  //
+  //     final List<dynamic> rawData = response.body;
+  //     print("rawData1 = ${rawData}");
+  //     final List<RestaurantModelSql> restaurants =
+  //     rawData.map((json) => RestaurantModelSql.fromJson(json)).toList();
+  //     print("List<RestaurantModelSql> = ${restaurants}");
+  //     allPapers.assignAll(restaurants);
+  //     print("getRestaurants END ${allPapers.length}");
+  //   } catch (e) {
+  //     print("Error: $e");
+  //   }
+  // }
+
   void navigateToRestDetailSql({required RestaurantModelSql paper, bool tryAgain=false, bool qr=false}) {
     if(tryAgain){
       if (kDebugMode) {

@@ -5,6 +5,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_project2/controllers/menu_controller/menu_controller_sql.dart';
+import 'package:flutter_project2/data/repository/cart_repo_sql.dart';
 import 'package:flutter_project2/data/repository/restaurant_repo.dart';
 import 'package:flutter_project2/models/restaurants_model.dart';
 import 'package:flutter_project2/pages/menu_page.dart';
@@ -160,9 +161,9 @@ class RestaurantDetailControllerSql extends GetxController {
 
       //TODO: Сейчас надпись о том сколько товаров в карзине не отображаеться при первом запуске, это происходит из за отсутсвия объекта карзина
       //TODO: очишаем карзину если заходим в ресторан // потом нужно сделать, только при захоже на другой ресторан
-      CartRepo cartRepo = Get.find<CartRepo>();
+      CartRepoSql cartRepoSql = Get.find<CartRepoSql>();
       needClear == true
-          ? cartRepo.clearCartListIfDifferentRestaurant(paper.id.toString())
+          ? cartRepoSql.clearCartListIfDifferentRestaurant(paper.id.toString())
           : print("Очиска отменена");
 
       Get.toNamed(MenuFirePage.routeName, arguments: paper);

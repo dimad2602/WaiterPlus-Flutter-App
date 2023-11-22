@@ -127,7 +127,8 @@ class CartPageFire extends StatelessWidget {
               ),
           ),
           //body
-          GetBuilder<CartController>(
+          //Закоментил рабочее
+         /* GetBuilder<CartController>(
             builder: (_cartController){
               return _cartController.getItems.length>0 ? Positioned(
                   top: Constants.height20 * 5.5,
@@ -136,7 +137,7 @@ class CartPageFire extends StatelessWidget {
                   bottom: 0,
                   child: Container(
                     margin: EdgeInsets.only(top: Constants.height15),
-                    /*color: Colors.black12,*/
+                    *//*color: Colors.black12,*//*
                     child: MediaQuery.removePadding(
                       context: context,
                       removeTop: true,
@@ -164,7 +165,10 @@ class CartPageFire extends StatelessWidget {
                     ),
                   )): NoDataPage(text: "Ваша корзина пуста!");
             }
-          ),
+          ),*/
+
+
+
           /*Positioned(
               top: Constants.height20 * 40,
               left: Constants.width20,

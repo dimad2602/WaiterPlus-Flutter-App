@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_project2/firebase_ref/loading_status.dart';
 import 'package:flutter_project2/models/restaurant_model_sql.dart';
@@ -46,7 +47,6 @@ class MenuPaperControllerSql extends GetxController {
     });
     super.onReady();
   }*/
-
 
   // @override
   // void onAppearing() {
@@ -109,91 +109,48 @@ class MenuPaperControllerSql extends GetxController {
     restaurantModelSql = restaurant;
     print("getAllCategoriesSql enter = ${restaurant.toJson()}");
     loadingStatus.value = LoadingStatus.loading;
-    try {
-      allItemsForCategory.clear();
-
-      allCategories.assignAll(restaurant.menu!);
-      for (Menu _menu in restaurant.menu!) {
-        List<Items> myItems = [];
-        myItems.addAll(_menu.items!);
-        print('List getAllCategoriesSql =  ${myItems.length}');
-        allItemsForCategory.add(myItems);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      try {
+        allItemsForCategory.clear();
+        allCategories.assignAll(restaurant.menu!);
+        for (Menu _menu in restaurant.menu!) {
+          List<Items> myItems = [];
+          myItems.addAll(_menu.items!);
+          print('List getAllCategoriesSql =  ${myItems.length}');
+          allItemsForCategory.add(myItems);
+        }
+      } catch (e) {
+        print("my error  getAllCategoriesSql");
+        print(e);
       }
-    } catch (e) {
-      print("my error  getAllCategoriesSql");
-      print(e);
-    }
-    for (List<Items> subList in allItemsForCategory) {
-      for (Items item in subList) {
-        print(item.item?.title);
-      }
-    }
+    });
+    // try {
+    //   allItemsForCategory.clear();
+    //   allCategories.assignAll(restaurant.menu!);
+    //   for (Menu _menu in restaurant.menu!) {
+    //     List<Items> myItems = [];
+    //     myItems.addAll(_menu.items!);
+    //     print('List getAllCategoriesSql =  ${myItems.length}');
+    //     allItemsForCategory.add(myItems);
+    //   }
+    // } catch (e) {
+    //   print("my error  getAllCategoriesSql");
+    //   print(e);
+    // }
+    // for (List<Items> subList in allItemsForCategory) {
+    //   for (Items item in subList) {
+    //     print(item.item?.title);
+    //   }
+    // }
     loadingStatus.value = LoadingStatus.completed;
   }
 
-  // Future<void> getAllCategories(RestaurantModelSql restaurant) async {
-  //   loadingStatus.value = LoadingStatus.loading;
-  //   try {
-  //     allItemsForCategory.clear();
-  //     final QuerySnapshot<Map<String, dynamic>> data =
-  //     await restaurantRF.doc(restaurant.id.toString()).collection("menu").get();
-  //     data.docs.forEach((doc) {
-  //       Map<String, dynamic> jsonData = doc.data() as Map<String, dynamic>;
-  //       print("asdad ${jsonEncode(jsonData)}");
-  //     });
-  //     final paperList = data.docs
-  //         .map((snapshot) => Menu.fromSnapshot(snapshot))
-  //         .toList();
-  //     allCategories.assignAll(paperList);
-  //     restaurant.menu = paperList;
-  //     for (Menu _menu in restaurant.menu!) {
-  //       final QuerySnapshot<Map<String, dynamic>> itemsQuery =
-  //       await restaurantRF
-  //           .doc(restaurant.id)
-  //           .collection("menu")
-  //           .doc(_menu.id)
-  //           .collection("items")
-  //           .get();
-  //       final items = itemsQuery.docs.map((item) => Items.fromSnapshot(item))
-  //           .toList();
-  //       _menu.items = items;
-  //       List<Items> myItems = [];
-  //       myItems.addAll(items);
-  //       //print('List   ${myItems.length}');
-  //       allItemsForCategory.add(myItems);
-  //       //print('List   ${allItemsForCategory}');
-  //       /*List<Items> myItems = [];
-  //       myItems.clear();
-  //       myItems.add(items as Items);
-  //       allItemsForCategory.add(myItems as Items);
-  //       print('List   ${allItemsForCategory}');*/
-  //       // allItemsForCategory.add(items);
-  //       // print('List   ${allItemsForCategory}');
-  //     }
-  //     /*for (var paper in paperList) {
-  //       final imgUrl = await Get.find<FirebaseStorageService>().getImage(paper.name.toLowerCase().replaceAll(' ', ''));
-  //       paper.img = imgUrl;
-  //     }
-  //     allCategories.assignAll(paperList);*/
-  //   } catch (e) {
-  //     print("my error  getAllCategories");
-  //     print(e);
-  //   }
-  //
-  //   for (List<Items> subList in allItemsForCategory) {
-  //     for (Items item in subList) {
-  //       print(item.itemName);
-  //     }
-  //   }
-  //   loadingStatus.value = LoadingStatus.completed;
-  // }
-
-  // Future<void> loadData(RestaurantModel restaurant) async {
-  //   restaurantModel = restaurant;
+  // Future<void> loadData(RestaurantModelSql restaurant) async {
+  //   restaurantModelSql = restaurant;
   //   print('метод loadData меню');
   //   try {
   //     final QuerySnapshot<Map<String, dynamic>> menuQuery =
-  //     await restaurantRF.doc(restaurant.id).collection("menu").get();
+  //         await restaurantRF.doc(restaurant.id).collection("menu").get();
   //     print('Id restaurant = ${restaurant.id}');
   //     final menu = menuQuery.docs
   //         .map((snapshot) => Menu.fromSnapshot(snapshot))
@@ -202,14 +159,14 @@ class MenuPaperControllerSql extends GetxController {
   //     print('AAAAAA = ${menu}');
   //     for (Menu _menu in restaurant.menu!) {
   //       final QuerySnapshot<Map<String, dynamic>> itemsQuery =
-  //       await restaurantRF
-  //           .doc(restaurant.id)
-  //           .collection("menu")
-  //           .doc(_menu.id)
-  //           .collection("items")
-  //           .get();
-  //       final items = itemsQuery.docs.map((item) => Items.fromSnapshot(item))
-  //           .toList();
+  //           await restaurantRF
+  //               .doc(restaurant.id)
+  //               .collection("menu")
+  //               .doc(_menu.id)
+  //               .collection("items")
+  //               .get();
+  //       final items =
+  //           itemsQuery.docs.map((item) => Items.fromSnapshot(item)).toList();
   //       _menu.items = items;
   //     }
   //   } catch (e) {
@@ -231,33 +188,133 @@ class MenuPaperControllerSql extends GetxController {
   //   }
   // }
 
-  // void selectedItem(String? menu) {
-  //   // тут пока не правильно
-  //   currentMenu.value!.selectedItem = menu;
-  //   update(['menu_list']);
-  // }
+// Future<void> getAllCategories(RestaurantModelSql restaurant) async {
+//   loadingStatus.value = LoadingStatus.loading;
+//   try {
+//     allItemsForCategory.clear();
+//     final QuerySnapshot<Map<String, dynamic>> data =
+//     await restaurantRF.doc(restaurant.id.toString()).collection("menu").get();
+//     data.docs.forEach((doc) {
+//       Map<String, dynamic> jsonData = doc.data() as Map<String, dynamic>;
+//       print("asdad ${jsonEncode(jsonData)}");
+//     });
+//     final paperList = data.docs
+//         .map((snapshot) => Menu.fromSnapshot(snapshot))
+//         .toList();
+//     allCategories.assignAll(paperList);
+//     restaurant.menu = paperList;
+//     for (Menu _menu in restaurant.menu!) {
+//       final QuerySnapshot<Map<String, dynamic>> itemsQuery =
+//       await restaurantRF
+//           .doc(restaurant.id)
+//           .collection("menu")
+//           .doc(_menu.id)
+//           .collection("items")
+//           .get();
+//       final items = itemsQuery.docs.map((item) => Items.fromSnapshot(item))
+//           .toList();
+//       _menu.items = items;
+//       List<Items> myItems = [];
+//       myItems.addAll(items);
+//       //print('List   ${myItems.length}');
+//       allItemsForCategory.add(myItems);
+//       //print('List   ${allItemsForCategory}');
+//       /*List<Items> myItems = [];
+//       myItems.clear();
+//       myItems.add(items as Items);
+//       allItemsForCategory.add(myItems as Items);
+//       print('List   ${allItemsForCategory}');*/
+//       // allItemsForCategory.add(items);
+//       // print('List   ${allItemsForCategory}');
+//     }
+//     /*for (var paper in paperList) {
+//       final imgUrl = await Get.find<FirebaseStorageService>().getImage(paper.name.toLowerCase().replaceAll(' ', ''));
+//       paper.img = imgUrl;
+//     }
+//     allCategories.assignAll(paperList);*/
+//   } catch (e) {
+//     print("my error  getAllCategories");
+//     print(e);
+//   }
+//
+//   for (List<Items> subList in allItemsForCategory) {
+//     for (Items item in subList) {
+//       print(item.itemName);
+//     }
+//   }
+//   loadingStatus.value = LoadingStatus.completed;
+// }
 
-  // void nextMenu() {
-  //   if (menuIndex.value >= allMenu.length - 1)
-  //     return;
-  //   menuIndex.value++;
-  //   currentMenu.value = allMenu[menuIndex.value];
-  // }
+// Future<void> loadData(RestaurantModel restaurant) async {
+//   restaurantModel = restaurant;
+//   print('метод loadData меню');
+//   try {
+//     final QuerySnapshot<Map<String, dynamic>> menuQuery =
+//     await restaurantRF.doc(restaurant.id).collection("menu").get();
+//     print('Id restaurant = ${restaurant.id}');
+//     final menu = menuQuery.docs
+//         .map((snapshot) => Menu.fromSnapshot(snapshot))
+//         .toList();
+//     restaurant.menu = menu;
+//     print('AAAAAA = ${menu}');
+//     for (Menu _menu in restaurant.menu!) {
+//       final QuerySnapshot<Map<String, dynamic>> itemsQuery =
+//       await restaurantRF
+//           .doc(restaurant.id)
+//           .collection("menu")
+//           .doc(_menu.id)
+//           .collection("items")
+//           .get();
+//       final items = itemsQuery.docs.map((item) => Items.fromSnapshot(item))
+//           .toList();
+//       _menu.items = items;
+//     }
+//   } catch (e) {
+//     if (kDebugMode) {
+//       print(e.toString());
+//     }
+//   }
+//   if (restaurant.menu != null && restaurant.menu!.isNotEmpty) {
+//     allMenu.assignAll(restaurant.menu!);
+//     // из за индекса тут пока не очень понимаю как настроить
+//     currentMenu.value = restaurant.menu![0];
+//     if (kDebugMode) {
+//       print(restaurant.menu![0].name);
+//       //print('test menu name print');
+//     }
+//     loadingStatus.value = LoadingStatus.completed;
+//   } else {
+//     loadingStatus.value = LoadingStatus.error;
+//   }
+// }
 
-  // String get completedMenu {
-  //   // loadingStatus скорее всег оне нужен, но я пытаюсь избавиться от ошибки на странице меню
-  //   loadingStatus.value = LoadingStatus.loading;
-  //   final selected = allMenu.where((element) =>
-  //   element.selectedItem!=null)
-  //       .toList().length;
-  //   loadingStatus.value = LoadingStatus.completed;
-  //   return "$selected of ${allMenu.length}";
-  // }
+// void selectedItem(String? menu) {
+//   // тут пока не правильно
+//   currentMenu.value!.selectedItem = menu;
+//   update(['menu_list']);
+// }
 
-  // void prevMenu() {
-  //   if (menuIndex.value <= 0)
-  //     return;
-  //   menuIndex.value--;
-  //   currentMenu.value = allMenu[menuIndex.value];
-  // }
+// void nextMenu() {
+//   if (menuIndex.value >= allMenu.length - 1)
+//     return;
+//   menuIndex.value++;
+//   currentMenu.value = allMenu[menuIndex.value];
+// }
+
+// String get completedMenu {
+//   // loadingStatus скорее всег оне нужен, но я пытаюсь избавиться от ошибки на странице меню
+//   loadingStatus.value = LoadingStatus.loading;
+//   final selected = allMenu.where((element) =>
+//   element.selectedItem!=null)
+//       .toList().length;
+//   loadingStatus.value = LoadingStatus.completed;
+//   return "$selected of ${allMenu.length}";
+// }
+
+// void prevMenu() {
+//   if (menuIndex.value <= 0)
+//     return;
+//   menuIndex.value--;
+//   currentMenu.value = allMenu[menuIndex.value];
+// }
 }

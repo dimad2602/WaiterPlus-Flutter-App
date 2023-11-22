@@ -5,6 +5,7 @@ import 'package:flutter_project2/controllers/cart_controller/cart_controller.dar
 import 'package:flutter_project2/controllers/cart_controller/cart_controller_sql.dart';
 import 'package:flutter_project2/controllers/items_controller/item_detail_controller_sql.dart';
 import 'package:flutter_project2/pages/cart/cart_page_fire.dart';
+import 'package:flutter_project2/pages/cart/cart_page_sql.dart';
 import 'package:flutter_project2/pages/menu/menu_fire_page.dart';
 import 'package:get/get.dart';
 
@@ -97,7 +98,7 @@ class ItemDetailSqlPage extends StatelessWidget {
                       onTap: () {
                         /*Navigator.pushNamed(
                             context, '/cart_fire_page');*/
-                        Get.toNamed(CartPageFire.routeName,
+                        Get.toNamed(CartPageSql.routeName,
                             arguments: ModalRoute.of(context)!.settings.name);
                       },
                       child: Stack(
@@ -357,7 +358,7 @@ class ItemDetailSqlPage extends StatelessWidget {
                           ),
                           BigText(
                             text:
-                                '${_itemDetailController.currentItem.value!.item!.price! * Item.inCartItems} | Add to cart',
+                                '${_itemDetailController.currentItem.value!.item!.price! * Item.inCartItems} | Подтвердить',
                             color: Colors.white,
                           ),
                         ],

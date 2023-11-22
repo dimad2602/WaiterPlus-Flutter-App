@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project2/controllers/cart_controller/cart_controller.dart';
 import 'package:flutter_project2/pages/cart/cart_page_fire.dart';
+import 'package:flutter_project2/pages/cart/cart_page_sql.dart';
 import 'package:flutter_project2/pages/restaurants/restaurant_fire_page.dart';
 import 'package:get/get.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
@@ -58,7 +59,7 @@ class _OrderConfirmState extends State<OrderConfirm> {
                       backgroundColor: AppColors.mainColor,
                       iconSize24: true,
                       onTap: () {
-                        Get.toNamed(CartPageFire.routeName, arguments: ModalRoute.of(context)!.settings.name);
+                        Get.toNamed(CartPageSql.routeName, arguments: ModalRoute.of(context)!.settings.name);
                       },
                     ),
                   ),
