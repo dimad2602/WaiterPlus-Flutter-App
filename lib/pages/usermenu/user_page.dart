@@ -6,6 +6,7 @@ import 'package:flutter_project2/controllers/registration_controller/auth_contro
 import 'package:flutter_project2/controllers/user_controller/user_controller.dart';
 import 'package:flutter_project2/pages/login/login_page_sql.dart';
 import 'package:flutter_project2/pages/order/order_history.dart';
+import 'package:flutter_project2/pages/order/order_history_sql.dart';
 import 'package:flutter_project2/pages/usermenu/profile_page.dart';
 import 'package:flutter_project2/util/AppColors.dart';
 import 'package:get/get.dart';
@@ -99,7 +100,7 @@ class _UserPageState extends State<UserPage> {
                         }),
                     listTiles(
                         title: 'Мои заказы', icon: Icons.history, onPressed: () {
-                      Get.toNamed(OrderHistory.routeName);
+                      Get.toNamed(OrderHistorySql.routeName);
                     }),
                     listTiles(
                         title: 'Любимое', icon: Icons.favorite, onPressed: () {}),

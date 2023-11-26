@@ -7,7 +7,7 @@ import 'package:flutter_project2/controllers/registration_controller/auth_contro
 import 'package:flutter_project2/pages/base/no_data_page.dart';
 import 'package:flutter_project2/pages/login/login_page_sql.dart';
 import 'package:flutter_project2/pages/menu/menu_fire_page.dart';
-import 'package:flutter_project2/pages/order/order_confirm.dart';
+import 'package:flutter_project2/pages/order/order_confir_sql.dart';
 import 'package:flutter_project2/pages/restaurants/restaurant_fire_page.dart';
 import 'package:get/get.dart';
 
@@ -200,8 +200,9 @@ class CartPageSql extends StatelessWidget {
                   child: GestureDetector(
                     onTap: () {
                       if(Get.find<AuthController>().userLoggedIn()){
-                        Get.toNamed(OrderConfirm.routeName);
+                        Get.toNamed(OrderConfirmSql.routeName);
                       }else{
+                        //TODO: Надо запомнить с какой страницы мы попали на авторизацию, после автозицации вернуть на предыдущую страницу
                         Get.toNamed(LoginPageSQL.routeName);
                       }
                     },

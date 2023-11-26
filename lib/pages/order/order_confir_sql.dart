@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project2/controllers/cart_controller/cart_controller.dart';
+import 'package:flutter_project2/controllers/cart_controller/cart_controller_sql.dart';
+import 'package:flutter_project2/controllers/restaurants_controlelr/restaurant_paper_controller_sql.dart';
+import 'package:flutter_project2/models/restaurant_model_sql.dart';
 import 'package:flutter_project2/pages/cart/cart_page_fire.dart';
 import 'package:flutter_project2/pages/cart/cart_page_sql.dart';
 import 'package:flutter_project2/pages/restaurants/restaurant_fire_page.dart';
@@ -16,15 +19,15 @@ import '../../util/AppColors.dart';
 import '../../util/constants.dart';
 import '../../widgets/order/order_check_sheet.dart';
 
-class OrderConfirm extends StatefulWidget {
-  const OrderConfirm({Key? key}) : super(key: key);
-  static const String routeName = "/order_confirm";
+class OrderConfirmSql extends StatefulWidget {
+  const OrderConfirmSql({Key? key}) : super(key: key);
+  static const String routeName = "/order_confirm_sql";
 
   @override
-  State<OrderConfirm> createState() => _OrderConfirmState();
+  State<OrderConfirmSql> createState() => _OrderConfirmStateSql();
 }
 
-class _OrderConfirmState extends State<OrderConfirm> {
+class _OrderConfirmStateSql extends State<OrderConfirmSql> {
   bool switchValue = false;
 
   @override
@@ -34,10 +37,10 @@ class _OrderConfirmState extends State<OrderConfirm> {
 
     OrderUploader _orderUploader = Get.find();
 
-    RestaurantPaperController _restaurantPaperController = Get.find();
+    RestaurantPaperControllerSql _restaurantPaperController = Get.find();
 
-    CartController _cartController = Get.find();
-    RestaurantModel? paper = _restaurantPaperController
+    CartControllerSql _cartController = Get.find();
+    RestaurantModelSql? paper = _restaurantPaperController
         .getRestaurantById(_cartController.cartRepo.getSelectedRestaurantId());
 
     return Scaffold(
@@ -69,9 +72,9 @@ class _OrderConfirmState extends State<OrderConfirm> {
                     child: Center(
                       child: Center(
                           child: BigText(
-                        text: 'Оформление заказа',
-                        bold: true,
-                      )),
+                            text: 'Оформление заказа',
+                            bold: true,
+                          )),
                     ),
                   ),
                   SizedBox(width: Constants.width20 * 2),
@@ -88,9 +91,9 @@ class _OrderConfirmState extends State<OrderConfirm> {
                   children: [
                     Padding(
                       padding:
-                          EdgeInsets.symmetric(horizontal: Constants.width20),
+                      EdgeInsets.symmetric(horizontal: Constants.width20),
                       child: BigText(
-                        text: 'Заведение "${paper?.name}"',
+                        text: 'Заведение "${paper?.brand?.name}"',
                         bold: true,
                       ),
                     ),
@@ -111,7 +114,7 @@ class _OrderConfirmState extends State<OrderConfirm> {
                             //Constants.height20*3.5, //_screenWidth * 0.71,
                             decoration: BoxDecoration(
                               borderRadius:
-                                  const BorderRadius.all(Radius.circular(12)),
+                              const BorderRadius.all(Radius.circular(12)),
                               //Хочеться слабо прозрачный черный // Хотя цвет с цифрой, очень не плох
                               //color: Colors.white38,
                               color: Color(0xffffffff),
@@ -147,7 +150,7 @@ class _OrderConfirmState extends State<OrderConfirm> {
                                           ),
                                           ClipRRect(
                                               borderRadius:
-                                                  const BorderRadius.only(
+                                              const BorderRadius.only(
                                                 topLeft: Radius.circular(12.0),
                                               ),
                                               child: Container(
@@ -156,24 +159,24 @@ class _OrderConfirmState extends State<OrderConfirm> {
                                                 child: YandexMap(
                                                   //mapObjects: mapObjects,
                                                   onMapCreated: (YandexMapController
-                                                      yandexMapController) async {
+                                                  yandexMapController) async {
                                                     final placemarkMapObject =
-                                                        PlacemarkMapObject(
-                                                            mapId: const MapObjectId(
-                                                                'search_placemark'),
-                                                            point: const Point(
-                                                                latitude:
-                                                                    55.998874,
-                                                                longitude:
-                                                                    92.799068),
-                                                            //widget.point,
-                                                            icon: PlacemarkIcon.single(
-                                                                PlacemarkIconStyle(
-                                                                    image: BitmapDescriptor
-                                                                        .fromAssetImage(
-                                                                            'lib/assets/place.png'),
-                                                                    scale:
-                                                                        0.75)));
+                                                    PlacemarkMapObject(
+                                                        mapId: const MapObjectId(
+                                                            'search_placemark'),
+                                                        point: const Point(
+                                                            latitude:
+                                                            55.998874,
+                                                            longitude:
+                                                            92.799068),
+                                                        //widget.point,
+                                                        icon: PlacemarkIcon.single(
+                                                            PlacemarkIconStyle(
+                                                                image: BitmapDescriptor
+                                                                    .fromAssetImage(
+                                                                    'lib/assets/place.png'),
+                                                                scale:
+                                                                0.75)));
 
                                                     setState(() {
                                                       //mapObjects.add(placemarkMapObject);
@@ -181,13 +184,13 @@ class _OrderConfirmState extends State<OrderConfirm> {
 
                                                     await yandexMapController
                                                         .moveCamera(CameraUpdate
-                                                            .newCameraPosition(CameraPosition(
-                                                                target: const Point(
-                                                                    latitude:
-                                                                        55.998874,
-                                                                    longitude:
-                                                                        92.799068),
-                                                                zoom: 17)));
+                                                        .newCameraPosition(CameraPosition(
+                                                        target: const Point(
+                                                            latitude:
+                                                            55.998874,
+                                                            longitude:
+                                                            92.799068),
+                                                        zoom: 17)));
                                                   },
                                                 ),
                                               )),
@@ -195,10 +198,10 @@ class _OrderConfirmState extends State<OrderConfirm> {
                                       ),
                                       const Padding(
                                         padding:
-                                            EdgeInsets.only(left: 8.0, top: 8),
+                                        EdgeInsets.only(left: 8.0, top: 8),
                                         child: Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text(
                                               "Адрес",
@@ -216,7 +219,7 @@ class _OrderConfirmState extends State<OrderConfirm> {
                                             padding: EdgeInsets.only(left: 8.0),
                                             child: Column(
                                               crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                              CrossAxisAlignment.start,
                                               children: [
                                                 Row(
                                                   children: [
@@ -250,7 +253,7 @@ class _OrderConfirmState extends State<OrderConfirm> {
                     ),
                     Padding(
                       padding:
-                          EdgeInsets.symmetric(horizontal: Constants.width10),
+                      EdgeInsets.symmetric(horizontal: Constants.width10),
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(40 / 2),
@@ -289,7 +292,7 @@ class _OrderConfirmState extends State<OrderConfirm> {
                             ),
                             Padding(
                               padding:
-                                  EdgeInsets.only(right: Constants.width20),
+                              EdgeInsets.only(right: Constants.width20),
                               child: Switch(
                                 value: switchValue,
                                 onChanged: (bool value) {
@@ -308,7 +311,7 @@ class _OrderConfirmState extends State<OrderConfirm> {
                     ),
                     Padding(
                       padding:
-                          EdgeInsets.symmetric(horizontal: Constants.width20),
+                      EdgeInsets.symmetric(horizontal: Constants.width20),
                       child: BigText(
                         text: 'Выбор способа оплаты',
                         bold: true,
@@ -319,7 +322,7 @@ class _OrderConfirmState extends State<OrderConfirm> {
                     ),
                     Padding(
                       padding:
-                          EdgeInsets.symmetric(horizontal: Constants.width10),
+                      EdgeInsets.symmetric(horizontal: Constants.width10),
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(40 / 2),
@@ -386,7 +389,7 @@ class _OrderConfirmState extends State<OrderConfirm> {
                     ),
                     Padding(
                       padding:
-                          EdgeInsets.symmetric(horizontal: Constants.width20),
+                      EdgeInsets.symmetric(horizontal: Constants.width20),
                       child: BigText(
                         text: 'Эл. почта для отправки чека',
                         bold: true,
@@ -400,7 +403,7 @@ class _OrderConfirmState extends State<OrderConfirm> {
               ),
             ),
           ]),
-      bottomNavigationBar: GetBuilder<CartController>(
+      bottomNavigationBar: GetBuilder<CartControllerSql>(
         builder: (cartController) {
           return Container(
             height: Constants.height45 * 2.5,
@@ -426,100 +429,100 @@ class _OrderConfirmState extends State<OrderConfirm> {
             ),
             child: cartController.getItems.length > 0
                 ? Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  padding: EdgeInsets.only(
+                      top: Constants.height20,
+                      bottom: Constants.height15,
+                      left: Constants.width20,
+                      right: Constants.width20),
+                  decoration: BoxDecoration(
+                    borderRadius:
+                    BorderRadius.circular(Constants.radius20),
+                    color: Colors.white,
+                  ),
+                  child: Row(
                     children: [
-                      Container(
-                        padding: EdgeInsets.only(
-                            top: Constants.height20,
-                            bottom: Constants.height15,
-                            left: Constants.width20,
-                            right: Constants.width20),
-                        decoration: BoxDecoration(
-                          borderRadius:
-                              BorderRadius.circular(Constants.radius20),
+                      Column(
+                        children: [
+                          SmollText(
+                              text:
+                              "Итого" /*cartController.totalItems.toString()*/ /*textCountItems*/),
+                          SizedBox(
+                            height: Constants.height10 * 0.5,
+                          ),
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.currency_ruble,
+                                size: Constants.width20,
+                              ),
+                              BigText(
+                                text:
+                                "${cartController.totalPrice.toString()}",
+                                bold: true,
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        width: Constants.width10 / 2,
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () {
+                      Get.toNamed(RestaurantFirePage.routeName);
+                      showCustomBottomSheet(context);
+                      _orderUploader.setloadingStatusIsLoading();
+                      //print("restaurant id is QQQQQQ = ${Get.find<MenuPaperController>().restaurantModel.toJson().toString()}");
+                      //print("cartHistory := ${cartController.cartRepo.cartHistory}");
+                      //print("cart := ${cartController.cartRepo.cart}");
+                      print(
+                          "Cart_page print  ${_orderUploader.loadingStatus.value}");
+                      if (_orderUploader.loadingStatus.value ==
+                          LoadingStatus.loading) {
+                        const CircularProgressIndicator();
+                        _orderUploader
+                            .uploadData(cartController.cartRepo.cart);
+                      }
+                      cartController.addToHistory();
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.all(5),
+                      padding: EdgeInsets.only(
+                          top: Constants.height20,
+                          bottom: Constants.height20,
+                          left: Constants.width20,
+                          right: Constants.width20),
+                      decoration: BoxDecoration(
+                        borderRadius:
+                        BorderRadius.circular(Constants.radius20),
+                        color: const Color(0xFF4ecb71),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            spreadRadius: 2,
+                            blurRadius: 4,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      child: Center(
+                        child: BigText(
+                          text: 'Сделать заказ',
                           color: Colors.white,
                         ),
-                        child: Row(
-                          children: [
-                            Column(
-                              children: [
-                                SmollText(
-                                    text:
-                                        "Итого" /*cartController.totalItems.toString()*/ /*textCountItems*/),
-                                SizedBox(
-                                  height: Constants.height10 * 0.5,
-                                ),
-                                Row(
-                                  children: [
-                                    Icon(
-                                      Icons.currency_ruble,
-                                      size: Constants.width20,
-                                    ),
-                                    BigText(
-                                      text:
-                                          "${cartController.totalPrice.toString()}",
-                                      bold: true,
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
-                            SizedBox(
-                              width: Constants.width10 / 2,
-                            ),
-                          ],
-                        ),
                       ),
-                      Expanded(
-                        child: GestureDetector(
-                          onTap: () {
-                            Get.toNamed(RestaurantFirePage.routeName);
-                            showCustomBottomSheet(context);
-                            _orderUploader.setloadingStatusIsLoading();
-                            //print("restaurant id is QQQQQQ = ${Get.find<MenuPaperController>().restaurantModel.toJson().toString()}");
-                            //print("cartHistory := ${cartController.cartRepo.cartHistory}");
-                            //print("cart := ${cartController.cartRepo.cart}");
-                            print(
-                                "Cart_page print  ${_orderUploader.loadingStatus.value}");
-                            if (_orderUploader.loadingStatus.value ==
-                                LoadingStatus.loading) {
-                              const CircularProgressIndicator();
-                              _orderUploader
-                                  .uploadData(cartController.cartRepo.cart);
-                            }
-                            cartController.addToHistory();
-                          },
-                          child: Container(
-                            margin: const EdgeInsets.all(5),
-                            padding: EdgeInsets.only(
-                                top: Constants.height20,
-                                bottom: Constants.height20,
-                                left: Constants.width20,
-                                right: Constants.width20),
-                            decoration: BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.circular(Constants.radius20),
-                              color: const Color(0xFF4ecb71),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  spreadRadius: 2,
-                                  blurRadius: 4,
-                                  offset: const Offset(0, 2),
-                                ),
-                              ],
-                            ),
-                            child: Center(
-                              child: BigText(
-                                text: 'Сделать заказ',
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
-                  )
+                    ),
+                  ),
+                )
+              ],
+            )
                 : Container(),
           );
         },
