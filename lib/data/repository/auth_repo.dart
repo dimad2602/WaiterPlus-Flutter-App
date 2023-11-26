@@ -17,6 +17,8 @@ class AuthRepo{
   }
 
   bool userLoggedIn() {
+    print("userLoggedIn toker = ${sharedPreferences.getString(AppConstants.TOKEN)}");
+
     return sharedPreferences.containsKey(AppConstants.TOKEN);
   }
 

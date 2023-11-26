@@ -133,6 +133,7 @@ class _MainScreenState extends State<MainScreen> {
                       child: Center(
                           child: BigText(
                             text: 'Настройки',
+                            appbar: true,
                             bold: true,
                           )),
                     ),

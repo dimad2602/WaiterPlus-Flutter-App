@@ -26,7 +26,7 @@ class AppConstants{
   static const String REGISTRATION_URI="10.0.2.2:3000/auth/signup";
   static const String AUTH_LOGIN_URI="10.0.2.2:3000/auth/login";
   static const String AUTH_LOGOUT_URI="10.0.2.2:3000/auth/logout";
-  static const String USER_INFO_URI="10.0.2.2:3000/users";
+  static const String USER_INFO_URI="10.0.2.2:3000/users/info";
 
   static const String TOKEN=""; //DBtoken - вроде нудно пустым оставлять?
   static const String PHONE="";

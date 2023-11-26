@@ -9,10 +9,14 @@ import 'package:http/http.dart' as http;
 
 class UserRepo {
   final ApiClient apiClient;
-  final SharedPreferences sharedPreferences;
-  UserRepo({required this.apiClient, required this.sharedPreferences});
+  //final SharedPreferences sharedPreferences;
+  UserRepo({required this.apiClient});
+  //  String? accessToken;
 
-//  String? accessToken;
+  Future<Response> getUserInfo() async {
+    //var token = sharedPreferences.getString(AppConstants.TOKEN)??"";
+    return await apiClient.getData(AppConstants.USER_INFO_URI);
+  }
 
   // Future<void> login() async {
   //   print("api login");
@@ -41,22 +45,4 @@ class UserRepo {
   //     print("ошибка api $e");
   //   }
   // }
-
-  Future<Response> getUserInfo() async {
-    var token = sharedPreferences.getString(AppConstants.TOKEN)??"";
-    //await login();
-    //print(accessToken);
-    // print("token = " + token);
-    // final response = await apiClient.getData(
-    //   AppConstants.USER_INFO_URI,
-    //   headers: {"Authorization": "Bearer $token"},
-    // );
-    // print("Api1aaaaaaaaaaaaaaa ${response.body}");
-    return await apiClient.getData(AppConstants.USER_INFO_URI, headers: {"Authorization": "Bearer $token"});
-
-    // final response = await apiClient.getData(
-    //   AppConstants.RESTAURANT_LIST,
-    //   headers: {"Authorization": "Bearer $accessToken"},
-    // );
-  }
 }

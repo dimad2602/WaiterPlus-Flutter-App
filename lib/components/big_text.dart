@@ -9,6 +9,7 @@ class BigText extends StatelessWidget {
   final TextOverflow overflow;
   final bool bold;
   final int? maxLines;
+  final bool appbar;
 
   BigText({
     Key? key,
@@ -18,6 +19,7 @@ class BigText extends StatelessWidget {
     this.overflow = TextOverflow.ellipsis,
     this.bold = false,
     this.maxLines = 1,
+    this.appbar = false,
   }) : super(key: key);
 
   @override
@@ -30,7 +32,7 @@ class BigText extends StatelessWidget {
       style: TextStyle(
         fontFamily: 'Roboto',
         color: color,
-        fontSize: size==0?Constants.font20:size,
+        fontSize: appbar?Constants.font26:size==0?Constants.font20:size,
           fontWeight: bold==false?FontWeight.w400:FontWeight.bold
       ),
     );

@@ -193,6 +193,7 @@ class ProfileSettings extends StatelessWidget {
                         child: Center(
                             child: BigText(
                               text: 'Профиль',
+                              appbar: true,
                               bold: true,
                             )),
                         // RichText(
@@ -231,16 +232,6 @@ class ProfileSettings extends StatelessWidget {
                                 Get.toNamed(CartPageSql.routeName, arguments: ModalRoute.of(context)!.settings.name);
                               },
                         ),
-                        // GestureDetector(
-                        //   onTap: () {
-                        //     Get.toNamed(CartPageFire.routeName);
-                        //   },
-                        //   child: AppIcon(
-                        //     Icons.shopping_cart,
-                        //     size: 35,
-                        //     color: Colors.black,
-                        //   ),
-                        // ),
                         Positioned(
                           right: 0,
                           top: 0,

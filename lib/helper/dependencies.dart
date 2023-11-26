@@ -34,7 +34,7 @@ Future<void> init() async {
   //TODO: скорее всего нужно сделать также для остальных репозиториев (например CartRepo)
   //Get.lazyPut(() => ApiClient(appBaseUrl:"https://mvs.bslmeiyu.com")); //Правильно будет поместить в Constants BASE_URL
   Get.lazyPut(() => AuthRepo(apiClient: Get.find(), sharedPreferences:  Get.find()));
-  Get.lazyPut(() => UserRepo(apiClient: Get.find(), sharedPreferences:  Get.find()));
+  Get.lazyPut(() => UserRepo(apiClient: Get.find()));
   //repos
   //Get.lazyPut(() => PopularProductRepo(apiClient:Get.find()));
 
