@@ -17,7 +17,6 @@ class AppConstants{
 
   //Restaurants
   static const String RESTAURANT_LIST ="10.0.2.2:3000/restaurants"; //localhost указывать нельзя!!! если использую эмулятор
-  static const String RESTAURANT_LIST1 ="/10.0.2.2:3000/restaurants";
   static const String RESTAURANTS_BY_ID="10.0.2.2:3000/restaurants/";
 
 

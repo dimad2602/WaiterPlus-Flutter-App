@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_project2/components/big_text.dart';
 import 'package:flutter_project2/components/custom%20_loader.dart';
 import 'package:flutter_project2/components/register_button.dart';
@@ -36,29 +37,33 @@ class _UserPageState extends State<UserPage> {
     Get.offNamed(LoginPageSQL.routeName);
   }
 
+  bool _userLoggedIn = false;
+
   @override
   void initState() {
     super.initState();
-    //_initializeUser();
+    _initializeUser();
   }
 
-  // late bool _userLoggedIn = Get.find<AuthController>().userLoggedIn();
-  //
-  // Future<void> _initializeUser() async {
-  //   _userLoggedIn = Get.find<AuthController>().userLoggedIn();
-  //   // if (_userLoggedIn) {
-  //   //   await Get.find<UserController>().getUserInfo();
-  //   //   print("User logged in");
-  //   // }
-  // }
+  Future<void> _initializeUser() async {
+    _userLoggedIn = await Get.find<AuthController>().userLoggedIn();
+    if (_userLoggedIn) {
+      // Schedule the getUserInfo call after the current frame is built
+      SchedulerBinding.instance.addPostFrameCallback((_) {
+        Get.find<UserController>().getUserInfo();
+        print("User logged in");
+        setState(() {}); // Trigger a rebuild after the UserModel is initialized
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    bool _userLoggedIn = Get.find<AuthController>().userLoggedIn();
-    if (_userLoggedIn) {
-      Get.find<UserController>().getUserInfo();
-      print("User logged in");
-    }
+    // bool _userLoggedIn = Get.find<AuthController>().userLoggedIn();
+    // if (_userLoggedIn) {
+    //   userController.getUserInfo();
+    //   print("User logged in");
+    // }
     return WillPopScope(
       onWillPop: () async {
         Get.toNamed(MainScreen.routeName);
@@ -67,10 +72,10 @@ class _UserPageState extends State<UserPage> {
       child: Scaffold(
           backgroundColor: AppColors.mainColor,
           //GetBuilder<UserController> позволит отследить авторизацию пользователя и взять информацию
-          body: GetBuilder<UserController>(
+          body: _userLoggedIn
+              ?GetBuilder<UserController>(
             builder: (userController) {
-              return _userLoggedIn
-                  ? (userController.isLoading
+              return userController.isLoading
                       ? CustomLoader()
                       : SingleChildScrollView(
                 child: Padding(
@@ -150,22 +155,21 @@ class _UserPageState extends State<UserPage> {
                     ),
                   ),
                 ),
-              ))
-                  : Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            BigText(
-                              text: "Не авторизованы",
-                            ),
-                            SizedBox(height: Constants.height20,),
-                            RegisterButton(text: "Войти", onTap: () {
-                              Get.offNamed(LoginPageSQL.routeName);
-                            },)
-                          ],
-                        ),
-                      );
+              );
             },
+          ): Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                BigText(
+                  text: "Не авторизованы",
+                ),
+                SizedBox(height: Constants.height20,),
+                RegisterButton(text: "Войти", onTap: () {
+                  Get.offNamed(LoginPageSQL.routeName);
+                },)
+              ],
+            ),
           )),
     );
   }

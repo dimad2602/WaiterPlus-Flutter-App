@@ -11,7 +11,7 @@ class ApiClient extends GetConnect implements GetxService{
 
   ApiClient({required this.appBaseUrl, required this.sharedPreferences}){
     baseUrl = appBaseUrl;
-    timeout = const Duration(seconds: 30); //
+    timeout = const Duration(seconds: 30); //AppConstants.Token
     token = sharedPreferences.getString(AppConstants.TOKEN)??"";
     _mainHeaders ={
       'Content-type':'application/json; charset=utf-8',
@@ -27,10 +27,14 @@ class ApiClient extends GetConnect implements GetxService{
   }
 
   Future<Response> getData(String uri, {Map<String, String>? headers}) async {
+    print("headers =============================================== $headers");
+    print("headers2 = $_mainHeaders");
     try{
+      print("getData = ${headers}");
       Response response = await get(uri,
         headers: headers??_mainHeaders
       );
+      print("getData2 = ${response.body}");
       return response;
     }catch(e){
       return Response(statusCode: 1, statusText: e.toString());

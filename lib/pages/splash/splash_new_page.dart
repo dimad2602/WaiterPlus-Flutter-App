@@ -54,6 +54,8 @@ class _SplashScreenState extends State<SplashPage>
     // Register SharedPreferences instance
     Get.lazyPut(() => sharedPreferences);
 
+    print("_loadResource toker = ${sharedPreferences.getString(AppConstants.TOKEN)}");
+
     //TODO:
     //Api client
     Get.lazyPut(() => ApiClient(appBaseUrl: AppConstants.BASE_URL, sharedPreferences: Get.find()));

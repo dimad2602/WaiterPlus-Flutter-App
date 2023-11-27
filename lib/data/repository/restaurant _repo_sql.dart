@@ -13,9 +13,18 @@ class RestaurantRepoSql extends GetxService {
   final SharedPreferences sharedPreferences;
   RestaurantRepoSql({required this.apiClient, required this.sharedPreferences});
 
+  late Map<String, String> _Headers;
+
   Future<Response> getRestaurantsList() async {
     var token = sharedPreferences.getString(AppConstants.TOKEN)??"";
-    return await apiClient.getData(AppConstants.RESTAURANT_LIST, headers: {"Authorization": "Bearer $token"});
+    print("getRestaurantsList = $token");
+    print("getRestaurantsList toker2 = ${sharedPreferences.getString(AppConstants.TOKEN)}");
+    _Headers ={
+      'Content-type':'application/json; charset=utf-8',
+      'Authorization':'Bearer $token',
+    };
+    return await apiClient.getData(AppConstants.RESTAURANT_LIST);
+    //return await apiClient.getData(AppConstants.RESTAURANT_LIST, headers: _Headers);
   }
 
   Future<Response> getRestaurantsById() async {
