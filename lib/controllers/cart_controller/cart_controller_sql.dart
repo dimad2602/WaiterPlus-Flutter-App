@@ -94,18 +94,18 @@ class CartControllerSql extends GetxController {
       return textCountItems;
   }*/
 
-  bool existInCart(Items item) {
-    if (_items.containsKey(item.item?.id)) {
+  bool existInCart(Item item) {
+    if (_items.containsKey(item.id)) {
       return true;
     }
     return false;
   }
 
-  int getQuantity(Items item) {
+  int getQuantity(Item item) {
     var quantity = 0;
-    if (_items.containsKey(item.item?.id)) {
+    if (_items.containsKey(item.id)) {
       _items.forEach((key, value) {
-        if (key == item.item?.id) {
+        if (key == item.id) {
           quantity = value.quantity!;
         }
       });

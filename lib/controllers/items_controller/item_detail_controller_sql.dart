@@ -13,13 +13,13 @@ import '../restaurants_controlelr/restaurant_paper_controller.dart';
 class ItemDetailControllerSql extends GetxController {
   final loadingStatus = LoadingStatus.loading.obs;
   late RestaurantModelSql restaurantModel;
-  late Items itemsModel;
+  late Item itemModel;
 
   final allRest = <RestaurantModelSql>[].obs;
 
   //Rxn<Items> currentRest = Rxn<Items>();
   Rxn<RestaurantModelSql> currentRest = Rxn<RestaurantModelSql>();
-  Rxn<Items> currentItem = Rxn<Items>();
+  Rxn<Item> currentItem = Rxn<Item>();
 
   late CartControllerSql _cart;
 
@@ -37,14 +37,14 @@ class ItemDetailControllerSql extends GetxController {
   void onReady() {
     super.onReady();
   }
-  Future<void> getPaper(Items items) async {
-    print("getPaper = ${items.toJson()}");
-    itemsModel = items;
+  Future<void> getPaper(Item item) async {
+    print("getPaper = ${item.toJson()}");
+    itemModel = item;
     loadingStatus.value = LoadingStatus.loading;
     try {
-      print(items.item?.id);
-      print(items.item?.title);
-      currentItem.value = items;
+      print(item.id);
+      print(item.title);
+      currentItem.value = item;
     } catch (e) {
       print('ошибка ItemDetailController');
     }
@@ -81,7 +81,7 @@ class ItemDetailControllerSql extends GetxController {
   }
 
   //инициализируем
-  void initItem(Items item, CartControllerSql cart) {
+  void initItem(Item item, CartControllerSql cart) {
     _quantity = 0;
     _inCartItems = 0;
     //инициализируем карзину
@@ -96,9 +96,9 @@ class ItemDetailControllerSql extends GetxController {
 
   }
 
-  void addItem(Items item) {
+  void addItem(Item item) {
     //добавляем item
-    _cart.addItem(item.item!, _quantity);
+    _cart.addItem(item, _quantity);
     print("addItem пройден");
     _quantity = 0;
     _inCartItems = _cart.getQuantity(item);
@@ -118,7 +118,7 @@ class ItemDetailControllerSql extends GetxController {
     return _cart.getItems;
   }
 
-  void navigateToItemDetail({required Items paper, bool tryAgain = false}) {
+  void navigateToItemDetail({required Item paper, bool tryAgain = false}) {
     print("navigateToItemDetail ${paper}");
     if (tryAgain) {
       if (kDebugMode) {
@@ -130,24 +130,4 @@ class ItemDetailControllerSql extends GetxController {
       Get.toNamed(ItemDetailSqlPage.routeName, arguments: paper);
     }
   }
-
-  void navigateToFoodDetail({required Items paper, bool tryAgain = false,}) {
-    if (tryAgain) {
-      if (kDebugMode) {
-        print("tryAgain message");
-        //Get.back();
-      }
-    } else {
-      final controller = Get.put(ItemDetailControllerSql());
-      controller.getPaper(paper);
-
-      Get.toNamed(ItemDetailSqlPage.routeName, arguments: paper);
-    }
-  }
-
-  // Items toItems(Item paper) {
-  //   //Items.fromJson(paper);
-  //
-  //   //return items;
-  // }
 }

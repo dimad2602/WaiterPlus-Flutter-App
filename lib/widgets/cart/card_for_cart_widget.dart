@@ -21,7 +21,6 @@ class CardForCartWidget extends StatelessWidget {
   final String itemCount;
   final CartControllerSql cartController;
   final Item item;
-  final Items? items;
   final int index;
 
   CardForCartWidget({
@@ -33,7 +32,6 @@ class CardForCartWidget extends StatelessWidget {
     required this.cartController,
     required this.item,
     required this.index,
-    required this.items,
   });
 
   @override
@@ -63,7 +61,7 @@ class CardForCartWidget extends StatelessWidget {
                 GestureDetector(
                   onTap: () {
                      //List<Items> items = _menuPaperController.allItemsForCategory[widget.IndexCount];
-                    final countCategory = (_menuPaperController.allItemsForCategory.length);
+                    //final countCategory = (_menuPaperController.allItemsForCategory.length);
                     print(_menuPaperController.restaurantModelSql.toJson());
                     print(_menuPaperController.restaurantModelSql.menu?.toString());
                     print(item.toJson());
@@ -71,9 +69,8 @@ class CardForCartWidget extends StatelessWidget {
                     print("index = $index");
                     //Get.toNamed(MenuFirePage.routeName);
 
-
                     ItemDetailControllerSql _itemDetailController = Get.find();
-                    _itemDetailController.navigateToFoodDetail(paper: items!);
+                    _itemDetailController.navigateToItemDetail(paper: item);
 
 
                     //_itemDetailController.navigateToItemDetail(paper: item);

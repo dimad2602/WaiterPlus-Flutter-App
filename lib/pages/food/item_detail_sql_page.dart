@@ -23,7 +23,7 @@ class ItemDetailSqlPage extends StatelessWidget {
   Widget build(BuildContext context) {
     ItemDetailControllerSql _itemDetailController = Get.find();
     _itemDetailController.initItem(
-        _itemDetailController.itemsModel,
+        _itemDetailController.itemModel,
         Get.find<
             CartControllerSql>());
 
@@ -39,7 +39,7 @@ class ItemDetailSqlPage extends StatelessWidget {
             right: 0,
             child: CachedNetworkImage(
               imageUrl:
-                  "${_itemDetailController.currentItem.value!.item?.image}",
+                  "${_itemDetailController.currentItem.value?.image}",
               imageBuilder: (context, imageProvider) => Container(
                 width: double.maxFinite,
                 height: _screenHeight / 2.41,
@@ -144,13 +144,13 @@ class ItemDetailSqlPage extends StatelessWidget {
                     children: [
                       FoodDetailtextWidget(
                         foodName:
-                            '${_itemDetailController.currentItem.value!.item?.title}',
+                            '${_itemDetailController.currentItem.value?.title}',
                         foodWeight:
-                            '${_itemDetailController.currentItem.value!.item?.weight.toString()}',
+                            '${_itemDetailController.currentItem.value?.weight.toString()}',
                         foodDescription:
-                            '${_itemDetailController.currentItem.value!.item?.description}',
+                            '${_itemDetailController.currentItem.value?.description}',
                         foodCost:
-                            '${_itemDetailController.currentItem.value!.item?.price.toString()}',
+                            '${_itemDetailController.currentItem.value?.price.toString()}',
                         // ${_itemDetailController.currentRest.value!.name}
                       ),
                       SizedBox(
@@ -168,7 +168,7 @@ class ItemDetailSqlPage extends StatelessWidget {
                           child: SingleChildScrollView(
                               child: ExpandableTextWidget(
                         text:
-                            '${_itemDetailController.currentItem.value!.item?.description}',
+                            '${_itemDetailController.currentItem.value?.description}',
                       ))),
                       SizedBox(
                         height: Constants.height15,
@@ -195,7 +195,7 @@ class ItemDetailSqlPage extends StatelessWidget {
                                 ),
                                 BigText(
                                   text:
-                                      '${_itemDetailController.currentItem.value!.item?.price} X ${Item.inCartItems.toString()}',
+                                      '${_itemDetailController.currentItem.value?.price} X ${Item.inCartItems.toString()}',
                                   color: Colors.black87,
                                   size: 25,
                                 ),
@@ -336,7 +336,7 @@ class ItemDetailSqlPage extends StatelessWidget {
                           ),
                           BigText(
                             text:
-                                '${_itemDetailController.currentItem.value!.item!.price! * Item.inCartItems} | Подтвердить',
+                                '${_itemDetailController.currentItem.value!.price! * Item.inCartItems} | Подтвердить',
                             color: Colors.white,
                           ),
                         ],

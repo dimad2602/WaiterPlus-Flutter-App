@@ -106,23 +106,6 @@ class RestaurantFirePage extends StatelessWidget {
                               backgroundColor: AppColors.mainColor,
                               iconSize24: true,
                               onTap: () {
-                                MenuPaperControllerSql menuPaperController = Get.find<MenuPaperControllerSql>();
-                                //List<Items> items = menuPaperController.allItemsForCategory;
-                                print(menuPaperController.allItemsForCategory.length);
-                                //print(items.length);
-                                final itemDetailControllerSql = Get.put(ItemDetailControllerSql());
-                                WidgetsBinding.instance.addPostFrameCallback((_) {
-                                  if (paper != null) {
-                                    print(itemDetailControllerSql.itemsModel);
-                                  }
-                                });
-                                //menuPaperController.
-                                print("==== ${paper!.menu![0].items!}");
-                                print("==== ${paper!.menu![1].items![0].toJson()}");
-                                print("==== ${paper!.menu![1].items![1].toJson()}");
-
-                                final controller = Get.put(ItemDetailControllerSql());
-                                controller.getPaper(paper!.menu![0].items![0]);
                                 Get.toNamed(CartPageSql.routeName, arguments: ModalRoute.of(context)!.settings.name);
                               },
                             ),

@@ -141,7 +141,6 @@ class CartPageSql extends StatelessWidget {
                                     cartController: cartController,
                                     item: _cartList[index].item!,
                                     index: int.parse(_cartList[index].id!),
-                                    items: itemDetailControllerSql.itemsModel,
                                   );
                                 });
                           },

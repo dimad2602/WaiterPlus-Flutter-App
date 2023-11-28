@@ -55,7 +55,7 @@ class DishCardWidget extends StatelessWidget {
                     print(model.toJson());
                     _itemDetailController.navigateToItemDetail(
                         paper:
-                        model);
+                        model.item!);
                   },
                   child: ClipRRect(
                     borderRadius: const BorderRadius.all(
