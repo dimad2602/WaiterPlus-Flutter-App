@@ -16,7 +16,6 @@ import '../controllers/restaurants_controlelr/restaurant_paper_controller.dart';
 import '../firebase_ref/loading_status.dart';
 import '../util/AppColors.dart';
 import '../util/constants.dart';
-import 'cart/cart_page_fire.dart';
 import 'login/login_page_sql.dart';
 
 class MainScreen extends StatefulWidget {

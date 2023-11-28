@@ -28,6 +28,7 @@ class AppConstants{
   static const String USER_INFO_URI="10.0.2.2:3000/users/info";
 
   static const String TOKEN=""; //DBtoken - вроде нудно пустым оставлять?
+  static const String TOKEN_EXPIRATION="";
   static const String PHONE="";
   static const String MAIL="";
   static const String PASSWORD="";

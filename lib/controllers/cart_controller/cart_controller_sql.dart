@@ -1,18 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project2/controllers/menu_controller/menu_controller_sql.dart';
 import 'package:flutter_project2/data/repository/cart_repo_sql.dart';
-import 'package:flutter_project2/pages/menu/menu_fire_page.dart';
 import 'package:get/get.dart';
 
-import '../../data/repository/cart_repo.dart';
 
 import '../../models/cart_model_sql.dart';
 import '../../models/restaurant_model_sql.dart';
-import '../../pages/restaurants/restaurant_detail_page.dart';
-import '../items_controller/item_detail_controller.dart';
-import '../menu_controller/menu_controller.dart';
-import '../restaurants_controlelr/restaurant_detail_controller.dart';
-import '../restaurants_controlelr/restaurant_detail_controller_sql.dart';
 
 class CartControllerSql extends GetxController {
   final CartRepoSql cartRepo;

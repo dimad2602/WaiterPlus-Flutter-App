@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_project2/controllers/restaurants_controlelr/restaurant_detail_controller.dart';
 import 'package:flutter_project2/controllers/restaurants_controlelr/restaurant_detail_controller_sql.dart';
 import 'package:flutter_project2/models/restaurant_model_sql.dart';
 import 'package:flutter_project2/pages/restaurants/restaurant_fire_page.dart';
@@ -9,38 +8,10 @@ import 'package:get/get.dart';
 import '../../components/AppBar/custom_app_bar2.dart';
 import '../../components/app_icon.dart';
 import '../../components/big_text.dart';
-import '../../components/main_button.dart';
-import '../../controllers/menu_controller/menu_controller.dart';
-import '../../controllers/restaurants_controlelr/restaurant_paper_controller.dart';
 import '../../firebase_ref/loading_status.dart';
-import '../../models/restaurants_model.dart';
 import '../../util/AppColors.dart';
 import '../../util/constants.dart';
 import '../../util/expandable_text_widget.dart';
-import '../../widgets/content_area.dart';
-import '../../widgets/restaurant/restaurant_card.dart';
-import '../../widgets/shimmer effect/menu/menu_shimmer.dart';
-
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_project2/controllers/restaurants_controlelr/restaurant_detail_controller.dart';
-import 'package:flutter_project2/pages/restaurants/restaurant_fire_page.dart';
-import 'package:get/get.dart';
-
-import '../../components/AppBar/custom_app_bar2.dart';
-import '../../components/app_icon.dart';
-import '../../components/big_text.dart';
-import '../../components/main_button.dart';
-import '../../controllers/menu_controller/menu_controller.dart';
-import '../../controllers/restaurants_controlelr/restaurant_paper_controller.dart';
-import '../../firebase_ref/loading_status.dart';
-import '../../models/restaurants_model.dart';
-import '../../util/AppColors.dart';
-import '../../util/constants.dart';
-import '../../util/expandable_text_widget.dart';
-import '../../widgets/content_area.dart';
-import '../../widgets/restaurant/restaurant_card.dart';
-import '../../widgets/shimmer effect/menu/menu_shimmer.dart';
 
 class RestaurantDetailPage extends GetView<RestaurantDetailControllerSql> {
   const RestaurantDetailPage({Key? key}) : super(key: key);

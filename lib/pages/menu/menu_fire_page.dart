@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project2/components/AppBar/custom_app_bar2.dart';
 import 'package:flutter_project2/components/Small_text.dart';
 import 'package:flutter_project2/components/big_text.dart';
+import 'package:flutter_project2/components/button_bar_wide_green_button.dart';
 import 'package:flutter_project2/controllers/cart_controller/cart_controller_sql.dart';
 import 'package:flutter_project2/controllers/menu_controller/menu_controller_sql.dart';
 import 'package:flutter_project2/firebase_ref/loading_status.dart';
@@ -78,40 +79,42 @@ class MenuFirePage extends GetView<MenuPaperControllerSql> {
             child: Obx(() => Column(
                   children: [
                     if (controller.loadingStatus.value == LoadingStatus.loading)
-                    //Content Area это собственный виджет по обертке
-                    //shimmer
+                      //Content Area это собственный виджет по обертке
+                      //shimmer
                       const Expanded(child: ContentArea(child: MenuShimmer())),
                     //CircularProgressIndicator(),
                     if (controller.loadingStatus.value ==
                         LoadingStatus.completed)
-                    Expanded(
-                      child: ListView.separated(
-                          // делаем лист вертикальным
-                          // Позволяем перекрывать категории
-                          shrinkWrap: true,
-                          scrollDirection: Axis.vertical,
-                          //physics: NeverScrollableScrollPhysics(),
-                          itemBuilder: (BuildContext context, int index) {
-                            try {
-                              return MenuWidget(
-                                menuCard: _menuPaperController
-                                    .allCategories[index].title!,
-                                IndexCount: index,
+                      Expanded(
+                        child: ListView.separated(
+                            // делаем лист вертикальным
+                            // Позволяем перекрывать категории
+                            shrinkWrap: true,
+                            scrollDirection: Axis.vertical,
+                            //physics: NeverScrollableScrollPhysics(),
+                            itemBuilder: (BuildContext context, int index) {
+                              try {
+                                return MenuWidget(
+                                  menuCard: _menuPaperController
+                                      .allCategories[index].title!,
+                                  IndexCount: index,
+                                );
+                              } catch (e) {
+                                print("Ошибка: $e");
+                                // Выполните перезагрузку страницы или обновление
+                                return CircularProgressIndicator(); // Пример заглушки для обновления
+                              }
+                            },
+                            separatorBuilder:
+                                (BuildContext context, int index) {
+                              return SizedBox(
+                                width: Constants.width20,
                               );
-                            } catch (e) {
-                              print("Ошибка: $e");
-                              // Выполните перезагрузку страницы или обновление
-                              return CircularProgressIndicator(); // Пример заглушки для обновления
-                            }
-                          },
-                          separatorBuilder: (BuildContext context, int index) {
-                            return SizedBox(
-                              width: Constants.width20,
-                            );
-                          },
-                          itemCount: _menuPaperController.allCategories.length),
-                      //controller.currentMenu.value!.items.length
-                    ),
+                            },
+                            itemCount:
+                                _menuPaperController.allCategories.length),
+                        //controller.currentMenu.value!.items.length
+                      ),
                     SizedBox(
                       height: Constants.height20,
                     ),
@@ -119,87 +122,122 @@ class MenuFirePage extends GetView<MenuPaperControllerSql> {
                     // Решено (Нужно как то проверять сушествование иначе страница не будет открываться при первом запуске )
                     /*Get.find<ItemDetailController>().initialized
                         ? Get.find<ItemDetailController>().totalItems > 0 ?*/
-                    _cartController.items.isNotEmpty
-                        ? controller.loadingStatus.value ==
-                                LoadingStatus.completed
-                            ?
-                            //TODO: Старая нижняя панель, если меняю на новую, не обновляется состояние
-                            Container(
-                                color: Colors.white70,
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: Constants.width20,
-                                    vertical: Constants.height15),
-                                // Отступы по горизонтали
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+
+                    controller.loadingStatus.value == LoadingStatus.completed
+                        ? ButtonBarGreenButton(
+                            row: Row(
+                              children: [
+                                Column(
                                   children: [
-                                    Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: Constants.width10),
-                                      child: Column(
-                                        children: [
-                                          SmollText(text: textCountItems),
-                                          SizedBox(
-                                            height: Constants.height10 * 0.5,
-                                          ),
-                                          Row(
-                                            children: [
-                                              BigText(
-                                                text: Get.find<
-                                                        CartControllerSql>()
-                                                    .totalPrice
-                                                    .toString(),
-                                                bold: true,
-                                              ),
-                                              Icon(Icons.currency_ruble,
-                                                  size: Constants.width20),
-                                            ],
-                                          )
-                                        ],
-                                      ),
+                                    SmollText(text: textCountItems),
+                                    SizedBox(
+                                      height: Constants.height10 * 0.5,
                                     ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        Get.toNamed(CartPageSql.routeName,
-                                            arguments: ModalRoute.of(context)!
-                                                .settings
-                                                .name);
-                                      },
-                                      child: Container(
-                                        padding: EdgeInsets.symmetric(
-                                          vertical: Constants.height10 * 1.2,
-                                          // Отступы по вертикали
-                                          horizontal: Constants.width10 *
-                                              1.6, // Отступы по горизонтали
+                                    Row(
+                                      children: [
+                                        BigText(
+                                          text: Get.find<CartControllerSql>()
+                                              .totalPrice
+                                              .toString(),
+                                          bold: true,
                                         ),
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(
-                                              Constants.radius20),
-                                          color: AppColors.bottonColor,
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color:
-                                                  Colors.grey.withOpacity(0.5),
-                                              spreadRadius: 2,
-                                              blurRadius: 4,
-                                              offset: const Offset(0, 2),
-                                            ),
-                                          ],
-                                        ),
-                                        child: BigText(
-                                          text: 'Заказ',
-                                          //${int.parse(_itemDetailController.currentItem.value!.itemPrice!) * Item.inCartItems}
-                                          color: Colors.white,
-                                        ),
-                                      ),
+                                        Icon(Icons.currency_ruble,
+                                            size: Constants.width20),
+                                      ],
                                     )
                                   ],
                                 ),
-                              )
-                            : const SizedBox()
-                        : const SizedBox()
-                    //: const SizedBox()
+                              ],
+                            ),
+                            buttonText: "Заказ",
+                            onTap: () {
+                              Get.toNamed(CartPageSql.routeName,
+                                  arguments:
+                                      ModalRoute.of(context)!.settings.name);
+                            },
+                            Condition: _cartController.items.isNotEmpty)
+                        : const SizedBox(),
+
+                    // _cartController.items.isNotEmpty
+                    //     ? controller.loadingStatus.value ==
+                    //             LoadingStatus.completed
+                    //         ?
+                    //         //TODO: Старая нижняя панель, если меняю на новую, не обновляется состояние
+                    //         Container(
+                    //             color: Colors.white70,
+                    //             padding: EdgeInsets.symmetric(
+                    //                 horizontal: Constants.width20,
+                    //                 vertical: Constants.height15),
+                    //             // Отступы по горизонтали
+                    //             child: Row(
+                    //               mainAxisAlignment:
+                    //                   MainAxisAlignment.spaceBetween,
+                    //               children: [
+                    //                 Padding(
+                    //                   padding: EdgeInsets.symmetric(
+                    //                       horizontal: Constants.width10),
+                    //                   child: Column(
+                    //                     children: [
+                    //                       SmollText(text: textCountItems),
+                    //                       SizedBox(
+                    //                         height: Constants.height10 * 0.5,
+                    //                       ),
+                    //                       Row(
+                    //                         children: [
+                    //                           BigText(
+                    //                             text: Get.find<
+                    //                                     CartControllerSql>()
+                    //                                 .totalPrice
+                    //                                 .toString(),
+                    //                             bold: true,
+                    //                           ),
+                    //                           Icon(Icons.currency_ruble,
+                    //                               size: Constants.width20),
+                    //                         ],
+                    //                       )
+                    //                     ],
+                    //                   ),
+                    //                 ),
+                    //                 GestureDetector(
+                    //                   onTap: () {
+                    //                     Get.toNamed(CartPageSql.routeName,
+                    //                         arguments: ModalRoute.of(context)!
+                    //                             .settings
+                    //                             .name);
+                    //                   },
+                    //                   child: Container(
+                    //                     padding: EdgeInsets.symmetric(
+                    //                       vertical: Constants.height10 * 1.2,
+                    //                       // Отступы по вертикали
+                    //                       horizontal: Constants.width10 *
+                    //                           1.6, // Отступы по горизонтали
+                    //                     ),
+                    //                     decoration: BoxDecoration(
+                    //                       borderRadius: BorderRadius.circular(
+                    //                           Constants.radius20),
+                    //                       color: AppColors.bottonColor,
+                    //                       boxShadow: [
+                    //                         BoxShadow(
+                    //                           color:
+                    //                               Colors.grey.withOpacity(0.5),
+                    //                           spreadRadius: 2,
+                    //                           blurRadius: 4,
+                    //                           offset: const Offset(0, 2),
+                    //                         ),
+                    //                       ],
+                    //                     ),
+                    //                     child: BigText(
+                    //                       text: 'Заказ',
+                    //                       //${int.parse(_itemDetailController.currentItem.value!.itemPrice!) * Item.inCartItems}
+                    //                       color: Colors.white,
+                    //                     ),
+                    //                   ),
+                    //                 )
+                    //               ],
+                    //             ),
+                    //           )
+                    //         : const SizedBox()
+                    //     : const SizedBox()
                   ],
                 )),
           ),

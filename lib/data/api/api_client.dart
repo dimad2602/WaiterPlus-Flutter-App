@@ -26,9 +26,32 @@ class ApiClient extends GetConnect implements GetxService{
     };
   }
 
+  Future<void> _checkTokenValidity() async {
+    final String savedToken = sharedPreferences.getString(AppConstants.TOKEN) ?? "";
+    final DateTime expirationTime = DateTime.fromMillisecondsSinceEpoch(
+      sharedPreferences.getInt(AppConstants.TOKEN_EXPIRATION) ?? 0,
+    );
+
+    final DateTime currentTime = DateTime.now();
+    final DateTime refreshTime = expirationTime.subtract(const Duration(hours: 1));
+
+    if (savedToken.isNotEmpty && currentTime.isAfter(refreshTime)) {
+      // Токен устарел или находится на грани истечения срока действия, обновляем
+      // Ваш код для обновления токена, например, вызов метода для получения нового токена
+      // ...
+
+      //REFRESH TOKEN
+      // После успешного обновления токена, обновляем заголовки
+      token = sharedPreferences.getString(AppConstants.TOKEN) ?? "";
+      updateHeader(token);
+    }
+  }
+
+
   Future<Response> getData(String uri, {Map<String, String>? headers}) async {
     print("headers =============================================== $headers");
     print("headers2 = $_mainHeaders");
+    //await _checkTokenValidity();
     try{
       print("getData = ${headers}");
       Response response = await get(uri,
@@ -44,6 +67,8 @@ class ApiClient extends GetConnect implements GetxService{
   Future<Response> postData(String uri, dynamic body) async {
     print("in postData");
     print(body.toString());
+
+    //await _checkTokenValidity();
     try{
       Response response = await post(uri, body, headers: _mainHeaders); // передаем json
       print(response.body);

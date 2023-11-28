@@ -19,7 +19,6 @@ class FoodDetailtextWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //final constants = Constants(screenHeight: MediaQuery.of(context).size.height, screenWidth: MediaQuery.of(context).size.width);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -32,8 +31,8 @@ class FoodDetailtextWidget extends StatelessWidget {
             ),
             Row(
               children: [
-                Icon( Icons.currency_ruble, size: Constants.width15,),
-                Text('$foodCost', style: TextStyle(fontSize: Constants.width15),),
+                Icon( Icons.currency_ruble, size: Constants.font20,),
+                BigText(text: foodCost)
               ],
             ),
           ],
@@ -42,16 +41,13 @@ class FoodDetailtextWidget extends StatelessWidget {
           children: List.generate(5, (index) {
             return Icon(
               Icons.star,
-              size: 15,
+              size: Constants.height20,
             );
           }),
         ),
         Row(
-          children: [Text('$foodWeight г.')],
+          children: [BigText(text: '$foodWeight г.',)],
         ),
-        /*Row(
-          children: [Text('Описание-состав ')],
-        )*/
       ],
     );
   }

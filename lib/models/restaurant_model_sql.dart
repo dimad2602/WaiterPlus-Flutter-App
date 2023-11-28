@@ -297,6 +297,19 @@ class Items {
     data['category'] = this.category;
     return data;
   }
+
+  // factory Items.fromItem(Item item, int restId, int categoryId) {
+  //   return Items(
+  //     restId: restId,
+  //     itemId: item.id,
+  //     categoryId: categoryId,
+  //     id: item.id,
+  //     item: item,
+  //     category: item.inMenu != null && item.inMenu!.isNotEmpty
+  //         ? item.inMenu![0]
+  //         : null,
+  //   );
+  // }
 }
 
 class Item {

@@ -5,7 +5,6 @@ import 'package:flutter_project2/controllers/popular_product_controller.dart';
 import 'package:flutter_project2/data/repository/cart_repo.dart';
 import 'package:flutter_project2/data_uploader_screen.dart';
 import 'package:flutter_project2/pages/auth_page.dart';
-import 'package:flutter_project2/pages/cart/cart_page_fire.dart';
 import 'package:flutter_project2/pages/cart/cart_page_sql.dart';
 import 'package:flutter_project2/pages/cart_page.dart';
 import 'package:flutter_project2/pages/food/item_detail_sql_page.dart';
@@ -132,9 +131,6 @@ void main() async {
           '/menuoverview': (context) {
             //Get.put(MenuPaperController());
             return MenuOverviewPage();
-          },
-          '/cart_fire_page': (context) {
-            return CartPageFire();
           },
           '/cart_sql_page': (context) {
             return CartPageSql();

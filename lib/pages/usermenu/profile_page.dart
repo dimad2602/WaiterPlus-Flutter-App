@@ -14,7 +14,6 @@ import '../../controllers/cart_controller/cart_controller.dart';
 import '../../util/AppColors.dart';
 import '../../util/constants.dart';
 import '../../widgets/listTiel/list_tile_for_profile.dart';
-import '../cart/cart_page_fire.dart';
 import '../maps/profile_map_page.dart';
 import '../maps/restaurants_on_map_page.dart';
 import '../order/order_history.dart';

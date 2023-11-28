@@ -5,15 +5,11 @@ import 'package:flutter_project2/controllers/cart_controller/cart_controller_sql
 import 'package:flutter_project2/controllers/menu_controller/menu_controller_sql.dart';
 import 'package:flutter_project2/controllers/restaurants_controlelr/restaurant_paper_controller_sql.dart';
 import 'package:flutter_project2/models/restaurant_model_sql.dart';
-import 'package:flutter_project2/pages/cart/cart_page_fire.dart';
 import 'package:flutter_project2/pages/cart/cart_page_sql.dart';
 import 'package:flutter_project2/util/constants.dart';
 import 'package:get/get.dart';
 import '../../components/app_icon.dart';
-import '../../controllers/cart_controller/cart_controller.dart';
-import '../../controllers/menu_controller/menu_controller.dart';
-import '../../controllers/restaurants_controlelr/restaurant_paper_controller.dart';
-import '../../models/restaurants_model.dart';
+import '../../controllers/items_controller/item_detail_controller_sql.dart';
 import '../../util/AppColors.dart';
 import '../../widgets/order/order_card.dart';
 import '../../widgets/restaurant/restaurant_card.dart';
@@ -110,6 +106,23 @@ class RestaurantFirePage extends StatelessWidget {
                               backgroundColor: AppColors.mainColor,
                               iconSize24: true,
                               onTap: () {
+                                MenuPaperControllerSql menuPaperController = Get.find<MenuPaperControllerSql>();
+                                //List<Items> items = menuPaperController.allItemsForCategory;
+                                print(menuPaperController.allItemsForCategory.length);
+                                //print(items.length);
+                                final itemDetailControllerSql = Get.put(ItemDetailControllerSql());
+                                WidgetsBinding.instance.addPostFrameCallback((_) {
+                                  if (paper != null) {
+                                    print(itemDetailControllerSql.itemsModel);
+                                  }
+                                });
+                                //menuPaperController.
+                                print("==== ${paper!.menu![0].items!}");
+                                print("==== ${paper!.menu![1].items![0].toJson()}");
+                                print("==== ${paper!.menu![1].items![1].toJson()}");
+
+                                final controller = Get.put(ItemDetailControllerSql());
+                                controller.getPaper(paper!.menu![0].items![0]);
                                 Get.toNamed(CartPageSql.routeName, arguments: ModalRoute.of(context)!.settings.name);
                               },
                             ),

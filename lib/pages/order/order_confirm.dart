@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project2/controllers/cart_controller/cart_controller.dart';
-import 'package:flutter_project2/pages/cart/cart_page_fire.dart';
 import 'package:flutter_project2/pages/cart/cart_page_sql.dart';
 import 'package:flutter_project2/pages/restaurants/restaurant_fire_page.dart';
 import 'package:get/get.dart';

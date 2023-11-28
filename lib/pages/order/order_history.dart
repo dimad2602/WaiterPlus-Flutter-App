@@ -9,8 +9,6 @@ import 'package:flutter_project2/controllers/cart_controller/cart_controller.dar
 import 'package:flutter_project2/controllers/menu_controller/menu_controller.dart';
 import 'package:flutter_project2/models/restaurants_model.dart';
 import 'package:flutter_project2/pages/base/no_data_page.dart';
-import 'package:flutter_project2/pages/cart/cart_page_fire.dart';
-import 'package:flutter_project2/pages/menu/menu_fire_page.dart';
 import 'package:flutter_project2/util/constants.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';

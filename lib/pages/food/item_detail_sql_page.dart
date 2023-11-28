@@ -1,19 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project2/components/app_icon.dart';
-import 'package:flutter_project2/controllers/cart_controller/cart_controller.dart';
+import 'package:flutter_project2/components/button_bar_wide_green_button.dart';
 import 'package:flutter_project2/controllers/cart_controller/cart_controller_sql.dart';
 import 'package:flutter_project2/controllers/items_controller/item_detail_controller_sql.dart';
-import 'package:flutter_project2/pages/cart/cart_page_fire.dart';
 import 'package:flutter_project2/pages/cart/cart_page_sql.dart';
 import 'package:flutter_project2/pages/menu/menu_fire_page.dart';
 import 'package:get/get.dart';
 
-import '../../firebase_ref/loading_status.dart';
-
 import '../../components/big_text.dart';
 
-import '../../models/restaurant_model_sql.dart';
 import '../../util/AppColors.dart';
 import '../../util/constants.dart';
 import '../../util/expandable_text_widget.dart';
@@ -26,7 +22,6 @@ class ItemDetailSqlPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ItemDetailControllerSql _itemDetailController = Get.find();
-    //???
     _itemDetailController.initItem(
         _itemDetailController.itemsModel,
         Get.find<
@@ -39,25 +34,6 @@ class ItemDetailSqlPage extends StatelessWidget {
       backgroundColor: AppColors.mainColor,
       body: Stack(
         children: [
-          //Отображение картинки по старому
-          /*Positioned(
-            left: 0,
-            right: 0,
-            child: Container(
-              width: double.maxFinite,
-              height: _screenHeight / 2.41,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  // Need to add caching and loading later
-                  image: CachedNetworkImageProvider(
-                    '${_itemDetailController.currentItem.value!.imagePath}',
-                  ),
-                ),
-              ),
-            ),
-          ),*/
-          //Отображение картинки по по новому
           Positioned(
             left: 0,
             right: 0,
@@ -170,11 +146,11 @@ class ItemDetailSqlPage extends StatelessWidget {
                         foodName:
                             '${_itemDetailController.currentItem.value!.item?.title}',
                         foodWeight:
-                            '${_itemDetailController.currentItem.value!.item?.weight}',
+                            '${_itemDetailController.currentItem.value!.item?.weight.toString()}',
                         foodDescription:
                             '${_itemDetailController.currentItem.value!.item?.description}',
                         foodCost:
-                            '${_itemDetailController.currentItem.value!.item?.price}',
+                            '${_itemDetailController.currentItem.value!.item?.price.toString()}',
                         // ${_itemDetailController.currentRest.value!.name}
                       ),
                       SizedBox(
@@ -182,6 +158,7 @@ class ItemDetailSqlPage extends StatelessWidget {
                       ),
                       BigText(
                         text: 'Описание',
+                        bold: true,
                       ),
                       SizedBox(
                         height: Constants.height20,
@@ -207,7 +184,7 @@ class ItemDetailSqlPage extends StatelessWidget {
                                 },
                                 child: Icon(
                                   Icons.remove_circle_outline_rounded,
-                                  size: 40,
+                                  size: Constants.height45,
                                   color: Color(0xFF4ecb71),
                                 )),
                             Row(
@@ -230,7 +207,7 @@ class ItemDetailSqlPage extends StatelessWidget {
                                 },
                                 child: AppIcon(
                                   icon: Icons.add,
-                                  size: 38,
+                                  size: Constants.height45,
                                   iconColor: Colors.white,
                                   backgroundColor: Color(0xFF4ecb71),
                                   iconSize24: true,
@@ -247,7 +224,8 @@ class ItemDetailSqlPage extends StatelessWidget {
       ),
       bottomNavigationBar: GetBuilder<ItemDetailControllerSql>(
         builder: (Item) {
-          return Container(
+          return //ButtonBarGreenButton(row: Row(), buttonText: "Заказ", onTap: (){},);
+            Container(
             height: Constants.bottomHeightBar,
             padding: EdgeInsets.only(
                 top: Constants.height20,

@@ -1,17 +1,14 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_project2/controllers/cart_controller/cart_controller.dart';
+import 'package:flutter_project2/controllers/restaurants_controlelr/restaurant_paper_controller_sql.dart';
 import 'package:flutter_project2/models/cart_model_sql.dart';
 import 'package:flutter_project2/models/restaurant_model_sql.dart';
 import 'package:flutter_project2/pages/food/item_detail_sql_page.dart';
 import 'package:get/get.dart';
 
 import '../../firebase_ref/loading_status.dart';
-import '../../firebase_ref/references.dart';
-import '../../pages/food/top_food_detail.dart';
-import '../../services/firebase_storage_service.dart';
 import '../cart_controller/cart_controller_sql.dart';
+import '../restaurants_controlelr/restaurant_paper_controller.dart';
 
 class ItemDetailControllerSql extends GetxController {
   final loadingStatus = LoadingStatus.loading.obs;
@@ -41,6 +38,7 @@ class ItemDetailControllerSql extends GetxController {
     super.onReady();
   }
   Future<void> getPaper(Items items) async {
+    print("getPaper = ${items.toJson()}");
     itemsModel = items;
     loadingStatus.value = LoadingStatus.loading;
     try {
@@ -121,6 +119,7 @@ class ItemDetailControllerSql extends GetxController {
   }
 
   void navigateToItemDetail({required Items paper, bool tryAgain = false}) {
+    print("navigateToItemDetail ${paper}");
     if (tryAgain) {
       if (kDebugMode) {
         print("tryAgain message");
@@ -131,4 +130,24 @@ class ItemDetailControllerSql extends GetxController {
       Get.toNamed(ItemDetailSqlPage.routeName, arguments: paper);
     }
   }
+
+  void navigateToFoodDetail({required Items paper, bool tryAgain = false,}) {
+    if (tryAgain) {
+      if (kDebugMode) {
+        print("tryAgain message");
+        //Get.back();
+      }
+    } else {
+      final controller = Get.put(ItemDetailControllerSql());
+      controller.getPaper(paper);
+
+      Get.toNamed(ItemDetailSqlPage.routeName, arguments: paper);
+    }
+  }
+
+  // Items toItems(Item paper) {
+  //   //Items.fromJson(paper);
+  //
+  //   //return items;
+  // }
 }

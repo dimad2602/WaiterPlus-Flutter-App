@@ -4,7 +4,12 @@ import 'package:flutter_project2/controllers/cart_controller/cart_controller_sql
 import 'package:get/get.dart';
 import '../../components/Small_text.dart';
 import '../../components/big_text.dart';
+import '../../controllers/items_controller/item_detail_controller_sql.dart';
+import '../../controllers/menu_controller/menu_controller_sql.dart';
+import '../../models/cart_model_sql.dart';
 import '../../models/restaurant_model_sql.dart';
+import '../../pages/food/item_detail_sql_page.dart';
+import '../../pages/menu/menu_fire_page.dart';
 import '../../util/AppColors.dart';
 import '../../util/constants.dart';
 
@@ -15,7 +20,9 @@ class CardForCartWidget extends StatelessWidget {
   final String itemWeight;
   final String itemCount;
   final CartControllerSql cartController;
-  final Item? item;
+  final Item item;
+  final Items? items;
+  final int index;
 
   CardForCartWidget({
     required this.itemName,
@@ -24,11 +31,14 @@ class CardForCartWidget extends StatelessWidget {
     required this.itemPrice,
     required this.itemCount,
     required this.cartController,
-    this.item,
+    required this.item,
+    required this.index,
+    required this.items,
   });
 
   @override
   Widget build(BuildContext context) {
+    MenuPaperControllerSql _menuPaperController = Get.find();
     return Stack(children: [
       Container(
         width: double.maxFinite,
@@ -52,8 +62,37 @@ class CardForCartWidget extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () {
-                    // ItemDetailControllerSql _itemDetailController = Get.find();
-                    // _itemDetailController.navigateToRestDetail(paper: item!);
+                     //List<Items> items = _menuPaperController.allItemsForCategory[widget.IndexCount];
+                    final countCategory = (_menuPaperController.allItemsForCategory.length);
+                    print(_menuPaperController.restaurantModelSql.toJson());
+                    print(_menuPaperController.restaurantModelSql.menu?.toString());
+                    print(item.toJson());
+
+                    print("index = $index");
+                    //Get.toNamed(MenuFirePage.routeName);
+
+
+                    ItemDetailControllerSql _itemDetailController = Get.find();
+                    _itemDetailController.navigateToFoodDetail(paper: items!);
+
+
+                    //_itemDetailController.navigateToItemDetail(paper: item);
+                   // _itemDetailController.navigateToFoodDetail(paper: item);
+
+                    // перемешиваю первую строку
+                    //List<Items> items = _menuPaperController.allItemsForCategory[countCategory]; // .allItemsForCategory[widget.IndexCount];
+
+                    //ItemDetailControllerSql _itemDetailController = Get.find();
+                    //_itemDetailController.navigateToRestDetail(paper: items[index]);
+
+
+                    //List<Items> items = _menuPaperController.allItemsForCategory[index];
+
+
+
+                    // _itemDetailController.navigateToItemDetail(
+                    //     paper:
+                    //     model);
                   },
                   child: Container(
                     width: Constants.height20 * 5,

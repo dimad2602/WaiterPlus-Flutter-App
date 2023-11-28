@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project2/util/AppColors.dart';
 
 import '../components/Small_text.dart';
+import '../components/big_text.dart';
 import 'constants.dart';
 
 class ExpandableTextWidget extends StatefulWidget {
@@ -17,8 +19,6 @@ class _ExpandableTextWidgetState extends State<ExpandableTextWidget> {
   late String secondHalf;
 
   bool hiddenText = true;
-
-  //final constants = Constants(screenHeight: MediaQuery.of(context).size.height, screenWidth: MediaQuery.of(context).size.width);
 
   double textHeight = Constants.screenHeight / 5.63;
 
@@ -39,11 +39,11 @@ class _ExpandableTextWidgetState extends State<ExpandableTextWidget> {
   Widget build(BuildContext context) {
     return Container(
       child: secondHalf.isEmpty
-          ? SmollText(size: Constants.font16, text: firsHalf)
+          ? SmollText(size: Constants.font20, text: firsHalf)
           : Column(
               children: [
-                SmollText(height: 1.8,color: Colors.black87, size: Constants.font16, text: hiddenText
-                    ? (firsHalf + "...")
+                SmollText(height: 1.8,color: Colors.black87, size: Constants.font20, text: hiddenText
+                    ? ("$firsHalf...")
                     : (firsHalf + secondHalf)),
                 InkWell(
                   onTap: () {
@@ -53,11 +53,11 @@ class _ExpandableTextWidgetState extends State<ExpandableTextWidget> {
                   },
                   child: Row(
                     children: [
-                      SmollText(text:
-                        'Show more', color: Color(0xFF4ecb71),
+                      BigText(text:
+                        'Ещё', color: AppColors.bottonColor, size: Constants.font20*0.9,
                         ),
                       Icon(hiddenText?Icons.arrow_drop_down:Icons.arrow_drop_up,
-                        color: Color(0xFF4ecb71),
+                        color: AppColors.bottonColor,
                       )
                     ],
                   ),

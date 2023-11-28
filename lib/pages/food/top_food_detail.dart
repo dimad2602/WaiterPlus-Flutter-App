@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project2/components/app_icon.dart';
 import 'package:flutter_project2/controllers/cart_controller/cart_controller.dart';
-import 'package:flutter_project2/pages/cart/cart_page_fire.dart';
+import 'package:flutter_project2/pages/cart/cart_page_sql.dart';
 import 'package:get/get.dart';
 
 import '../../firebase_ref/loading_status.dart';
@@ -93,7 +93,7 @@ class TopFoodDetailPage extends StatelessWidget {
                       onTap: () {
                         /*Navigator.pushNamed(
                             context, '/cart_fire_page');*/
-                        Get.toNamed(CartPageFire.routeName, arguments: ModalRoute.of(context)!.settings.name);
+                        Get.toNamed(CartPageSql.routeName, arguments: ModalRoute.of(context)!.settings.name);
                       },
                       child: Stack(
                         children: [
