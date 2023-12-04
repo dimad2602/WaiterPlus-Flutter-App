@@ -109,6 +109,7 @@ class MenuPaperControllerSql extends GetxController {
     restaurantModelSql = restaurant;
     print("getAllCategoriesSql enter = ${restaurant.toJson()}");
     loadingStatus.value = LoadingStatus.loading;
+    update();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       try {
         allItemsForCategory.clear();
@@ -143,6 +144,7 @@ class MenuPaperControllerSql extends GetxController {
     //   }
     // }
     loadingStatus.value = LoadingStatus.completed;
+    update();
   }
 
   // Future<void> loadData(RestaurantModelSql restaurant) async {

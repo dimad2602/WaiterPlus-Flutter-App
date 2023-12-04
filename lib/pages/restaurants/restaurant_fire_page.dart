@@ -91,6 +91,7 @@ class RestaurantFirePage extends StatelessWidget {
                         child: Center(
                             child: BigText(
                               text: 'Заведения',
+                              appbar: true,
                               bold: true,
                             )),
                       ),

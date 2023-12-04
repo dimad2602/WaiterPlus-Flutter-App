@@ -68,7 +68,7 @@ class MenuFirePage extends GetView<MenuPaperControllerSql> {
       },
       child: Obx(
         () => Scaffold(
-          appBar: controller.loadingStatus.value == LoadingStatus.completed
+          appBar: _menuPaperController.loadingStatus.value == LoadingStatus.completed
               ? CustomAppBar2(
                   restName: _menuPaperController.restaurantModelSql.brand?.name,
                   restImg: _menuPaperController.restaurantModelSql.img,
@@ -78,12 +78,10 @@ class MenuFirePage extends GetView<MenuPaperControllerSql> {
           body: BackgrountDecoration(
             child: Obx(() => Column(
                   children: [
-                    if (controller.loadingStatus.value == LoadingStatus.loading)
-                      //Content Area это собственный виджет по обертке
-                      //shimmer
+                    if (_menuPaperController.loadingStatus.value == LoadingStatus.loading)
                       const Expanded(child: ContentArea(child: MenuShimmer())),
                     //CircularProgressIndicator(),
-                    if (controller.loadingStatus.value ==
+                    if (_menuPaperController.loadingStatus.value ==
                         LoadingStatus.completed)
                       Expanded(
                         child: ListView.separated(
@@ -123,7 +121,7 @@ class MenuFirePage extends GetView<MenuPaperControllerSql> {
                     /*Get.find<ItemDetailController>().initialized
                         ? Get.find<ItemDetailController>().totalItems > 0 ?*/
 
-                    controller.loadingStatus.value == LoadingStatus.completed
+                    _menuPaperController.loadingStatus.value == LoadingStatus.completed
                         ? ButtonBarGreenButton(
                             row: Row(
                               children: [
@@ -155,7 +153,7 @@ class MenuFirePage extends GetView<MenuPaperControllerSql> {
                                   arguments:
                                       ModalRoute.of(context)!.settings.name);
                             },
-                            Condition: _cartController.items.isNotEmpty)
+                            condition: _cartController.items.isNotEmpty)
                         : const SizedBox(),
 
                     // _cartController.items.isNotEmpty

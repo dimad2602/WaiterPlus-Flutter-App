@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
 
-import '../util/AppColors.dart';
 import '../util/constants.dart';
-import 'Small_text.dart';
 import 'big_text.dart';
 
 class ButtonBarGreenButton extends StatelessWidget {
-  final Row row;
+  final Row? row;
   final String buttonText;
   final VoidCallback? onTap;
-  final bool Condition;
-  const ButtonBarGreenButton({Key? key, required this.row, required this.buttonText, this.onTap, this.Condition = true}) : super(key: key);
+  final bool condition;
+  const ButtonBarGreenButton({Key? key, this.row, required this.buttonText, this.onTap, this.condition = true}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Condition?Container(
+    return condition?Container(
       height: Constants.height45*2.5,
       padding: EdgeInsets.only(
           top: Constants.height15,
@@ -39,6 +37,7 @@ class ButtonBarGreenButton extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
+          row != null?
           Container(
             padding: EdgeInsets.only(
                 top: Constants.height20,
@@ -50,7 +49,10 @@ class ButtonBarGreenButton extends StatelessWidget {
               color: Colors.white,
             ),
             child: row,
-          ),
+          ):Container(constraints: const BoxConstraints(
+            maxWidth: 0.0,
+            maxHeight: 0.0,
+          ),),
           Expanded(
             child: GestureDetector(
               onTap: onTap,
@@ -85,7 +87,7 @@ class ButtonBarGreenButton extends StatelessWidget {
           )
         ],
       ),
-    ):Container( constraints: BoxConstraints(
+    ):Container( constraints: const BoxConstraints(
       maxWidth: 0.0,
       maxHeight: 0.0,
     ),);

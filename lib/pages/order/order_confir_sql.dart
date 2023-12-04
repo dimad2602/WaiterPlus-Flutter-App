@@ -72,6 +72,7 @@ class _OrderConfirmStateSql extends State<OrderConfirmSql> {
                       child: Center(
                           child: BigText(
                             text: 'Оформление заказа',
+                            appbar: true,
                             bold: true,
                           )),
                     ),
@@ -476,7 +477,6 @@ class _OrderConfirmStateSql extends State<OrderConfirmSql> {
                   child: GestureDetector(
                     onTap: () {
                       //TODO:
-
                       Get.toNamed(RestaurantFirePage.routeName);
                       showCustomBottomSheet(context);
                       _orderUploader.setloadingStatusIsLoading();

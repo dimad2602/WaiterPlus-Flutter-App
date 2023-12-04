@@ -62,6 +62,7 @@ class OrderHistorySql extends StatelessWidget {
       }
       return BigText(text: outputDate);
     }
+
     return Scaffold(
       backgroundColor: AppColors.mainColor,
       body: GetBuilder<CartRepoSql>(
@@ -90,6 +91,7 @@ class OrderHistorySql extends StatelessWidget {
                       child: Center(
                           child: BigText(
                         text: 'История заказов',
+                        appbar: true,
                         bold: true,
                       )),
                     ),
@@ -210,9 +212,10 @@ class OrderHistorySql extends StatelessWidget {
                                                             RestaurantDetailControllerSql);
                                                         var cartRepo = Get.find<
                                                             CartRepoSql>();
-                                                        Get.put(CartControllerSql(
-                                                            cartRepo:
-                                                                cartRepo));
+                                                        Get.put(
+                                                            CartControllerSql(
+                                                                cartRepo:
+                                                                    cartRepo));
                                                         var orderTime =
                                                             cartOrderTimeToList();
                                                         var restId;
@@ -283,7 +286,7 @@ class OrderHistorySql extends StatelessWidget {
                                                                 paper: paper!,
                                                                 needClear:
                                                                     false);
-
+                                                        print('ase');
                                                         //print("Restaurant id is = ${selectedRestaurantId.toString()}");
                                                         //print(cartRepo.selectedRestaurantId);
                                                       },

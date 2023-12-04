@@ -191,7 +191,7 @@ class CartPageSql extends StatelessWidget {
                   ),
                 ],
               ),
-              buttonText: "Перейти к оформлению", Condition: cartController.getItems.length>0,);
+              buttonText: "Перейти к оформлению", condition: cartController.getItems.length>0,);
           //   Container(
           //   height: Constants.height45*2.5,
           //   padding: EdgeInsets.only(

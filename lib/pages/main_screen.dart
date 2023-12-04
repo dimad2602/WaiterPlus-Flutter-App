@@ -4,15 +4,12 @@ import 'package:flutter_project2/pages/cart/cart_page_sql.dart';
 import 'package:flutter_project2/pages/order/order_incoming.dart';
 import 'package:flutter_project2/pages/restaurants/restaurant_fire_page.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../components/app_icon.dart';
 import '../components/big_text.dart';
-import '../controllers/cart_controller/cart_controller.dart';
 import '../controllers/cart_controller/cart_controller_sql.dart';
 import '../controllers/order/incoming_order_controller.dart';
 import '../controllers/registration_controller/auth_controller.dart';
-import '../controllers/restaurants_controlelr/restaurant_paper_controller.dart';
 import '../firebase_ref/loading_status.dart';
 import '../util/AppColors.dart';
 import '../util/constants.dart';
@@ -173,6 +170,7 @@ class _MainScreenState extends State<MainScreen> {
                 ),
               ),
             ),
+            const SizedBox(height: 30),
             GestureDetector(
               onTap: () {
                 signUserOutSQL();

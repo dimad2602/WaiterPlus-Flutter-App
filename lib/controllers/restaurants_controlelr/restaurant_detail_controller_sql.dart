@@ -51,7 +51,11 @@ class RestaurantDetailControllerSql extends GetxController {
   }
 
   void getPaper(RestaurantModelSql paper) {
+    loadingStatus.value = LoadingStatus.loading;
+    update();
     currentRest.value = paper;
+    loadingStatus.value = LoadingStatus.completed;
+    update();
   }
 
   // Future<void> getRestaurantById(int restaurantID) async {
@@ -199,6 +203,8 @@ class RestaurantDetailControllerSql extends GetxController {
 
   void initMenuWithOutToNamed(
       {required RestaurantModel paper, bool tryAgain = false, bool needClear = true}) {
+    loadingStatus.value = LoadingStatus.loading;
+    update();
     if (tryAgain) {
       if (kDebugMode) {
         print("tryAgain message");
@@ -208,6 +214,8 @@ class RestaurantDetailControllerSql extends GetxController {
       final controller = Get.put(MenuPaperController());
       controller.loadData(paper);
       controller.getAllCategories(paper);
+      loadingStatus.value = LoadingStatus.completed;
+      update();
 
       // CartRepo cartRepo = Get.find<CartRepo>();
       // needClear == true? cartRepo.clearCartListIfDifferentRestaurant(paper.id): print("Очиска отменена");
