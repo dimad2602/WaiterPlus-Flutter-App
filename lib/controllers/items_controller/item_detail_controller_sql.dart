@@ -64,16 +64,16 @@ class ItemDetailControllerSql extends GetxController {
 
   int checkQuantity(int quantity) {
     if (_inCartItems + quantity < 0) {
-      Get.snackbar("Item count", "You can't have less",
-          backgroundColor: Color(0xFFf5ebdc), colorText: Colors.black87);
+      Get.snackbar("Количество позиции", "Количество не может быть уменьшено",
+          backgroundColor: Colors.white, colorText: Colors.black);
       if (_inCartItems > 0) {
         _quantity = -_inCartItems;
         return _quantity;
       }
       return 0;
     } else if (_inCartItems + quantity > 15) {
-      Get.snackbar("Item count", "You can't add more",
-          backgroundColor: Color(0xFFf5ebdc), colorText: Colors.black87);
+      Get.snackbar("Количество позиции", "Количество не может быть увеличено",
+          backgroundColor: Colors.white, colorText: Colors.black);
       return 0;
     } else {
       return quantity;

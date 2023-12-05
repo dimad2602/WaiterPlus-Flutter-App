@@ -11,6 +11,7 @@ import 'package:flutter_project2/controllers/restaurants_controlelr/restaurant_d
 import 'package:flutter_project2/controllers/restaurants_controlelr/restaurant_paper_controller_sql.dart';
 import 'package:flutter_project2/data/repository/cart_repo_sql.dart';
 import 'package:flutter_project2/data/repository/location_repo.dart';
+import 'package:flutter_project2/data/repository/order_repo.dart';
 import 'package:flutter_project2/pages/login/login_page_sql.dart';
 import 'package:flutter_project2/pages/restaurants/restaurant_fire_page.dart';
 import 'package:flutter_project2/util/app_constants.dart';
@@ -20,6 +21,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../controllers/cart_controller/cart_controller.dart';
 import '../../controllers/items_controller/item_detail_controller.dart';
 import '../../controllers/menu_controller/menu_controller.dart';
+import '../../controllers/order/order_controller.dart';
 import '../../controllers/restaurants_controlelr/restaurant_paper_controller.dart';
 import '../../controllers/user_controller/user_controller.dart';
 import '../../data/api/api_client.dart';
@@ -83,6 +85,11 @@ class _SplashScreenState extends State<SplashPage>
     await Get.put(ItemDetailController());
     await Get.put(ItemDetailControllerSql());
     Get.lazyPut(() => OrderUploader());
+
+    //Order
+    Get.lazyPut(() => OrderRepo(apiClient: Get.find()));
+    Get.lazyPut(() => OrderController(orderRepo: Get.find()));
+
 
     // Загружаем из локального хранилиша items в корзину
     //Get.find<CartController>().getCartData();

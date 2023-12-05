@@ -198,4 +198,8 @@ class CartControllerSql extends GetxController {
     cartRepo.clearCartHistory();
     update();
   }
+
+  void removeCartSharedPreference() {
+    cartRepo.removeCartSharedPreference();
+  }
 }

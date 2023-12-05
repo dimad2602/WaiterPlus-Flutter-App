@@ -106,21 +106,14 @@ class CartRepoSql extends GetxController{
     }
     try{
       for(var i=0; i<cart.length; i++){
-        //print("history list ${cart[i]}");
         cartHistory.add(cart[i]);
       }
-      removeCart();
+      removeCart(); // cart=[];
       sharedPreferences.setStringList(AppConstants.CART_HISTORY_LIST, cartHistory);
-      print("the lenght of history list is ${getCartHistoryList().length.toString()}");
-      for(var j=0; j<getCartHistoryList().length; j++){
-        print("time of history list is ${getCartHistoryList()[j].time}");
-      }
-      print("addToCartHistoryList сработал");
     }
     catch (e){
       print("addToCartHistoryList НЕТ $e");
     }
-
   }
 
   void removeCart(){
@@ -141,5 +134,11 @@ class CartRepoSql extends GetxController{
     sharedPreferences.remove(AppConstants.CART_HISTORY_LIST);
     //TODO: все равно не обновляет
     update();
+  }
+
+  void removeCartSharedPreference(){
+    cartHistory = [];
+    sharedPreferences.remove(AppConstants.CART_LIST);
+    sharedPreferences.remove(AppConstants.CART_HISTORY_LIST);
   }
 }

@@ -30,6 +30,11 @@ class AuthRepo{
     return await apiClient.postData(AppConstants.AUTH_LOGIN_URI, {"login": email, "passwd": password});
   }
 
+  //Надо передать заголовок
+  // Future<Response>refreshToken() async {
+  //   return await apiClient.postData(AppConstants.REFRESH_TOKEN_URI);
+  // }
+
   Future<bool> saveUserToken(String token) async {
     apiClient.token = token;
     apiClient.updateHeader(token);

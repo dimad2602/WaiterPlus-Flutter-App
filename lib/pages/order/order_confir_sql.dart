@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_project2/controllers/cart_controller/cart_controller.dart';
 import 'package:flutter_project2/controllers/cart_controller/cart_controller_sql.dart';
 import 'package:flutter_project2/controllers/restaurants_controlelr/restaurant_paper_controller_sql.dart';
+import 'package:flutter_project2/models/place_order_model.dart';
 import 'package:flutter_project2/models/restaurant_model_sql.dart';
 import 'package:flutter_project2/pages/cart/cart_page_sql.dart';
+import 'package:flutter_project2/pages/login/login_page_sql.dart';
 import 'package:flutter_project2/pages/restaurants/restaurant_fire_page.dart';
 import 'package:get/get.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
+import '../../controllers/order/order_controller.dart';
 import '../../controllers/order/order_uploader.dart';
+import '../../controllers/registration_controller/auth_controller.dart';
+import '../../controllers/user_controller/user_controller.dart';
 import '../../firebase_ref/loading_status.dart';
 import '../../components/Small_text.dart';
 import '../../components/app_icon.dart';
 import '../../components/big_text.dart';
-import '../../controllers/restaurants_controlelr/restaurant_paper_controller.dart';
-import '../../models/restaurants_model.dart';
+import '../../models/order_model_sql.dart';
 import '../../util/AppColors.dart';
 import '../../util/constants.dart';
 import '../../widgets/order/order_check_sheet.dart';
@@ -476,6 +479,29 @@ class _OrderConfirmStateSql extends State<OrderConfirmSql> {
                 Expanded(
                   child: GestureDetector(
                     onTap: () {
+                      if(Get.find<AuthController>().userLoggedIn()){
+                        var cart = Get.find<CartControllerSql>().getItems; // var cart = cartController.getItems;
+                        //var user = Get.find<UserController>().userModel;
+                        var rest = Get.find<RestaurantPaperControllerSql>();
+
+                        PlaceOrderBody placeOrder =  PlaceOrderBody(
+                          // cart: cart,
+                          // orderNote: "Not about the food",
+                          // orderAmount: 100,
+                          uid: 222,
+                          restid: paper?.id,
+                          status: "Обработка заказа",
+
+                          //contactPersonName: user!.name,
+                        );
+                        Get.find<OrderController>().placeOrder(
+                            placeOrder,
+                            _callback
+                        );
+                      }
+                      else {
+                        Get.toNamed(LoginPageSQL.routeName);
+                      }
                       //TODO:
                       Get.toNamed(RestaurantFirePage.routeName);
                       showCustomBottomSheet(context);
@@ -529,5 +555,17 @@ class _OrderConfirmStateSql extends State<OrderConfirmSql> {
         },
       ),
     );
+  }
+  void _callback(bool isSuccess, String message, String orderID) {
+    if(isSuccess) {
+      //TODO: Delete items from card
+      Get.find<CartControllerSql>().clear();
+      Get.find<CartControllerSql>().removeCartSharedPreference();
+      Get.find<CartControllerSql>().addToHistory();
+      print("OrderConfirmSql success");
+    }else{
+      Get.snackbar("Количество позиции", "Количество не может быть уменьшено",
+           backgroundColor: Colors.white, colorText: Colors.black);
+    }
   }
 }

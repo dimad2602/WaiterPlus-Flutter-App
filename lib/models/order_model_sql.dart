@@ -12,7 +12,8 @@ class OrderModel {
         this.restid,
         this.status,
         this.createdAt,
-        this.completedAt});
+        this.completedAt
+      });
 
   OrderModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];

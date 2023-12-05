@@ -28,9 +28,6 @@ class ItemDetailSqlPage extends StatelessWidget {
     _itemDetailController.initItem(
         _itemDetailController.itemModel, Get.find<CartControllerSql>());
 
-    //Get.find<ItemDetailController>().initItem();
-    double _screenHeight = MediaQuery.of(context).size.height;
-    double _screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: AppColors.mainColor,
       body: Stack(
@@ -145,7 +142,7 @@ class ItemDetailSqlPage extends StatelessWidget {
                         color: Colors.grey.withOpacity(0.5),
                         spreadRadius: 2,
                         blurRadius: 4,
-                        offset: Offset(0, 2),
+                        offset: const Offset(0, 2),
                       ),
                     ],
                   ),
@@ -195,7 +192,7 @@ class ItemDetailSqlPage extends StatelessWidget {
                                 child: Icon(
                                   Icons.remove_circle_outline_rounded,
                                   size: Constants.height45,
-                                  color: Color(0xFF4ecb71),
+                                  color: const Color(0xFF4ecb71),
                                 )),
                             Row(
                               children: [
@@ -207,7 +204,7 @@ class ItemDetailSqlPage extends StatelessWidget {
                                   text:
                                       '${_itemDetailController.currentItem.value?.price} X ${Item.inCartItems.toString()}',
                                   color: Colors.black87,
-                                  size: 25,
+                                  size: Constants.font26,
                                 ),
                               ],
                             ),
@@ -225,8 +222,8 @@ class ItemDetailSqlPage extends StatelessWidget {
                           ],
                         );
                       }),
-                      const SizedBox(
-                        height: 15,
+                      SizedBox(
+                        height: Constants.height10,
                       ),
                     ],
                   ))),
@@ -297,127 +294,6 @@ class ItemDetailSqlPage extends StatelessWidget {
               Get.toNamed(MenuFirePage.routeName);
             },
           ));
-
-          //   Container(
-          //   height: Constants.bottomHeightBar,
-          //   padding: EdgeInsets.only(
-          //       top: Constants.height20,
-          //       bottom: Constants.height20,
-          //       left: Constants.width20,
-          //       right: Constants.width20),
-          //   decoration: BoxDecoration(
-          //     color: Colors.grey.shade300,
-          //     borderRadius: BorderRadius.only(
-          //       topLeft: Radius.circular(Constants.radius20 * 2),
-          //       topRight: Radius.circular(Constants.radius20 * 2),
-          //     ),
-          //     boxShadow: [
-          //       BoxShadow(
-          //         color: Colors.grey.withOpacity(0.5),
-          //         spreadRadius: 2,
-          //         blurRadius: 4,
-          //         offset: const Offset(0, 2),
-          //       ),
-          //     ],
-          //   ),
-          //   child: Row(
-          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //     children: [
-          //       Container(
-          //         padding: EdgeInsets.only(
-          //             top: Constants.height20,
-          //             bottom: Constants.height20,
-          //             left: Constants.width20,
-          //             right: Constants.width20),
-          //         decoration: BoxDecoration(
-          //           borderRadius: BorderRadius.circular(Constants.radius20),
-          //           color: Colors.white,
-          //           boxShadow: [
-          //             BoxShadow(
-          //               color: Colors.grey.withOpacity(0.5),
-          //               spreadRadius: 2,
-          //               blurRadius: 4,
-          //               offset: const Offset(0, 2),
-          //             ),
-          //           ],
-          //         ),
-          //         child: Row(
-          //           children: [
-          //             GestureDetector(
-          //               onTap: () {
-          //                 Item.setQuantity(false);
-          //               },
-          //               child: const Icon(
-          //                 Icons.remove,
-          //                 color: Colors.black45,
-          //               ),
-          //             ),
-          //             SizedBox(
-          //               width: Constants.width10 / 2,
-          //             ),
-          //             BigText(text: Item.inCartItems.toString()),
-          //             SizedBox(
-          //               width: Constants.width10 / 2,
-          //             ),
-          //             GestureDetector(
-          //               onTap: () {
-          //                 Item.setQuantity(true);
-          //               },
-          //               child: const Icon(
-          //                 Icons.add,
-          //                 color: Colors.black45,
-          //               ),
-          //             ),
-          //           ],
-          //         ),
-          //       ),
-          //       GestureDetector(
-          //         onTap: () {
-          //           print("1111");
-          //           //print(_itemDetailController.currentItem.value!.toJson());
-          //           //print(_itemDetailController.currentItem.value!.item?.toJson());
-          //           Item.addItem(_itemDetailController.currentItem.value!);
-          //           print("2222");
-          //           //TODO: Вохможно тут нужно использовать Navigate.pup, но тогда есть проблемы с обновлением страници, а сейчас проблема сос скролом
-          //           //TODO: Переходим только если
-          //           Get.toNamed(MenuFirePage.routeName);
-          //         },
-          //         child: Container(
-          //             padding: EdgeInsets.only(
-          //                 top: Constants.height20,
-          //                 bottom: Constants.height20,
-          //                 left: Constants.width20,
-          //                 right: Constants.width20),
-          //             decoration: BoxDecoration(
-          //               borderRadius: BorderRadius.circular(Constants.radius20),
-          //               color: const Color(0xFF4ecb71),
-          //               boxShadow: [
-          //                 BoxShadow(
-          //                   color: Colors.grey.withOpacity(0.5),
-          //                   spreadRadius: 2,
-          //                   blurRadius: 4,
-          //                   offset: const Offset(0, 2),
-          //                 ),
-          //               ],
-          //             ),
-          //             child: Row(
-          //               children: [
-          //                 Icon(
-          //                   Icons.currency_ruble,
-          //                   size: Constants.width20,
-          //                   color: Colors.white,
-          //                 ),
-          //                 BigText(
-          //                   text:
-          //                       '${_itemDetailController.currentItem.value!.price! * Item.inCartItems} | Подтвердить',
-          //                   color: Colors.white,
-          //                 ),
-          //               ],
-          //             )),
-          //       )
-          //     ],
-          //   ),
-          // );
         },
       ),
     );
