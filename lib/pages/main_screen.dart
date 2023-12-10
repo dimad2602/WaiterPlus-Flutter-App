@@ -76,8 +76,8 @@ class _MainScreenState extends State<MainScreen> {
                             children: [
                               AppIcon(
                                 icon: Icons.shopping_cart,
-                                iconColor: Colors.black87,
-                                backgroundColor: AppColors.mainColor,
+                                iconColor: Colors.black,
+                                backgroundColor: AppColors.mainColorAppbar,
                                 iconSize24: true,
                                 onTap: () {
                                   Get.toNamed(CartPageSql.routeName,
@@ -124,8 +124,8 @@ class _MainScreenState extends State<MainScreen> {
                     padding: EdgeInsets.only(right: Constants.width20),
                     child: AppIcon(
                       icon: Icons.person_outline,
-                      iconColor: Colors.black87,
-                      backgroundColor: AppColors.mainColor,
+                      iconColor: Colors.black,
+                      backgroundColor: AppColors.mainColorAppbar,
                       iconSize24: true,
                       onTap: () {
                         //TODO: изменить на Get

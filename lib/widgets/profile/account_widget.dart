@@ -11,8 +11,7 @@ class AccountWidget extends StatelessWidget {
   final double size;
 
   AccountWidget(
-      {Key? key, required this.appIcon, required this.bigText, this.backgroundColor = const Color(
-          0xfffcf4e4), this.size = 40,})
+      {Key? key, required this.appIcon, required this.bigText, this.backgroundColor = Colors.white, this.size = 40,})
       : super(key: key);
 
   @override
@@ -29,7 +28,7 @@ class AccountWidget extends StatelessWidget {
               color: Colors.grey.withOpacity(0.3),
               spreadRadius: 2,
               blurRadius: 4,
-              offset: Offset(0, 2),
+              offset: const Offset(0, 2),
             ),
           ],
         ),

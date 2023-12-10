@@ -90,7 +90,13 @@ class AuthController extends GetxController implements GetxService{
     Response response = await authRepo.login(email, password);
     late ResponseModel responseModel;
     if(response.statusCode == 200){
-      authRepo.saveUserToken(response.body["access_token"]);
+      final DateTime currentTime = DateTime.now();
+      final DateTime expirationTime = currentTime.add(Duration(hours: 1));
+      print("expirationTime ${expirationTime.toString()}");
+      // const String expirationTime = "3600"; //responseBody["expiration_time"]; // предположим, что сервер возвращает время истечения токена
+
+      await authRepo.saveUserToken(response.body["access_token"]);
+      await authRepo.saveTokenExpiration(expirationTime.toString());
       print("login access_token = ${response.body["access_token"].toString()}");
       responseModel = ResponseModel(true, response.body["access_token"]);
     }else{
@@ -100,34 +106,6 @@ class AuthController extends GetxController implements GetxService{
     update();
     return responseModel;
   }
-
-  // Future<void> loginTest(String login, String password) async {
-  //   print("api login");
-  //   // Пример данных для отправки
-  //   Map<String, dynamic> data = {
-  //     "login": "admin@mail.ru",
-  //     "passwd": "1789",
-  //   };
-  //
-  //   // Отправка POST-запроса для авторизации
-  //   try{
-  //     final response = await http.post(
-  //       Uri.parse("http://${AppConstants.AUTH_LOGIN_URI}"),
-  //       body: data,
-  //     );
-  //     print("Api0 $response");
-  //     if (response.statusCode == 200) {
-  //       // Получаем токен доступа из ответа
-  //       final Map<String, dynamic> responseData = json.decode(response.body);
-  //       accessToken = responseData["access_token"];
-  //     } else {
-  //       throw Exception("Failed to login");
-  //     }
-  //   }
-  //   catch(e){
-  //     print("ошибка api $e");
-  //   }
-  // }
 
   void saveUserNumberAndPassword(String number, String email, String password) {
       authRepo.saveUserNumberAndPassword(number, email, password);

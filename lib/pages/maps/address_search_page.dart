@@ -60,16 +60,14 @@ class _ReverseSearchExampleState extends State<_ReverseSearchExample> {
 
   final MapObjectId cameraMapObjectId = const MapObjectId('camera_placemark');
 
+  double textSize = 20.0; // Начальный размер текста
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
+      body: Column(
         children: [
-          Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
+          // Stack с занимающим большую часть страницы контентом
+          Expanded(
             child: Stack(
               children: [
                 YandexMap(
@@ -81,8 +79,8 @@ class _ReverseSearchExampleState extends State<_ReverseSearchExample> {
                     });
 
                     final placemarkMapObject = mapObjects
-                            .firstWhere((el) => el.mapId == cameraMapObjectId)
-                        as PlacemarkMapObject;
+                        .firstWhere((el) => el.mapId == cameraMapObjectId)
+                    as PlacemarkMapObject;
 
                     setState(() {
                       mapObjects[mapObjects.indexOf(placemarkMapObject)] =
@@ -98,8 +96,8 @@ class _ReverseSearchExampleState extends State<_ReverseSearchExample> {
                   onMapCreated:
                       (YandexMapController yandexMapController) async {
                     final placemarkMapObject = mapObjects
-                            .firstWhere((el) => el.mapId == cameraMapObjectId)
-                        as PlacemarkMapObject;
+                        .firstWhere((el) => el.mapId == cameraMapObjectId)
+                    as PlacemarkMapObject;
 
                     controller = yandexMapController;
 
@@ -112,7 +110,7 @@ class _ReverseSearchExampleState extends State<_ReverseSearchExample> {
                   alignment: Alignment.bottomCenter,
                   child: Padding(
                     padding: EdgeInsets.only(
-                        left: 8.0, right: 8.0, bottom: Constants.height45 * 3),
+                        left: 8.0, right: 8.0, bottom: Constants.height20),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -121,7 +119,7 @@ class _ReverseSearchExampleState extends State<_ReverseSearchExample> {
                           isCircular: true,
                           customSize: Constants.width15 * 2,
                           onTap: () {
-                            Get.toNamed(ProfileSettings.routeName);
+                            Get.offNamed(ProfileSettings.routeName);
                           },
                         ),
                         MapButton(
@@ -174,51 +172,79 @@ class _ReverseSearchExampleState extends State<_ReverseSearchExample> {
               ],
             ),
           ),
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: Container(
-              padding: EdgeInsets.all(Constants.height45 / 2),
-              // Подберите подходящий отступ
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(Constants.width10),
-                    topRight: Radius.circular(Constants.width10)),
-                color: AppColors.mainColor,
-              ),
-              child: Column(
-                children: [
-                  BigText(
-                    text: "Двигайте карту, чтобы указать место",
+          // Нижняя часть страницы с текстом
+          // Container(
+          //   padding: EdgeInsets.all(16.0),
+          //   color: Colors.grey[200],
+          //   child: Row(
+          //     children: [
+          //       // Текст, который может изменять свой размер
+          //       Expanded(
+          //         child: Text(
+          //           'Resizable Text',
+          //           style: TextStyle(fontSize: textSize),
+          //         ),
+          //       ),
+          //       // Кнопки для изменения размера текста
+          //       IconButton(
+          //         icon: Icon(Icons.remove),
+          //         onPressed: () {
+          //           setState(() {
+          //             textSize = textSize - 2.0;
+          //           });
+          //         },
+          //       ),
+          //       IconButton(
+          //         icon: Icon(Icons.add),
+          //         onPressed: () {
+          //           setState(() {
+          //             textSize = textSize + 2.0;
+          //           });
+          //         },
+          //       ),
+          //     ],
+          //   ),
+          // ),
+          Container(
+            padding: EdgeInsets.all(Constants.height45),
+            // Подберите подходящий отступ
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(Constants.width10),
+                  topRight: Radius.circular(Constants.width10)),
+              color: AppColors.mainColor,
+            ),
+            child: Column(
+              children: [
+                BigText(
+                  text: "Двигайте карту, чтобы указать место",
+                ),
+                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  _isCameraMoving
+                      ? CircularProgressIndicator()
+                      : Flexible(
+                    child: Padding(
+                        padding: const EdgeInsets.only(top: 20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: _getList(),
+                        )),
                   ),
-                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                    _isCameraMoving
-                        ? CircularProgressIndicator()
-                        : Flexible(
-                            child: Padding(
-                                padding: const EdgeInsets.only(top: 20),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: _getList(),
-                                )),
-                          ),
-                  ]),
-                  GestureDetector(
-                    //onTap: ,//_search,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: AppColors.lightGreenColor,
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: BigText(
-                        text: 'Готово',
-                        color: Colors.black,
-                      ),
+                ]),
+                GestureDetector(
+                  //onTap: ,//_search,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: AppColors.lightGreenColor,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: BigText(
+                      text: 'Готово',
+                      color: Colors.black,
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ],

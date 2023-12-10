@@ -179,8 +179,8 @@ class ProfileSettings extends StatelessWidget {
                       padding: EdgeInsets.only(left: Constants.width20),
                       child: AppIcon(
                         icon: Icons.arrow_back_ios_new,
-                        iconColor: Colors.black87,
-                        backgroundColor: AppColors.mainColor,
+                        iconColor: Colors.black,
+                        backgroundColor: AppColors.mainColorAppbar,
                         iconSize24: true,
                         onTap: () {
                           Get.toNamed(UserPage.routeName);
@@ -223,8 +223,8 @@ class ProfileSettings extends StatelessWidget {
                       children: [
                         AppIcon(
                               icon: Icons.shopping_cart_outlined,
-                              iconColor: Colors.black87,
-                              backgroundColor: AppColors.mainColor,
+                              iconColor: Colors.black,
+                              backgroundColor: AppColors.mainColorAppbar,
                               iconSize24: true,
                               //TODO: сделать переход в корзину (явно вылезут проблемы) если корзина пуста кнопка не кликабельна
                               onTap: () {

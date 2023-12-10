@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../util/constants.dart';
+import 'FittedText.dart';
 import 'big_text.dart';
 
 class ButtonBarGreenButton extends StatelessWidget {
@@ -17,8 +18,8 @@ class ButtonBarGreenButton extends StatelessWidget {
       padding: EdgeInsets.only(
           top: Constants.height15,
           bottom: Constants.height15,
-          left: Constants.width20,
-          right: Constants.width20),
+          left: Constants.width15,
+          right: Constants.width15),
       decoration: BoxDecoration(
         color: Colors.white,//Colors.grey.shade300,
         borderRadius: BorderRadius.only(
@@ -76,7 +77,7 @@ class ButtonBarGreenButton extends StatelessWidget {
                   ],
                 ),
                 child: Center(
-                  child: BigText(
+                  child: FittedText(
                     text:
                     buttonText,
                     color: Colors.white,

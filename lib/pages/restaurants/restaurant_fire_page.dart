@@ -87,8 +87,8 @@ class RestaurantFirePage extends StatelessWidget {
                         padding: EdgeInsets.only(left: Constants.width20),
                         child: AppIcon(
                           icon: Icons.arrow_back_ios_new,
-                          iconColor: Colors.black87,
-                          backgroundColor: AppColors.mainColor,
+                          iconColor: Colors.black,
+                          backgroundColor: AppColors.mainColorAppbar,
                           iconSize24: true,
                           onTap: () {
                             Get.toNamed(MainScreen.routeName);
@@ -112,8 +112,8 @@ class RestaurantFirePage extends StatelessWidget {
                             children: [
                               AppIcon(
                                 icon: Icons.shopping_cart,
-                                iconColor: Colors.black87,
-                                backgroundColor: AppColors.mainColor,
+                                iconColor: Colors.black,
+                                backgroundColor: AppColors.mainColorAppbar,
                                 iconSize24: true,
                                 onTap: () {
                                   Get.toNamed(CartPageSql.routeName, arguments: ModalRoute.of(context)!.settings.name);
@@ -148,8 +148,8 @@ class RestaurantFirePage extends StatelessWidget {
                             padding: EdgeInsets.only(right: Constants.width20),
                             child: AppIcon(
                               icon: Icons.qr_code,
-                              iconColor: Colors.black87,
-                              backgroundColor: AppColors.mainColor,
+                              iconColor: Colors.black,
+                              backgroundColor: AppColors.mainColorAppbar,
                               iconSize24: true,
                               onTap: () {
                                 Get.toNamed(QrPage.routeName);

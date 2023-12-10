@@ -11,7 +11,7 @@ class BigText extends StatelessWidget {
   final int? maxLines;
   final bool appbar;
 
-  BigText({
+  const BigText({
     Key? key,
     this.color = const Color(0xFF332d2b),
     required this.text,

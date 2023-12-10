@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project2/components/big_text.dart';
 import 'package:flutter_project2/util/AppColors.dart';
+import 'package:flutter_project2/util/constants.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class NoDataPage extends StatelessWidget {
@@ -20,16 +22,14 @@ class NoDataPage extends StatelessWidget {
       children: [
         SvgPicture.asset(
           imgPath,
-          height: MediaQuery.of(context).size.height * 0.22,
-          width: MediaQuery.of(context).size.width * 0.22,
+          height: Constants.height45*4,//MediaQuery.of(context).size.height * 0.22,
+          width: Constants.height45*4,//MediaQuery.of(context).size.width * 0.22,
         ),
-        SizedBox(height: MediaQuery.of(context).size.height * 0.03),
-        Text(
-          text,
-          style: TextStyle(
-              fontSize: MediaQuery.of(context).size.height * 0.0175,
-              color: Colors.black),
-          textAlign: TextAlign.center,
+        SizedBox(height: Constants.height15),
+        Center(
+          child: BigText(
+            text: text,
+          ),
         ),
       ],
     );

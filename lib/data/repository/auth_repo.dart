@@ -17,7 +17,7 @@ class AuthRepo{
   }
 
   bool userLoggedIn() {
-    print("userLoggedIn toker = ${sharedPreferences.getString(AppConstants.TOKEN)}");
+    print("userLoggedIn token = ${sharedPreferences.getString(AppConstants.TOKEN)}");
 
     return sharedPreferences.containsKey(AppConstants.TOKEN);
   }
@@ -38,7 +38,13 @@ class AuthRepo{
   Future<bool> saveUserToken(String token) async {
     apiClient.token = token;
     apiClient.updateHeader(token);
+    print("saveUserToken $token");
     return await sharedPreferences.setString(AppConstants.TOKEN, token);
+  }
+
+  Future<bool> saveTokenExpiration(String expirationTime) async {
+    print("saveTokenExpiration");
+    return await sharedPreferences.setString(AppConstants.EXPIRATION_TOKEN, expirationTime);
   }
 
   Future<void> saveUserNumberAndPassword(String number, String email, String password) async {
@@ -57,6 +63,7 @@ class AuthRepo{
     sharedPreferences.remove(AppConstants.PASSWORD);
     sharedPreferences.remove(AppConstants.PHONE);
     sharedPreferences.remove(AppConstants.MAIL);
+    sharedPreferences.remove(AppConstants.EXPIRATION_TOKEN);
     apiClient.token ='';
     apiClient.updateHeader('');
     return true;

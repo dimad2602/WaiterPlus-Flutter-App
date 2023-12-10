@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_project2/util/app_constants.dart';
 import 'package:get/get.dart';
 
@@ -17,19 +16,4 @@ class OrderRepo {
   Future<Response> getOrderList()async{
     return await apiClient.getData(AppConstants.ORDER_LIST_URI);
   }
-
-  // Future<Response> placeOrder(Order order) async {
-  //   final String uri =
-  //       '/place_order'; // Замените на фактический URI для размещения заказа
-  //   final dynamic orderData = order
-  //       .toMap(); // Предполагается, что у вас есть метод toMap() в вашем классе Order
-  //
-  //   try {
-  //     final Response response = await apiClient.postData(uri, orderData);
-  //     return response;
-  //   } catch (e) {
-  //     print('Error placing order: $e');
-  //     return Response(statusCode: 1, statusText: e.toString());
-  //   }
-  // }
 }

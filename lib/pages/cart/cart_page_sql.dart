@@ -86,8 +86,8 @@ class CartPageSql extends StatelessWidget {
                 children: [
                   AppIcon(
                     icon: Icons.arrow_back_ios_new,
-                    iconColor: Colors.black87,
-                    backgroundColor: AppColors.mainColor,
+                    iconColor: Colors.black,
+                    backgroundColor: AppColors.mainColorAppbar,
                     iconSize24: true,
                     onTap: () {
                       _handleBackButton();
@@ -103,8 +103,8 @@ class CartPageSql extends StatelessWidget {
                   ),
                   AppIcon(
                     icon: Icons.restaurant,
-                    iconColor: Colors.black87,
-                    backgroundColor: AppColors.mainColor,
+                    iconColor: Colors.black,
+                    backgroundColor: AppColors.mainColorAppbar,
                     iconSize24: true,
                     onTap: () {
                       Get.toNamed(MenuFirePage.routeName);

@@ -61,8 +61,8 @@ class _OrderConfirmStateSql extends State<OrderConfirmSql> {
                     padding: EdgeInsets.only(left: Constants.width20),
                     child: AppIcon(
                       icon: Icons.arrow_back_ios_new,
-                      iconColor: Colors.black87,
-                      backgroundColor: AppColors.mainColor,
+                      iconColor: Colors.black,
+                      backgroundColor: AppColors.mainColorAppbar,
                       iconSize24: true,
                       onTap: () {
                         Get.toNamed(CartPageSql.routeName,
@@ -353,6 +353,7 @@ class _OrderConfirmStateSql extends State<OrderConfirmSql> {
                                 //   color: AppColors.lightGreenColor,
                                 //   size: Constants.height10 * 5 / 2
                                 // ),
+                                //TODO: Текст не в виджете, размер не контролируется
                                 AppIcon(
                                   icon: Icons.payments_rounded,
                                   iconColor: AppColors.lightGreenColor,
@@ -369,17 +370,9 @@ class _OrderConfirmStateSql extends State<OrderConfirmSql> {
                                 //   text: 'Переменная выбранного способа',
                                 // ),
                                 //TODO: Сделать контейнер для текста, задать его размер для того что бы текст не вылазил из экрана
-                                Text(
-                                  "1Переменная выбранного способа",
-                                  // Сокрашение текста до ...
-                                  overflow: TextOverflow.ellipsis,
-                                  //Без переноса - 1 строчка
+                                BigText(
+                                  text: "1Переменная выбранного способа",
                                   maxLines: 1,
-                                  style: TextStyle(
-                                    fontFamily: 'Roboto',
-                                    color: Colors.black,
-                                    fontSize: Constants.font20,
-                                  ),
                                 )
                               ],
                             ),
@@ -481,17 +474,19 @@ class _OrderConfirmStateSql extends State<OrderConfirmSql> {
                     onTap: () {
                       if(Get.find<AuthController>().userLoggedIn()){
                         var cart = Get.find<CartControllerSql>().getItems; // var cart = cartController.getItems;
-                        //var user = Get.find<UserController>().userModel;
+                        var user = Get.find<UserController>().userModel;
                         var rest = Get.find<RestaurantPaperControllerSql>();
+
+                        print("user.id paper?.id ${user.id}");
+                        print("paper?.id ${paper?.id}");
 
                         PlaceOrderBody placeOrder =  PlaceOrderBody(
                           // cart: cart,
                           // orderNote: "Not about the food",
                           // orderAmount: 100,
-                          uid: 222,
+                          uid: user.id,
                           restid: paper?.id,
                           status: "Обработка заказа",
-
                           //contactPersonName: user!.name,
                         );
                         Get.find<OrderController>().placeOrder(
@@ -502,22 +497,21 @@ class _OrderConfirmStateSql extends State<OrderConfirmSql> {
                       else {
                         Get.toNamed(LoginPageSQL.routeName);
                       }
-                      //TODO:
-                      Get.toNamed(RestaurantFirePage.routeName);
-                      showCustomBottomSheet(context);
-                      _orderUploader.setloadingStatusIsLoading();
-                      //print("restaurant id is QQQQQQ = ${Get.find<MenuPaperController>().restaurantModel.toJson().toString()}");
-                      //print("cartHistory := ${cartController.cartRepo.cartHistory}");
-                      //print("cart := ${cartController.cartRepo.cart}");
-                      print(
-                          "Cart_page print  ${_orderUploader.loadingStatus.value}");
-                      if (_orderUploader.loadingStatus.value ==
-                          LoadingStatus.loading) {
-                        const CircularProgressIndicator();
-                        _orderUploader
-                            .uploadData(cartController.cartRepo.cart);
-                      }
-                      cartController.addToHistory();
+
+                      // //TODO:
+                      // Get.toNamed(RestaurantFirePage.routeName);
+                      // showCustomBottomSheet(context);
+                      // _orderUploader.setloadingStatusIsLoading();
+                      // print(
+                      //     "Cart_page print  ${_orderUploader.loadingStatus.value}");
+                      // if (_orderUploader.loadingStatus.value ==
+                      //     LoadingStatus.loading) {
+                      //   const CircularProgressIndicator();
+                      //   _orderUploader
+                      //       .uploadData(cartController.cartRepo.cart);
+                      // }
+                      // cartController.addToHistory();
+
                     },
                     child: Container(
                       margin: const EdgeInsets.all(5),
@@ -556,15 +550,20 @@ class _OrderConfirmStateSql extends State<OrderConfirmSql> {
       ),
     );
   }
+
+  //TODO: orderID нужно будет передать на станицу оплаты, и оплатить заказ
+  //TODO: orderID передадим ввсплывающее окно, и отобразим информацию о нем
   void _callback(bool isSuccess, String message, String orderID) {
     if(isSuccess) {
-      //TODO: Delete items from card
+      //Delete items from card
       Get.find<CartControllerSql>().clear();
       Get.find<CartControllerSql>().removeCartSharedPreference();
       Get.find<CartControllerSql>().addToHistory();
       print("OrderConfirmSql success");
+      Get.toNamed(RestaurantFirePage.routeName);
+      showCustomBottomSheet(context);
     }else{
-      Get.snackbar("Количество позиции", "Количество не может быть уменьшено",
+      Get.snackbar(orderID, "Ошибка",
            backgroundColor: Colors.white, colorText: Colors.black);
     }
   }

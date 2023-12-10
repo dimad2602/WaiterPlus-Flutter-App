@@ -93,8 +93,8 @@ class OrderHistory extends StatelessWidget {
                       padding: EdgeInsets.only(left: Constants.width20),
                       child: AppIcon(
                         icon: Icons.arrow_back_ios_new,
-                        iconColor: Colors.black87,
-                        backgroundColor: AppColors.mainColor,
+                        iconColor: Colors.black,
+                        backgroundColor: AppColors.mainColorAppbar,
                         iconSize24: true,
                         onTap: () {
                           Get.toNamed(UserPage.routeName);
@@ -112,8 +112,8 @@ class OrderHistory extends StatelessWidget {
                       padding: EdgeInsets.only(right: Constants.width10 / 5),
                       child: AppIcon(
                         icon: Icons.restore_from_trash,
-                        iconColor: Colors.black87,
-                        backgroundColor: AppColors.mainColor,
+                        iconColor: Colors.black,
+                        backgroundColor: AppColors.mainColorAppbar,
                         iconSize24: true,
                         //TODO: сделать окно подтвержения, изменить иконку
                         onTap: () {

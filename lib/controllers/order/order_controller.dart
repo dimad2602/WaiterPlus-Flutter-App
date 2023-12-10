@@ -13,10 +13,19 @@ class OrderController extends GetxController implements GetxService{
   Future<void> placeOrder(PlaceOrderBody placeOrder, Function callback) async{
     _isLoading = true;
     Response response = await orderRepo.placeOrder(placeOrder);
-    if(response.statusCode == 200){
+    print("placeOrder ${response.statusCode}");
+    if(response.status.isOk){
       _isLoading = false;
+      // {
+      //     "status": "string1",
+      //     "uid": 1,
+      //     "restid": 11,
+      //     "completed_at": null,
+      //     "id": 15,
+      //     "created_at": "2023-12-10T09:32:58.797Z"
+      // }
 
-      String message = response.body['message'];
+      String message = response.body['status'];
       String orderID = response.body['id'].toString(); // order_id а не id
       callback(true, message, orderID); // order_id а не id
     }else{
@@ -25,10 +34,14 @@ class OrderController extends GetxController implements GetxService{
   }
 
   Future<void> getOrderList() async {
+    print("in getOrderList");
     _isLoading = true;
+    //update();
     Response response = await orderRepo.getOrderList();
-    if(response.statusCode == 200){
-
+    if(response.status.isOk){
+      _isLoading = false;
+      //OrderModel = OrderModel.fromJson(response.body);
+      print(response.body);
     }else{
 
     }

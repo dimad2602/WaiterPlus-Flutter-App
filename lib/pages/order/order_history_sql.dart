@@ -15,6 +15,7 @@ import 'package:flutter_project2/util/constants.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
+import '../../controllers/order/order_controller.dart';
 import '../../models/cart_model_sql.dart';
 import '../../util/AppColors.dart';
 import '../usermenu/user_page.dart';
@@ -25,6 +26,10 @@ class OrderHistorySql extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("getOrderList");
+    //TODO: Сделать загрузку Progress indicator
+    Get.find<OrderController>().getOrderList();
+
     var getCartHistoryList =
         Get.find<CartControllerSql>().getCartHistoryList().reversed.toList();
     Map<String, int> cartItemsPerOrder = Map();
@@ -63,6 +68,10 @@ class OrderHistorySql extends StatelessWidget {
       return BigText(text: outputDate);
     }
 
+    var orderList = Get.find<OrderController>().getOrderList();
+
+    print("orderList $orderList");
+
     return Scaffold(
       backgroundColor: AppColors.mainColor,
       body: GetBuilder<CartRepoSql>(
@@ -79,15 +88,15 @@ class OrderHistorySql extends StatelessWidget {
                       padding: EdgeInsets.only(left: Constants.width20),
                       child: AppIcon(
                         icon: Icons.arrow_back_ios_new,
-                        iconColor: Colors.black87,
-                        backgroundColor: AppColors.mainColor,
+                        iconColor: Colors.black,
+                        backgroundColor: AppColors.mainColorAppbar,
                         iconSize24: true,
                         onTap: () {
                           Get.toNamed(UserPage.routeName);
                         },
                       ),
                     ),
-                    Expanded(
+                    const Expanded(
                       child: Center(
                           child: BigText(
                         text: 'История заказов',
@@ -99,8 +108,8 @@ class OrderHistorySql extends StatelessWidget {
                       padding: EdgeInsets.only(right: Constants.width10 / 5),
                       child: AppIcon(
                         icon: Icons.restore_from_trash,
-                        iconColor: Colors.black87,
-                        backgroundColor: AppColors.mainColor,
+                        iconColor: Colors.black,
+                        backgroundColor: AppColors.mainColorAppbar,
                         iconSize24: true,
                         //TODO: сделать окно подтвержения, изменить иконку
                         onTap: () {

@@ -2,7 +2,8 @@
 import 'dart:ui';
 
 class AppColors {
-  static final Color mainColor = const Color(0xFFf5ebdc);
+  static final Color mainColor = const Color(0xfffcf4e4); // Color(0xFFf5ebdc); слегка темнее
+  static final Color mainColorAppbar = const Color(0xFFfaf0e9);
   static final Color liteMainColor = const Color(0xfffcf4e4);
   static final Color bottonColor = const Color(0xFF4ecb71);
   static final Color alertCheckColor = const Color(0xFFffab00);

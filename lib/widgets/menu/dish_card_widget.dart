@@ -98,7 +98,7 @@ class DishCardWidget extends StatelessWidget {
                       )*/
                       Container(
                         //height: Constants.height20*1.4,
-                          width: _screenWidth * 0.30, //Constants.width20*9,
+                         // width: _screenWidth * 0.3, //Constants.width20*9,
                           child: BigText(
                               text: testName,
                               bold: true,

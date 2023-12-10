@@ -34,10 +34,10 @@ class AppConstants{
 
 
   static const String TOKEN=""; //DBtoken - вроде нудно пустым оставлять?
-  static const String TOKEN_EXPIRATION="";
-  static const String PHONE="";
-  static const String MAIL="";
-  static const String PASSWORD="";
+  static const String EXPIRATION_TOKEN="expiration_token";
+  static const String PHONE="phone";
+  static const String MAIL="mail";
+  static const String PASSWORD="password";
 
   //GEO
   static const String USER_ADDRESS="user_address";
