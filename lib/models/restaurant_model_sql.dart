@@ -210,15 +210,35 @@ class Brand {
 }
 
 class Geometry {
-  Geometry();
+  String? type;
+  List<double>? coordinates;
 
-  Geometry.fromJson(Map<String, dynamic> json) {}
+  Geometry({this.type, this.coordinates});
+
+  Geometry.fromJson(Map<String, dynamic> json) {
+    type = json['type'];
+    coordinates = json['coordinates'].cast<double>();
+  }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['type'] = this.type;
+    data['coordinates'] = this.coordinates;
     return data;
   }
 }
+
+
+// class Geometry {
+//   Geometry();
+//
+//   Geometry.fromJson(Map<String, dynamic> json) {}
+//
+//   Map<String, dynamic> toJson() {
+//     final Map<String, dynamic> data = new Map<String, dynamic>();
+//     return data;
+//   }
+// }
 
 class Menu {
   int? id;

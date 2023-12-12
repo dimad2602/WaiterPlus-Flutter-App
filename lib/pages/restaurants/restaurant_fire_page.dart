@@ -24,10 +24,8 @@ class RestaurantFirePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //RestaurantPaperControllerSql _restaurantPaperController = Get.find();
-
     RestaurantPaperControllerSql _restaurantPaperControllerSql = Get.find();
-    print("API Проверка ${_restaurantPaperControllerSql.allPapers()}");
+    //print("API Проверка ${_restaurantPaperControllerSql.allPapers}");
 
     CartControllerSql _cartController = Get.find();
     //print("Id ресторана ${_cartController.cartRepo.getSelectedRestaurantId()}");
@@ -166,24 +164,44 @@ class RestaurantFirePage extends StatelessWidget {
                 GestureDetector(
                   child: const OrderCard(),
                 ),
+                // GestureDetector(
+                //   child: ListView.separated(
+                //       // Позволяем перекрывать категории
+                //       shrinkWrap: true,
+                //       physics: NeverScrollableScrollPhysics(),
+                //       itemBuilder: (BuildContext context, int index) {
+                //         return RestaurantCard(
+                //             model: _restaurantPaperControllerSql.allPapers[index],
+                //             //_restaurantPaperController.allPapers[index]
+                //         );
+                //       },
+                //       separatorBuilder: (BuildContext context, int index) {
+                //         return const SizedBox(
+                //           height: 20,
+                //         );
+                //       },
+                //       itemCount: _restaurantPaperControllerSql.allPapers.length,
+                //       //_restaurantPaperController.allPapers.length
+                //   ),
+                // ),
                 GestureDetector(
-                  child: ListView.separated(
-                      // Позволяем перекрывать категории
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      itemBuilder: (BuildContext context, int index) {
-                        return RestaurantCard(
+                  child: ListView.builder(
+                    // Позволяем перекрывать категории
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: _restaurantPaperControllerSql.allPapers.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Column(
+                        children: [
+                          RestaurantCard(
                             model: _restaurantPaperControllerSql.allPapers[index],
-                            //_restaurantPaperController.allPapers[index]
-                        );
-                      },
-                      separatorBuilder: (BuildContext context, int index) {
-                        return const SizedBox(
-                          height: 20,
-                        );
-                      },
-                      itemCount: _restaurantPaperControllerSql.allPapers.length,
-                      //_restaurantPaperController.allPapers.length
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                        ],
+                      );
+                    },
                   ),
                 ),
               ],

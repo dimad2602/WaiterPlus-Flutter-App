@@ -12,6 +12,9 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 
 import '../../components/Map/map_button.dart';
+import '../../controllers/restaurants_controlelr/restaurant_paper_controller_sql.dart';
+import '../../models/restaurant_model_sql.dart';
+import '../../widgets/order/order_check_sheet.dart';
 import '../usermenu/profile_page.dart';
 
 class RestaurantOnMappage extends MapPage {
@@ -93,7 +96,7 @@ class _RestaurantOnMapPageState extends State<_RestaurantOnMapPage> {
     return (500 - seed.nextInt(1000))/1000;
   }
 
-  //Моментальное приближение к метке при нажатии
+  //TODO: Моментальное приближение к метке при нажатии
   void animateToPlace(PlacemarkMapObject placemark) async {
     await controller.moveCamera(CameraUpdate.newCameraPosition(
       CameraPosition(target: placemark.point, zoom: 15),
@@ -159,184 +162,214 @@ class _RestaurantOnMapPageState extends State<_RestaurantOnMapPage> {
   //   // );
   // }
 
+  void _handleBackButton() {
+    Get.offNamed(ProfileSettings.routeName);
+  }
+  Future<bool> onWillPop() async {
+    _handleBackButton();
+    return true;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body:
-          Column(
-            children: [
-              Expanded(
-                child: Stack(
-                  children: [
-                    YandexMap(
-                      mapObjects: mapObjects,
-                      onMapCreated: (YandexMapController yandexMapController) async {
-                        final placemarkMapObject = mapObjects
-                            .firstWhere((el) => el.mapId == cameraMapObjectId)
-                        as PlacemarkMapObject;
+    RestaurantPaperControllerSql _restaurantPaperControllerSql = Get.find();
+    return WillPopScope(
+      onWillPop: onWillPop,
+      child: Scaffold(
+        body:
+            Column(
+              children: [
+                Expanded(
+                  child: Stack(
+                    children: [
+                      YandexMap(
+                        mapObjects: mapObjects,
+                        onMapCreated: (YandexMapController yandexMapController) async {
+                          final placemarkMapObject = mapObjects
+                              .firstWhere((el) => el.mapId == cameraMapObjectId)
+                          as PlacemarkMapObject;
 
-                        controller = yandexMapController;
+                          controller = yandexMapController;
 
-                        await controller.moveCamera(CameraUpdate.newCameraPosition(
-                            CameraPosition(
-                                target: placemarkMapObject.point, zoom: 11)));
-                      },
-                    ),
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Padding(
-                        padding: EdgeInsets.only(
-                            left: 8.0, right: 8.0, bottom: Constants.height20),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            MapButton(
-                              icon: Icons.arrow_back_ios_new,
-                              isCircular: true,
-                              customSize: Constants.width15 * 2,
-                              onTap: () {
-                                Get.toNamed(ProfileSettings.routeName);
-                              },
-                            ),
-                            MapButton(
-                              icon: Icons.near_me,
-                              isCircular: true,
-                              customSize: Constants.width15 * 2,
-                              backgroundColor: Color.fromRGBO(252, 244, 228, 0.5),
-                              onTap: () {
-                                // Обработка нажатия
-                              },
-                            ),
-                          ],
+                          await controller.moveCamera(CameraUpdate.newCameraPosition(
+                              CameraPosition(
+                                  target: placemarkMapObject.point, zoom: 11)));
+                        },
+                      ),
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                              left: 8.0, right: 8.0, bottom: Constants.height20),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              MapButton(
+                                icon: Icons.arrow_back_ios_new,
+                                isCircular: true,
+                                customSize: Constants.width15 * 2,
+                                onTap: () {
+                                  Get.offNamed(ProfileSettings.routeName);
+                                },
+                              ),
+                              MapButton(
+                                icon: Icons.near_me,
+                                isCircular: true,
+                                customSize: Constants.width15 * 2,
+                                backgroundColor: Color.fromRGBO(252, 244, 228, 0.5),
+                                onTap: () {
+                                  // Обработка нажатия
+                                },
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    Align(
-                      alignment: Alignment.bottomRight,
-                      child: Padding(
-                        padding: EdgeInsets.only(right: Constants.width15),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            MapButton(
-                              icon: Icons.add,
-                              isCircular: false,
-                              customSize: Constants.width15 * 2,
-                              backgroundColor: Color.fromRGBO(252, 244, 228, 0.5),
-                              onTap: () async {
-                                await controller.moveCamera(CameraUpdate.zoomIn(), animation: animation);
-                                // Обработка нажатия
-                              },
-                            ),
-                            SizedBox(
-                              height: Constants.height15,
-                            ),
-                            MapButton(
-                              icon: Icons.remove,
-                              isCircular: false,
-                              customSize: Constants.width15 * 2,
-                              backgroundColor: Color.fromRGBO(252, 244, 228, 0.5),
-                              onTap: () async {
-                                await controller.moveCamera(CameraUpdate.zoomOut(), animation: animation);
-                                // Обработка нажатия
-                              },
-                            ),
-                          ],
+                      Align(
+                        alignment: Alignment.bottomRight,
+                        child: Padding(
+                          padding: EdgeInsets.only(right: Constants.width15),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              MapButton(
+                                icon: Icons.add,
+                                isCircular: false,
+                                customSize: Constants.width15 * 2,
+                                backgroundColor: Color.fromRGBO(252, 244, 228, 0.5),
+                                onTap: () async {
+                                  await controller.moveCamera(CameraUpdate.zoomIn(), animation: animation);
+                                  // Обработка нажатия
+                                },
+                              ),
+                              SizedBox(
+                                height: Constants.height15,
+                              ),
+                              MapButton(
+                                icon: Icons.remove,
+                                isCircular: false,
+                                customSize: Constants.width15 * 2,
+                                backgroundColor: Color.fromRGBO(252, 244, 228, 0.5),
+                                onTap: () async {
+                                  await controller.moveCamera(CameraUpdate.zoomOut(), animation: animation);
+                                  // Обработка нажатия
+                                },
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              Container(
-                child: Column(
-                  children: [
-                    BigText(
-                      text: "Двигайте карту, чтобы указать место",
-                    ),
-                    GestureDetector(
-                      //onTap: ,//_search,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: AppColors.lightGreenColor,
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: BigText(
-                          text: 'Готово',
-                          color: Colors.black,
+                Container(
+                  child: Column(
+                    children: [
+                      const BigText(
+                        text: "Карта",
+                      ),
+                      GestureDetector(
+                        //onTap: ,//_search,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: AppColors.lightGreenColor,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: const BigText(
+                            text: 'Готово',
+                            color: Colors.black,
+                          ),
                         ),
                       ),
-                    ),
-                    ElevatedButton(
-                      onPressed: () async {
-                        if (mapObjects.any((el) => el.mapId == largeMapObjectId)) {
-                          print('ошибка');
-                          return;
-                        }
-                        final largeMapObject = ClusterizedPlacemarkCollection(
-                            mapId: largeMapObjectId,
-                            radius: 30,
-                            minZoom: 15,
-                            onClusterAdded: (ClusterizedPlacemarkCollection self, Cluster cluster) async {
-                              return cluster.copyWith(
-                                  appearance: cluster.appearance.copyWith(
-                                      opacity: 0.75,
+                      ElevatedButton(
+                        onPressed: () async {
+                          if (mapObjects.any((el) => el.mapId == largeMapObjectId)) {
+                            print('ошибка');
+                            return;
+                          }
+                          final largeMapObject = ClusterizedPlacemarkCollection(
+                              mapId: largeMapObjectId,
+                              radius: 30,
+                              minZoom: 15,
+                              onClusterAdded: (ClusterizedPlacemarkCollection self, Cluster cluster) async {
+                                return cluster.copyWith(
+                                    appearance: cluster.appearance.copyWith(
+                                        opacity: 0.75,
+                                        icon: PlacemarkIcon.single(PlacemarkIconStyle(
+                                            image: BitmapDescriptor.fromBytes(await _buildClusterAppearance(cluster)),
+                                            scale: 1
+                                        ))
+                                    )
+                                );
+                              },
+                              onClusterTap: (ClusterizedPlacemarkCollection self, Cluster cluster) {
+                                print('Tapped cluster');
+                                animateToCluster(cluster);
+                              },
+                              placemarks: List.generate(
+                                _restaurantPaperControllerSql.allPapers.length,
+                                    (i) {
+                                  var restaurant = _restaurantPaperControllerSql.allPapers[i];
+                                  var geometry = restaurant.geometry;
+
+                                  if (geometry != null && geometry.coordinates != null && geometry.coordinates!.length >= 2) {
+                                    print("geometry point ${geometry.toJson()}");
+                                    print("geometry coordinates ${geometry.coordinates![0]}, ${geometry.coordinates![1]}");
+                                    return PlacemarkMapObject(
+                                      mapId: MapObjectId('${restaurant.id}'),
+                                      point: Point(latitude: geometry.coordinates![1], longitude: geometry.coordinates![0]),
                                       icon: PlacemarkIcon.single(PlacemarkIconStyle(
-                                          image: BitmapDescriptor.fromBytes(await _buildClusterAppearance(cluster)),
-                                          scale: 1
-                                      ))
-                                  )
-                              );
-                            },
-                            //TODO: При нажатии на кружок должно быть достаточно быстрая анимация приближения на тот зум на котором пометяться обсолютно все объекты входяшие в данный кластер
-                            onClusterTap: (ClusterizedPlacemarkCollection self, Cluster cluster) {
-                              print('Tapped cluster');
-                              animateToCluster(cluster);
-                            },
-                            placemarks: List<PlacemarkMapObject>.generate(500, (i) {
-                              return PlacemarkMapObject(
-                                  mapId: MapObjectId('placemark_$i'),
-                                  point: Point(latitude: 56.010579 + _randomDouble(), longitude: 92.852572 + _randomDouble()),
-                                  icon: PlacemarkIcon.single(PlacemarkIconStyle(
-                                      image: BitmapDescriptor.fromAssetImage('lib/icons/place.png'),
-                                      scale: 1
-                                  ))
-                              );
-                            }),
-                            //TODO: При нажатии на метку моментально приближение к метке, открытие всплывающей панели с информацией о заведении
-                            onTap: (ClusterizedPlacemarkCollection self, Point tappedPoint) {
-                              double minDistance = double.infinity;
+                                        image: BitmapDescriptor.fromAssetImage('lib/icons/place.png'),
+                                        scale: 1,
+                                      )),
+                                    );
+                                  }
 
-                              for (var placemark in self.placemarks) {
-                                double distance = calculateDistance(placemark.point, tappedPoint);
-                                if (distance < minDistance) {
-                                  minDistance = distance;
-                                  nearestPlacemark = placemark;
+                                  // Возвращаем null для случаев, когда geometry или coordinates == null
+                                  return null;
+                                },
+                              ).whereType<PlacemarkMapObject>().toList(),// placemarks: List<PlacemarkMapObject>.generate(500, (i) {
+                              //TODO: При нажатии на метку моментально приближение к метке, открытие всплывающей панели с информацией о заведении
+                              onTap: (ClusterizedPlacemarkCollection self, Point tappedPoint) async {
+                                double minDistance = double.infinity;
+
+                                for (var placemark in self.placemarks) {
+                                  double distance = calculateDistance(placemark.point, tappedPoint);
+                                  if (distance < minDistance) {
+                                    minDistance = distance;
+                                    nearestPlacemark = placemark;
+                                  }
                                 }
-                              }
-                              controller.moveCamera(
-                                CameraUpdate.newCameraPosition(
-                                  CameraPosition(
-                                    target: nearestPlacemark.point,
-                                    zoom: 17,
+                                controller.moveCamera(
+                                  CameraUpdate.newCameraPosition(
+                                    CameraPosition(
+                                      target: nearestPlacemark.point,
+                                      zoom: 17,
+                                    )
                                   ),
-                                ),
-                              );
-                            }
-                        );
+                                  animation: animation,
+                                );
+                                await Future.delayed(Duration(seconds: 1));
+                                print(nearestPlacemark.mapId.value);
+                                //int.parse(nearestPlacemark.mapId.value)
+                                RestaurantModelSql? paper = _restaurantPaperControllerSql.getRestaurantById(nearestPlacemark.mapId.value);
+                                print(paper?.brand?.name);
+                              }
+                          );
 
-                        setState(() {
-                          print('добавление1');
-                          mapObjects.add(largeMapObject);
-                        });
-                      },
-                      child: Text('add'),
-                    ),
-                  ],
+                          setState(() {
+                            print('добавление1');
+                            mapObjects.add(largeMapObject);
+                          });
+                        },
+                        child: Text('add'),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ),
+              ],
+            ),
+      ),
     );
   }
 }
