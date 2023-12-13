@@ -32,6 +32,7 @@ import 'package:flutter_project2/pages/splash/splash_new_page.dart';
 import 'package:flutter_project2/pages/splash/splash_screen.dart';
 import 'package:flutter_project2/pages/usermenu/profile_page.dart';
 import 'package:flutter_project2/pages/usermenu/user_page.dart';
+import 'package:flutter_project2/widgets/restaurant/restaurant_page_sheet.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -152,6 +153,11 @@ void main() async {
           },
           '/profile_settings': (context) {
             return ProfileSettings();
+          },
+          '/test_sheet_page': (context) {
+            return const PageSheetRestaurant(
+              //restaurantModelSql: null,
+            );
           },
           '/profile_map_page': (context) {
             return ProfileMap();
