@@ -174,7 +174,7 @@ class _RestaurantOnMapPageState extends State<_RestaurantOnMapPage> {
 
   late RestaurantModelSql paper;
 
-  static double fabHeightClosed = Constants.height45*1.5;
+  static double fabHeightClosed = Constants.height45;
   double fabHeight = fabHeightClosed;
   final panelController = PanelController();
 
@@ -281,6 +281,7 @@ class _RestaurantOnMapPageState extends State<_RestaurantOnMapPage> {
                       paper = _restaurantPaperControllerSql
                           .getRestaurantById(nearestPlacemark.mapId.value)!;
                       print(paper.brand?.name);
+                      _isSheetVisible == false?
                       setState(() {
                         _isSheetVisible = !_isSheetVisible;
 
@@ -297,12 +298,12 @@ class _RestaurantOnMapPageState extends State<_RestaurantOnMapPage> {
                               _screenHeight * 0.45 - _screenHeight * 0.1;
 
                           // Используем масштабированное значение
-                          fabHeight = (normalizedExtent * panelMaxScrollExtent) +
+                          fabHeight = (normalizedExtent * panelMaxScrollExtent) + 2 *
                               fabHeightClosed;
                           print('Normalized extent: $normalizedExtent');
                           print('Fab height: $fabHeight');
                         });
-                      });
+                      }):_isSheetVisible = _isSheetVisible;
                       //showRestaurantBottomSheet(context, paper!);
                     });
                 setState(() {
@@ -316,8 +317,7 @@ class _RestaurantOnMapPageState extends State<_RestaurantOnMapPage> {
               left: Constants.width15,
               bottom: fabHeight,
               child: Padding(
-                padding: EdgeInsets.only(
-                    left: 8.0, right: 8.0, bottom: Constants.height20),
+                padding: EdgeInsets.only(bottom: Constants.height20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -392,7 +392,7 @@ class _RestaurantOnMapPageState extends State<_RestaurantOnMapPage> {
                             _screenHeight * 0.45 - _screenHeight * 0.1;
 
                         // Используем масштабированное значение
-                        fabHeight = (normalizedExtent * panelMaxScrollExtent) +
+                        fabHeight = (normalizedExtent * panelMaxScrollExtent) + 2 *
                             fabHeightClosed;
                         print('Normalized extent: $normalizedExtent');
                         print('Fab height: $fabHeight');
@@ -402,6 +402,15 @@ class _RestaurantOnMapPageState extends State<_RestaurantOnMapPage> {
                     child: RestaurantBottomSheet(
                       isSheetVisible: _isSheetVisible,
                       restaurantModelSql: paper,
+                      toggleSheetVisibility: () {
+
+                        setState(() {
+                          _isSheetVisible = !_isSheetVisible; // Toggle the state
+
+                          // Используем масштабированное значение
+                          fabHeight = fabHeightClosed;
+                        });
+                      },
                     ),
                   )
                 : const SizedBox(),
